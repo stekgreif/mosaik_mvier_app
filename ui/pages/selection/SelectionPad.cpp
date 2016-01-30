@@ -55,16 +55,16 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     switch (id%4)
     {
         case 0:  //red 255,0,0
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,20%);}");
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,15%);}");
             break;
         case 1: //blue 0,0,255
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,20%);}");
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,15%);}");
             break;
         case 2: //yellow 255,255,0
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,255,0,20%);}");
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,255,0,15%);}");
             break;
         case 3: //magenta 255,0,255
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,255,20%);}");
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,255,15%);}");
             break;
         default:
             break;
@@ -195,13 +195,46 @@ void SelectionPad::m_slot_padPressed()
 
 void SelectionPad::setPadToSelectionColor(void)
 {
-    m_buttonPadColor->setStyleSheet("QLabel#pad_buttonColor {background-color: rgba(255,140,0, 50%);}");
+    //m_buttonPadColor->setStyleSheet("QLabel#pad_buttonColor {background-color: rgba(255,140,0, 50%);}");
+    switch (m_padWidgetId%4)
+    {
+        case 0:  //red 255,0,0
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,100%);}");
+            break;
+        case 1: //blue 0,0,255
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,100%);}");
+            break;
+        case 2: //yellow 255,255,0
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,255,0,100%);}");
+            break;
+        case 3: //magenta 255,0,255
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,255,100%);}");
+            break;
+        default:
+            break;
+    }
 }
 
 void SelectionPad::setPadToDeselectionColor(void)
 {
-    m_buttonPadColor->setStyleSheet("QLabel#pad_buttonColor {background-color: rgba(255,140,0, 0%);}");
-
+    //m_buttonPadColor->setStyleSheet("QLabel#pad_buttonColor {background-color: rgba(255,140,0, 0%);}");
+    switch (m_padWidgetId%4)
+    {
+        case 0:  //red 255,0,0
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,15%);}");
+            break;
+        case 1: //blue 0,0,255
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,15%);}");
+            break;
+        case 2: //yellow 255,255,0
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,255,0,15%);}");
+            break;
+        case 3: //magenta 255,0,255
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,255,15%);}");
+            break;
+        default:
+            break;
+    }
 }
 
 
