@@ -34,7 +34,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_sampleName = new QLabel(this);
     m_sampleName->setObjectName("sampleName");
     m_sampleName->setStyleSheet("QLabel#sampleName {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_sampleName->move( (m_widgetSize->width()/20), (m_widgetSize->height()/5) * 2 );
+    m_sampleName->move( (m_widgetSize->width()/20), (m_widgetSize->height()/5) * 1.7 );
     m_sampleName->setAlignment(Qt::AlignRight);
 
     m_sampleTime = new QLabel(this);
@@ -49,20 +49,13 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_volume->move( ((m_widgetSize->width()/20) * 16), (m_widgetSize->height()/5) * 4 );
     m_volume->setAlignment(Qt::AlignRight);
 
+    /** tiles **/
     m_isTriggert = new QLabel(this);
     m_isTriggert->setObjectName("tile_isTriggert");
     m_isTriggert->setFixedSize(wP*8, hP*4);
     m_isTriggert->move( wP*mS, hP*mS );
     m_isTriggert->setText("TRG");
     m_isTriggert->setAlignment(Qt::AlignCenter);
-
-    m_hasSteps = new QLabel(this);
-    m_hasSteps->setObjectName("tile_hasStep");
-    m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(127,127,127);}");
-    m_hasSteps->setFixedSize( wP*8, hP*4 );
-    m_hasSteps->move( wP*lS, hP*mS );
-    m_hasSteps->setText("STEP");
-    m_hasSteps->setAlignment(Qt::AlignCenter);
 
     m_hasSample = new QLabel(this);
     m_hasSample->setObjectName("tile_hasSample");
@@ -72,10 +65,20 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_hasSample->setFixedSize( wP*8, hP*4);
     m_hasSample->move( wP*lS, hP*lS );
 
+    m_hasSteps = new QLabel(this);
+    m_hasSteps->setObjectName("tile_hasStep");
+    m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(127,127,127);}");
+    m_hasSteps->setFixedSize( wP*8, hP*4 );
+    //m_hasSteps->move( wP*lS, hP*mS );
+    m_hasSteps->move( wP*mS, hP*lS  );
+    m_hasSteps->setText("STEP");
+    m_hasSteps->setAlignment(Qt::AlignCenter);
+
     m_isPlaying = new QLabel(this);
     m_isPlaying->setObjectName( "tile_isPlaying");
     m_isPlaying->setFixedSize( wP*8, hP*4);
-    m_isPlaying->move( wP*mS, hP*lS );
+    //m_isPlaying->move( wP*mS, hP*lS );
+    m_isPlaying->move( wP*lS, hP*mS);
     m_isPlaying->setText("PLAY");
     m_isPlaying->setAlignment(Qt::AlignCenter);
 
