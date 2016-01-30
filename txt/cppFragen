@@ -1,0 +1,14 @@
+
+
+C++ FRAGEN:
+- Warum müssen virtual Funktionen in den Headern der abgeleiteten Klassen nocheinmal aufgeführt werden, sie sind doch schon in dem Basisklassen-Header vorhanden?
+
+- Wer ruft den constructor eines Singleton patterns auf?
+- Wann wird der Destructor eines Singleton patterns aufgerufen?
+- muss/soll der MidiDevice Constructor virtuell sein?
+
+- subchannelManager().CurrentSubchannel().Envelope().FadeIn().set(float rel)
+															 .set(float abs)
+															 .get()
+
+

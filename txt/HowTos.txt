@@ -1,0 +1,18 @@
+
+
+HOW TO...
+
+Implement a new MIDI feature:
+- Add slot to MosaikMiniApp
+- add a signal to derived midi controller header file
+- emit signal from derived midi controller source file
+- connect signal and slot in MidiManager connectFavouriteDevice()
+
+
+->setStyleSheet("QWidget#muteAndSolo {background-color: rgb(100,100,100);}");
+
+
+Add a new feature into a midi controller
+Add a new Midi controller
+
+

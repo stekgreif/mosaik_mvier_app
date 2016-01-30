@@ -1,0 +1,99 @@
+================================================================================
+V0.015_build_2015-06-22
+X Subchannel default volume auf 0.0 geändert
+X Subchannel volume wird beim Laden eines neuen Samples auf auch auf 0.0 gesetzt
+X Random BPM start zwischen 70 und 170 implementiert
+X Subchannel Volume quadratisch in Audio-Return-Funktion (main + pre)
+X Subchannel-Manager Pre-Volume quadratisch
+
+
+
+
+================================================================================
+v0.01
+DONE
+X Sample löschen
+X Volume (Subchannel/Main)
+X Sample-Browser mit Encoder bedienenbar
+X Sample Prelisten via Headphones im Sample-Browser
+X bpm -> variabel: Formel
+X Start-/Endpoint
+X Tile: isPlaying
+X TOP-LEISTE: BPM
+X TOP-LEISTE: phrase:takt:beat
+X TOP-LEISTE: hp vol
+X TOP-LEISTE: main vol
+X Sample-Ansicht x-Achse in Millisekunden und Steps
+X UiManger mit differenzierten Refresh-Funktionen: Envelope, Sample, Pattern,...
+X LEDs am Crossfader leuchten immer -> ausschalten
+X Ordner öffnen/schließen mit Encoder
+X Pfad Buttons angepasst
+X Mono/Stereo Samples abspielen können
+X wenn Encoder über Ordner ist => tgl öffnen/schließen, wenn über .wav => load Sample
+X Dateianzeige nur auf .wav beschränkt
+X clearSample -> clearEnvelope
+X reset HW beim Schließen
+X Sample Stereo abspielen über Kopfhörer und Main funktioniert
+X Sample Stereo Ansicht in der Wellenformanzeige
+X MutePads eingehackt, unmute all und lastMute hinzugefügt
+X Vorhören: Sample im Sample-Browser
+X Vorhören: selektierten Subchannel wie er auch live zu hören ist
+X Vorhören: Sample des selektierten Subchannels mit Parametern abspielen
+
+
+TODO:
+- unload Sample soll alle Parameter zurücksetzen; Lautstärke, Pan
+- stop playing prelisten sample
+- Waveform-Anzeige (1-2-4-8-... Buffer)
+- Play Direction
+- wenn Sample in Subch. geladen werden soll der schon eins hat => nachfragen
+- LED für Subchannel/Channel Ansicht bei Start aktivieren
+- beim Wechsel von einem zu einem anderen Channel funktioniert die RGB Anzeige nicht richtig
+- HWUI umsortieren
+- BPM-Änderung verbessern
+
+
+
+v0.02 und später
+- TOP-LEISTE: cpu load
+- TOP-LEISTE: blinki für jede 1/4 note
+- TOP-LEISTE: midi receive
+- einheitliche Namen für signal und slots
+- Tile: isTriggert
+- Update für isPlaying Pad erhöhen
+- StackedWidget in Tabs umwandeln
+- Kopfhörerlautstärke ist nicht gleich im Panorama => HW
+- Sampleraten-Konverter
+- Destruktoren
+- virueller Audio Treiber: zum Debuggen
+- virueller Audio Treiber: falls keine Soundkarte vorhanden ist
+- Mute/Solo (All/None)
+- Pitch
+- Settings Page
+- Pads
+- hasSampleTile Mini-Ansicht der Sample-Wellenform
+- subchannelManager().CurrentSubchannel().Envelope().FadeIn().set(float rel)
+															 .set(float abs)
+															 .get()
+- subchannelManager sollte Klasse haben, die CurrentSelection heißt und subchannels und channels zurückgibt
+- sampledauer auf step-buttons anzeigen (Lionels Idee)
+- menu encoder sollte ggf. häufiger abgefragt werden
+- HDDs beim Start mounten
+- Sample-Pfade als User-Eingabe
+- SampleBrowser
+  - Waveform
+  - Spektrogram
+  - wurde wie häufig verwendet
+  - länge
+  - wird aktuell in ... Subchannels verwendet
+- Pedale
+- Pattern-Ansicht änderbar machen (Standard- /Mosaik[] )
+- audio start wie midi machen
+- initWithHwMidiIn() ist veraltet => rausschmeißen
+- MidiManager Pattern Update differenzieren: Subchannel/Channel-Ansicht
+- MosaikMini in MosaikMiniCntr oder ähnliches umbenennen
+- Fast-Step-Programming Mechanismus
+- Play-Cursor
+- cut, copy, paste
+
+

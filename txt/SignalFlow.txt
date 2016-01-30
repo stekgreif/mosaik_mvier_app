@@ -1,0 +1,71 @@
+
+MosaikMiniApp
+
+	SubchannelManager
+
+	UiManager
+		OverlayStack
+			Selection
+				s_padPressed(id)
+				r_selectSubchannel(id)
+			MuteSolo
+			SampleAndSteps
+
+		PageStack
+			Subchannel
+				SampleWindow
+					r_refreshAll
+					r_refreshParams
+					SampleWaveForm
+						r_refresh
+					Envelope
+						r_refresh
+				Pattern
+					s_stepBtnPressed(id)
+					s_refresh
+			Browser
+				s_newSampleSelected(path)
+
+
+	MidiManager
+		s_stepBtnPressed(id)
+
+
+
+
+
+
+//2015-03-25 Henry
+class MidiDevice
+{
+	virtual void setLED(int i) = 0;
+	virtual void sendMidi(MidiEvent event) = 0;
+	virtual void setNoteOn(int node);
+}
+
+class MidiManager
+{
+	list<shared_ptr<MidiDevice>> devices;
+
+	shared_ptr<MidiDevice> getSelectedDevice();
+};
+
+UICode:
+ MosaikApp::get()->getMidiManager()->getSelectedDevice()->setLED(2);
+
+class MosaikV1 : public MidiDevice
+{
+	void setLED(int i) override
+	{
+		// kann ich gar nicht
+	}
+};
+
+class MosaikV2: public MidiDevice
+{
+	void setLED(int i) override
+	{
+		ioctl();
+	}
+};
+
