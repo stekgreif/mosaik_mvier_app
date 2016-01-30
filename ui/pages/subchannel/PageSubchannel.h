@@ -13,6 +13,8 @@
 #include <ui/pages/subchannel/DrawEnvelope.h>
 #include <ui/pages/subchannel/Pattern.h>
 
+#include "ui/pages/browser/PageBrowser.h"
+
 
 class UiManager;
 class MosaikMiniApp;
@@ -66,12 +68,17 @@ class PageSubchannel : public QWidget
             stereo = 2
         };
 
+        /** path and file system **/
+        QFileSystemModel *m_fileSystem;
+        SampleBrowser    *m_treeView;
+
         QPen m_leftChannelPen;
         QPen m_rightChannelPen;
 
         UiManager *m_parent;
         MosaikMiniApp *m_mosaikMiniApp;
-        /* sample view */
+
+        /** sample view **/
         QCustomPlot *m_samplePlot;
         void refreshSamplePlot(void);
         void resetSamplePlot(void);

@@ -46,7 +46,7 @@ class PageBrowser : public QWidget
     private:
         UiManager *m_parent;
 
-        /* path and file system */
+        /** path and file system **/
         QFileSystemModel *m_fileSystem;
         SampleBrowser    *m_treeView;
         //QString          *m_userPath;

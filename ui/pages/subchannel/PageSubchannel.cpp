@@ -142,8 +142,31 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_changePage = new QPushButton(this);
     m_changePage->move(710,945);
     m_changePage->setFixedSize(80,80);
-    connect( m_changePage, SIGNAL(pressed()), this, SLOT(slot_changePage()) );
 
+
+    /** file browser **/
+    m_treeView = new SampleBrowser(this);
+    m_treeView->move(10,500);
+    m_treeView->setFixedSize(600,400);
+    m_fileSystem = new QFileSystemModel(this);
+    m_fileSystem->setFilter( QDir::NoDotAndDotDot | QDir::AllDirs | QDir::Files );
+    m_fileSystem->setNameFilters( QStringList() <<"*.wav" <<"*.WAV" );
+    m_fileSystem->setNameFilterDisables(false); // hide other files than wav and do not gray them out
+    m_fileSystem->setRootPath("/");
+    m_treeView->setObjectName("treeView");
+    m_treeView->setFocus();
+    m_treeView->setModel(m_fileSystem);
+    m_treeView->setAutoScroll(true);  // default
+    m_treeView->setColumnWidth(0, 500);
+    m_treeView->hideColumn(3);  // 0:name, 1:size, 2:type, 3:date modified
+    m_treeView->hideColumn(2);
+    QFont treeFont;
+    treeFont.setPixelSize(14);
+    m_treeView->setFont(treeFont);
+
+
+    /** connections **/
+    connect( m_changePage, SIGNAL(pressed()), this, SLOT(slot_changePage()) );
     connect( m_pattern, SIGNAL(signal_padPressed(int)), m_parent->getParent(), SLOT(slot_stepButtonPressed(int)) );
 
 

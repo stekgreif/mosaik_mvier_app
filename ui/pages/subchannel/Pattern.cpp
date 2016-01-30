@@ -12,22 +12,26 @@ Pattern::Pattern(MosaikMiniApp *mosaikMiniApp, QWidget *parent)
 {
     qDebug() <<Q_FUNC_INFO <<"Init";
 
-    //m_mosaikMiniApp->slot
 
+#if 0 // original button sizes
     const int btnSize   = 34;
     const int btnOffset =  4;
     const int rowOffset = 16 * (btnSize + btnOffset);
+#endif
+
+#if 1
+    const int btnSize   = 7;
+    const int btnOffset = 1;
+    const int rowOffset = 16 * (btnSize + btnOffset);
+#endif
 
     for (int i = 0; i < 64; i++)
     {
-        //m_button[i] = new QPushButton(this);
-        //m_button[i] = new QPushButton(QString::number(i+1), this);
         m_button[i] = new StepPad(i, this);
         m_button[i]->setFixedSize(btnSize, btnSize);
         m_button[i]->setSize(btnSize, btnSize);
         connect(m_button[i], SIGNAL(signal_padPressed(int)), this, SLOT(slot_padPressed(int)) );
     }
-
 
     for (int i = 0; i < 16; i++)
         m_button[i]->move(i * (btnSize + btnOffset), btnOffset);
