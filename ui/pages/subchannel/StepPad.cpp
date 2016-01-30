@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QWidget>
+#include <core/subchannel/SubchannelManager.h>
 
 
 
@@ -39,7 +40,24 @@ StepPad::~StepPad()
 
 void StepPad::setStep()
 {
-    m_colorPad->setStyleSheet("QWidget#colorPad {background-color: rgb(120,20,25);}");
+    //m_colorPad->setStyleSheet("QWidget#colorPad {background-color: rgb(120,20,25);}");
+    switch (subchannelManager().getCurrentSubchannelSelection()%4)
+    {
+        case 0:  //red 255,0,0
+            m_colorPad->setStyleSheet("QWidget#colorPad {background-color: rgba(255,0,0,50%);}");
+            break;
+        case 1: //blue 0,0,255
+            m_colorPad->setStyleSheet("QWidget#colorPad {background-color: rgba(0,0,255,50%);}");
+            break;
+        case 2: //yellow 255,255,0
+            m_colorPad->setStyleSheet("QWidget#colorPad {background-color: rgba(255,255,0,50%);}");
+            break;
+        case 3: //magenta 255,0,255
+            m_colorPad->setStyleSheet("QWidget#colorPad {background-color: rgba(255,0,255,50%);}");
+            break;
+        default:
+            break;
+    }
 }
 
 void StepPad::clrStep()
