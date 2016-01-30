@@ -51,9 +51,7 @@ class PageBrowser : public QWidget
         SampleBrowser    *m_treeView;
         //QString          *m_userPath;
 
-        /* buttons */
-        QPushButton *m_testPrelisten;
-        QPushButton *m_testButton;
+        /** buttons **/
         QPushButton *m_changePage;
         QPushButton *m_btnLoadCurSample;
         QString m_path[4];

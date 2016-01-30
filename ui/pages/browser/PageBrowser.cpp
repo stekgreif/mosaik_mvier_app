@@ -56,18 +56,6 @@ PageBrowser::PageBrowser(UiManager *parent, QWidget *uiParent)
     m_changePage->setFixedSize(80,80);
 
 
-    m_testPrelisten = new QPushButton(this);
-    m_testPrelisten->move(710,800);
-    m_testPrelisten->setText("Prelisten");
-    m_testPrelisten->setFixedSize(80,80);
-
-
-    m_testButton = new QPushButton(this);
-    m_testButton->move(710,700);
-    m_testButton->setText("Tgl Exp.");
-    m_testButton->setFixedSize(80,80);
-
-
     /** file browser **/
     m_treeView = new SampleBrowser(this);
     m_treeView->move(m_fileBrowserAttributes->topLeft());
@@ -92,8 +80,6 @@ PageBrowser::PageBrowser(UiManager *parent, QWidget *uiParent)
 
 
     /** connects **/
-    connect( m_testButton,       SIGNAL(clicked()), this, SLOT(slot_toggleItmeExpansion())   );
-    connect( m_testPrelisten,    SIGNAL(clicked()), this, SLOT(slot_loadSampleToPrelisten()) );
     connect( m_btnLoadCurSample, SIGNAL(clicked()), this, SLOT(slot_loadSample())            );
     connect( m_pathBtn[0],       SIGNAL(clicked()), this, SLOT(slot_changePath0())           );
     connect( m_pathBtn[1],       SIGNAL(clicked()), this, SLOT(slot_changePath1())           );
