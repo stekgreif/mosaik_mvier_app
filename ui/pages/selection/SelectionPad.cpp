@@ -49,6 +49,30 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_volume->move( ((m_widgetSize->width()/20) * 16), (m_widgetSize->height()/5) * 4 );
     m_volume->setAlignment(Qt::AlignRight);
 
+#if 1
+    m_subChColor = new QLabel(this);
+    m_subChColor->setObjectName("color");
+    switch (id%4)
+    {
+        case 0:  //red 255,0,0
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,20%);}");
+            break;
+        case 1: //blue 0,0,255
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,20%);}");
+            break;
+        case 2: //yellow 255,255,0
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,255,0,20%);}");
+            break;
+        case 3: //magenta 255,0,255
+            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,255,20%);}");
+            break;
+        default:
+            break;
+    }
+    m_subChColor->setFixedSize(10,10);
+    m_subChColor->move( m_widgetSize->width()/2, m_widgetSize->height()/5 * 4);
+#endif
+
     /** tiles **/
     m_isTriggert = new QLabel(this);
     m_isTriggert->setObjectName("tile_isTriggert");
@@ -69,7 +93,6 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_hasSteps->setObjectName("tile_hasStep");
     m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(127,127,127);}");
     m_hasSteps->setFixedSize( wP*8, hP*4 );
-    //m_hasSteps->move( wP*lS, hP*mS );
     m_hasSteps->move( wP*mS, hP*lS  );
     m_hasSteps->setText("STEP");
     m_hasSteps->setAlignment(Qt::AlignCenter);
@@ -77,7 +100,6 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_isPlaying = new QLabel(this);
     m_isPlaying->setObjectName( "tile_isPlaying");
     m_isPlaying->setFixedSize( wP*8, hP*4);
-    //m_isPlaying->move( wP*mS, hP*lS );
     m_isPlaying->move( wP*lS, hP*mS);
     m_isPlaying->setText("PLAY");
     m_isPlaying->setAlignment(Qt::AlignCenter);

@@ -39,6 +39,7 @@ class SelectionPad : public QWidget
         QLabel *m_sampleName;
         QLabel *m_sampleTime;
         QLabel *m_volume;
+        QLabel *m_subChColor;
 
         float m_volumeValue;
 
