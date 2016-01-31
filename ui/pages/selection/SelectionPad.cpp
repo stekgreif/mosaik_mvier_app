@@ -73,7 +73,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
         default:
             break;
     }
-    m_subChColor->setFixedSize(10,10);
+    m_subChColor->setFixedSize(14,14);
     m_subChColor->move( m_widgetSize->width()/2, m_widgetSize->height()/5 * 4);
 #endif
 

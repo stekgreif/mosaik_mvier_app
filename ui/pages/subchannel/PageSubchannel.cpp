@@ -149,7 +149,6 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     connect( m_changePage, SIGNAL(pressed()), this, SLOT(slot_changePage()) );
     connect( m_pattern, SIGNAL(signal_padPressed(int)), m_parent->getParent(), SLOT(slot_stepButtonPressed(int)) );
 
-
     refresh();
 }
 

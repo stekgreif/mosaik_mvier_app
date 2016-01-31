@@ -85,7 +85,6 @@ class PageSubchannel : public QWidget
         MosaikMiniApp *m_mosaikMiniApp;
 
 
-
         /** BROWSER **/
         Browser    *m_browser;
 

@@ -19,6 +19,7 @@
 #define BTN_GRID  (BTN_SIZE+BTN_GAP)
 #define BTNS  8
 
+#define TIMER 1
 
 
 PageSelection::PageSelection(UiManager *parent)
@@ -55,6 +56,11 @@ PageSelection::PageSelection(UiManager *parent)
     qDebug() <<Q_FUNC_INFO <<BTNS*BTNS <<"pads created.";
 
 
+    m_timer = new QTimer;
+    connect( m_timer, SIGNAL(timeout()), this,  SLOT(slot_regularTimer()) );
+    m_timer->start(50);
+
+
     refresh();
 }
 
@@ -78,10 +84,87 @@ PageSelection::~PageSelection()
 
 
 
+/** QTimer **/
+void PageSelection::slot_regularTimer()
+{
+#if TIMER
+
+    QBitArray hasSample = subchannelManager().hasSample();
+    QBitArray hasSteps  = subchannelManager().getAllHasSteps();
+    int curSubPos;
+    QBitArray isPlaying(64);
+    isPlaying = subchannelManager().getPlayingSubchannels();
+
+
+    for( int cnt = 0; cnt < 64; cnt++ )
+    {
+        curSubPos = settings().getSubchannelPos(cnt);
+
+        /** refresh sub tiles **/
+        if( hasSample.at(cnt) )
+        {
+            m_pad[curSubPos]->setHasSample();
+        }
+        else
+        {
+            m_pad[curSubPos]->clearHasSample();
+        }
+
+        if( hasSteps.at(cnt) )
+        {
+            m_pad[curSubPos]->setHasSteps();
+        }
+        else
+        {
+            m_pad[curSubPos]->clearHasSteps();
+        }
+
+        /** refresh sample name **/
+        QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample(cnt);
+        if(samplePtr != NULL)
+        {
+            m_pad[settings().getSubchannelPos(cnt)]->setSampleParameters( samplePtr->getSampleStructPointer()->name,
+                                                                          samplePtr->getSampleStructPointer()->lengthInMs);
+        }
+
+        /** refresh sample volume **/
+        m_pad[curSubPos]->setSampleVolume();
+
+        if( isPlaying.at(cnt) )
+        {
+            m_pad[curSubPos]->setIsPlaying();
+        }
+        else
+        {
+            m_pad[curSubPos]->clearIsPlaying();
+        }
+
+    }
+
+    /** subchannel selection pads **/
+    int newSubchannel = subchannelManager().getCurrentSubchannelSelection();
+    m_pad[settings().getSubchannelPos(m_lastSelectedSubchannel)]->setPadToDeselectionColor();
+    m_pad[settings().getSubchannelPos(newSubchannel)]->setPadToSelectionColor();
+    m_lastSelectedSubchannel = newSubchannel;
+
+    /** channel selection frame **/
+    int pos = settings().getChannelPos(subchannelManager().getCurrentChannelSelection());
+    int xPos = (pos % 4) * BTN_GRID * 2;
+    int yPos = (pos / 4) * BTN_GRID * 2;
+    m_channelSelectionFrame->move(xPos, yPos);
+
+    m_muteAndSolo->refresh();
+
+    this->update();
+#endif
+}
+
+
 
 
 void PageSelection::refresh()
 {
+#ifndef TIMER
     qDebug() <<Q_FUNC_INFO;
 
     /** has tiles **/
@@ -121,13 +204,12 @@ void PageSelection::refresh()
     m_channelSelectionFrame->move(xPos, yPos);
 
     this->update();
-
-    //qDebug() <<Q_FUNC_INFO <<"hasSample" <<hasSample;
-    //qDebug() <<Q_FUNC_INFO <<"hasSteps"  <<hasSteps;
+#endif
 }
 
 void PageSelection::refreshTiles()
 {
+#ifndef TIMER
     //qDebug() <<Q_FUNC_INFO;
     QBitArray isPlaying(64);
     isPlaying = subchannelManager().getPlayingSubchannels();
@@ -139,17 +221,21 @@ void PageSelection::refreshTiles()
         else
             m_pad[settings().getSubchannelPos(i)]->clearIsPlaying();
     }
+#endif
 }
 
 void PageSelection::refreshMutePads()
 {
+#ifndef TIMER
     m_muteAndSolo->refresh();
+#endif
 }
 
 
 
 void PageSelection::refreshSampleNames()
 {
+#ifndef TIMER
     qDebug() <<Q_FUNC_INFO;
     for( int cnt = 0; cnt < 63; cnt++ )
     {
@@ -161,18 +247,21 @@ void PageSelection::refreshSampleNames()
                                                                           samplePtr->getSampleStructPointer()->lengthInMs);
         }
     }
+#endif
 }
 
 
 
 void PageSelection::refreshSampleVolume()
 {
+#ifndef TIMER
     qDebug() <<Q_FUNC_INFO;
 
     for( int cnt = 0; cnt < 64; cnt++ )
     {
         m_pad[settings().getSubchannelPos(cnt)]->setSampleVolume();
     }
+#endif
 }
 
 
@@ -182,6 +271,9 @@ void PageSelection::m_slot_selectionChanged(int id)
     //qDebug() <<Q_FUNC_INFO <<id;
     emit signal_subchannelSelectionPadPressed(id);
 }
+
+
+
 
 
 

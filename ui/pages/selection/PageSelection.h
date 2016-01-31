@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QPushButton>
 #include <QStyleOption>
+#include <QTimer>
 
 #include "ui/pages/selection/SelectionPad.h"
 #include "ui/pages/selection/MuteAndSolo.h"
@@ -33,7 +34,7 @@ class PageSelection : public QWidget
 
     private slots:
         void m_slot_selectionChanged(int id);
-
+        void slot_regularTimer();
 
     public slots:
         void slot_setExclusiveSubchannelSelection(int id);
@@ -46,6 +47,9 @@ class PageSelection : public QWidget
 
         MuteAndSolo *m_muteAndSolo;
         bool m_muteAndSoloVisible;
+
+        QTimer *m_timer;
+
 
     protected:
         void paintEvent(QPaintEvent *event);
