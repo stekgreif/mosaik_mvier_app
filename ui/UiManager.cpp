@@ -199,18 +199,24 @@ void UiManager::slot_toggleMuteAndSolo()
     m_pageSelection->toggleMuteAndSolo();
 }
 
+
+/** browser **/
 void UiManager::loadSelectedSampleToCurrentSubchannel()
 {
-    //m_pageBrowser->slot_loadSample();
+    m_pageSubchannel->slot_loadSample();
+    m_pageSelection->refresh();
 }
 
 void UiManager::loadSelectedSampleToPrelisten()
 {
-    //m_pageBrowser->slot_loadSampleToPrelisten();
+    m_pageSubchannel->slot_loadSampleToPrelisten();
+    m_pageSelection->refresh();
 }
 
 void UiManager::slot_setPathId(int pathId)
 {
+    m_pageSubchannel->slot_changePath(pathId);
+    //m_pageSubchannel->refresh();
     //m_pageBrowser->slot_changePathId(pathId);
     //m_pageSubchannel->slot_changePathId(pathId);
 }

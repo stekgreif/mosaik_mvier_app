@@ -33,12 +33,20 @@ class PageSubchannel : public QWidget
         void refreshLabels(void);
         void refreshStepAxis(void);
 
+
     public slots:
-        void slot_changePathId(int pathId);
+        void slot_changePath(int pathId);
+        void slot_changePath(QString pathName);
+        void slot_moveCursor(int direction);
+        void slot_toggleItmeExpansion(void);
+        void slot_loadSample(void);
+        void slot_loadSampleToPrelisten(void);
+
 
     private slots:
         void slot_potPosChanged(int id, float value);
         void slot_changePage(void);
+
 
     protected:
         void paintEvent(QPaintEvent *event);
@@ -80,6 +88,7 @@ class PageSubchannel : public QWidget
 
         /** BROWSER **/
         Browser    *m_browser;
+
 
 
         /** sample view **/

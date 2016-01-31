@@ -56,11 +56,14 @@ void Browser::slot_changePath(int pathId)
 {
     if( (pathId < 4) && (pathId >= 0) )
     {
-        qDebug() <<Q_FUNC_INFO <<"PathId valide.";
+        qDebug() <<Q_FUNC_INFO <<"PathId valide:" <<pathId <<":" <<m_path[pathId];
         m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[pathId]));
     }
     else
-        qDebug() <<Q_FUNC_INFO <<"PathId out of range.";
+    {
+        qDebug() <<Q_FUNC_INFO <<"PathId out of range." <<pathId <<"Path set to default";
+        m_treeView->setRootIndex(m_fileSystem->setRootPath(m_defaultPath));
+    }
 }
 
 void Browser::slot_changePath(QString pathName)
@@ -104,7 +107,9 @@ void Browser::slot_toggleItmeExpansion()
         m_treeView->setExpanded( m_treeView->currentIndex(), !m_treeView->isExpanded(m_treeView->currentIndex()) );
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"Item is unknown.";
+    }
 }
 
 
@@ -120,7 +125,9 @@ void Browser::slot_loadSample(void)
         //emit signal_btnLoadSamplePressed();
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"Not a file.";
+    }
 
 }
 
@@ -129,8 +136,12 @@ void Browser::slot_loadSampleToPrelisten()
     QFileInfo fileInfo(m_fileSystem->filePath(m_treeView->currentIndex()));
 
     if( fileInfo.isFile() && fileInfo.exists() )
+    {
         subchannelManager().loadSampleToPrelisten(m_fileSystem->filePath(m_treeView->currentIndex()));
+    }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"Not a file.";
+    }
 }
 

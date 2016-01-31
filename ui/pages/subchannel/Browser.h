@@ -27,6 +27,7 @@ class Browser : public QWidget
         void slot_loadSample(void);
         void slot_loadSampleToPrelisten(void);
 
+
     private:
         /** path and file system **/
         QFileSystemModel *m_fileSystem;

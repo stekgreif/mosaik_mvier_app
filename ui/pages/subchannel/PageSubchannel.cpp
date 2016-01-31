@@ -419,29 +419,35 @@ void PageSubchannel::refreshStepAxis()
 }
 
 
-
-void PageSubchannel::slot_changePathId(int pathId)
+/** browser slots **/
+void PageSubchannel::slot_changePath(int pathId)
 {
-#if 0
-    switch (pathId)
-    {
-        case 0:
-            m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[0]));
-            break;
-        case 1:
-            m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[1]));
-            break;
-        case 2:
-            m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[2]));
-            break;
-        case 3:
-            m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[3]));
-            break;
-        default:
-            qDebug() <<Q_FUNC_INFO <<"Path id:" <<pathId <<"not in range.";
-            break;
-    }
-#endif
+    m_browser->slot_changePath(pathId);
+}
+
+void PageSubchannel::slot_changePath(QString pathName)
+{
+    m_browser->slot_changePath(pathName);
+}
+
+void PageSubchannel::slot_moveCursor(int direction)
+{
+    m_browser->slot_moveCursor(direction);
+}
+
+void PageSubchannel::slot_toggleItmeExpansion()
+{
+    m_browser->slot_toggleItmeExpansion();
+}
+
+void PageSubchannel::slot_loadSample()
+{
+    m_browser->slot_loadSample();
+}
+
+void PageSubchannel::slot_loadSampleToPrelisten()
+{
+    m_browser->slot_loadSampleToPrelisten();
 }
 
 

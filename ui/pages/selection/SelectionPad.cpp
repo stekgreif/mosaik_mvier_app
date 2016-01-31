@@ -180,7 +180,7 @@ void SelectionPad::clearSampleName()
 
 void SelectionPad::setSampleVolume()
 {
-    qDebug() <<Q_FUNC_INFO <<m_volumeValue;
+    //qDebug() <<Q_FUNC_INFO <<m_volumeValue;
 
     m_volumeValue = subchannelManager().getSubchannelVolume(m_padWidgetId);
     m_volume->setText( QString::number( m_volumeValue, 'f', 2 ) );

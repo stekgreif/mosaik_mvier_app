@@ -30,6 +30,7 @@ class UiManager : public QWidget
         int  getCurrentPageId(void);
         MosaikMiniApp *getParent(void);
         PageBrowser    *m_pageBrowser;
+        PageSubchannel *m_pageSubchannel;
 
 
     protected:
@@ -51,7 +52,6 @@ class UiManager : public QWidget
 
         /* pages */
         PageDebug      *m_pageDebug;
-        PageSubchannel *m_pageSubchannel;
         PageSelection  *m_pageSelection;
         PageSettings   *m_pageSettings;
         PageInfos      *m_pageInfos;
