@@ -6,7 +6,6 @@
 #include "core/subchannel/SubchannelManager.h"
 
 
-
 SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     : QWidget(parent)
 {
@@ -25,9 +24,14 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     int lS = 12;
 
 
+
     /**  layer 0 - widget **/
     this->setObjectName("pad_widget");
     this->setFixedSize(*m_widgetSize);
+
+
+    m_volumeWidget = new VolumeWidget(this);
+    m_volumeWidget->move(wP*20.2, hP*6.7);
 
 
     /** layer 1 - info tiles **/
@@ -185,6 +189,7 @@ void SelectionPad::setSampleVolume()
     m_volumeValue = subchannelManager().getSubchannelVolume(m_padWidgetId);
     m_volume->setText( QString::number( m_volumeValue, 'f', 2 ) );
     m_volume->adjustSize();
+    m_volumeWidget->setVolume(m_volumeValue);
 }
 
 

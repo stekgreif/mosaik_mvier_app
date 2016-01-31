@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include "ui/pages/selection/VolumeWidget.h"
 
 
 class SelectionPad : public QWidget
@@ -42,6 +43,7 @@ class SelectionPad : public QWidget
         QLabel *m_subChColor;
 
         float m_volumeValue;
+        VolumeWidget *m_volumeWidget;
 
         QLine *m_volBackGround;
         QLine *m_volBar;
