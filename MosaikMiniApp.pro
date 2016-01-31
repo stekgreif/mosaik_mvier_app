@@ -61,7 +61,9 @@ SOURCES += main.cpp\
     ui/pages/browser/SampleBrowser.cpp \
     core/subchannel/Prelisten.cpp \
     ui/pages/selection/MuteAndSolo.cpp \
-    ui/pages/selection/MuteAndSoloPad.cpp
+    ui/pages/selection/MuteAndSoloPad.cpp \
+    ui/pages/subchannel/BrowserTree.cpp \
+    ui/pages/subchannel/Browser.cpp
 
 HEADERS  += MosaikMiniApp.h \
 	Settings.h \
@@ -106,7 +108,9 @@ HEADERS  += MosaikMiniApp.h \
     ui/pages/browser/SampleBrowser.h \
     core/subchannel/Prelisten.h \
     ui/pages/selection/MuteAndSolo.h \
-    ui/pages/selection/MuteAndSoloPad.h
+    ui/pages/selection/MuteAndSoloPad.h \
+    ui/pages/subchannel/BrowserTree.h \
+    ui/pages/subchannel/Browser.h
 
 FORMS    += MosaikMiniApp.ui \
     pagemidi.ui

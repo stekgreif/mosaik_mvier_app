@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QStyleOption>
+
 #include "ui/pages/subchannel/qcustomplot.h"
 #include "core/subchannel/SubchannelManager.h"
 #include "MosaikTypes.h"
@@ -12,15 +13,6 @@
 #include "MosaikMiniApp.h"
 
 
-/// @todo 99 - a lot of this stuff has to move to SubchannelManager!
-
-//PageDebug::PageDebug(QWidget *parent) : QWidget(parent)
-
-#if 0
-PageSubchannel::PageSubchannel(UiManager *parent, QWidget *uiParent)
-    : QWidget(uiParent)
-    , m_parent(parent)
-#endif
 
 PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     : m_parent(parent)
@@ -29,17 +21,17 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
     qDebug() <<Q_FUNC_INFO <<"Init.";
     this->setObjectName("pageSubchannel");
-
+    QFont labelFont("Droid Sans", 12);
+    QFont varLabelFont("Droid Sans Mono", 12);
     m_leftChannelPen.setColor(  QColor(0,0,255) );
     m_rightChannelPen.setColor( QColor(255,0,0,10) );
 
 
-    /** ui layout -- use these to change to position of widgets on the page **/
-                                       // xPos, yPos, width, height
+    /** ui layout -- use these to change to position of widgets on the page - xPos, yPos, width, height **/
     m_sampleWindowAttributes  = new QRect(  20,  20, 780, 300 );
     m_sampleLabelAttributes   = new QPoint(635, 350);
     m_patternWidgetAttributes = new QRect( 635, 600, 400, 400 );
-    m_browserWidgetAttributes = new QRect(  20, 350, 600, 600 );
+    //m_browserWidgetAttributes = new QRect(  20, 350, 600, 600 );
 
 
 
@@ -53,8 +45,6 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_samplePlot->yAxis->setTicks(false);
 
 
-    QFont labelFont("Droid Sans", 12);
-    QFont varLabelFont("Droid Sans Mono", 12);
 
 
     /** sample value labels **/
@@ -69,7 +59,6 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_samplePropertyNameLabels = new QVector<QLabel*>;
     m_samplePropertyLabel      = new QVector<QLabel*>;
     m_samplePropertyNames      = new QVector<QString>;
-
     m_samplePropertyNames->resize(10);
     m_samplePropertyNames->replace(SampleInfoIds::channels,   "Channels:"  );
     m_samplePropertyNames->replace(SampleInfoIds::samplerate, "Samplerate:");
@@ -98,6 +87,7 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
         m_samplePropertyLabel->at(i)->move( m_sampleLabelAttributes->x() + 100,
                                             m_sampleLabelAttributes->y() + i*20);
     }
+
 
 
     /** pattern widget **/
@@ -147,33 +137,13 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_changePage->setFixedSize(80,80);
 
 
-    /** file browser **/
-    m_path[0] = "/media/dan/Daten/Soundbänke";
-    m_path[1] = "/media/dan/Daten/Soundbänke/Mosaik Soundbank";
-    m_path[2] = "/home/dan/samples/mitCamelCase";
-    m_path[3] = "/media/dan/Daten/Soundbänke/TV-Shows & Youtube/raw";
+    /** BROWSER **/
+    m_browser = new Browser(this);
+    m_browser->move(20,350);
+    //m_browser->setFixedSize(650,850);
 
-    m_treeView = new SampleBrowser(this);
-    //m_treeView->move(10,700);
-    m_treeView->move(m_browserWidgetAttributes->topLeft());
-    m_treeView->setFixedSize(m_browserWidgetAttributes->size());
-    m_fileSystem = new QFileSystemModel(this);
-    m_fileSystem->setFilter( QDir::NoDotAndDotDot | QDir::AllDirs | QDir::Files );
-    m_fileSystem->setNameFilters( QStringList() <<"*.wav" <<"*.WAV" );
-    m_fileSystem->setNameFilterDisables(false); // hide other files than wav and do not gray them out
-    m_fileSystem->setRootPath("/");
-    m_treeView->setObjectName("treeView");
-    m_treeView->setFocus();
-    m_treeView->setModel(m_fileSystem);
-    m_treeView->setAutoScroll(true);  // default
-    m_treeView->setColumnWidth(0, 500);
-    m_treeView->hideColumn(3);  // 0:name, 1:size, 2:type, 3:date modified
-    m_treeView->hideColumn(2);
-    QFont treeFont;
-    treeFont.setPixelSize(14);
-    m_treeView->setFont(treeFont);
-
-
+    /** change size and position here **/
+    //m_browserWindowSizeAndPosition = new QRect( 20,  20, 650, 850);
 
     /** connections **/
     connect( m_changePage, SIGNAL(pressed()), this, SLOT(slot_changePage()) );
@@ -452,6 +422,7 @@ void PageSubchannel::refreshStepAxis()
 
 void PageSubchannel::slot_changePathId(int pathId)
 {
+#if 0
     switch (pathId)
     {
         case 0:
@@ -470,6 +441,7 @@ void PageSubchannel::slot_changePathId(int pathId)
             qDebug() <<Q_FUNC_INFO <<"Path id:" <<pathId <<"not in range.";
             break;
     }
+#endif
 }
 
 

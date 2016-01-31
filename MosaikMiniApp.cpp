@@ -348,18 +348,18 @@ void MosaikMiniApp::slot_browserChangePathId(int id)
 void MosaikMiniApp::slot_browserChangeCursorPosition(int direction)
 {
     qDebug() <<Q_FUNC_INFO;
-    m_uiManager->m_pageBrowser->slot_moveCursor(direction);
+    //m_uiManager->m_pageBrowser->slot_moveCursor(direction);
 }
 
 void MosaikMiniApp::slot_browserToggleFolderExpansion()
 {
-    m_uiManager->m_pageBrowser->slot_toggleItmeExpansion();
+    //m_uiManager->m_pageBrowser->slot_toggleItmeExpansion();
 }
 
 void MosaikMiniApp::slot_browserSelectedSampleToPrelisten()
 {
     qDebug() <<Q_FUNC_INFO;
-    m_uiManager->loadSelectedSampleToPrelisten();
+    //m_uiManager->loadSelectedSampleToPrelisten();
 }
 
 

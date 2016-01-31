@@ -13,7 +13,7 @@
 #include <ui/pages/subchannel/DrawEnvelope.h>
 #include <ui/pages/subchannel/Pattern.h>
 
-#include "ui/pages/browser/PageBrowser.h"
+#include "Browser.h"
 
 
 class UiManager;
@@ -78,12 +78,8 @@ class PageSubchannel : public QWidget
 
 
 
-        /** path and file system **/
-        QFileSystemModel *m_fileSystem;
-        SampleBrowser    *m_treeView;
-        QString m_path[4];
-        QString m_pathName[4];
-
+        /** BROWSER **/
+        Browser    *m_browser;
 
 
         /** sample view **/
@@ -104,7 +100,7 @@ class PageSubchannel : public QWidget
         QRect  *m_sampleWindowAttributes;
         QPoint *m_sampleLabelAttributes;
         QRect  *m_patternWidgetAttributes;
-        QRect  *m_browserWidgetAttributes;
+
 
         /* pots */
         Rotary *m_potiWidget[5];

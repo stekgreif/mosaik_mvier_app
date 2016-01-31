@@ -1,5 +1,5 @@
-#ifndef BROWSER_H
-#define BROWSER_H
+#ifndef PAGE_BROWSER_H
+#define PAGE_BROWSER_H
 
 #include <QWidget>
 #include <QDirModel>
@@ -63,4 +63,4 @@ class PageBrowser : public QWidget
         QRect *m_loadSampleBtnAttributes;
 };
 
-#endif // BROWSER_H
+#endif // PAGE_BROWSER_H
