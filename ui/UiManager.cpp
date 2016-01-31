@@ -25,7 +25,7 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 
     /** pages **/
     m_pageSubchannel = new PageSubchannel(m_mosaikMiniApp, this);
-    m_pageBrowser    = new PageBrowser(this);
+    //m_pageBrowser    = new PageBrowser(this);
     m_pageSelection = new PageSelection(this);
     m_pageSelection->setFixedSize(h,h);
     m_pageSelection->move(0,0);
@@ -38,7 +38,7 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     m_stackedPages->move(h+20, 20);
 
     m_stackedPages->addWidget(m_pageSubchannel);
-    m_stackedPages->addWidget(m_pageBrowser);
+    //m_stackedPages->addWidget(m_pageBrowser);
     m_stackedPages->setCurrentIndex(0);
 
 
@@ -70,7 +70,6 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     /** signal slot connections **/
     connect(m_pageSelection,  SIGNAL(signal_subchannelSelectionPadPressed(int)), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
     connect(m_pageSubchannel, SIGNAL(signal_btnLoadSamplePressed()), this, SLOT(refresh()) );
-    //connect(m_pageSubchannel, SIGNAL(sign)  )
 
     m_timer = new QTimer;
     m_timer->start(100);
@@ -202,18 +201,18 @@ void UiManager::slot_toggleMuteAndSolo()
 
 void UiManager::loadSelectedSampleToCurrentSubchannel()
 {
-    m_pageBrowser->slot_loadSample();
+    //m_pageBrowser->slot_loadSample();
 }
 
 void UiManager::loadSelectedSampleToPrelisten()
 {
-    m_pageBrowser->slot_loadSampleToPrelisten();
+    //m_pageBrowser->slot_loadSampleToPrelisten();
 }
 
 void UiManager::slot_setPathId(int pathId)
 {
-    m_pageBrowser->slot_changePathId(pathId);
-    m_pageSubchannel->slot_changePathId(pathId);
+    //m_pageBrowser->slot_changePathId(pathId);
+    //m_pageSubchannel->slot_changePathId(pathId);
 }
 
 
