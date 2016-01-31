@@ -213,6 +213,7 @@ void UiManager::loadSelectedSampleToPrelisten()
 void UiManager::slot_setPathId(int pathId)
 {
     m_pageBrowser->slot_changePathId(pathId);
+    m_pageSubchannel->slot_changePathId(pathId);
 }
 
 

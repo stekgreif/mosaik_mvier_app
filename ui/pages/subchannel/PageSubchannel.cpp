@@ -34,10 +34,13 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_rightChannelPen.setColor( QColor(255,0,0,10) );
 
 
-    /** ui layout **/
-    m_sampleWindowAttributes  = new QRect(  20,  20, 780, 300); // xPos, yPos, width, height
-    m_sampleLabelAttributes   = new QPoint(100, 450);
-    m_patternWidgetAttributes = new QRect(  40, 380, 400, 400);
+    /** ui layout -- use these to change to position of widgets on the page **/
+                                       // xPos, yPos, width, height
+    m_sampleWindowAttributes  = new QRect(  20,  20, 780, 300 );
+    m_sampleLabelAttributes   = new QPoint(635, 350);
+    m_patternWidgetAttributes = new QRect( 635, 600, 400, 400 );
+    m_browserWidgetAttributes = new QRect(  20, 350, 600, 600 );
+
 
 
     /** setup sample waveform plot **/
@@ -145,9 +148,15 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
 
     /** file browser **/
+    m_path[0] = "/media/dan/Daten/Soundbänke";
+    m_path[1] = "/media/dan/Daten/Soundbänke/Mosaik Soundbank";
+    m_path[2] = "/home/dan/samples/mitCamelCase";
+    m_path[3] = "/media/dan/Daten/Soundbänke/TV-Shows & Youtube/raw";
+
     m_treeView = new SampleBrowser(this);
-    m_treeView->move(10,500);
-    m_treeView->setFixedSize(600,400);
+    //m_treeView->move(10,700);
+    m_treeView->move(m_browserWidgetAttributes->topLeft());
+    m_treeView->setFixedSize(m_browserWidgetAttributes->size());
     m_fileSystem = new QFileSystemModel(this);
     m_fileSystem->setFilter( QDir::NoDotAndDotDot | QDir::AllDirs | QDir::Files );
     m_fileSystem->setNameFilters( QStringList() <<"*.wav" <<"*.WAV" );
@@ -165,10 +174,10 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_treeView->setFont(treeFont);
 
 
+
     /** connections **/
     connect( m_changePage, SIGNAL(pressed()), this, SLOT(slot_changePage()) );
     connect( m_pattern, SIGNAL(signal_padPressed(int)), m_parent->getParent(), SLOT(slot_stepButtonPressed(int)) );
-
 
 
     refresh();
@@ -436,6 +445,30 @@ void PageSubchannel::refreshStepAxis()
         m_samplePlot->xAxis2->setTickVector(x2Ticks);
         m_samplePlot->xAxis2->setTickVectorLabels(x2Label);
         m_samplePlot->replot();
+    }
+}
+
+
+
+void PageSubchannel::slot_changePathId(int pathId)
+{
+    switch (pathId)
+    {
+        case 0:
+            m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[0]));
+            break;
+        case 1:
+            m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[1]));
+            break;
+        case 2:
+            m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[2]));
+            break;
+        case 3:
+            m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[3]));
+            break;
+        default:
+            qDebug() <<Q_FUNC_INFO <<"Path id:" <<pathId <<"not in range.";
+            break;
     }
 }
 

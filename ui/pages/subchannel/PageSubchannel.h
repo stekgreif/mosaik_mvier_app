@@ -33,6 +33,9 @@ class PageSubchannel : public QWidget
         void refreshLabels(void);
         void refreshStepAxis(void);
 
+    public slots:
+        void slot_changePathId(int pathId);
+
     private slots:
         void slot_potPosChanged(int id, float value);
         void slot_changePage(void);
@@ -62,21 +65,26 @@ class PageSubchannel : public QWidget
         QVector<QLabel*> *m_samplePropertyLabel;
         QVector<QString> *m_samplePropertyNames;
 
-        enum AudioChannels
-        {
+        enum AudioChannels{
             mono = 1,
             stereo = 2
         };
-
-        /** path and file system **/
-        QFileSystemModel *m_fileSystem;
-        SampleBrowser    *m_treeView;
 
         QPen m_leftChannelPen;
         QPen m_rightChannelPen;
 
         UiManager *m_parent;
         MosaikMiniApp *m_mosaikMiniApp;
+
+
+
+        /** path and file system **/
+        QFileSystemModel *m_fileSystem;
+        SampleBrowser    *m_treeView;
+        QString m_path[4];
+        QString m_pathName[4];
+
+
 
         /** sample view **/
         QCustomPlot *m_samplePlot;
@@ -96,6 +104,7 @@ class PageSubchannel : public QWidget
         QRect  *m_sampleWindowAttributes;
         QPoint *m_sampleLabelAttributes;
         QRect  *m_patternWidgetAttributes;
+        QRect  *m_browserWidgetAttributes;
 
         /* pots */
         Rotary *m_potiWidget[5];
