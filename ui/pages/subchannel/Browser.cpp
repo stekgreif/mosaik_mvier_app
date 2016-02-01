@@ -10,7 +10,7 @@ Browser::Browser(QWidget *uiParent)
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
     /** change size and position here **/
-    m_browserWindowSizeAndPosition = new QRect( 20,  20, 600, 650);
+    m_browserWindowSizeAndPosition = new QRect( 20,  20, 780, 650);
 
 
     /** path **/
@@ -24,10 +24,13 @@ Browser::Browser(QWidget *uiParent)
     m_pathName[2] = "Testsamples";
     m_pathName[3] = "Youtube";
 
+
+
     /** file browser **/
     m_treeView = new BrowserTree(this);
     //m_treeView->move(m_browserWindowSizeAndPosition->topLeft());
     m_treeView->setFixedSize(m_browserWindowSizeAndPosition->size());
+    //m_treeView->setFixedSize(this->size());
     m_fileSystem = new QFileSystemModel(this);
     m_fileSystem->setFilter( QDir::NoDotAndDotDot | QDir::AllDirs | QDir::Files );
     m_fileSystem->setNameFilters( QStringList() <<"*.wav" <<"*.WAV" );

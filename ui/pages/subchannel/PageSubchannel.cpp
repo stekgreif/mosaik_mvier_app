@@ -45,8 +45,6 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_samplePlot->yAxis->setTicks(false);
 
 
-
-
     /** sample value labels **/
     m_labelVarPathAndName = new QLabel("-", this);
     m_labelVarPathAndName->setFont(varLabelFont);
@@ -54,7 +52,7 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelVarPathAndName->setStyleSheet("QLabel#labelVarPathAndName {color: rgb(200,200,200)};");
     m_labelVarPathAndName->move(m_sampleWindowAttributes->left(), m_sampleWindowAttributes->top()-20); //360,160
 
-
+#if 0 // remove canidate
     /** sample property labels **/
     m_samplePropertyNameLabels = new QVector<QLabel*>;
     m_samplePropertyLabel      = new QVector<QLabel*>;
@@ -87,15 +85,16 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
         m_samplePropertyLabel->at(i)->move( m_sampleLabelAttributes->x() + 100,
                                             m_sampleLabelAttributes->y() + i*20);
     }
+#endif
 
 
-
+#if 0 // remove canidate
     /** pattern widget **/
     m_pattern = new Pattern(m_mosaikMiniApp, this);
     m_pattern->move(m_patternWidgetAttributes->topLeft());
+#endif
 
-
-#ifdef WITH_POTIS
+#ifdef WITH_POTIS // remove canidate
     /** potis **/
     for(int i = 0; i < 5; i++)
     {
@@ -131,23 +130,22 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_envelope->setFixedWidth(m_sampleWindowAttributes->width());
 
 
+#if 0 // remove canidate
     /** change page **/
     m_changePage = new QPushButton(this);
     m_changePage->move(710,945);
     m_changePage->setFixedSize(80,80);
-
+#endif
 
     /** BROWSER **/
     m_browser = new Browser(this);
     m_browser->move(20,350);
-    //m_browser->setFixedSize(650,850);
+    //m_browser->setFixedSize(m_sampleWindowAttributes->width(), m_sampleWindowAttributes->height());
 
-    /** change size and position here **/
-    //m_browserWindowSizeAndPosition = new QRect( 20,  20, 650, 850);
 
     /** connections **/
-    connect( m_changePage, SIGNAL(pressed()), this, SLOT(slot_changePage()) );
-    connect( m_pattern, SIGNAL(signal_padPressed(int)), m_parent->getParent(), SLOT(slot_stepButtonPressed(int)) );
+    //connect( m_changePage, SIGNAL(pressed()), this, SLOT(slot_changePage()) );
+    //connect( m_pattern, SIGNAL(signal_padPressed(int)), m_parent->getParent(), SLOT(slot_stepButtonPressed(int)) );
 
     refresh();
 }
@@ -253,7 +251,7 @@ void PageSubchannel::refreshSamplePlot()
         }
         m_samplePlot->replot();
 
-        refreshLabels();
+        //refreshLabels();
     }
     else
         resetSamplePlot();
@@ -331,7 +329,7 @@ void PageSubchannel::refresh()
 
     m_envelope->setEnvelope(subchannelManager().getCurrentEnvelope());
 
-    m_pattern->refresh();
+    //m_pattern->refresh();
     refreshPots();
 }
 
@@ -353,6 +351,7 @@ void PageSubchannel::refreshPots()
 
 void PageSubchannel::refreshLabels()
 {
+#if 0 // remove canidate
     QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample();
 
     if(samplePtr != NULL)
@@ -383,6 +382,7 @@ void PageSubchannel::refreshLabels()
     {
         resetSamplePlot();
     }
+#endif
 }
 
 
