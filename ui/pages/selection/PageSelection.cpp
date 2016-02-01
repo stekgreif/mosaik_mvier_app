@@ -19,7 +19,7 @@
 #define BTN_GRID  (BTN_SIZE+BTN_GAP)
 #define BTNS  8
 
-#define TIMER 1
+#define TIMER
 
 
 PageSelection::PageSelection(UiManager *parent)
@@ -55,11 +55,11 @@ PageSelection::PageSelection(UiManager *parent)
     //m_muteAndSolo->display(false);
     qDebug() <<Q_FUNC_INFO <<BTNS*BTNS <<"pads created.";
 
-
+#ifdef TIMER
     m_timer = new QTimer;
     connect( m_timer, SIGNAL(timeout()), this,  SLOT(slot_regularTimer()) );
     m_timer->start(50);
-
+#endif
 
     refresh();
 }
@@ -87,7 +87,7 @@ PageSelection::~PageSelection()
 /** QTimer **/
 void PageSelection::slot_regularTimer()
 {
-#if TIMER
+#ifdef TIMER
 
     QBitArray hasSample = subchannelManager().hasSample();
     QBitArray hasSteps  = subchannelManager().getAllHasSteps();
@@ -123,8 +123,17 @@ void PageSelection::slot_regularTimer()
         QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample(cnt);
         if(samplePtr != NULL)
         {
+            envelope_t envelope = subchannelManager().getEnvelope(curSubPos);
+            int nof = samplePtr->getSampleStructPointer()->sndInfo.frames;
+            int fs  = samplePtr->getSampleStructPointer()->sndInfo.samplerate;
+            int startMs = ( (envelope.start * nof) / fs) * 1000;
+            int endMs   = ( (envelope.end   * nof) / fs) * 1000;
+            int framesPerStep = (60 * fs) / (4 * subchannelManager().getBpm());
+            float steps = 40 * ((float)(endMs - startMs) / (float)framesPerStep);
+
             m_pad[settings().getSubchannelPos(cnt)]->setSampleParameters( samplePtr->getSampleStructPointer()->name,
-                                                                          samplePtr->getSampleStructPointer()->lengthInMs);
+                                                                          samplePtr->getSampleStructPointer()->lengthInMs,
+                                                                          steps);
         }
 
         /** refresh sample volume **/
@@ -187,7 +196,7 @@ void PageSelection::refresh()
     }
 
 
-    refreshSampleNames();
+    refreshSampleParameters();
     refreshSampleVolume();
 
 
@@ -233,18 +242,26 @@ void PageSelection::refreshMutePads()
 
 
 
-void PageSelection::refreshSampleNames()
+void PageSelection::refreshSampleParameters()
 {
 #ifndef TIMER
     qDebug() <<Q_FUNC_INFO;
     for( int cnt = 0; cnt < 63; cnt++ )
     {
         QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample(cnt);
-
         if(samplePtr != NULL)
         {
+            envelope_t envelope = subchannelManager().getCurrentEnvelope();
+            int nof = samplePtr->getSampleStructPointer()->sndInfo.frames;
+            int fs  = samplePtr->getSampleStructPointer()->sndInfo.samplerate;
+            int startMs = ( (envelope.start * nof) / fs) * 1000;
+            int endMs   = ( (envelope.end   * nof) / fs) * 1000;
+            int framesPerStep = (60 * fs) / (4 * subchannelManager().getBpm());
+            float steps = 40 * ((float)(endMs - startMs) / (float)framesPerStep);
+
             m_pad[settings().getSubchannelPos(cnt)]->setSampleParameters( samplePtr->getSampleStructPointer()->name,
-                                                                          samplePtr->getSampleStructPointer()->lengthInMs);
+                                                                          samplePtr->getSampleStructPointer()->lengthInMs,
+                                                                          steps);
         }
     }
 #endif

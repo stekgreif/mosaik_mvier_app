@@ -89,6 +89,7 @@ class SubchannelManager
         void setCurrentFadeInPointRel( float fadeIn );
         void setCurrentFadeOutPointRel(float fadeOut);
         envelope_t getCurrentEnvelope(void);
+        envelope_t getEnvelope(int id);
 
 
         /** global **/

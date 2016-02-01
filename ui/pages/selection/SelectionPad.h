@@ -21,7 +21,7 @@ class SelectionPad : public QWidget
         void clearHasSample(void);
         void setIsPlaying(void);
         void clearIsPlaying(void);
-        void setSampleParameters(QString name, float time);
+        void setSampleParameters(QString name, float time, float steps);
         void clearSampleName(void);
         void setSampleVolume(void);
 
@@ -37,8 +37,10 @@ class SelectionPad : public QWidget
         QLabel *m_hasSteps;
         QLabel *m_isPlaying;
         QLabel *m_isTriggert;
-        QLabel *m_sampleName;
+        QLabel *m_sampleNameRight;
+        QLabel *m_sampleNameLeft;
         QLabel *m_sampleTime;
+        QLabel *m_sampleSteps;
         QLabel *m_volume;
         QLabel *m_subChColor;
 

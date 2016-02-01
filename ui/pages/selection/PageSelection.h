@@ -25,7 +25,7 @@ class PageSelection : public QWidget
         void refresh(void);
         void refreshTiles(void);
         void refreshMutePads(void);
-        void refreshSampleNames(void);
+        void refreshSampleParameters(void);
         void refreshSampleVolume(void);
 
     signals:

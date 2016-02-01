@@ -261,12 +261,14 @@ void PageSubchannel::refreshSamplePlot()
 
 void PageSubchannel::resetSamplePlot()
 {
+#if 1
     qDebug() <<Q_FUNC_INFO;
     m_samplePlot->clearGraphs();
     m_samplePlot->clearItems();
     m_samplePlot->xAxis->setVisible( false);
     m_samplePlot->xAxis2->setVisible(false);
     m_samplePlot->replot();
+#endif
 }
 
 

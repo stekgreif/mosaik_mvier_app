@@ -658,6 +658,11 @@ envelope_t SubchannelManager::getCurrentEnvelope()
     return m_subchannel.at(m_currentSubchannel)->getEnvelope();
 }
 
+envelope_t SubchannelManager::getEnvelope(int id)
+{
+    return m_subchannel.at(id)->getEnvelope();
+}
+
 
 
 

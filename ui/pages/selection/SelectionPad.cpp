@@ -35,25 +35,41 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
 
 
     /** layer 1 - info tiles **/
-    m_sampleName = new QLabel(this);
-    m_sampleName->setObjectName("sampleName");
-    m_sampleName->setStyleSheet("QLabel#sampleName {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_sampleName->move( (m_widgetSize->width()/20), (m_widgetSize->height()/5) * 1.7 );
-    m_sampleName->setAlignment(Qt::AlignRight);
+    m_sampleNameRight = new QLabel(this);
+    m_sampleNameRight->setObjectName("sampleNameRight");
+    m_sampleNameRight->setStyleSheet("QLabel#sampleNameRight {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
+    m_sampleNameRight->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 2.0 );
+    m_sampleNameRight->setAlignment(Qt::AlignRight);
+    m_sampleNameRight->setFixedWidth((m_widgetSize->width()/20)*18);
+
+    m_sampleNameLeft = new QLabel(this);
+    m_sampleNameLeft->setObjectName("sampleNameLeft");
+    m_sampleNameLeft->setStyleSheet("QLabel#sampleNameLeft {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
+    m_sampleNameLeft->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 1.4 );
+    m_sampleNameLeft->setAlignment(Qt::AlignLeft);
+    m_sampleNameLeft->setFixedWidth((m_widgetSize->width()/20)*18);
 
     m_sampleTime = new QLabel(this);
     m_sampleTime->setObjectName("sampleTime");
     m_sampleTime->setStyleSheet("QLabel#sampleTime {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_sampleTime->move( (m_widgetSize->width()/20), (m_widgetSize->height()/5) * 4 );
+    m_sampleTime->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 4 );
     m_sampleTime->setAlignment(Qt::AlignCenter);
 
+    m_sampleSteps = new QLabel(this);
+    m_sampleSteps->setObjectName("sampleSteps");
+    m_sampleSteps->setStyleSheet("QLabel#sampleSteps {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
+    m_sampleSteps->move( ((m_widgetSize->width()/20) * 14), (m_widgetSize->height()/5) * 4 );
+    m_sampleSteps->setAlignment(Qt::AlignCenter);
+
+#if 0 // replaced by SampleSteps
     m_volume = new QLabel(this);
     m_volume->setObjectName("volume");
     m_volume->setStyleSheet("QLabel#volume {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
     m_volume->move( ((m_widgetSize->width()/20) * 16), (m_widgetSize->height()/5) * 4 );
     m_volume->setAlignment(Qt::AlignRight);
+#endif
 
-#if 1
+#if 1 // subchannel color pads
     m_subChColor = new QLabel(this);
     m_subChColor->setObjectName("color");
     switch (id%4)
@@ -74,7 +90,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
             break;
     }
     m_subChColor->setFixedSize(14,14);
-    m_subChColor->move( m_widgetSize->width()/2, m_widgetSize->height()/5 * 4);
+    m_subChColor->move( (m_widgetSize->width()/20)*9.9 , m_widgetSize->height()/5 * 4);
 #endif
 
     /** tiles **/
@@ -168,17 +184,22 @@ void SelectionPad::clearIsPlaying()
     m_isPlaying->setStyleSheet("QLabel#tile_isPlaying {background-color: rgb(127,127,127);}");
 }
 
-void SelectionPad::setSampleParameters(QString name, float time)
+
+void SelectionPad::setSampleParameters(QString name, float time, float steps)
 {
-    m_sampleName->setText(name);
-    m_sampleName->adjustSize();
+    m_sampleNameRight->setText(name);
+    m_sampleNameRight->adjustSize();
+    m_sampleNameLeft->setText(name);
+    m_sampleNameLeft->adjustSize();
     m_sampleTime->setText( QString::number(time/1000, 'f', 2) + " s" );
     m_sampleTime->adjustSize();
+    m_sampleSteps->setText( QString::number(steps, 'f', 2) );
+    m_sampleSteps->adjustSize();
 }
 
 void SelectionPad::clearSampleName()
 {
-    m_sampleName->setText(" ");
+    m_sampleNameRight->setText(" ");
     m_sampleTime->setText(" ");
 }
 
@@ -187,8 +208,8 @@ void SelectionPad::setSampleVolume()
     //qDebug() <<Q_FUNC_INFO <<m_volumeValue;
 
     m_volumeValue = subchannelManager().getSubchannelVolume(m_padWidgetId);
-    m_volume->setText( QString::number( m_volumeValue, 'f', 2 ) );
-    m_volume->adjustSize();
+    //m_volume->setText( QString::number( m_volumeValue, 'f', 2 ) );
+    //m_volume->adjustSize();
     m_volumeWidget->setVolume(m_volumeValue);
 }
 
@@ -200,7 +221,6 @@ void SelectionPad::m_slot_padPressed()
 
 void SelectionPad::setPadToSelectionColor(void)
 {
-    //m_buttonPadColor->setStyleSheet("QLabel#pad_buttonColor {background-color: rgba(255,140,0, 50%);}");
     switch (m_padWidgetId%4)
     {
         case 0:  //red 255,0,0
@@ -220,9 +240,10 @@ void SelectionPad::setPadToSelectionColor(void)
     }
 }
 
+
+
 void SelectionPad::setPadToDeselectionColor(void)
 {
-    //m_buttonPadColor->setStyleSheet("QLabel#pad_buttonColor {background-color: rgba(255,140,0, 0%);}");
     switch (m_padWidgetId%4)
     {
         case 0:  //red 255,0,0
@@ -253,33 +274,4 @@ void SelectionPad::paintEvent(QPaintEvent *event)
     myOption.initFrom(this);
     QPainter myPainter(this);
     style()->drawPrimitive( QStyle::PE_Widget, &myOption, &myPainter, this);
-
-#if 0
-    /** Volume Line **/
-
-    QPainter bgLine(this);
-    QPen bgPen;
-
-    QPainter volLine(this);
-    QPen volPen;
-    QColor volColor;
-
-    volColor.setRgb(255,0,0);
-
-    bgPen.setWidth(6);
-    volPen.setWidth(4);
-    volPen.setColor(volColor);
-
-    bgLine.setPen(bgPen);
-    bgLine.drawLine( (m_widgetSize->width() /40)*42,
-                      (m_widgetSize->height()/40)*42,
-                      (m_widgetSize->width() /40)*42,
-                      (m_widgetSize->height()/40)* 3 );
-
-    volLine.setPen(volPen);
-    volLine.drawLine( (m_widgetSize->width() /40)*42,
-                      (m_widgetSize->height()/40)*42,
-                      (m_widgetSize->width() /40)*42,
-                      ( m_widgetSize->height() - (m_widgetSize->height() * m_volumeValue) ) );
-#endif
 }

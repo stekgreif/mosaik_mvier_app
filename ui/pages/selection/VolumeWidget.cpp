@@ -37,10 +37,10 @@ void VolumeWidget::paintEvent(QPaintEvent *event)
 {
     QPainter backline(this);
     backline.setPen(QPen( QColor( 109,109,109), 1) );
-    backline.drawLine(3, 0, 3, 70);
+    backline.drawLine(3, 0, 3, 80);
 
     QPainter volLine(this);
-    volLine.setPen(QPen( QColor( 158,158,158), 1) );
+    volLine.setPen(QPen( QColor( 158,158,158), 3) );
     volLine.drawLine(3, 80*(1-m_value) , 3, 80);
 
     Q_UNUSED(event);
