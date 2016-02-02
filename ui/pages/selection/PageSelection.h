@@ -45,6 +45,7 @@ class PageSelection : public QWidget
         int m_lastSelectedSubchannel;
         QLabel *m_channelSelectionFrame;
 
+
         MuteAndSolo *m_muteAndSolo;
         bool m_muteAndSoloVisible;
 

@@ -33,6 +33,8 @@ PageSelection::PageSelection(UiManager *parent)
     m_channelSelectionFrame->setFixedSize(BTN_GRID*2, BTN_GRID*2);
     m_channelSelectionFrame->setObjectName("channelSelectionFrame");
 
+
+
     QSize *padSize;
     padSize = new QSize;
     padSize->setWidth(BTN_SIZE);

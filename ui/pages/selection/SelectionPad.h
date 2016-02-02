@@ -46,6 +46,7 @@ class SelectionPad : public QWidget
         QLabel *m_sampleSteps;
         QLabel *m_volume;
         QLabel *m_subChColor;
+        QLabel *m_selectionFrame;
 
         float m_volumeValue;
         VolumeWidget *m_volumeWidget;

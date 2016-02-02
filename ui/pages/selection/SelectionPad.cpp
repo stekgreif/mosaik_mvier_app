@@ -9,6 +9,7 @@
 SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     : QWidget(parent)
 {
+    /** pad colors **/
     m_padId = id;
     m_padNr = m_padId%4;
 
@@ -34,7 +35,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
             break;
     }
 
-
+    /** sizes **/
     m_widgetSize = new QSize;
     m_widgetSize->setHeight(widgetSize->height());
     m_widgetSize->setWidth(widgetSize->width());
@@ -44,6 +45,12 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     int mS = 2;
     int lS = 12;
 
+
+
+    m_selectionFrame = new QLabel(this);
+    m_selectionFrame->setFixedSize( m_widgetSize->width(),  m_widgetSize->height());
+    m_selectionFrame->setObjectName("subchannelSelectionFrame");
+    m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(100,100,100,0%);}");
 
     /**  layer 0 - widget **/
     this->setObjectName("pad_widget");
@@ -199,13 +206,37 @@ void SelectionPad::m_slot_padPressed()
 
 void SelectionPad::setPadToSelectionColor(void)
 {
-    m_subChColor->setStyleSheet("QLabel#color" + m_padOnColor);
+    //m_subChColor->setStyleSheet("QLabel#color" + m_padOnColor);
+    //m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(180,180,180,100%);}");
+    //m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(180,180,180,100%);}");
+
+    switch (m_padNr)
+    {
+        case 0:  //red 255,0,0
+            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,  0,  0,25%);}");
+            break;
+        case 1: //blue 0,0,255
+            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(  0,  0,255,25%);}");
+            break;
+        case 2: //yellow 255,255,0
+            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,255,  0,25%);}");
+            break;
+        case 3: //magenta 255,0,255
+            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,  0,255,25%);}");
+            break;
+        default:
+            break;
+    }
+
 }
 
 void SelectionPad::setPadToDeselectionColor(void)
 {
-    m_subChColor->setStyleSheet("QLabel#color" + m_padOffColor);
+    //m_subChColor->setStyleSheet("QLabel#color" + m_padOffColor);
+    m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(0,0,0,0%);}");
 }
+
+
 
 
 
