@@ -39,7 +39,6 @@ SOURCES += main.cpp\
 	core/subchannel/Envelope.cpp \
 	core/subchannel/Sample.cpp \
 	ui/UiManager.cpp \
-	ui/pages/youtube/Youtube.cpp \
     ui/pages/debug/pagemidi.cpp \
     ui/pages/selection/PageSelection.cpp \
     ui/pages/subchannel/PageSubchannel.cpp \
@@ -57,7 +56,6 @@ SOURCES += main.cpp\
     ui/pages/subchannel/Pattern.cpp \
 	ui/sidepanels/SubchannelPreview.cpp \
     core/midi/devices/VirtualMidiDevice.cpp \
-    ui/widgets/test.cpp \
     ui/pages/browser/SampleBrowser.cpp \
     core/subchannel/Prelisten.cpp \
     ui/pages/selection/MuteAndSolo.cpp \
