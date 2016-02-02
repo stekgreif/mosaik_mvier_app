@@ -123,7 +123,7 @@ void PageSelection::slot_regularTimer()
         QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample(cnt);
         if(samplePtr != NULL)
         {
-            envelope_t envelope = subchannelManager().getEnvelope(curSubPos);
+            envelope_t envelope = subchannelManager().getEnvelope(cnt);
             int nof = samplePtr->getSampleStructPointer()->sndInfo.frames;
             int fs  = samplePtr->getSampleStructPointer()->sndInfo.samplerate;
             int startMs = ( (envelope.start * nof) / fs) * 1000;
