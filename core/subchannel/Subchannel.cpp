@@ -221,7 +221,7 @@ void Subchannel::printSubchannelPatternsToDebug(void)
 /** Sample **/
 void Subchannel::loadSample(QString pathAndName)
 {
-    m_volume = 0.0;
+    m_volume = 0.6;
     m_sharedSamplePtr = QSharedPointer<Sample>(new Sample(pathAndName));
     m_hasSample = true;
 }
