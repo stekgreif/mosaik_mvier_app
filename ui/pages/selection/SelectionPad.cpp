@@ -12,6 +12,28 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_padId = id;
     m_padNr = m_padId%4;
 
+    switch (m_padNr)
+    {
+        case 0:  //red 255,0,0
+            m_padOnColor  = "QLabel#color {background-color: rgba(255,0,0,100%);}";
+            m_padOffColor = "QLabel#color {background-color: rgba(255,0,0,15%);}";
+            break;
+        case 1: //blue 0,0,255
+            m_padOnColor  = "QLabel#color {background-color: rgba(0,0,255,100%);}";
+            m_padOffColor = "QLabel#color {background-color: rgba(0,0,255,15%);}";
+            break;
+        case 2: //yellow 255,255,0
+            m_padOnColor  = "QLabel#color {background-color: rgba(255,255,0,100%);}";
+            m_padOffColor = "QLabel#color {background-color: rgba(255,255,0,15%);}";
+            break;
+        case 3: //magenta 255,0,255
+            m_padOnColor  = "QLabel#color {background-color: rgba(255,0,255,100%);}";
+            m_padOffColor = "QLabel#color {background-color: rgba(255,0,255,15%);}";
+            break;
+        default:
+            break;
+    }
+
 
     m_widgetSize = new QSize;
     m_widgetSize->setHeight(widgetSize->height());
@@ -207,10 +229,12 @@ void SelectionPad::m_slot_padPressed()
 
 void SelectionPad::setPadToSelectionColor(void)
 {
+#if 0
     switch (m_padNr)
     {
         case 0:  //red 255,0,0
             m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,100%);}");
+            //m_subChColor->setStyleSheet(m_padOnColor);
             break;
         case 1: //blue 0,0,255
             m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,100%);}");
@@ -224,12 +248,15 @@ void SelectionPad::setPadToSelectionColor(void)
         default:
             break;
     }
+#endif
+    m_subChColor->setStyleSheet(m_padOnColor);
 }
 
 
 
 void SelectionPad::setPadToDeselectionColor(void)
 {
+#if 0
     switch (m_padNr)
     {
         case 0:  //red 255,0,0
@@ -247,6 +274,8 @@ void SelectionPad::setPadToDeselectionColor(void)
         default:
             break;
     }
+#endif
+    m_subChColor->setStyleSheet(m_padOffColor);
 }
 
 
