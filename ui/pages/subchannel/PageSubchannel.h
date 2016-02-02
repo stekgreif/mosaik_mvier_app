@@ -103,6 +103,9 @@ class PageSubchannel : public QWidget
         QRect  *m_sampleWindowAttributes;
         QPoint *m_sampleLabelAttributes;
         QRect  *m_patternWidgetAttributes;
+
+        /** test **/
+        QPushButton *m_btnTestTreeCollapse;
 };
 
 #endif // PAGESUBCHANNEL_H

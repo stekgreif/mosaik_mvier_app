@@ -10,7 +10,7 @@ Browser::Browser(QWidget *uiParent)
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
     /** change size and position here **/
-    m_browserWindowSizeAndPosition = new QRect( 20,  20, 780, 650);
+    m_browserWindowSizeAndPosition = new QRect( 20,  20, 780, 600);
 
 
     /** path **/
@@ -47,6 +47,9 @@ Browser::Browser(QWidget *uiParent)
     QFont treeFont;
     treeFont.setPixelSize(14);
     m_treeView->setFont(treeFont);
+
+
+
 }
 
 Browser::~Browser()
@@ -147,5 +150,37 @@ void Browser::slot_loadSampleToPrelisten()
     {
         qDebug() <<Q_FUNC_INFO <<"Not a file.";
     }
+}
+
+void Browser::slot_toggleParentFolderState()
+{
+    //m_treeView->cursorLeft();
+
+    //qDebug() <<Q_FUNC_INFO <<m_treeView->currentIndex();
+
+
+    /** closing mechanism **/
+    QModelIndex curIdx = m_treeView->currentIndex();
+    qDebug() <<Q_FUNC_INFO <<"start:" <<curIdx.row();
+
+    if(curIdx.row() == 0)
+    {
+        m_treeView->cursorUp();
+        m_treeView->setExpanded(m_treeView->currentIndex(), false);
+    }
+    else
+    {
+        for(int i = curIdx.row(); i >= 0; i--)
+        {
+            m_treeView->cursorUp();
+            curIdx = m_treeView->currentIndex();
+            qDebug() <<Q_FUNC_INFO <<curIdx.row();
+        }
+
+        m_treeView->setExpanded(m_treeView->currentIndex(), false);
+    }
+
+    /** @todo this can replace the BrowserTree implementation **/
+    //m_treeView->setExpanded(m_treeView->currentIndex(), false);
 }
 

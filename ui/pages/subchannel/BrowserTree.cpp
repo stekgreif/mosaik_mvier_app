@@ -1,6 +1,7 @@
 #include "BrowserTree.h"
 
 #include <QKeyEvent>
+#include <QDebug>
 
 BrowserTree::BrowserTree(QWidget *parent)
     : QTreeView(parent)
@@ -31,6 +32,7 @@ void BrowserTree::cursorDown()
 
 void BrowserTree::cursorLeft()
 {
+    qDebug() <<Q_FUNC_INFO <<"toggle open/close folder";
     QKeyEvent *event = nullptr;
     event = new QKeyEvent(QEvent::KeyPress, Qt::Key_Left, Qt::NoModifier, "left", false, 0);
     keyPressEvent(event);

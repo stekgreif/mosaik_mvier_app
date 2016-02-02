@@ -26,6 +26,7 @@ class Browser : public QWidget
         void slot_toggleItmeExpansion(void);
         void slot_loadSample(void);
         void slot_loadSampleToPrelisten(void);
+        void slot_toggleParentFolderState(void);
 
 
     private:

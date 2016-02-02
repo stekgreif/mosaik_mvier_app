@@ -70,6 +70,17 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_browser->move(20,350);
     //m_browser->setFixedSize(m_sampleWindowAttributes->width(), m_sampleWindowAttributes->height());
 
+    /** test **/
+    m_btnTestTreeCollapse = new QPushButton(this);
+    m_btnTestTreeCollapse->setFixedSize(100,50);
+    m_btnTestTreeCollapse->move(20,980);
+    m_btnTestTreeCollapse->setText("Close Folder");
+
+
+    connect(m_btnTestTreeCollapse,
+            SIGNAL(clicked()),
+            m_browser,
+            SLOT(slot_toggleParentFolderState()));
 
     refresh();
 }
