@@ -37,6 +37,7 @@ Browser::Browser(QWidget *uiParent)
     m_fileSystem->setNameFilterDisables(false); // hide other files than wav and do not gray them out
     m_fileSystem->setRootPath(m_defaultPath);
     m_treeView->setObjectName("treeView");
+    m_treeView->setStyleSheet("QTreeView#treeView {background-color: rgb(90,90,90);}");
     m_treeView->setFocus();
     m_treeView->setModel(m_fileSystem);
     m_treeView->setAutoScroll(true);  // default
