@@ -42,8 +42,6 @@ SOURCES += main.cpp\
     ui/pages/selection/PageSelection.cpp \
     ui/pages/subchannel/PageSubchannel.cpp \
     ui/pages/subchannel/qcustomplot.cpp \
-    ui/pages/subchannel/mypot.cpp \
-    ui/pages/subchannel/rotary.cpp \
     ui/pages/subchannel/DrawEnvelope.cpp \
 	ui/pages/subchannel/DrawPlayCursor.cpp \
     ui/pages/selection/SelectionPad.cpp \
@@ -81,8 +79,6 @@ HEADERS  += MosaikMiniApp.h \
     ui/pages/subchannel/PageSubchannel.h \
     ui/pages/subchannel/qcustomplot.h \
     ui/UiManager.h \
-    ui/pages/subchannel/mypot.h \
-    ui/pages/subchannel/rotary.h \
     ui/pages/subchannel/DrawEnvelope.h \
 	ui/pages/subchannel/DrawPlayCursor.h \
     ui/pages/selection/SelectionPad.h \
