@@ -39,7 +39,6 @@ SOURCES += main.cpp\
 	core/subchannel/Envelope.cpp \
 	core/subchannel/Sample.cpp \
 	ui/UiManager.cpp \
-    ui/pages/debug/pagemidi.cpp \
     ui/pages/selection/PageSelection.cpp \
     ui/pages/subchannel/PageSubchannel.cpp \
     ui/pages/subchannel/qcustomplot.cpp \
@@ -48,9 +47,6 @@ SOURCES += main.cpp\
     ui/pages/subchannel/DrawEnvelope.cpp \
 	ui/pages/subchannel/DrawPlayCursor.cpp \
     ui/pages/selection/SelectionPad.cpp \
-    ui/pages/settings/PageSettings.cpp \
-    ui/pages/info/PageInfos.cpp \
-    ui/pages/debug/PageDebug.cpp \
 	ui/pages/subchannel/StepPad.cpp \
     ui/pages/browser/PageBrowser.cpp \
     ui/pages/subchannel/Pattern.cpp \
@@ -85,7 +81,6 @@ HEADERS  += MosaikMiniApp.h \
 	core/subchannel/Envelope.h \
 	core/subchannel/Sample.h \
     ui/pages/youtube/Youtube.h \
-    ui/pages/debug/pagemidi.h \
     ui/pages/selection/PageSelection.h \
     ui/pages/subchannel/PageSubchannel.h \
     ui/pages/subchannel/qcustomplot.h \
@@ -96,9 +91,6 @@ HEADERS  += MosaikMiniApp.h \
     ui/pages/subchannel/DrawEnvelope.h \
 	ui/pages/subchannel/DrawPlayCursor.h \
     ui/pages/selection/SelectionPad.h \
-    ui/pages/settings/PageSettings.h \
-    ui/pages/info/PageInfos.h \
-    ui/pages/debug/PageDebug.h \
     ui/pages/browser/PageBrowser.h \
 	ui/pages/subchannel/Pattern.h \
 	ui/pages/subchannel/StepPad.h \
