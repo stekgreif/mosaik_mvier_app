@@ -58,23 +58,26 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
 
 
     m_volumeWidget = new VolumeWidget(this);
-    m_volumeWidget->move(wP*20.2, hP*6.7);
+    m_volumeWidget->move(wP*19, hP*2);
 
 
     /** layer 1 - info tiles **/
+    m_sampleNameLeft = new QLabel(this);
+    m_sampleNameLeft->setObjectName("sampleNameLeft");
+    m_sampleNameLeft->setStyleSheet("QLabel#sampleNameLeft {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
+    //m_sampleNameLeft->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 1.4 );
+    m_sampleNameLeft->move( (m_widgetSize->width()/20)*2.5, (m_widgetSize->height()/5) * 2.4 );
+    m_sampleNameLeft->setAlignment(Qt::AlignLeft);
+    m_sampleNameLeft->setFixedWidth((m_widgetSize->width()/20)*16);
+
+#if 0
     m_sampleNameRight = new QLabel(this);
     m_sampleNameRight->setObjectName("sampleNameRight");
     m_sampleNameRight->setStyleSheet("QLabel#sampleNameRight {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
     m_sampleNameRight->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 2.0 );
     m_sampleNameRight->setAlignment(Qt::AlignRight);
     m_sampleNameRight->setFixedWidth((m_widgetSize->width()/20)*18);
-
-    m_sampleNameLeft = new QLabel(this);
-    m_sampleNameLeft->setObjectName("sampleNameLeft");
-    m_sampleNameLeft->setStyleSheet("QLabel#sampleNameLeft {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_sampleNameLeft->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 1.4 );
-    m_sampleNameLeft->setAlignment(Qt::AlignLeft);
-    m_sampleNameLeft->setFixedWidth((m_widgetSize->width()/20)*18);
+#endif
 
     m_sampleTime = new QLabel(this);
     m_sampleTime->setObjectName("sampleTime");
@@ -85,8 +88,8 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_sampleSteps = new QLabel(this);
     m_sampleSteps->setObjectName("sampleSteps");
     m_sampleSteps->setStyleSheet("QLabel#sampleSteps {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_sampleSteps->move( ((m_widgetSize->width()/20) * 14), (m_widgetSize->height()/5) * 4 );
-    m_sampleSteps->setAlignment(Qt::AlignCenter);
+    m_sampleSteps->move( ((m_widgetSize->width()/20) * 10), (m_widgetSize->height()/5) * 4 );
+    m_sampleSteps->setAlignment(Qt::AlignRight);
 
 
 #if 1 // subchannel color pads
@@ -176,19 +179,23 @@ void SelectionPad::clearIsPlaying()
 
 void SelectionPad::setSampleParameters(QString name, float time, float steps)
 {
+#if 0
     m_sampleNameRight->setText(name);
     m_sampleNameRight->adjustSize();
+#endif
     m_sampleNameLeft->setText(name);
     m_sampleNameLeft->adjustSize();
     m_sampleTime->setText( QString::number(time/1000, 'f', 2) + " s" );
     m_sampleTime->adjustSize();
-    m_sampleSteps->setText( QString::number(steps, 'f', 2) );
+    m_sampleSteps->setText( "[" + QString::number(steps, 'f', 2) + "]");
     m_sampleSteps->adjustSize();
 }
 
 void SelectionPad::clearSampleName()
 {
+#if 0
     m_sampleNameRight->setText(" ");
+#endif
     m_sampleTime->setText(" ");
 }
 
