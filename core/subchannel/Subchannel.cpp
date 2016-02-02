@@ -46,7 +46,6 @@ Subchannel::~Subchannel()
 {
     delete m_envelope;
     m_pattern->clear();
-    //qDebug() <<"~" <<Q_FUNC_INFO <<m_subchannelId;
 }
 
 void Subchannel::setStartPointRel(float start)
@@ -76,23 +75,18 @@ envelope_t Subchannel::getEnvelope()
 
 
 
-
-
-
-
-
-
-
 /** sequencer **/
 
 void Subchannel::toggleStep(int stepId)
 {
     if( m_pattern->at(stepId) == 1)
+    {
         m_pattern->replace(stepId, 0);
+    }
     else
+    {
         m_pattern->replace(stepId, 1);
-
-    //printSubchannelPatternsToDebug();
+    }
 }
 
 
@@ -102,7 +96,6 @@ void Subchannel::clearPattern()
     {
         m_pattern->replace(i, 0);
     }
-    //printSubchannelPatternsToDebug();
 }
 
 
@@ -134,9 +127,13 @@ QBitArray Subchannel::getPattern()
     for (int i = 0; i < 64; i++)
     {
         if( m_pattern->at(i) == 1)
+        {
             pattern.setBit(i);
+        }
         else
+        {
             pattern.clearBit(i);
+        }
     }
 
     //qDebug() <<Q_FUNC_INFO <<pattern;
@@ -148,16 +145,19 @@ QBitArray Subchannel::getPattern()
 bool Subchannel::hasSteps(void)
 {
     if(m_pattern->count(1) > 0)
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 
 
 void Subchannel::updateRelativeStepCounter(int step)
 {
-    //m_stepCounter = step;
     m_alsaStep = step;
 }
 

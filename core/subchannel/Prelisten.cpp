@@ -31,12 +31,9 @@ TwoChannelFrame_t Prelisten::getFrame(void)
         m_sampleBuffer  = m_sample->getSampleStructPointer()->frameBuffer;
         m_channels      = m_sample->getSampleStructPointer()->sndInfo.channels;
         m_playNewSample = false;
-        //qDebug() <<Q_FUNC_INFO <<"Start playing, m_frameNumbers:" <<m_frameNumbers;
-#if 1
         envelope_t envelope = subchannelManager().getCurrentEnvelope();
         m_frameCounter = envelope.start * m_frameNumbers;
         m_envEnd       = envelope.end   * m_frameNumbers;
-#endif
     }
     else
     {
@@ -44,9 +41,6 @@ TwoChannelFrame_t Prelisten::getFrame(void)
             return retVal;
     }
 
-
-
-#if 1 // 2015-05-12 - works
     if( m_channels == 1 )
     {
         retVal.left  = m_sampleBuffer[m_frameCounter];
@@ -60,14 +54,12 @@ TwoChannelFrame_t Prelisten::getFrame(void)
         retVal.right = m_sampleBuffer[m_frameCounter];
         m_frameCounter++;
     }
-#endif
 
-    //if( m_frameCounter >= (m_frameNumbers) )
     if( m_frameCounter >= (m_envEnd) )
     {
         m_finishedPlaying = true;
         delete m_sample;
-        qDebug() <<Q_FUNC_INFO <<"Sample pointer cleared.";
+        //qDebug() <<Q_FUNC_INFO <<"Sample pointer cleared.";
     }
 
     return retVal;
@@ -79,8 +71,6 @@ void Prelisten::playSample(QString pathAndName)
 {
     m_sample = new Sample(pathAndName);
     m_playNewSample = true;
-    qDebug() <<Q_FUNC_INFO
-             <<"Sample loaded from:" <<pathAndName
-             <<"with" <<m_sample->getSampleStructPointer()->sndInfo.frames <<"frames.";
+    //qDebug() <<Q_FUNC_INFO <<"Sample loaded from:" <<pathAndName  <<"with" <<m_sample->getSampleStructPointer()->sndInfo.frames <<"frames.";
 }
 
