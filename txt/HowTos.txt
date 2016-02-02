@@ -1,6 +1,27 @@
+================================================================================
+# HOW TO...
+================================================================================
 
 
-HOW TO...
+
+================================================================================
+##  GENERAL
+================================================================================
+
+Manager are classes that handle the data-flow with there subclasses. If you want
+to send some data from Mosaik4App.cpp you probably have to go through a manager.
+
+
+
+================================================================================
+##  MIDI
+================================================================================
+
+Handle incomming MIDI Signals
+Incomming Midi-Signals will generate a signal_ in core/midi/MidiManager.cpp
+MidiManager::connectFavouriteDevice() to which the programmer can connect to.
+
+
 
 Implement a new MIDI feature:
 - Add slot to MosaikMiniApp
@@ -9,10 +30,56 @@ Implement a new MIDI feature:
 - connect signal and slot in MidiManager connectFavouriteDevice()
 
 
-->setStyleSheet("QWidget#muteAndSolo {background-color: rgb(100,100,100);}");
-
-
 Add a new feature into a midi controller
 Add a new Midi controller
 
 
+
+
+================================================================================
+##  GUI
+================================================================================
+
+### Stylesheet
+================================================================================
+->setStyleSheet("QWidget#name {background-color: rgb(100,100,100);}");
+m_splitter->setStyleSheet("QSplitter::handle{background-image: url(QSplitter.png);}");
+
+### Text/Font
+================================================================================
+QFont f( "Arial", 10, QFont::Bold );
+textLabel->setFont(f);
+
+
+### draw a line
+================================================================================
+QPainter painter2(this);
+painter2.setPen(QPen(Qt::black, 12, Qt::DashDotLine, Qt::RoundCap));
+painter2.drawLine(0, 0, 200, 200);
+
+
+### paint event
+================================================================================
+//.h
+protected:
+	void paintEvent(QPaintEvent *event);
+
+//.cpp
+#include <QPainter>
+#include <QStyleOption>
+
+void MuteAndSolo::paintEvent(QPaintEvent *event)
+{
+	Q_UNUSED(event);
+	QStyleOption myOption;
+	myOption.initFrom(this);
+	QPainter myPainter(this);
+	style()->drawPrimitive( QStyle::PE_Widget, &myOption, &myPainter, this);
+}
+
+
+================================================================================
+##  SIGNAL SLOT
+================================================================================
+connect( m_timer, SIGNAL(timeout()), this,  SLOT(slot_regularTimer()) );
+emit signal_subchannelSelectionPadTriggert(id);

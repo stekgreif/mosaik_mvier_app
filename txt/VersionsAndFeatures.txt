@@ -1,6 +1,28 @@
 ================================================================================
+
+================================================================================
+
+
+
+TODO:
+- stop playing prelisten sample
+- waveform-display (1-2-4-8-HenryBuffer)
+- subhannel: play direction
+- wenn Sample in Subch. geladen werden soll der schon eins hat => nachfragen
+- LED für Subchannel/Channel Ansicht bei Start aktivieren
+- beim Wechsel von einem zu einem anderen Channel funktioniert die RGB Anzeige nicht richtig
+- uniui
+- BPM-Änderung verbessern
+- Tiles
+- Subchannel-Sample and deleting Patterns should be revise
+- SW has to run without HW
+- Subchannel default volume should be revised
+- default values for unloaded/loaded/reloaded should be determined
+- implement a splashscreen with a software-project overview
+
+
+================================================================================
 V0.015_build_2015-06-22
-X Subchannel default volume auf 0.0 geändert
 X Subchannel volume wird beim Laden eines neuen Samples auf auch auf 0.0 gesetzt
 X Random BPM start zwischen 70 und 170 implementiert
 X Subchannel Volume quadratisch in Audio-Return-Funktion (main + pre)
@@ -39,19 +61,6 @@ X MutePads eingehackt, unmute all und lastMute hinzugefügt
 X Vorhören: Sample im Sample-Browser
 X Vorhören: selektierten Subchannel wie er auch live zu hören ist
 X Vorhören: Sample des selektierten Subchannels mit Parametern abspielen
-
-
-TODO:
-- unload Sample soll alle Parameter zurücksetzen; Lautstärke, Pan
-- stop playing prelisten sample
-- Waveform-Anzeige (1-2-4-8-... Buffer)
-- Play Direction
-- wenn Sample in Subch. geladen werden soll der schon eins hat => nachfragen
-- LED für Subchannel/Channel Ansicht bei Start aktivieren
-- beim Wechsel von einem zu einem anderen Channel funktioniert die RGB Anzeige nicht richtig
-- HWUI umsortieren
-- BPM-Änderung verbessern
-
 
 
 v0.02 und später
