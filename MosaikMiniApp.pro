@@ -77,7 +77,6 @@ HEADERS  += MosaikMiniApp.h \
 	core/subchannel/Sequencer.h \
 	core/subchannel/Envelope.h \
 	core/subchannel/Sample.h \
-    ui/pages/youtube/Youtube.h \
     ui/pages/selection/PageSelection.h \
     ui/pages/subchannel/PageSubchannel.h \
     ui/pages/subchannel/qcustomplot.h \
@@ -90,7 +89,6 @@ HEADERS  += MosaikMiniApp.h \
 	ui/pages/subchannel/Pattern.h \
 	ui/pages/subchannel/StepPad.h \
     core/midi/devices/VirtualMidiDevice.h \
-    ui/widgets/test.h \
     core/subchannel/Prelisten.h \
     ui/pages/selection/MuteAndSolo.h \
     ui/pages/selection/MuteAndSoloPad.h \

@@ -53,6 +53,7 @@ MuteAndSolo::~MuteAndSolo()
 
 void MuteAndSolo::display(bool state)
 {
+    Q_UNUSED(state);
 #if 0
     if( state )
         this->setFixedSize(settings().getScreenSize().height(), settings().getScreenSize().height());
@@ -62,6 +63,8 @@ void MuteAndSolo::display(bool state)
     update();
 #endif
 }
+
+
 
 void MuteAndSolo::refresh()
 {

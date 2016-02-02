@@ -5,14 +5,9 @@
 #include <QStackedWidget>
 #include <QTimer>
 
-#include <ui/sidepanels/SubchannelPreview.h>
 
-#include "ui/pages/debug/PageDebug.h"
 #include "ui/pages/subchannel/PageSubchannel.h"
 #include "ui/pages/selection/PageSelection.h"
-#include "ui/pages/settings/PageSettings.h"
-#include "ui/pages/info/PageInfos.h"
-#include "ui/pages/browser/PageBrowser.h"
 
 
 class MosaikMiniApp;
@@ -29,7 +24,6 @@ class UiManager : public QWidget
         void setPageIndex(int id);
         int  getCurrentPageId(void);
         MosaikMiniApp *getParent(void);
-        PageBrowser    *m_pageBrowser;
         PageSubchannel *m_pageSubchannel;
 
 
@@ -41,21 +35,15 @@ class UiManager : public QWidget
         MosaikMiniApp *m_mosaikMiniApp;
 
         QStackedWidget  *m_stackedPages;
-        //QStackedWidget  *m_overlayStack;
 
         /* side panels */
-        SubchannelPreview   *m_subchannelPreview;
         QLabel              *m_labelStepCounter;
         QLabel              *m_labelBpm;
         QLabel              *m_labelMainVol;
         QLabel              *m_labelPreVol;
 
         /* pages */
-        PageDebug      *m_pageDebug;
         PageSelection  *m_pageSelection;
-        PageSettings   *m_pageSettings;
-        PageInfos      *m_pageInfos;
-
         QTimer *m_timer;
 
 

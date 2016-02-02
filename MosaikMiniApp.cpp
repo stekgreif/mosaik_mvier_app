@@ -9,7 +9,6 @@
 #include "Settings.h"
 #include "MosaikTypes.h"
 
-#include "ui/pages/debug/pagemidi.h"
 #include "ui/pages/subchannel/PageSubchannel.h"
 
 #include "core/audio/AlsaPcm.h"

@@ -8,13 +8,8 @@
 #include <QStackedWidget>
 
 #include "ui/UiManager.h"
-#include "ui/pages/debug/pagemidi.h"
 #include "ui/pages/subchannel/PageSubchannel.h"
 #include "ui/pages/selection/PageSelection.h"
-#include "ui/pages/youtube/Youtube.h"
-#include "ui/pages/settings/PageSettings.h"
-#include "ui/pages/info/PageInfos.h"
-#include "ui/sidepanels/SubchannelPreview.h"
 
 #include "core/subchannel/SubchannelManager.h"
 #include "core/audio/AlsaPcm.h"
@@ -23,20 +18,6 @@
 
 #include <QTimer>
 
-/*
-
-slot_stepButtonPressed
-slot_functionButtonPressed
-slot_sampleChanged
-slot_volumeChanged
-slot_subchannelSelection
-
-
-
-event_subchannelSelection
-receive_subchannelSelection
-
-*/
 
 
 

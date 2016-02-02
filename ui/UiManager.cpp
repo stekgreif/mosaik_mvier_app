@@ -1,10 +1,9 @@
-#include "UiManager.h"
+#include "ui/UiManager.h"
 
 #include <QDebug>
 #include <QPainter>
 #include <QStyleOption>
 
-#include <ui/sidepanels/SubchannelPreview.h>
 #include <core/subchannel/SubchannelManager.h>
 #include "Settings.h"
 
@@ -124,21 +123,6 @@ void UiManager::refresh()
         case 0:
             m_pageSubchannel->refresh();
             break;
-        case 1:
-            //sample browser
-            break;
-        case 2:
-            // page mute/solo
-            break;
-        case 3:
-            m_pageSettings->refresh();
-            break;
-        case 4:
-            m_pageInfos->refresh();
-            break;
-        case 5:
-            m_pageDebug->refresh();
-            break;
         default:
             break;
     }
@@ -216,9 +200,6 @@ void UiManager::loadSelectedSampleToPrelisten()
 void UiManager::slot_setPathId(int pathId)
 {
     m_pageSubchannel->slot_changePath(pathId);
-    //m_pageSubchannel->refresh();
-    //m_pageBrowser->slot_changePathId(pathId);
-    //m_pageSubchannel->slot_changePathId(pathId);
 }
 
 
@@ -230,7 +211,6 @@ int UiManager::getCurrentPageId()
 
 MosaikMiniApp *UiManager::getParent()
 {
-    //return m_parent;
     return m_mosaikMiniApp;
 }
 
