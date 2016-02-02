@@ -48,10 +48,8 @@ SOURCES += main.cpp\
 	ui/pages/subchannel/DrawPlayCursor.cpp \
     ui/pages/selection/SelectionPad.cpp \
 	ui/pages/subchannel/StepPad.cpp \
-    ui/pages/browser/PageBrowser.cpp \
     ui/pages/subchannel/Pattern.cpp \
     core/midi/devices/VirtualMidiDevice.cpp \
-    ui/pages/browser/SampleBrowser.cpp \
     core/subchannel/Prelisten.cpp \
     ui/pages/selection/MuteAndSolo.cpp \
     ui/pages/selection/MuteAndSoloPad.cpp \
@@ -89,12 +87,10 @@ HEADERS  += MosaikMiniApp.h \
     ui/pages/subchannel/DrawEnvelope.h \
 	ui/pages/subchannel/DrawPlayCursor.h \
     ui/pages/selection/SelectionPad.h \
-    ui/pages/browser/PageBrowser.h \
 	ui/pages/subchannel/Pattern.h \
 	ui/pages/subchannel/StepPad.h \
     core/midi/devices/VirtualMidiDevice.h \
     ui/widgets/test.h \
-    ui/pages/browser/SampleBrowser.h \
     core/subchannel/Prelisten.h \
     ui/pages/selection/MuteAndSolo.h \
     ui/pages/selection/MuteAndSoloPad.h \
