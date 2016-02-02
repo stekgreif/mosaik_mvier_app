@@ -24,7 +24,6 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 
     /** pages **/
     m_pageSubchannel = new PageSubchannel(m_mosaikMiniApp, this);
-    //m_pageBrowser    = new PageBrowser(this);
     m_pageSelection = new PageSelection(this);
     m_pageSelection->setFixedSize(h,h);
     m_pageSelection->move(0,0);
@@ -35,9 +34,7 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     m_stackedPages->setObjectName("pageStack");
     m_stackedPages->setFixedSize(w-h-20 , h-20);
     m_stackedPages->move(h+20, 20);
-
     m_stackedPages->addWidget(m_pageSubchannel);
-    //m_stackedPages->addWidget(m_pageBrowser);
     m_stackedPages->setCurrentIndex(0);
 
 
@@ -70,9 +67,11 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     connect(m_pageSelection,  SIGNAL(signal_subchannelSelectionPadPressed(int)), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
     connect(m_pageSubchannel, SIGNAL(signal_btnLoadSamplePressed()), this, SLOT(refresh()) );
 
+#if 0
     m_timer = new QTimer;
     m_timer->start(100);
     connect( m_timer, SIGNAL(timeout()), this,  SLOT(slot_regularTimer()) );
+#endif
 }
 
 

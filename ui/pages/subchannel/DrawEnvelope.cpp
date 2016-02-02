@@ -36,6 +36,7 @@ void DrawEnvelope::setEnvelope(envelope_t envelope)
 
 void DrawEnvelope::refresh()
 {
+    qDebug() <<Q_FUNC_INFO <<"delete me";
 #if 0
     QPainter painter(this);
     QPen     line;

@@ -173,6 +173,7 @@ void PageSelection::slot_regularTimer()
 
 void PageSelection::refresh()
 {
+    qDebug() <<Q_FUNC_INFO <<"delete me";
 #ifndef TIMER
     qDebug() <<Q_FUNC_INFO;
 
@@ -218,6 +219,7 @@ void PageSelection::refresh()
 
 void PageSelection::refreshTiles()
 {
+    qDebug() <<Q_FUNC_INFO <<"delete me";
 #ifndef TIMER
     //qDebug() <<Q_FUNC_INFO;
     QBitArray isPlaying(64);
@@ -235,6 +237,7 @@ void PageSelection::refreshTiles()
 
 void PageSelection::refreshMutePads()
 {
+    qDebug() <<Q_FUNC_INFO <<"delete me";
 #ifndef TIMER
     m_muteAndSolo->refresh();
 #endif
@@ -244,6 +247,7 @@ void PageSelection::refreshMutePads()
 
 void PageSelection::refreshSampleParameters()
 {
+    qDebug() <<Q_FUNC_INFO <<"delete me";
 #ifndef TIMER
     qDebug() <<Q_FUNC_INFO;
     for( int cnt = 0; cnt < 63; cnt++ )
@@ -271,6 +275,7 @@ void PageSelection::refreshSampleParameters()
 
 void PageSelection::refreshSampleVolume()
 {
+    qDebug() <<Q_FUNC_INFO <<"delete me";
 #ifndef TIMER
     qDebug() <<Q_FUNC_INFO;
 

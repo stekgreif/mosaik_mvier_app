@@ -9,7 +9,6 @@
 #include </usr/include/sndfile.h>
 
 #include "ui/pages/subchannel/qcustomplot.h"
-#include <ui/pages/subchannel/rotary.h>
 #include <ui/pages/subchannel/DrawEnvelope.h>
 #include <ui/pages/subchannel/Pattern.h>
 
@@ -44,7 +43,6 @@ class PageSubchannel : public QWidget
 
 
     private slots:
-        void slot_potPosChanged(int id, float value);
         void slot_changePage(void);
 
 
@@ -98,20 +96,13 @@ class PageSubchannel : public QWidget
         QLabel *m_headline;
         QLabel *m_labelVarPathAndName;
 
-        QPushButton *m_changePage;
-
 
         DrawEnvelope *m_envelope;
-        Pattern *m_pattern;
 
 
         QRect  *m_sampleWindowAttributes;
         QPoint *m_sampleLabelAttributes;
         QRect  *m_patternWidgetAttributes;
-
-
-        /* pots */
-        Rotary *m_potiWidget[5];
 };
 
 #endif // PAGESUBCHANNEL_H

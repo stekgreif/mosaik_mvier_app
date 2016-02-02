@@ -52,71 +52,6 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelVarPathAndName->setStyleSheet("QLabel#labelVarPathAndName {color: rgb(200,200,200)};");
     m_labelVarPathAndName->move(m_sampleWindowAttributes->left(), m_sampleWindowAttributes->top()-20); //360,160
 
-#if 0 // remove canidate
-    /** sample property labels **/
-    m_samplePropertyNameLabels = new QVector<QLabel*>;
-    m_samplePropertyLabel      = new QVector<QLabel*>;
-    m_samplePropertyNames      = new QVector<QString>;
-    m_samplePropertyNames->resize(10);
-    m_samplePropertyNames->replace(SampleInfoIds::channels,   "Channels:"  );
-    m_samplePropertyNames->replace(SampleInfoIds::samplerate, "Samplerate:");
-    m_samplePropertyNames->replace(SampleInfoIds::frames,     "Frames:"    );
-    m_samplePropertyNames->replace(SampleInfoIds::length,     "Length:"    );
-    m_samplePropertyNames->replace(SampleInfoIds::start,      "Start:"     );
-    m_samplePropertyNames->replace(SampleInfoIds::end,        "End:"       );
-    m_samplePropertyNames->replace(SampleInfoIds::delta,      "Delta:"     );
-    m_samplePropertyNames->replace(SampleInfoIds::steps,      "Steps:"     );
-    m_samplePropertyNames->replace(SampleInfoIds::volume,     "Volume:"    );
-    m_samplePropertyNames->replace(SampleInfoIds::pan,        "Pan:"       );
-
-    for( int i = 0; i < 10; i++)
-    {
-        m_samplePropertyNameLabels->append(new QLabel( m_samplePropertyNames->at(i), this ) );
-        m_samplePropertyNameLabels->at(i)->setFont(labelFont);
-        m_samplePropertyNameLabels->at(i)->setObjectName("samplePropertyNameLabels");
-        m_samplePropertyNameLabels->at(i)->setStyleSheet("QLabel#samplePropertyNameLabels {color: rgb(150,150,150)};");
-        m_samplePropertyNameLabels->at(i)->move( m_sampleLabelAttributes->x(),
-                                                 m_sampleLabelAttributes->y() + i*20);
-
-        m_samplePropertyLabel->append(new QLabel( "---", this ) );
-        m_samplePropertyLabel->at(i)->setFont(varLabelFont);
-        m_samplePropertyLabel->at(i)->setObjectName("samplePropertyLabel");
-        m_samplePropertyLabel->at(i)->setStyleSheet("QLabel#samplePropertyLabel {color: rgb(150,150,150)};");
-        m_samplePropertyLabel->at(i)->move( m_sampleLabelAttributes->x() + 100,
-                                            m_sampleLabelAttributes->y() + i*20);
-    }
-#endif
-
-
-#if 0 // remove canidate
-    /** pattern widget **/
-    m_pattern = new Pattern(m_mosaikMiniApp, this);
-    m_pattern->move(m_patternWidgetAttributes->topLeft());
-#endif
-
-#ifdef WITH_POTIS // remove canidate
-    /** potis **/
-    for(int i = 0; i < 5; i++)
-    {
-        m_potiWidget[i] = new Rotary(i, this);
-        connect( m_potiWidget[i], SIGNAL(signal_valueChanged(int, float)), this , SLOT(slot_potPosChanged(int, float)) );
-    }
-    int xOffset = 200;
-    int yOffset = 650;
-    m_potiWidget[0]->slot_setName("Fade In");
-    m_potiWidget[1]->slot_setName("Fade Out");
-    m_potiWidget[2]->slot_setName("Start");
-    m_potiWidget[3]->slot_setName("End");
-    m_potiWidget[4]->slot_setName("Volume");
-    m_potiWidget[0]->move(  0+xOffset, 0+yOffset);
-    m_potiWidget[1]->move(180+xOffset, 0+yOffset);
-    m_potiWidget[2]->move(  0+xOffset, 150+yOffset);
-    m_potiWidget[3]->move(180+xOffset, 150+yOffset);
-    m_potiWidget[4]->move(90+xOffset, 75+yOffset);
-    m_potiWidget[4]->slot_setSelection(true);
-#endif
-
-
 
     /** envelope **/
     QSize envSize;
@@ -130,22 +65,11 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_envelope->setFixedWidth(m_sampleWindowAttributes->width());
 
 
-#if 0 // remove canidate
-    /** change page **/
-    m_changePage = new QPushButton(this);
-    m_changePage->move(710,945);
-    m_changePage->setFixedSize(80,80);
-#endif
-
     /** BROWSER **/
     m_browser = new Browser(this);
     m_browser->move(20,350);
     //m_browser->setFixedSize(m_sampleWindowAttributes->width(), m_sampleWindowAttributes->height());
 
-
-    /** connections **/
-    //connect( m_changePage, SIGNAL(pressed()), this, SLOT(slot_changePage()) );
-    //connect( m_pattern, SIGNAL(signal_padPressed(int)), m_parent->getParent(), SLOT(slot_stepButtonPressed(int)) );
 
     refresh();
 }
@@ -271,47 +195,10 @@ void PageSubchannel::resetSamplePlot()
 
 
 
-
-
-
-
 void PageSubchannel::slot_changePage(void)
 {
     m_parent->setPageIndex(1);
 }
-
-
-
-void PageSubchannel::slot_potPosChanged(int id, float value)
-{
-    Q_UNUSED(id);
-    Q_UNUSED(value);
-#ifdef WITH_POTIS
-    qDebug() <<Q_FUNC_INFO <<"rotary" <<id <<"changed to:" <<value;
-
-    switch (id)
-    {
-        case 0:
-            subchannelManager().setCurrentFadeInPointRel(value);
-            break;
-        case 1:
-            subchannelManager().setCurrentFadeOutPointRel(value);
-            break;
-        case 2:
-            subchannelManager().setCurrentStartPointRel(value);
-            break;
-        case 3:
-            subchannelManager().setCurrentEndPointRel(value);
-            break;
-        default:
-            break;
-    }
-
-    refresh();
-#endif
-}
-
-
 
 
 
@@ -329,7 +216,6 @@ void PageSubchannel::refresh()
 
     m_envelope->setEnvelope(subchannelManager().getCurrentEnvelope());
 
-    //m_pattern->refresh();
     refreshPots();
 }
 
@@ -343,14 +229,14 @@ void PageSubchannel::refreshEnvelope()
 
 void PageSubchannel::refreshPots()
 {
-#ifdef WITH_POTIS
-    m_potiWidget[4]->slot_setValue(subchannelManager().getCurrentSubchannelVolume());
-    m_potiWidget[4]->update();
-#endif
+    qDebug() <<Q_FUNC_INFO <<"delete me";
 }
+
+
 
 void PageSubchannel::refreshLabels()
 {
+    qDebug() <<Q_FUNC_INFO <<"delete me";
 #if 0 // remove canidate
     QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample();
 

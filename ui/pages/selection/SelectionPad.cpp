@@ -11,8 +11,6 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
 {
     m_padWidgetId = id;
 
-    //qDebug() <<Q_FUNC_INFO <<"InitPad:" <<m_padWidgetId;
-
 
     m_widgetSize = new QSize;
     m_widgetSize->setHeight(widgetSize->height());
@@ -22,7 +20,6 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     int hP = m_widgetSize->height()/20;
     int mS = 2;
     int lS = 12;
-
 
 
     /**  layer 0 - widget **/
@@ -61,13 +58,6 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_sampleSteps->move( ((m_widgetSize->width()/20) * 14), (m_widgetSize->height()/5) * 4 );
     m_sampleSteps->setAlignment(Qt::AlignCenter);
 
-#if 0 // replaced by SampleSteps
-    m_volume = new QLabel(this);
-    m_volume->setObjectName("volume");
-    m_volume->setStyleSheet("QLabel#volume {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_volume->move( ((m_widgetSize->width()/20) * 16), (m_widgetSize->height()/5) * 4 );
-    m_volume->setAlignment(Qt::AlignRight);
-#endif
 
 #if 1 // subchannel color pads
     m_subChColor = new QLabel(this);
@@ -153,7 +143,6 @@ SelectionPad::~SelectionPad()
 /** tiles **/
 void SelectionPad::setHasSteps()
 {
-    //m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(127,255,127);}");
     m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(250,250,250);}");
 }
 
@@ -164,7 +153,6 @@ void SelectionPad::clearHasSteps()
 
 void SelectionPad::setHasSample()
 {
-    //m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(180,180,215);}");
     m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(250,250,250);}");
 }
 
@@ -175,7 +163,6 @@ void SelectionPad::clearHasSample()
 
 void SelectionPad::setIsPlaying()
 {
-    //m_isPlaying->setStyleSheet("QLabel#tile_isPlaying {background-color: rgb(255,255,127);}");
     m_isPlaying->setStyleSheet("QLabel#tile_isPlaying {background-color: rgb(250,250,250);}");
 }
 
@@ -205,11 +192,7 @@ void SelectionPad::clearSampleName()
 
 void SelectionPad::setSampleVolume()
 {
-    //qDebug() <<Q_FUNC_INFO <<m_volumeValue;
-
     m_volumeValue = subchannelManager().getSubchannelVolume(m_padWidgetId);
-    //m_volume->setText( QString::number( m_volumeValue, 'f', 2 ) );
-    //m_volume->adjustSize();
     m_volumeWidget->setVolume(m_volumeValue);
 }
 
@@ -267,8 +250,6 @@ void SelectionPad::setPadToDeselectionColor(void)
 
 void SelectionPad::paintEvent(QPaintEvent *event)
 {
-    //qDebug() <<Q_FUNC_INFO;
-
     Q_UNUSED(event);
     QStyleOption myOption;
     myOption.initFrom(this);
