@@ -50,7 +50,6 @@ SOURCES += main.cpp\
 	ui/pages/subchannel/StepPad.cpp \
     ui/pages/browser/PageBrowser.cpp \
     ui/pages/subchannel/Pattern.cpp \
-	ui/sidepanels/SubchannelPreview.cpp \
     core/midi/devices/VirtualMidiDevice.cpp \
     ui/pages/browser/SampleBrowser.cpp \
     core/subchannel/Prelisten.cpp \
@@ -84,7 +83,6 @@ HEADERS  += MosaikMiniApp.h \
     ui/pages/selection/PageSelection.h \
     ui/pages/subchannel/PageSubchannel.h \
     ui/pages/subchannel/qcustomplot.h \
-    ui/sidepanels/SubchannelPreview.h \
     ui/UiManager.h \
     ui/pages/subchannel/mypot.h \
     ui/pages/subchannel/rotary.h \
