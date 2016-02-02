@@ -31,7 +31,8 @@ class SelectionPad : public QWidget
 
         QLabel      *m_buttonPadColor;
         QPushButton *m_buttonPad;
-        int          m_padWidgetId;
+        int          m_padId;
+        int          m_padNr; //0...3
 
         QLabel *m_hasSample;
         QLabel *m_hasSteps;

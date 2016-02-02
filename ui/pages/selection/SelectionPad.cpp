@@ -9,15 +9,16 @@
 SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     : QWidget(parent)
 {
-    m_padWidgetId = id;
+    m_padId = id;
+    m_padNr = m_padId%4;
 
 
     m_widgetSize = new QSize;
     m_widgetSize->setHeight(widgetSize->height());
     m_widgetSize->setWidth(widgetSize->width());
 
-    int wP = m_widgetSize->width()/20;      // 5 per step
-    int hP = m_widgetSize->height()/20;
+    int wP = m_widgetSize->width()/20;      // width pad
+    int hP = m_widgetSize->height()/20;     // height pad
     int mS = 2;
     int lS = 12;
 
@@ -84,6 +85,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
 #endif
 
     /** tiles **/
+#if 0
     m_isTriggert = new QLabel(this);
     m_isTriggert->setObjectName("tile_isTriggert");
     m_isTriggert->setFixedSize(wP*8, hP*4);
@@ -98,20 +100,21 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_hasSample->setAlignment(Qt::AlignCenter);
     m_hasSample->setFixedSize( wP*8, hP*4);
     m_hasSample->move( wP*lS, hP*lS );
+#endif
 
     m_hasSteps = new QLabel(this);
     m_hasSteps->setObjectName("tile_hasStep");
     m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(127,127,127);}");
-    m_hasSteps->setFixedSize( wP*8, hP*4 );
-    m_hasSteps->move( wP*mS, hP*lS  );
-    m_hasSteps->setText("STEP");
+    m_hasSteps->setFixedSize( wP*4, hP*4 );
+    m_hasSteps->move( wP*mS, hP*mS   );
+    m_hasSteps->setText("[]");
     m_hasSteps->setAlignment(Qt::AlignCenter);
 
     m_isPlaying = new QLabel(this);
     m_isPlaying->setObjectName( "tile_isPlaying");
-    m_isPlaying->setFixedSize( wP*8, hP*4);
-    m_isPlaying->move( wP*lS, hP*mS);
-    m_isPlaying->setText("PLAY");
+    m_isPlaying->setFixedSize( wP*10, hP*4);
+    m_isPlaying->move( wP*8, hP*mS);
+    m_isPlaying->setText(">");
     m_isPlaying->setAlignment(Qt::AlignCenter);
 
 
@@ -153,12 +156,12 @@ void SelectionPad::clearHasSteps()
 
 void SelectionPad::setHasSample()
 {
-    m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(250,250,250);}");
+    //m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(250,250,250);}");
 }
 
 void SelectionPad::clearHasSample()
 {
-    m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(127,127,127);}");
+    //m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(127,127,127);}");
 }
 
 void SelectionPad::setIsPlaying()
@@ -192,19 +195,19 @@ void SelectionPad::clearSampleName()
 
 void SelectionPad::setSampleVolume()
 {
-    m_volumeValue = subchannelManager().getSubchannelVolume(m_padWidgetId);
+    m_volumeValue = subchannelManager().getSubchannelVolume(m_padId);
     m_volumeWidget->setVolume(m_volumeValue);
 }
 
 
 void SelectionPad::m_slot_padPressed()
 {
-    emit signal_subchPadPressed(m_padWidgetId);
+    emit signal_subchPadPressed(m_padId);
 }
 
 void SelectionPad::setPadToSelectionColor(void)
 {
-    switch (m_padWidgetId%4)
+    switch (m_padNr)
     {
         case 0:  //red 255,0,0
             m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,100%);}");
@@ -227,7 +230,7 @@ void SelectionPad::setPadToSelectionColor(void)
 
 void SelectionPad::setPadToDeselectionColor(void)
 {
-    switch (m_padWidgetId%4)
+    switch (m_padNr)
     {
         case 0:  //red 255,0,0
             m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,15%);}");
