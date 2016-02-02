@@ -15,20 +15,20 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     switch (m_padNr)
     {
         case 0:  //red 255,0,0
-            m_padOnColor  = "QLabel#color {background-color: rgba(255,0,0,100%);}";
-            m_padOffColor = "QLabel#color {background-color: rgba(255,0,0,15%);}";
+            m_padOnColor  = "{background-color: rgba(255,0,0,100%);}";
+            m_padOffColor = "{background-color: rgba(255,0,0,15%);}";
             break;
         case 1: //blue 0,0,255
-            m_padOnColor  = "QLabel#color {background-color: rgba(0,0,255,100%);}";
-            m_padOffColor = "QLabel#color {background-color: rgba(0,0,255,15%);}";
+            m_padOnColor  = "{background-color: rgba(0,0,255,100%);}";
+            m_padOffColor = "{background-color: rgba(0,0,255,15%);}";
             break;
         case 2: //yellow 255,255,0
-            m_padOnColor  = "QLabel#color {background-color: rgba(255,255,0,100%);}";
-            m_padOffColor = "QLabel#color {background-color: rgba(255,255,0,15%);}";
+            m_padOnColor  = "{background-color: rgba(255,255,0,100%);}";
+            m_padOffColor = "{background-color: rgba(255,255,0,15%);}";
             break;
         case 3: //magenta 255,0,255
-            m_padOnColor  = "QLabel#color {background-color: rgba(255,0,255,100%);}";
-            m_padOffColor = "QLabel#color {background-color: rgba(255,0,255,15%);}";
+            m_padOnColor  = "{background-color: rgba(255,0,255,100%);}";
+            m_padOffColor = "{background-color: rgba(255,0,255,15%);}";
             break;
         default:
             break;
@@ -85,45 +85,12 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
 #if 1 // subchannel color pads
     m_subChColor = new QLabel(this);
     m_subChColor->setObjectName("color");
-    switch (id%4)
-    {
-        case 0:  //red 255,0,0
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,15%);}");
-            break;
-        case 1: //blue 0,0,255
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,15%);}");
-            break;
-        case 2: //yellow 255,255,0
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,255,0,15%);}");
-            break;
-        case 3: //magenta 255,0,255
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,255,15%);}");
-            break;
-        default:
-            break;
-    }
     m_subChColor->setFixedSize(14,14);
     m_subChColor->move( (m_widgetSize->width()/20)*9.9 , m_widgetSize->height()/5 * 4);
+    setPadToDeselectionColor();
 #endif
 
     /** tiles **/
-#if 0
-    m_isTriggert = new QLabel(this);
-    m_isTriggert->setObjectName("tile_isTriggert");
-    m_isTriggert->setFixedSize(wP*8, hP*4);
-    m_isTriggert->move( wP*mS, hP*mS );
-    m_isTriggert->setText("TRG");
-    m_isTriggert->setAlignment(Qt::AlignCenter);
-
-    m_hasSample = new QLabel(this);
-    m_hasSample->setObjectName("tile_hasSample");
-    m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(127,127,127);}");
-    m_hasSample->setText("SAMPL");
-    m_hasSample->setAlignment(Qt::AlignCenter);
-    m_hasSample->setFixedSize( wP*8, hP*4);
-    m_hasSample->move( wP*lS, hP*lS );
-#endif
-
     m_hasSteps = new QLabel(this);
     m_hasSteps->setObjectName("tile_hasStep");
     m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(127,127,127);}");
@@ -168,12 +135,14 @@ SelectionPad::~SelectionPad()
 /** tiles **/
 void SelectionPad::setHasSteps()
 {
-    m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(250,250,250);}");
+    //m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(250,250,250);}");
+    m_hasSteps->setStyleSheet("QLabel#tile_hasStep" + m_padOffColor);
 }
 
 void SelectionPad::clearHasSteps()
 {
     m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(127,127,127);}");
+    //m_hasSteps->setStyleSheet(m_padOffColor);
 }
 
 void SelectionPad::setHasSample()
@@ -188,7 +157,8 @@ void SelectionPad::clearHasSample()
 
 void SelectionPad::setIsPlaying()
 {
-    m_isPlaying->setStyleSheet("QLabel#tile_isPlaying {background-color: rgb(250,250,250);}");
+    //m_isPlaying->setStyleSheet("QLabel#tile_isPlaying {background-color: rgb(250,250,250);}");
+    m_isPlaying->setStyleSheet("QLabel#tile_isPlaying" + m_padOnColor);
 }
 
 void SelectionPad::clearIsPlaying()
@@ -229,53 +199,12 @@ void SelectionPad::m_slot_padPressed()
 
 void SelectionPad::setPadToSelectionColor(void)
 {
-#if 0
-    switch (m_padNr)
-    {
-        case 0:  //red 255,0,0
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,100%);}");
-            //m_subChColor->setStyleSheet(m_padOnColor);
-            break;
-        case 1: //blue 0,0,255
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,100%);}");
-            break;
-        case 2: //yellow 255,255,0
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,255,0,100%);}");
-            break;
-        case 3: //magenta 255,0,255
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,255,100%);}");
-            break;
-        default:
-            break;
-    }
-#endif
-    m_subChColor->setStyleSheet(m_padOnColor);
+    m_subChColor->setStyleSheet("QLabel#color" + m_padOnColor);
 }
-
-
 
 void SelectionPad::setPadToDeselectionColor(void)
 {
-#if 0
-    switch (m_padNr)
-    {
-        case 0:  //red 255,0,0
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,0,15%);}");
-            break;
-        case 1: //blue 0,0,255
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(0,0,255,15%);}");
-            break;
-        case 2: //yellow 255,255,0
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,255,0,15%);}");
-            break;
-        case 3: //magenta 255,0,255
-            m_subChColor->setStyleSheet("QLabel#color {background-color: rgba(255,0,255,15%);}");
-            break;
-        default:
-            break;
-    }
-#endif
-    m_subChColor->setStyleSheet(m_padOffColor);
+    m_subChColor->setStyleSheet("QLabel#color" + m_padOffColor);
 }
 
 
