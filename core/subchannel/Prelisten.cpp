@@ -1,6 +1,9 @@
 #include "Prelisten.h"
 #include <QDebug>
 
+#include "core/subchannel/Envelope.h"
+#include "SubchannelManager.h"
+
 
 Prelisten::Prelisten()
     : m_playNewSample(false)
@@ -28,7 +31,12 @@ TwoChannelFrame_t Prelisten::getFrame(void)
         m_sampleBuffer  = m_sample->getSampleStructPointer()->frameBuffer;
         m_channels      = m_sample->getSampleStructPointer()->sndInfo.channels;
         m_playNewSample = false;
-        qDebug() <<Q_FUNC_INFO <<"Start playing, m_frameNumbers:" <<m_frameNumbers;
+        //qDebug() <<Q_FUNC_INFO <<"Start playing, m_frameNumbers:" <<m_frameNumbers;
+#if 1
+        envelope_t envelope = subchannelManager().getCurrentEnvelope();
+        m_frameCounter = envelope.start * m_frameNumbers;
+        m_envEnd       = envelope.end   * m_frameNumbers;
+#endif
     }
     else
     {
@@ -36,10 +44,6 @@ TwoChannelFrame_t Prelisten::getFrame(void)
             return retVal;
     }
 
-#if 0 // 2015-05-13 original working version
-    retVal.left  = m_sampleBuffer[m_frameCounter] * 0.5;
-    retVal.right = retVal.left;
-#endif
 
 
 #if 1 // 2015-05-12 - works
@@ -58,7 +62,8 @@ TwoChannelFrame_t Prelisten::getFrame(void)
     }
 #endif
 
-    if( m_frameCounter >= (m_frameNumbers) )
+    //if( m_frameCounter >= (m_frameNumbers) )
+    if( m_frameCounter >= (m_envEnd) )
     {
         m_finishedPlaying = true;
         delete m_sample;

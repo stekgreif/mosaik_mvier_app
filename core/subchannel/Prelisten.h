@@ -21,6 +21,7 @@ class Prelisten
         bool m_playNewSample;
         bool m_finishedPlaying;
         int  m_frameCounter;
+        int  m_envEnd;
         int  m_frameNumbers;
         float *m_sampleBuffer;
         int m_channels;

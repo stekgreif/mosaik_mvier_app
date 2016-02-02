@@ -359,7 +359,7 @@ void MosaikMiniApp::slot_browserToggleFolderExpansion()
 void MosaikMiniApp::slot_browserSelectedSampleToPrelisten()
 {
     qDebug() <<Q_FUNC_INFO;
-    //m_uiManager->loadSelectedSampleToPrelisten();
+    m_uiManager->loadSelectedSampleToPrelisten();
 }
 
 
