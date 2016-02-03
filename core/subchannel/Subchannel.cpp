@@ -20,7 +20,9 @@ Subchannel::Subchannel(int id)
     m_envelope = new Envelope;
 
     for(int i = 0; i < 64; i++)
+    {
         m_pattern->append(0);
+    }
 
     m_hasSample = false;
 

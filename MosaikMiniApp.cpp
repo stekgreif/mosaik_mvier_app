@@ -51,9 +51,13 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
 
     /** general **/
     if( settings().startWithFullScreen() )
+    {
         slot_setFullScreen();
+    }
     else
+    {
         slot_setNormalScreen();
+    }
 
 
     /** MIDI **/
@@ -72,9 +76,8 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
         m_alsaPcm->slot_bpmChanged(subchannelManager().getBpm());
         m_uiManager->refreshBpm();
 
-
+        //connect(m_alsaPcm, SIGNAL(signal_stepCntUpdate(quint64)), this, SLOT(slot_stepCntUpdate(quint64)) );
         m_alsaPcm->start();
-        connect(m_alsaPcm, SIGNAL(signal_stepCntUpdate(quint64)), this, SLOT(slot_stepCntUpdate(quint64)) );
     }
 
     m_stepCounter = -1;
@@ -150,15 +153,6 @@ void MosaikMiniApp::slot_fnrButtonChanged(quint8 id, quint8 val)
             break;
         case 3:
             slot_setNormalScreen();
-            break;
-        case 4:
-            //m_midiOutRenderer->rstSys();
-            break;
-        case 9:
-
-            break;
-        case 10:
-            //Sample m_sample =  subchannelManager().getSharedPointerToSample();
             break;
         case 15:
             subchannelManager().clearCurrentSubchannelPattern();

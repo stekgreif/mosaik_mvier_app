@@ -10,6 +10,7 @@
 #include <ui/UiManager.h>
 #include "ui/pages/selection/PageSelection.h"
 #include <core/subchannel/SubchannelManager.h>
+#include <Settings.h>
 
 
 
@@ -17,7 +18,8 @@
 #define BTN_GAP     4
 #define OFFSET      2
 #define BTN_GRID  (BTN_SIZE+BTN_GAP)
-#define BTNS  8
+
+
 
 #define TIMER
 
@@ -41,13 +43,13 @@ PageSelection::PageSelection(UiManager *parent)
     padSize->setHeight(BTN_SIZE);
 
     int abs = 0;
-    for(int i = 0; i < BTNS; i++)
+    for(int y = 0; y < SETTINGS_SUBS_PER_COL; y++)
     {
-        for(int j = 0; j < BTNS; j++)
+        for(int x = 0; x < SETTINGS_SUBS_PER_ROW; x++)
         {
-            abs = j+(i*8);
+            abs = x + (y * SETTINGS_SUBS_PER_COL);
             m_pad[abs] = new SelectionPad(settings().getSubchannelId(abs), padSize, this);
-            m_pad[abs]->move(j * BTN_GRID + OFFSET, i * BTN_GRID + OFFSET);
+            m_pad[abs]->move(x * BTN_GRID + OFFSET, y * BTN_GRID + OFFSET);
             connect(m_pad[abs], SIGNAL(signal_subchPadPressed(int)), this, SLOT(m_slot_selectionChanged(int)) );
         }
     }
@@ -55,7 +57,7 @@ PageSelection::PageSelection(UiManager *parent)
     m_muteAndSolo->setFixedSize(1,1);
     this->update();
     //m_muteAndSolo->display(false);
-    qDebug() <<Q_FUNC_INFO <<BTNS*BTNS <<"pads created.";
+    qDebug() <<Q_FUNC_INFO <<SETTINGS_SUBS_PER_COL * SETTINGS_SUBS_PER_ROW <<"pads created.";
 
 #ifdef TIMER
     m_timer = new QTimer;
@@ -71,11 +73,11 @@ PageSelection::PageSelection(UiManager *parent)
 PageSelection::~PageSelection()
 {
     int abs = 0;
-    for(int i = 0; i < BTNS; i++)
+    for(int i = 0; i < SETTINGS_SUBS_PER_COL; i++)
     {
-        for(int j = 0; j < BTNS; j++)
+        for(int j = 0; j < SETTINGS_SUBS_PER_ROW; j++)
         {
-            abs = j+(i*8);
+            abs = j+(i*SETTINGS_SUBS_PER_COL);
             delete m_pad[abs];
         }
     }
@@ -94,11 +96,12 @@ void PageSelection::slot_regularTimer()
     QBitArray hasSample = subchannelManager().hasSample();
     QBitArray hasSteps  = subchannelManager().getAllHasSteps();
     int curSubPos;
-    QBitArray isPlaying(64);
+    QBitArray isPlaying(SETTINGS_NUM_OF_SUBS);
     isPlaying = subchannelManager().getPlayingSubchannels();
 
 
-    for( int cnt = 0; cnt < 64; cnt++ )
+    //for( int cnt = 0; cnt < 64; cnt++ )
+    for( int cnt = 0; cnt < SETTINGS_NUM_OF_SUBS; cnt++ )
     {
         curSubPos = settings().getSubchannelPos(cnt);
 

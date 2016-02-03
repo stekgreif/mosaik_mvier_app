@@ -166,9 +166,13 @@ void MosaikMini::setChannelPattern(void)
 void MosaikMini::refreshSequencer()
 {
     if( m_singlePatternView == true )
+    {
         setSubchannelPattern();
+    }
     else
+    {
         setChannelPattern();
+    }
 }
 
 void MosaikMini::resetHardware()

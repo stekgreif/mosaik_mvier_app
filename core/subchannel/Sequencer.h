@@ -13,8 +13,6 @@ public:
     void clearStep(int id);
     int  getStepValue(int id);
 
-    //QList getSetSteps(void);
-
 private:
     int m_stepCounter;
     int m_pattern[64];

@@ -8,6 +8,7 @@
 #include <QStyleOption>
 #include <QTimer>
 
+#include "Settings.h"
 #include "ui/pages/selection/SelectionPad.h"
 #include "ui/pages/selection/MuteAndSolo.h"
 
@@ -41,7 +42,7 @@ class PageSelection : public QWidget
         void toggleMuteAndSolo();
 
     private:
-        SelectionPad *m_pad[64];
+        SelectionPad *m_pad[SETTINGS_NUM_OF_SUBS];
         int m_lastSelectedSubchannel;
         QLabel *m_channelSelectionFrame;
 

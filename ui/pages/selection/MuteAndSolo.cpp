@@ -29,11 +29,11 @@ MuteAndSolo::MuteAndSolo(QWidget *parent)
     padSize->setHeight(BTN_SIZE);
 #if 1
     int abs = 0;
-    for(int i = 0; i < BTNS; i++)
+    for(int i = 0; i < SETTINGS_SUBS_PER_COL; i++)
     {
-        for(int j = 0; j < BTNS; j++)
+        for(int j = 0; j < SETTINGS_SUBS_PER_ROW; j++)
         {
-            abs = j+(i*8);
+            abs = j+(i*SETTINGS_SUBS_PER_COL);
             m_muteAndSoloPad[abs] = new MuteAndSoloPad(settings().getSubchannelId(abs), padSize, this);
             m_muteAndSoloPad[abs]->move(j * BTN_GRID + OFFSET, i * BTN_GRID + OFFSET);
             connect(m_muteAndSoloPad[abs], SIGNAL(signal_mutePadPressed(int)),
@@ -68,10 +68,10 @@ void MuteAndSolo::display(bool state)
 
 void MuteAndSolo::refresh()
 {
-    QBitArray isMute(64);
+    QBitArray isMute(SETTINGS_NUM_OF_SUBS);
     isMute = subchannelManager().getMuteStates();
 
-    for( int id = 0; id < 64; id++ )
+    for( int id = 0; id < SETTINGS_NUM_OF_SUBS; id++ )
     {
         if( isMute.at(id) )
             m_muteAndSoloPad[settings().getSubchannelPos(id)]->slot_setPadToMuteColor();

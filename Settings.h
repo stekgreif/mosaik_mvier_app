@@ -11,8 +11,23 @@
 #define SETTINGS_INIT_WITH_MIDI_IN      false
 #define SETTINGS_INIT_WITH_MIDI_OUT     false
 #define SETTINGS_START_WITH_FULL_SCREEN true
-#define SETTINGS_NUMBER_OF_SUBCHANNELS  64
 
+
+#if 1 //works
+#define SETTINGS_SUBS_PER_ROW 8
+#define SETTINGS_SUBS_PER_COL 8
+#define SETTINGS_NUM_OF_SUBS  64
+#define SETTINGS_NUM_OF_AUDIO_SUBS 16
+#define SETTINGS_NUM_OF_CHANNELS 16
+#endif
+
+#if 0 //for testing
+#define SETTINGS_SUBS_PER_ROW 6
+#define SETTINGS_SUBS_PER_COL 6
+#define SETTINGS_NUM_OF_SUBS  36
+#define SETTINGS_NUM_OF_AUDIO_SUBS 16
+#define SETTINGS_NUM_OF_CHANNELS 9
+#endif
 
 
 
@@ -26,7 +41,7 @@ class Settings
             return instance;
         }
 
-        int getNumberOfSubchannels(void);
+        //int getNumberOfSubchannels(void);
         int getSubchannelId(int pos);
         int getSubchannelPos(int id);
 

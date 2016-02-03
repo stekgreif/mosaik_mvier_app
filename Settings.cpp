@@ -17,7 +17,7 @@ Settings::Settings()
     loadSubchannelMap();
     loadChannelMap();
     loadPageIdMap();
-    m_numberOfSubchannels = SETTINGS_NUMBER_OF_SUBCHANNELS;
+    m_numberOfSubchannels = SETTINGS_NUM_OF_SUBS;
     m_startWithFullScreen = SETTINGS_START_WITH_FULL_SCREEN;
 
     m_connectedMidiDeviceName.clear();
@@ -240,11 +240,12 @@ int Settings::getChannelPos(int id)
 
 
 
-
+#if 0 // should be obsolete
 int Settings::getNumberOfSubchannels(void)
 {
     return m_numberOfSubchannels;
 }
+#endif
 
 QList<QString> Settings::getFavouriteMidiDeviceList()
 {
