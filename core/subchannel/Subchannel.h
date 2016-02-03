@@ -35,6 +35,8 @@ class Subchannel
         float getVolume(void);
         void  setPan(float relVal);
         float getPan(void);
+        void  togglePlayDirection();
+        //bool  getPlayDirectionForward();
 
         bool  isMute() const;
         void  setMute(bool state);

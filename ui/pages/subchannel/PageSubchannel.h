@@ -44,7 +44,7 @@ class PageSubchannel : public QWidget
 
     private slots:
         void slot_changePage(void);
-
+        void slot_togglePlayDirection(void);
 
     protected:
         void paintEvent(QPaintEvent *event);
@@ -106,6 +106,8 @@ class PageSubchannel : public QWidget
 
         /** test **/
         QPushButton *m_btnTestTreeCollapse;
+        QPushButton *m_btnTestPlayDirection;
+
 };
 
 #endif // PAGESUBCHANNEL_H

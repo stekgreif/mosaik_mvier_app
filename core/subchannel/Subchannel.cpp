@@ -208,6 +208,20 @@ float Subchannel::getPan()
     return m_pan;
 }
 
+void Subchannel::togglePlayDirection()
+{
+    qDebug() <<Q_FUNC_INFO <<"old play forward: " <<m_playForward;
+    if(m_playForward)
+    {
+        m_playForward = false;
+    }
+    else
+    {
+        m_playForward = true;
+    }
+    qDebug() <<Q_FUNC_INFO <<"new play forward: " <<m_playForward;
+}
+
 
 
 void Subchannel::printSubchannelPatternsToDebug(void)
@@ -291,9 +305,16 @@ TwoChannelFrame_t Subchannel::getFrame()
             m_channels     = m_sharedSamplePtr->getSampleStructPointer()->sndInfo.channels;
 
             envelope_t envelope = m_envelope->getEnvelope();
-
-            m_frameCounter = envelope.start * m_frameNumbers;
-            m_envEnd       = envelope.end   * m_frameNumbers;
+            if( m_playForward )
+            {
+                m_frameCounter = envelope.start * m_frameNumbers;
+                m_envEnd       = envelope.end   * m_frameNumbers;
+            }
+            else //backwards
+            {
+                m_frameCounter = envelope.end   * m_frameNumbers;
+                m_envEnd       = envelope.start * m_frameNumbers;
+            }
         }
         else
         {
@@ -307,23 +328,44 @@ TwoChannelFrame_t Subchannel::getFrame()
             return retVal;
     }
 
-
-    if( m_channels == 1 )
+    if(m_playForward)
     {
-        retVal.left  = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 * (1-m_pan) * m_audioMute;
-        retVal.right = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 *    m_pan  * m_audioMute;
-        m_frameCounter++;
-    }
-    else // 2
-    {
-        retVal.left  = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 * (1-m_pan) * m_audioMute;
-        m_frameCounter++;
-        retVal.right = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 *    m_pan  * m_audioMute;
-        m_frameCounter++;
-    }
+        if( m_channels == 1 )
+        {
+            retVal.left  = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 * (1-m_pan) * m_audioMute;
+            retVal.right = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 *    m_pan  * m_audioMute;
+            m_frameCounter++;
+        }
+        else // 2
+        {
+            retVal.left  = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 * (1-m_pan) * m_audioMute;
+            m_frameCounter++;
+            retVal.right = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 *    m_pan  * m_audioMute;
+            m_frameCounter++;
+        }
 
-    if( m_frameCounter >= (m_envEnd) )
-        m_finishedPlaying = true;
+        if( m_frameCounter >= (m_envEnd) )
+            m_finishedPlaying = true;
+    }
+    else // play backwards
+    {
+        if( m_channels == 1 )
+        {
+            retVal.left  = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 * (1-m_pan) * m_audioMute;
+            retVal.right = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 *    m_pan  * m_audioMute;
+            m_frameCounter--;
+        }
+        else // 2
+        {
+            retVal.left  = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 * (1-m_pan) * m_audioMute;
+            m_frameCounter--;
+            retVal.right = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 *    m_pan  * m_audioMute;
+            m_frameCounter--;
+        }
+
+        if( m_frameCounter <= (m_envEnd) )
+            m_finishedPlaying = true;
+    }
 
     return retVal;
 }

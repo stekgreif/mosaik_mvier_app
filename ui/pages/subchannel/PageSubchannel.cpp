@@ -76,11 +76,20 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_btnTestTreeCollapse->move(20,980);
     m_btnTestTreeCollapse->setText("Close Folder");
 
+    m_btnTestPlayDirection = new QPushButton(this);
+    m_btnTestPlayDirection->setFixedSize(100,50);
+    m_btnTestPlayDirection->move(160,980);
+    m_btnTestPlayDirection->setText("Tgl Play Dir");
 
     connect(m_btnTestTreeCollapse,
             SIGNAL(clicked()),
             m_browser,
             SLOT(slot_toggleParentFolderState()));
+
+    connect(m_btnTestPlayDirection,
+            SIGNAL(clicked()),
+            this,
+            SLOT(slot_togglePlayDirection()));
 
     refresh();
 }
@@ -209,6 +218,11 @@ void PageSubchannel::resetSamplePlot()
 void PageSubchannel::slot_changePage(void)
 {
     m_parent->setPageIndex(1);
+}
+
+void PageSubchannel::slot_togglePlayDirection()
+{
+    subchannelManager().togglePlayDirection();
 }
 
 

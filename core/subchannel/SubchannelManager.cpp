@@ -510,6 +510,11 @@ float SubchannelManager::getSubchannelVolume(int subchId)
         return 0.0;
 }
 
+void SubchannelManager::togglePlayDirection()
+{
+    m_subchannel.at(m_currentSubchannel)->togglePlayDirection();
+}
+
 
 QString SubchannelManager::getCurrentSamplePathAndName()
 {
