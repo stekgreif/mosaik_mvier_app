@@ -224,6 +224,7 @@ int SubchannelManager::getCurrentSubchannelStep()
 
 QByteArray SubchannelManager::getCurrentChannelPattern(void)
 {
+#if 0
     int subchsIdsOfCurrentChannel[4];
     int topSubchannelId;
     QBitArray  curPattern(SETTINGS_NUM_OF_SUBS);
@@ -273,6 +274,7 @@ QByteArray SubchannelManager::getCurrentChannelPattern(void)
     }
 
     return retPattern;
+#endif
 }
 
 int SubchannelManager::getCurrentChannelStep()
