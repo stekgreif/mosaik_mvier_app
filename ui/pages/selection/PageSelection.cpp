@@ -48,8 +48,11 @@ PageSelection::PageSelection(UiManager *parent)
         for(int x = 0; x < SETTINGS_SUBS_PER_ROW; x++)
         {
             abs = x + (y * SETTINGS_SUBS_PER_COL);
-            m_pad[abs] = new SelectionPad(settings().getSubchannelId(abs), padSize, this);
+            qDebug() <<Q_FUNC_INFO <<"pad id:" <<abs;
+            //m_pad[abs] = new SelectionPad(settings().getSubchannelId(abs), padSize, this);
+            m_pad[abs] = new SelectionPad(abs, padSize, this);
             m_pad[abs]->move(x * BTN_GRID + OFFSET, y * BTN_GRID + OFFSET);
+
             connect(m_pad[abs], SIGNAL(signal_subchPadPressed(int)), this, SLOT(m_slot_selectionChanged(int)) );
         }
     }
@@ -103,25 +106,25 @@ void PageSelection::slot_regularTimer()
     //for( int cnt = 0; cnt < 64; cnt++ )
     for( int cnt = 0; cnt < SETTINGS_NUM_OF_SUBS; cnt++ )
     {
-        curSubPos = settings().getSubchannelPos(cnt);
+        //curSubPos = settings().getSubchannelPos(cnt);
 
         /** refresh sub tiles **/
         if( hasSample.at(cnt) )
         {
-            m_pad[curSubPos]->setHasSample();
+            m_pad[cnt]->setHasSample();
         }
         else
         {
-            m_pad[curSubPos]->clearHasSample();
+            m_pad[cnt]->clearHasSample();
         }
 
         if( hasSteps.at(cnt) )
         {
-            m_pad[curSubPos]->setHasSteps();
+            m_pad[cnt]->setHasSteps();
         }
         else
         {
-            m_pad[curSubPos]->clearHasSteps();
+            m_pad[cnt]->clearHasSteps();
         }
 
         /** refresh sample name **/
@@ -136,7 +139,7 @@ void PageSelection::slot_regularTimer()
             int framesPerStep = (60 * fs) / (4 * subchannelManager().getBpm());
             float steps = 40 * ((float)(endMs - startMs) / (float)framesPerStep);
 
-            m_pad[settings().getSubchannelPos(cnt)]->setSampleParameters( samplePtr->getSampleStructPointer()->name,
+            m_pad[cnt]->setSampleParameters( samplePtr->getSampleStructPointer()->name,
                                                                           samplePtr->getSampleStructPointer()->lengthInMs,
                                                                           steps);
         }
@@ -146,23 +149,27 @@ void PageSelection::slot_regularTimer()
 
         if( isPlaying.at(cnt) )
         {
-            m_pad[curSubPos]->setIsPlaying();
+            m_pad[cnt]->setIsPlaying();
         }
         else
         {
-            m_pad[curSubPos]->clearIsPlaying();
+            m_pad[cnt]->clearIsPlaying();
         }
 
     }
 
     /** subchannel selection pads **/
     int newSubchannel = subchannelManager().getCurrentSubchannelSelection();
-    m_pad[settings().getSubchannelPos(m_lastSelectedSubchannel)]->setPadToDeselectionColor();
-    m_pad[settings().getSubchannelPos(newSubchannel)]->setPadToSelectionColor();
+    //m_pad[settings().getSubchannelPos(m_lastSelectedSubchannel)]->setPadToDeselectionColor();
+    //m_pad[settings().getSubchannelPos(newSubchannel)]->setPadToSelectionColor();
+
+    m_pad[m_lastSelectedSubchannel]->setPadToDeselectionColor();
+    m_pad[newSubchannel]->setPadToSelectionColor();
+
     m_lastSelectedSubchannel = newSubchannel;
 
     /** channel selection frame **/
-    int pos = settings().getChannelPos(subchannelManager().getCurrentChannelSelection());
+    int pos = subchannelManager().getCurrentChannelSelection() ;
     int xPos = (pos % 4) * BTN_GRID * 2;
     int yPos = (pos / 4) * BTN_GRID * 2;
     m_channelSelectionFrame->move(xPos, yPos);

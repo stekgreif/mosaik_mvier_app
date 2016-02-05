@@ -79,11 +79,11 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
         //connect(m_alsaPcm, SIGNAL(signal_stepCntUpdate(quint64)), this, SLOT(slot_stepCntUpdate(quint64)) );
         m_alsaPcm->start();
     }
+    qDebug() <<"XXXXXXXXXXXXXX";
 
     m_stepCounter = -1;
     m_timer = new QTimer;
     m_timer->start(10);
-
 
 
     /** signal slot connections **/

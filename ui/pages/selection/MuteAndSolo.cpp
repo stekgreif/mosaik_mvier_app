@@ -34,7 +34,7 @@ MuteAndSolo::MuteAndSolo(QWidget *parent)
         for(int j = 0; j < SETTINGS_SUBS_PER_ROW; j++)
         {
             abs = j+(i*SETTINGS_SUBS_PER_COL);
-            m_muteAndSoloPad[abs] = new MuteAndSoloPad(settings().getSubchannelId(abs), padSize, this);
+            m_muteAndSoloPad[abs] = new MuteAndSoloPad(abs, padSize, this);
             m_muteAndSoloPad[abs]->move(j * BTN_GRID + OFFSET, i * BTN_GRID + OFFSET);
             connect(m_muteAndSoloPad[abs], SIGNAL(signal_mutePadPressed(int)),
                     this,                  SLOT(slot_stateChanged(int)) );
@@ -74,9 +74,9 @@ void MuteAndSolo::refresh()
     for( int id = 0; id < SETTINGS_NUM_OF_SUBS; id++ )
     {
         if( isMute.at(id) )
-            m_muteAndSoloPad[settings().getSubchannelPos(id)]->slot_setPadToMuteColor();
+            m_muteAndSoloPad[id]->slot_setPadToMuteColor();
         else
-            m_muteAndSoloPad[settings().getSubchannelPos(id)]->slot_setPadToUnmuteColor();
+            m_muteAndSoloPad[id]->slot_setPadToUnmuteColor();
     }
 }
 

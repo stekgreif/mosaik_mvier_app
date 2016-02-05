@@ -224,7 +224,6 @@ int SubchannelManager::getCurrentSubchannelStep()
 
 QByteArray SubchannelManager::getCurrentChannelPattern(void)
 {
-#if 0
     int subchsIdsOfCurrentChannel[4];
     int topSubchannelId;
     QBitArray  curPattern(SETTINGS_NUM_OF_SUBS);
@@ -274,7 +273,6 @@ QByteArray SubchannelManager::getCurrentChannelPattern(void)
     }
 
     return retPattern;
-#endif
 }
 
 int SubchannelManager::getCurrentChannelStep()
@@ -324,7 +322,7 @@ FourChannelFrame_t SubchannelManager::getFourChannelAudioFrame()
     TwoChannelFrame_t  collectFrames    = {0.0, 0.0};
     TwoChannelFrame_t  preSubToHpFrames = {0.0, 0.0};
 
-    for( int subch = 0; subch < SETTINGS_NUM_OF_AUDIO_SUBS; subch++ )
+    for( int subch = 0; subch < SETTINGS_NUM_OF_SUBS; subch++ )
     {
         tempFrame = m_subchannel.at(subch)->getFrame();
         if( m_currentSubchannel == subch )
@@ -524,9 +522,13 @@ float SubchannelManager::getCurrentPan() const
 float SubchannelManager::getSubchannelVolume(int subchId)
 {
     if(( subchId >= 0 ) && ( subchId < SETTINGS_NUM_OF_SUBS ))
+    {
         return m_subchannel.at(subchId)->getVolume();
+    }
     else
+    {
         return 0.0;
+    }
 }
 
 void SubchannelManager::togglePlayDirection()
@@ -572,7 +574,7 @@ void SubchannelManager::setCurrentSubchannelSelection(int id)
     if ((id >= 0) && (id < SETTINGS_NUM_OF_SUBS))
     {
         m_currentSubchannel = id;
-        m_currentChannel = id / 4;
+        m_currentChannel = settings().getChannelOfSubchannel(id);
     }
     else
     {
@@ -585,7 +587,10 @@ void SubchannelManager::setCurrentSubchannelSelectionRelative(int id)
 {
     if ((id >= 0) && (id < 4))
     {
-        m_currentSubchannel = (m_currentChannel * 4) + id;
+        //m_currentSubchannel = (m_currentChannel * 4) + id;
+
+        QList<int> sub = settings().getSubchannelsOfChannel(m_currentChannel);
+        m_currentSubchannel = sub.at(id);
     }
     else
     {
@@ -594,12 +599,12 @@ void SubchannelManager::setCurrentSubchannelSelectionRelative(int id)
 }
 
 
-void SubchannelManager::setCurrentChannelSelection(int id)
+void SubchannelManager::setCurrentChannelSelection(int chId)
 {
-    if(( id >= 0 ) && (id < SETTINGS_NUM_OF_CHANNELS) )
+    if(( chId >= 0 ) && (chId < SETTINGS_NUM_OF_CHANNELS) )
     {
-        m_currentChannel = id;
-        m_currentSubchannel = id * 4;
+        m_currentChannel = chId;
+        m_currentSubchannel = settings().getFirstSubchannelOfChannel(chId);
     }
     else
     {
@@ -637,7 +642,7 @@ int SubchannelManager::getCurrentChannelSelection()
     return m_currentChannel;
 }
 
-
+/*  @return 0..3 */
 int SubchannelManager::getCurrentSubchannelSelelectionRelative()
 {
     return m_currentSubchannel % 4;
@@ -652,14 +657,7 @@ int SubchannelManager::getCurrentSubchannelSelection()
 
 QList<int> SubchannelManager::getSubchannelIdsOfCurrentChannel()
 {
-    QList<int> retList;
-
-    for(int i = 0; i < 4; i++)
-    {
-        retList.append((m_currentChannel * 4) + i);    //e.g. 16,17,18,19
-    }
-
-    return retList;
+    return (settings().getSubchannelsOfChannel(m_currentChannel));
 }
 
 

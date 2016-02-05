@@ -6,31 +6,24 @@
 #include <QList>
 
 
+/** ****************************************************************************
+    USER SETTINGS
+*******************************************************************************/
 
 #define SETTINGS_INIT_WITH_AUDIO        true
 #define SETTINGS_INIT_WITH_MIDI_IN      false
 #define SETTINGS_INIT_WITH_MIDI_OUT     false
 #define SETTINGS_START_WITH_FULL_SCREEN true
+#define SETTINGS_SUBS_PER_ROW           6
 
-
-#if 1 //works
-#define SETTINGS_SUBS_PER_ROW 8
-#define SETTINGS_SUBS_PER_COL 8
-#define SETTINGS_NUM_OF_SUBS  64
-#define SETTINGS_NUM_OF_AUDIO_SUBS 16
-#define SETTINGS_NUM_OF_CHANNELS 16
-#endif
-
-#if 0 //for testing
-#define SETTINGS_SUBS_PER_ROW 2
-#define SETTINGS_SUBS_PER_COL 2
-#define SETTINGS_NUM_OF_SUBS  4
-#define SETTINGS_NUM_OF_AUDIO_SUBS 4
-#define SETTINGS_NUM_OF_CHANNELS 1
-#endif
+/** ***************************************************************************/
 
 
 
+
+#define SETTINGS_SUBS_PER_COL SETTINGS_SUBS_PER_ROW
+#define SETTINGS_NUM_OF_SUBS (SETTINGS_SUBS_PER_ROW * SETTINGS_SUBS_PER_COL)
+#define SETTINGS_NUM_OF_CHANNELS (SETTINGS_NUM_OF_SUBS/4)
 
 class Settings
 {
@@ -48,6 +41,19 @@ class Settings
         int getChannelId(int pos);
         int getChannelPos(int id);
 
+#if 1 //
+        int getNumberOfSubchannelsTotal(void);
+        int getNumberOfSubchannelsPerRow(void);
+        int getNumberOfSubchannelsPerCollum(void);
+        int getNumberOfChannelsTotal(void);
+        int getNumberOfChannelsPerRow(void);
+        int getNumberOfChannelsPerCollum(void);
+
+        int getChannelOfSubchannel(int sub);
+        int getFirstSubchannelOfChannel(int ch);
+        QPoint getCoordinatesOfSubchannel(int sub);
+        QList<int> getSubchannelsOfChannel(int ch);
+#endif
 
         QList<QString> getFavouriteMidiDeviceList(void);
 
@@ -82,6 +88,7 @@ class Settings
         /** sub/channels **/
         QMap<int, int> *m_subchannelMap;
         void loadSubchannelMap(void);
+        void loadSubchannelMapVar(void);
 
         QMap<int, int> *m_channelMap;
         void loadChannelMap(void);

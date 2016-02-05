@@ -97,81 +97,148 @@ QSize Settings::getScreenSize()
 
 
 
-
-
 void Settings::loadSubchannelMap(void)
 {
-    m_subchannelMap->insert(0,  0); // id, pos
-    m_subchannelMap->insert(1,  1);
-    m_subchannelMap->insert(2,  4);
-    m_subchannelMap->insert(3,  5);
-    m_subchannelMap->insert(4, 16);
-    m_subchannelMap->insert(5, 17);
-    m_subchannelMap->insert(6, 20);
-    m_subchannelMap->insert(7, 21);
+    switch (SETTINGS_NUM_OF_SUBS)
+    {
+        case 64:
+            // id, pos
+            m_subchannelMap->insert(0,  0);
+            m_subchannelMap->insert(1,  1);
+            m_subchannelMap->insert(2,  4);
+            m_subchannelMap->insert(3,  5);
+            m_subchannelMap->insert(4, 16);
+            m_subchannelMap->insert(5, 17);
+            m_subchannelMap->insert(6, 20);
+            m_subchannelMap->insert(7, 21);
 
-    m_subchannelMap->insert(8,  2);
-    m_subchannelMap->insert(9,  3);
-    m_subchannelMap->insert(10, 6);
-    m_subchannelMap->insert(11, 7);
-    m_subchannelMap->insert(12,18);
-    m_subchannelMap->insert(13,19);
-    m_subchannelMap->insert(14,22);
-    m_subchannelMap->insert(15,23);
+            m_subchannelMap->insert(8,  2);
+            m_subchannelMap->insert(9,  3);
+            m_subchannelMap->insert(10, 6);
+            m_subchannelMap->insert(11, 7);
+            m_subchannelMap->insert(12,18);
+            m_subchannelMap->insert(13,19);
+            m_subchannelMap->insert(14,22);
+            m_subchannelMap->insert(15,23);
 
-    m_subchannelMap->insert(16, 8);
-    m_subchannelMap->insert(17, 9);
-    m_subchannelMap->insert(18,12);
-    m_subchannelMap->insert(19,13);
-    m_subchannelMap->insert(20,24);
-    m_subchannelMap->insert(21,25);
-    m_subchannelMap->insert(22,28);
-    m_subchannelMap->insert(23,29);
+            m_subchannelMap->insert(16, 8);
+            m_subchannelMap->insert(17, 9);
+            m_subchannelMap->insert(18,12);
+            m_subchannelMap->insert(19,13);
+            m_subchannelMap->insert(20,24);
+            m_subchannelMap->insert(21,25);
+            m_subchannelMap->insert(22,28);
+            m_subchannelMap->insert(23,29);
 
-    m_subchannelMap->insert(24,10);
-    m_subchannelMap->insert(25,11);
-    m_subchannelMap->insert(26,14);
-    m_subchannelMap->insert(27,15);
-    m_subchannelMap->insert(28,26);
-    m_subchannelMap->insert(29,27);
-    m_subchannelMap->insert(30,30);
-    m_subchannelMap->insert(31,31);
+            m_subchannelMap->insert(24,10);
+            m_subchannelMap->insert(25,11);
+            m_subchannelMap->insert(26,14);
+            m_subchannelMap->insert(27,15);
+            m_subchannelMap->insert(28,26);
+            m_subchannelMap->insert(29,27);
+            m_subchannelMap->insert(30,30);
+            m_subchannelMap->insert(31,31);
 
-    m_subchannelMap->insert(32,32);
-    m_subchannelMap->insert(33,33);
-    m_subchannelMap->insert(34,36);
-    m_subchannelMap->insert(35,37);
-    m_subchannelMap->insert(36,48);
-    m_subchannelMap->insert(37,49);
-    m_subchannelMap->insert(38,52);
-    m_subchannelMap->insert(39,53);
+            m_subchannelMap->insert(32,32);
+            m_subchannelMap->insert(33,33);
+            m_subchannelMap->insert(34,36);
+            m_subchannelMap->insert(35,37);
+            m_subchannelMap->insert(36,48);
+            m_subchannelMap->insert(37,49);
+            m_subchannelMap->insert(38,52);
+            m_subchannelMap->insert(39,53);
 
-    m_subchannelMap->insert(40,34);
-    m_subchannelMap->insert(41,35);
-    m_subchannelMap->insert(42,38);
-    m_subchannelMap->insert(43,39);
-    m_subchannelMap->insert(44,50);
-    m_subchannelMap->insert(45,51);
-    m_subchannelMap->insert(46,54);
-    m_subchannelMap->insert(47,55);
+            m_subchannelMap->insert(40,34);
+            m_subchannelMap->insert(41,35);
+            m_subchannelMap->insert(42,38);
+            m_subchannelMap->insert(43,39);
+            m_subchannelMap->insert(44,50);
+            m_subchannelMap->insert(45,51);
+            m_subchannelMap->insert(46,54);
+            m_subchannelMap->insert(47,55);
 
-    m_subchannelMap->insert(48,40);
-    m_subchannelMap->insert(49,41);
-    m_subchannelMap->insert(50,44);
-    m_subchannelMap->insert(51,45);
-    m_subchannelMap->insert(52,56);
-    m_subchannelMap->insert(53,57);
-    m_subchannelMap->insert(54,60);
-    m_subchannelMap->insert(55,61);
+            m_subchannelMap->insert(48,40);
+            m_subchannelMap->insert(49,41);
+            m_subchannelMap->insert(50,44);
+            m_subchannelMap->insert(51,45);
+            m_subchannelMap->insert(52,56);
+            m_subchannelMap->insert(53,57);
+            m_subchannelMap->insert(54,60);
+            m_subchannelMap->insert(55,61);
 
-    m_subchannelMap->insert(56,42);
-    m_subchannelMap->insert(57,43);
-    m_subchannelMap->insert(58,46);
-    m_subchannelMap->insert(59,47);
-    m_subchannelMap->insert(60,58);
-    m_subchannelMap->insert(61,59);
-    m_subchannelMap->insert(62,62);
-    m_subchannelMap->insert(63,63);
+            m_subchannelMap->insert(56,42);
+            m_subchannelMap->insert(57,43);
+            m_subchannelMap->insert(58,46);
+            m_subchannelMap->insert(59,47);
+            m_subchannelMap->insert(60,58);
+            m_subchannelMap->insert(61,59);
+            m_subchannelMap->insert(62,62);
+            m_subchannelMap->insert(63,63);
+            break;
+
+        case 36:
+            // id, pos
+            m_subchannelMap->insert(0,  0);
+            m_subchannelMap->insert(1,  1);
+            m_subchannelMap->insert(2,  2);
+            m_subchannelMap->insert(3,  3);
+            m_subchannelMap->insert(4,  4);
+            m_subchannelMap->insert(5,  5);
+            m_subchannelMap->insert(6,  6);
+            m_subchannelMap->insert(7,  7);
+            m_subchannelMap->insert(8,  8);
+            m_subchannelMap->insert(9,  9);
+            m_subchannelMap->insert(10,10);
+            m_subchannelMap->insert(11,11);
+            m_subchannelMap->insert(12,12);
+            m_subchannelMap->insert(13,13);
+            m_subchannelMap->insert(14,14);
+            m_subchannelMap->insert(15,15);
+            m_subchannelMap->insert(16,16);
+            m_subchannelMap->insert(17,17);
+            m_subchannelMap->insert(18,18);
+            m_subchannelMap->insert(19,19);
+            m_subchannelMap->insert(20,20);
+            m_subchannelMap->insert(21,21);
+            m_subchannelMap->insert(22,22);
+            m_subchannelMap->insert(23,23);
+            m_subchannelMap->insert(24,24);
+            m_subchannelMap->insert(25,25);
+            m_subchannelMap->insert(26,26);
+            m_subchannelMap->insert(27,27);
+            m_subchannelMap->insert(28,28);
+            m_subchannelMap->insert(29,29);
+            m_subchannelMap->insert(30,30);
+            m_subchannelMap->insert(31,31);
+            m_subchannelMap->insert(32,32);
+            m_subchannelMap->insert(33,33);
+            m_subchannelMap->insert(34,34);
+            m_subchannelMap->insert(35,35);
+
+        case 16:
+            // id, pos
+            m_subchannelMap->insert(0,  0);
+            m_subchannelMap->insert(1,  1);
+            m_subchannelMap->insert(2,  2);
+            m_subchannelMap->insert(3,  3);
+            m_subchannelMap->insert(4,  4);
+            m_subchannelMap->insert(5,  5);
+            m_subchannelMap->insert(6,  6);
+            m_subchannelMap->insert(7,  7);
+            m_subchannelMap->insert(8,  8);
+            m_subchannelMap->insert(9,  9);
+            m_subchannelMap->insert(10,10);
+            m_subchannelMap->insert(11,11);
+            m_subchannelMap->insert(12,12);
+            m_subchannelMap->insert(13,13);
+            m_subchannelMap->insert(14,14);
+            m_subchannelMap->insert(15,15);
+            m_subchannelMap->insert(16,16);
+        default:
+            break;
+    }
+
+
 }
 
 
@@ -194,41 +261,40 @@ void Settings::loadChannelMap()
     m_channelMap->insert( 7, 7);
     m_channelMap->insert( 8, 8);
     m_channelMap->insert( 9, 9);
+#if 0
     m_channelMap->insert(10,12);
     m_channelMap->insert(11,13);
     m_channelMap->insert(12,10);
     m_channelMap->insert(13,11);
     m_channelMap->insert(14,14);
     m_channelMap->insert(15,15);
+#endif
 }
 
 
-/* positions:
-    00 01 02 03 04 05 06 07
-    08 09 .. .. .. .. .. ..
-    .. .. .. .. .. .. .. ..
-    .. .. .. .. .. .. .. ..
-    .. .. .. .. .. .. .. ..
-    .. .. .. .. .. .. .. ..
-    .. .. .. .. .. .. .. ..
-    56 57 58 59 60 61 62 63  */
+
+
 int Settings::getSubchannelId(int pos)
 {
+    qDebug() <<Q_FUNC_INFO <<"Should be obsolete. -> Function has no effect";
     return m_subchannelMap->value(pos);
 }
 
 int Settings::getSubchannelPos(int id)
 {
+    qDebug() <<Q_FUNC_INFO <<"Should be obsolete.";
     return m_subchannelMap->key(id);
 }
 
 int Settings::getChannelId(int pos)
 {
+    qDebug() <<Q_FUNC_INFO <<"Should be obsolete.";
     return m_channelMap->value(pos);
 }
 
 int Settings::getChannelPos(int id)
 {
+    qDebug() <<Q_FUNC_INFO <<"Should be obsolete.";
     return m_channelMap->key(id);
 }
 
@@ -236,16 +302,233 @@ int Settings::getChannelPos(int id)
 
 
 
-
-
-
-
-#if 0 // should be obsolete
-int Settings::getNumberOfSubchannels(void)
+/** 2016-02-05 sub/channel get functions **/
+int Settings::getNumberOfSubchannelsTotal()
 {
-    return m_numberOfSubchannels;
+    return SETTINGS_NUM_OF_SUBS;
 }
-#endif
+
+int Settings::getNumberOfSubchannelsPerRow()
+{
+    return SETTINGS_SUBS_PER_ROW;
+}
+
+int Settings::getNumberOfSubchannelsPerCollum()
+{
+    return SETTINGS_SUBS_PER_COL;
+}
+
+int Settings::getNumberOfChannelsTotal()
+{
+    return SETTINGS_NUM_OF_CHANNELS;
+}
+
+int Settings::getNumberOfChannelsPerRow()
+{
+    return (SETTINGS_SUBS_PER_ROW / 2);
+}
+
+int Settings::getNumberOfChannelsPerCollum()
+{
+    return (SETTINGS_SUBS_PER_COL / 2);
+}
+
+int Settings::getChannelOfSubchannel(int sub)
+{
+    int channel;
+    switch (sub)
+    {
+        case 0:
+        case 1:
+        case 6:
+        case 7:
+        channel = 0;
+        break;
+
+        case 2:
+        case 3:
+        case 8:
+        case 9:
+        channel = 1;
+        break;
+
+        case 4:
+        case 5:
+        case 10:
+        case 11:
+        channel = 2;
+        break;
+
+        case 12:
+        case 13:
+        case 18:
+        case 19:
+        channel = 3;
+        break;
+
+        case 14:
+        case 15:
+        case 20:
+        case 21:
+        channel = 4;
+        break;
+
+        case 16:
+        case 17:
+        case 22:
+        case 23:
+        channel = 5;
+        break;
+
+        case 24:
+        case 25:
+        case 30:
+        case 31:
+        channel = 6;
+        break;
+
+        case 26:
+        case 27:
+        case 32:
+        case 33:
+        channel = 7;
+        break;
+
+        case 28:
+        case 29:
+        case 34:
+        case 35:
+        channel = 8;
+        break;
+
+        default:
+            break;
+    }
+    return channel;
+}
+
+
+
+int Settings::getFirstSubchannelOfChannel(int ch)
+{
+    int firstSubchannel;
+    switch (ch)
+    {
+        case 0:
+            firstSubchannel = 0;
+            break;
+        case 1:
+            firstSubchannel = 2;
+            break;
+        case 2:
+            firstSubchannel = 4;
+            break;
+        case 3:
+            firstSubchannel = 12;
+            break;
+        case 4:
+            firstSubchannel = 14;
+            break;
+        case 5:
+            firstSubchannel = 16;
+            break;
+        case 6:
+            firstSubchannel = 24;
+            break;
+        case 7:
+            firstSubchannel = 26;
+            break;
+        case 8:
+            firstSubchannel = 28;
+            break;
+        default:
+            break;
+    }
+    return firstSubchannel;
+}
+
+
+
+QPoint Settings::getCoordinatesOfSubchannel(int sub)
+{
+    QPoint coordinates;
+    coordinates.setX(sub%6);
+    coordinates.setY(sub/6);
+    return coordinates;
+}
+
+
+
+QList<int> Settings::getSubchannelsOfChannel(int ch)
+{
+    QList<int> subchannels;
+    switch (ch)
+    {
+        case 0:
+            subchannels.append(0);
+            subchannels.append(1);
+            subchannels.append(6);
+            subchannels.append(7);
+            break;
+        case 1:
+            subchannels.append(2);
+            subchannels.append(3);
+            subchannels.append(8);
+            subchannels.append(9);
+            break;
+        case 2:
+            subchannels.append(4);
+            subchannels.append(5);
+            subchannels.append(10);
+            subchannels.append(11);
+            break;
+        case 3:
+            subchannels.append(12);
+            subchannels.append(13);
+            subchannels.append(18);
+            subchannels.append(19);
+            break;
+        case 4:
+            subchannels.append(14);
+            subchannels.append(15);
+            subchannels.append(20);
+            subchannels.append(21);
+            break;
+        case 5:
+            subchannels.append(16);
+            subchannels.append(17);
+            subchannels.append(22);
+            subchannels.append(23);
+            break;
+        case 6:
+            subchannels.append(24);
+            subchannels.append(25);
+            subchannels.append(30);
+            subchannels.append(31);
+            break;
+        case 7:
+            subchannels.append(26);
+            subchannels.append(27);
+            subchannels.append(32);
+            subchannels.append(33);
+            break;
+        case 8:
+            subchannels.append(28);
+            subchannels.append(29);
+            subchannels.append(34);
+            subchannels.append(35);
+            break;
+        default:
+            break;
+    }
+    return subchannels;
+}
+
+
+
+
+
+
 
 QList<QString> Settings::getFavouriteMidiDeviceList()
 {
