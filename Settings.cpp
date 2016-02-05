@@ -524,6 +524,65 @@ QList<int> Settings::getSubchannelsOfChannel(int ch)
     return subchannels;
 }
 
+int Settings::getRelativeSubchannel(int sub)
+{
+    int relSub;
+    switch (sub)
+    {
+        case 0:
+        case 2:
+        case 4:
+        case 12:
+        case 14:
+        case 16:
+        case 24:
+        case 26:
+        case 28:
+        relSub = 0;
+        break;
+
+        case 1:
+        case 3:
+        case 5:
+        case 13:
+        case 15:
+        case 17:
+        case 25:
+        case 27:
+        case 29:
+        relSub = 1;
+        break;
+
+        case 6:
+        case 8:
+        case 10:
+        case 18:
+        case 20:
+        case 22:
+        case 30:
+        case 32:
+        case 34:
+        relSub = 2;
+        break;
+
+        case 7:
+        case 9:
+        case 11:
+        case 19:
+        case 21:
+        case 23:
+        case 31:
+        case 33:
+        case 35:
+        relSub = 3;
+        break;
+
+        default:
+            break;
+    }
+    return relSub;
+}
+
 
 
 

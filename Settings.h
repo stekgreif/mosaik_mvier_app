@@ -53,6 +53,7 @@ class Settings
         int getFirstSubchannelOfChannel(int ch);
         QPoint getCoordinatesOfSubchannel(int sub);
         QList<int> getSubchannelsOfChannel(int ch);
+        int getRelativeSubchannel(int sub);
 #endif
 
         QList<QString> getFavouriteMidiDeviceList(void);

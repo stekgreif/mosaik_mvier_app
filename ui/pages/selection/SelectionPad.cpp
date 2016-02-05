@@ -5,15 +5,18 @@
 #include <QStyleOption>
 #include "core/subchannel/SubchannelManager.h"
 
+#include "Settings.h"
+
 
 SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     : QWidget(parent)
 {
     /** pad colors **/
     m_padId = id;
-    m_padNr = m_padId%4;
+    m_padIdRel = settings().getRelativeSubchannel(m_padId);
+    qDebug() <<Q_FUNC_INFO <<m_padId <<m_padIdRel;
 
-    switch (m_padNr)
+    switch (m_padIdRel)
     {
         case 0:  //red 255,0,0
             m_padOnColor  = "{background-color: rgba(255,0,0,100%);}";
@@ -213,7 +216,7 @@ void SelectionPad::m_slot_padPressed()
 
 void SelectionPad::setPadToSelectionColor(void)
 {
-    switch (m_padNr)
+    switch (m_padIdRel)
     {
         case 0:  //red 255,0,0
             m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,  0,  0,25%);}");
