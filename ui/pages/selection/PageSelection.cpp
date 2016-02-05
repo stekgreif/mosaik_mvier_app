@@ -98,7 +98,7 @@ void PageSelection::slot_regularTimer()
 
     QBitArray hasSample = subchannelManager().hasSample();
     QBitArray hasSteps  = subchannelManager().getAllHasSteps();
-    int curSubPos;
+    //int curSubPos;
     QBitArray isPlaying(SETTINGS_NUM_OF_SUBS);
     isPlaying = subchannelManager().getPlayingSubchannels();
 
@@ -145,7 +145,7 @@ void PageSelection::slot_regularTimer()
         }
 
         /** refresh sample volume **/
-        m_pad[curSubPos]->setSampleVolume();
+        m_pad[cnt]->setSampleVolume();
 
         if( isPlaying.at(cnt) )
         {

@@ -523,6 +523,7 @@ float SubchannelManager::getSubchannelVolume(int subchId)
 {
     if(( subchId >= 0 ) && ( subchId < SETTINGS_NUM_OF_SUBS ))
     {
+        qDebug() <<Q_FUNC_INFO <<"subchId:" <<subchId;
         return m_subchannel.at(subchId)->getVolume();
     }
     else
