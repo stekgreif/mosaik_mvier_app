@@ -230,11 +230,17 @@ QByteArray SubchannelManager::getCurrentChannelPattern(void)
     QByteArray retPattern;
     retPattern.resize(SETTINGS_NUM_OF_SUBS);
 
+    QList<int> subchsIds = settings().getSubchannelsOfChannel(m_currentChannel);
+
+
     for(int i = 0; i < 4; i++)
     {
-        subchsIdsOfCurrentChannel[i] = (m_currentChannel * 4) + i;    //e.g. 16,17,18,19
+        //subchsIdsOfCurrentChannel[i] = (m_currentChannel * 4) + i;    //e.g. 16,17,18,19
+        subchsIdsOfCurrentChannel[i] = subchsIds.at(i);   //e.g. 16,17,18,19
         //qDebug() <<Q_FUNC_INFO <<"subchannel" <<i <<":" <<subchsIdsOfCurrentChannel[i];
     }
+
+
 
     // set all return pattern elements to 0
     for( int k = 0; k < 64; k++ )
@@ -247,7 +253,7 @@ QByteArray SubchannelManager::getCurrentChannelPattern(void)
         {
             curPattern = m_subchannel.at(subchsIdsOfCurrentChannel[i])->getPattern();
             //qDebug() <<Q_FUNC_INFO <<"current pattern:" <<curPattern;
-            for( int j = 0; j < SETTINGS_NUM_OF_SUBS; j++)
+            for( int j = 0; j < 64; j++) //64 steps
             {
                 if( curPattern.at(j) == true )
                 {
@@ -646,7 +652,7 @@ int SubchannelManager::getCurrentChannelSelection()
 /*  @return 0..3 */
 int SubchannelManager::getCurrentSubchannelSelelectionRelative()
 {
-    return m_currentSubchannel % 4;
+    return settings().getRelativeSubchannel(m_currentSubchannel);
 }
 
 

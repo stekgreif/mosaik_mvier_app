@@ -260,9 +260,13 @@ void MosaikMini::setStepsequencerLed(int stepLedId)
         int color;
 
         if( pattern.at(m_lastStepSequencerLed) )
+        {
             color = getColorValue(subchannelManager().getCurrentSubchannelSelelectionRelative() + 1);
+        }
         else
+        {
             color = getColorValue( 0 );
+        }
 
         m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq,
                             m_lastStepSequencerLed,
