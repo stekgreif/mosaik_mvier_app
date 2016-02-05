@@ -15,8 +15,7 @@
 
 
 #define BTN_SIZE  131
-#define BTN_GAP     4
-#define OFFSET      2
+#define BTN_GAP     2
 #define BTN_GRID  (BTN_SIZE+BTN_GAP)
 
 
@@ -31,16 +30,30 @@ PageSelection::PageSelection(UiManager *parent)
     qDebug() <<Q_FUNC_INFO <<"Init.";
     m_lastSelectedSubchannel = 0;
 
+    this->setObjectName("PageSelection");
+    this->setStyleSheet("QWidget#PageSelection {background-color: rgba(40,40,40,50%);}");
+    m_gridWidth = settings().getScreenSize().height() / settings().getNumberOfSubchannelsPerRow();
+    m_padWidth  = ( m_gridWidth / 100) * 97;
+    m_padXGap   = ( m_gridWidth / 100) *  3;
+
+    float frameWidth = ( m_gridWidth / 100) * 98 * 2;
     m_channelSelectionFrame = new QLabel(this);
-    m_channelSelectionFrame->setFixedSize(BTN_GRID*2, BTN_GRID*2);
+    m_channelSelectionFrame->setFixedSize( frameWidth, frameWidth );
     m_channelSelectionFrame->setObjectName("channelSelectionFrame");
+
+
+    qDebug() <<Q_FUNC_INFO <<"grid width:" <<m_gridWidth;
+    qDebug() <<Q_FUNC_INFO <<"pad width:" <<m_padWidth;
+    qDebug() <<Q_FUNC_INFO <<"pad x gap:" <<m_padXGap;
+    int usedWidth = m_padWidth + m_padXGap;
+    qDebug() <<Q_FUNC_INFO <<"used width:" <<usedWidth;
 
 
 
     QSize *padSize;
     padSize = new QSize;
-    padSize->setWidth(BTN_SIZE);
-    padSize->setHeight(BTN_SIZE);
+    padSize->setWidth(m_padWidth);
+    padSize->setHeight(m_padWidth);
 
     int abs = 0;
     for(int y = 0; y < SETTINGS_SUBS_PER_COL; y++)
@@ -48,10 +61,9 @@ PageSelection::PageSelection(UiManager *parent)
         for(int x = 0; x < SETTINGS_SUBS_PER_ROW; x++)
         {
             abs = x + (y * SETTINGS_SUBS_PER_COL);
-            qDebug() <<Q_FUNC_INFO <<"pad id:" <<abs;
-            //m_pad[abs] = new SelectionPad(settings().getSubchannelId(abs), padSize, this);
+
             m_pad[abs] = new SelectionPad(abs, padSize, this);
-            m_pad[abs]->move(x * BTN_GRID + OFFSET, y * BTN_GRID + OFFSET);
+            m_pad[abs]->move(x * (m_padWidth + m_padXGap), y * (m_padWidth + m_padXGap) );
 
             connect(m_pad[abs], SIGNAL(signal_subchPadPressed(int)), this, SLOT(m_slot_selectionChanged(int)) );
         }
@@ -170,8 +182,8 @@ void PageSelection::slot_regularTimer()
 
     /** channel selection frame **/
     int pos = subchannelManager().getCurrentChannelSelection() ;
-    int xPos = (pos % (settings().getNumberOfChannelsPerRow() )) * BTN_GRID * 2;
-    int yPos = (pos / (settings().getNumberOfChannelsPerCollum() )) * BTN_GRID * 2;
+    int xPos = (pos % (settings().getNumberOfChannelsPerRow() )) * m_gridWidth * 2;
+    int yPos = (pos / (settings().getNumberOfChannelsPerCollum() )) * m_gridWidth * 2;
     m_channelSelectionFrame->move(xPos, yPos);
 
     m_muteAndSolo->refresh();

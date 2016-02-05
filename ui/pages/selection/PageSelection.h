@@ -47,6 +47,10 @@ class PageSelection : public QWidget
         QLabel *m_channelSelectionFrame;
 
 
+        float m_gridWidth;
+        float m_padWidth;
+        float m_padXGap;
+
         MuteAndSolo *m_muteAndSolo;
         bool m_muteAndSoloVisible;
 
