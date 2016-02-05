@@ -201,11 +201,8 @@ void SelectionPad::clearSampleName()
 
 void SelectionPad::setSampleVolume()
 {
-#if 0 // fixme
-    qDebug() <<Q_FUNC_INFO <<m_padId;
     m_volumeValue = subchannelManager().getSubchannelVolume(m_padId);
     m_volumeWidget->setVolume(m_volumeValue);
-#endif
 }
 
 
@@ -216,10 +213,6 @@ void SelectionPad::m_slot_padPressed()
 
 void SelectionPad::setPadToSelectionColor(void)
 {
-    //m_subChColor->setStyleSheet("QLabel#color" + m_padOnColor);
-    //m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(180,180,180,100%);}");
-    //m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(180,180,180,100%);}");
-
     switch (m_padNr)
     {
         case 0:  //red 255,0,0

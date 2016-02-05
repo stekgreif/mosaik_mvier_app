@@ -170,8 +170,8 @@ void PageSelection::slot_regularTimer()
 
     /** channel selection frame **/
     int pos = subchannelManager().getCurrentChannelSelection() ;
-    int xPos = (pos % 4) * BTN_GRID * 2;
-    int yPos = (pos / 4) * BTN_GRID * 2;
+    int xPos = (pos % (settings().getNumberOfChannelsPerRow() )) * BTN_GRID * 2;
+    int yPos = (pos / (settings().getNumberOfChannelsPerCollum() )) * BTN_GRID * 2;
     m_channelSelectionFrame->move(xPos, yPos);
 
     m_muteAndSolo->refresh();
