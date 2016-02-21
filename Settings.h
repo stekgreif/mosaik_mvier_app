@@ -10,7 +10,7 @@
     USER SETTINGS
 *******************************************************************************/
 
-#define SETTINGS_INIT_WITH_AUDIO        true
+#define SETTINGS_INIT_WITH_AUDIO        false
 #define SETTINGS_INIT_WITH_MIDI_IN      false
 #define SETTINGS_INIT_WITH_MIDI_OUT     false
 #define SETTINGS_START_WITH_FULL_SCREEN true

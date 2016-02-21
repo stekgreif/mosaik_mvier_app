@@ -37,6 +37,9 @@ MosaikMini::MosaikMini()
     m_shiftBpm = false;
     m_shiftMainVol = false;
     m_shiftPan = false;
+    m_shiftPitch = false;
+    m_shiftPlayDir = false;
+    m_shiftPan = false;
     m_tglSubToPre = false;
     m_mute = false;
 
@@ -121,6 +124,7 @@ void MosaikMini::setSubchannelPattern(void)
 
 
 
+#if 0 // original working function
 void MosaikMini::setChannelPattern(void)
 {
     qDebug() <<Q_FUNC_INFO;
@@ -160,7 +164,50 @@ void MosaikMini::setChannelPattern(void)
 
     m_midiOut->sendData(midiData);
 }
+#endif
 
+
+
+
+#if 1 // 2016-02-21 bandwidth saving function
+void MosaikMini::setChannelPattern(void)
+{
+    qDebug() <<Q_FUNC_INFO;
+
+    QByteArray pattern = subchannelManager().getCurrentChannelPattern();
+    QByteArray midiData;
+    midiData.resize(192);
+
+    midiData[0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
+    midiData[1] = 127;  // message to all leds
+    midiData[2] = MosaikMiniDevice::RgbColorOff;  // all off
+
+
+    int midiMsgCnt = 0;
+    for (int cnt = 0; cnt < 64; cnt++)
+    {
+        switch (pattern.at(cnt))
+        {
+            case 0:
+                break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                midiMsgCnt++;
+                midiData[3*midiMsgCnt+0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
+                midiData[3*midiMsgCnt+1] = cnt;
+                midiData[3*midiMsgCnt+2] = getColorValue(pattern.at(cnt));
+                break;
+            default:
+                break;
+        }
+    }
+
+    midiData.resize(3*midiMsgCnt);
+    m_midiOut->sendData(midiData);
+}
+#endif
 
 
 void MosaikMini::refreshSequencer()
@@ -291,11 +338,13 @@ void MosaikMini::setStepsequencerLed(int stepLedId)
 
 
 
-
+/** ****************************************************************************
+    MIDI IN
+*******************************************************************************/
 
 void MosaikMini::slot_midiMsgReceived(quint8* data)
 {
-    qDebug() <<Q_FUNC_INFO;
+    //qDebug() <<Q_FUNC_INFO;
     quint8 midiBuffer[3] = {};
 
     midiBuffer[0] = data[0];    // midi ch, status
@@ -326,53 +375,37 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                 switch (data[1])
                 {
                     case 0:
-                        emit signal_functionLeftButton00Pressed();
-                        break;
+                        emit signal_functionLeftButton00Pressed(); break;
                     case 1:
-                        emit signal_functionLeftButton01Pressed();
-                        break;
+                        emit signal_functionLeftButton01Pressed(); break;
                     case 2:
-                        emit signal_functionLeftButton02Pressed();
-                        break;
+                        emit signal_functionLeftButton02Pressed(); break;
                     case 3:
-                        emit signal_functionLeftButton03Pressed();
-                        break;
+                        emit signal_functionLeftButton03Pressed(); break;
                     case 4:
-                        emit signal_functionLeftButton04Pressed();
-                        emit signal_selectChannel(0);
-                        break;
+                        emit signal_functionLeftButton04Pressed(); break;
                     case 5:
-                        emit signal_functionLeftButton05Pressed();
-                        emit signal_selectChannel(1);
-                        break;
+                        emit signal_functionLeftButton05Pressed(); break;
                     case 6:
-                        emit signal_functionLeftButton06Pressed();
-                        emit signal_selectChannel(2);
-                        break;
+                        emit signal_functionLeftButton06Pressed(); break;
                     case 7:
-                        emit signal_functionLeftButton07Pressed();
-                        emit signal_selectChannel(3);
-                        break;
+                        emit signal_functionLeftButton07Pressed(); break;
                     case 8:
-                        emit signal_functionLeftButton08Pressed();
-                        break;
+                        emit signal_functionLeftButton08Pressed(); break;
                     case 9:
-                        emit signal_functionLeftButton09Pressed();
-                        break;
+                        emit signal_functionLeftButton09Pressed(); break;
                     case 10:
-                        //emit signal_functionLeftButton10Pressed();
-                        toggleSinglePatternView();
-                        refreshSequencer();
-                        break;
+                        emit signal_functionLeftButton10Pressed(); break;
                     case 11:
-                        emit signal_functionLeftButton11Pressed();
-                        break;
+                        emit signal_functionLeftButton11Pressed(); break;
                     case 12:
+                        emit signal_functionLeftButton12Pressed(); break;
                     case 13:
+                        emit signal_functionLeftButton13Pressed(); break;
                     case 14:
+                        emit signal_functionLeftButton14Pressed(); break;
                     case 15:
-                        emit signal_functionSelectSubchannelRelative(data[1] - 12);
-                        break;
+                        emit signal_functionLeftButton15Pressed(); break;
                     default:
                         break;
                 }
@@ -393,83 +426,75 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         /** Function Right **/
         case MIDI_CH_FNR:
         {
-            qDebug() <<"FNR" <<data[0] <<data[1] <<data[2];
-
-            if( (data[0] & 0xF0) == Mosaik::MidiCommand::noteOn )
+            switch (data[1])
             {
-                switch (data[1])
-                {
-                    case 0:
-                        emit signal_functionRightButton00Pressed();
-                        break;
-                    case 1:
-                        emit signal_functionRightButton01Pressed();
-                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnr) )
-                            emit signal_lastMute();
-                        break;
-                    case 2:
-                        emit signal_functionRightButton02Pressed();
-                        break;
-                    case 3:
-                        emit signal_functionRightButton03Pressed();
-                        break;
-                    case 4:
-                        emit signal_functionRightButton04Pressed();
-                        break;
-                    case 5:
-                        emit signal_functionRightButton05Pressed();
-                        break;
-                    case 6:
-                        emit signal_functionRightButton06Pressed();
-                        break;
-                    case 7:
-                        emit signal_functionRightButton07Pressed();
-                        break;
-                    case 8:
-                        emit signal_functionRightButton08Pressed();
-                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnr) )
-                            emit signal_unmuteAll();
-                        break;
-                    case 9:
-                        emit signal_functionRightButton09Pressed();
-                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnr) )
-                        {
-                            m_mute = !m_mute;
-                            emit signal_muteAndSolo(m_mute);
-                        }
-                        qDebug() <<Q_FUNC_INFO <<"m_mute" <<m_mute;
-                        break;
-                    case 10:
-                        emit signal_functionRightButton10Pressed();
-                        emit signal_setPathId(0);
-                        break;
-                    case 11:
-                        emit signal_functionRightButton11Pressed();
-                        emit signal_setPathId(1);
-                        break;
-                    case 12:
-                        emit signal_functionRightButton12Pressed();
-                        emit signal_setPathId(2);
-                        break;
-                    case 13:
-                        emit signal_functionRightButton13Pressed();
-                        emit signal_setPathId(3);
-                        break;
-                    case 14:
-                        emit signal_functionRightButton14Pressed();
-                        emit signal_selectPageSubchannel();
-                        break;
-                    case 15:
-                        emit signal_functionRightButton15Pressed();
-                        emit signal_selectPageBrowser();
-                        break;
-                    default:
-                        break;
-                }
+                case 0:
+                    if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
+                    {
+                        m_shiftMainVol = true;
+                    }
+                    else if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOff) )
+                    {
+                        m_shiftMainVol = false;
+                    }
+                    break;
+                case 1:
+                    if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
+                    {
+                        m_shiftBpm = true;
+                    }
+                    else if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOff) )
+                    {
+                        m_shiftBpm = false;
+                    }
+                    break;
+                case 2: //play
+                    if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
+                    {
+                        m_shiftPlayDir = !m_shiftPlayDir;
+                        m_shiftPitch   = false;
+                        m_shiftPan     = false;
+                    }
+                    break;
+                case 3: //pitch
+                    if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
+                    {
+                        m_shiftPitch   = !m_shiftPitch;
+                        m_shiftPlayDir = false;
+                        m_shiftPan     = false;
+                    }
+                    break;
+                case 4: //pan
+                    if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
+                    {
+                        m_shiftPan     = !m_shiftPan;
+                        m_shiftPlayDir = false;
+                        m_shiftPitch   = false;
+                    }
+                    break;
+                case 5:
+                    emit signal_functionRightButton05Pressed(); break;
+                case 6:
+                    emit signal_functionRightButton06Pressed(); break;
+                case 7:
+                    emit signal_functionRightButton07Pressed(); break;
+                case  8:
+                case  9:
+                case 10:
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                    if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
+                    {
+                        signal_setPathId( 7 - data[1] );
+                    }
+                    break;
+                default:
+                    break;
             }
 
-            //emit signal_fnrMsg(data[1], data[2]);
-            break;
         }
 
         /** Menu **/
@@ -494,13 +519,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         m_shiftPan = false;
                     qDebug() <<Q_FUNC_INFO <<"m_shiftPan" <<m_shiftPan;
                     break;
-                case 5:
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                        m_shiftBpm = true;
-                    else if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOff) )
-                        m_shiftBpm = false;
-                    qDebug() <<Q_FUNC_INFO <<"m_shiftBpm" <<m_shiftBpm;
-                    break;
+                case 5: break;
                 case 2:
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                         emit signal_loadSample();

@@ -97,7 +97,11 @@ class MosaikMini : public MidiDevice
 
         bool m_shiftBpm;
         bool m_shiftMainVol;
+
         bool m_shiftPan;
+        bool m_shiftPitch;
+        bool m_shiftPlayDir;
+
         bool m_tglSubToPre;
         bool m_mute;
 
