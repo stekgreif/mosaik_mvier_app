@@ -77,6 +77,9 @@ void MosaikMini::sendRawData(const QByteArray &data)
     m_midiOut->sendData(data);
 }
 
+
+
+#if 0 // original working function
 void MosaikMini::setSubchannelPattern(void)
 {
     qDebug() <<Q_FUNC_INFO;
@@ -121,7 +124,40 @@ void MosaikMini::setSubchannelPattern(void)
     m_midiOut->sendData(midiData);
     qDebug() <<Q_FUNC_INFO <<"sending finished";
 }
+#endif
 
+
+#if 1 // 2016-02-21 bandwidth saving function
+void MosaikMini::setSubchannelPattern(void)
+{
+    //qDebug() <<Q_FUNC_INFO;
+
+    QBitArray pattern = subchannelManager().getCurrentSubchannelPattern();
+    QByteArray midiData;
+    midiData.resize(192);
+
+    midiData[0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
+    midiData[1] = 127;                              // message to all leds
+    midiData[2] = MosaikMiniDevice::RgbColorOff;    // all off
+
+    int bufferSizeCnt = 3;
+    int color = subchannelManager().getCurrentSubchannelSelelectionRelative();
+
+    for (int step = 0; step < 64; step++)
+    {
+        if( pattern.at(step) )
+        {
+            midiData[ bufferSizeCnt + 0 ] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
+            midiData[ bufferSizeCnt + 1 ] = step;
+            midiData[ bufferSizeCnt + 2 ] = color;
+            bufferSizeCnt += 3;
+        }
+    }
+
+    midiData.resize(bufferSizeCnt);
+    m_midiOut->sendData(midiData);
+}
+#endif
 
 
 #if 0 // original working function
@@ -182,29 +218,19 @@ void MosaikMini::setChannelPattern(void)
     midiData[1] = 127;  // message to all leds
     midiData[2] = MosaikMiniDevice::RgbColorOff;  // all off
 
-
-    int midiMsgCnt = 0;
+    int bufferSizeCnt = 3;
     for (int cnt = 0; cnt < 64; cnt++)
     {
-        switch (pattern.at(cnt))
+        if( pattern.at(cnt) )
         {
-            case 0:
-                break;
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-                midiMsgCnt++;
-                midiData[3*midiMsgCnt+0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
-                midiData[3*midiMsgCnt+1] = cnt;
-                midiData[3*midiMsgCnt+2] = getColorValue(pattern.at(cnt));
-                break;
-            default:
-                break;
+            midiData[ bufferSizeCnt + 0 ] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
+            midiData[ bufferSizeCnt + 1 ] = cnt;
+            midiData[ bufferSizeCnt + 2 ] = getColorValue(pattern.at(cnt));
+            bufferSizeCnt += 3;
         }
     }
 
-    midiData.resize(3*midiMsgCnt);
+    midiData.resize(3*bufferSizeCnt);
     m_midiOut->sendData(midiData);
 }
 #endif

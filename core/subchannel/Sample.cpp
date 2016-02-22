@@ -25,6 +25,7 @@ Sample::Sample(QString samplePathAndName)
     }
 
 
+    qDebug() <<"frames:" <<m_sample->sndInfo.frames;
 
 #if 0
     qDebug() <<"channels:"      <<m_sample->info.channels;

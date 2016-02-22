@@ -81,6 +81,34 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_btnTestPlayDirection->move(160,980);
     m_btnTestPlayDirection->setText("Tgl Play Dir");
 
+
+
+#if 0 // working image example
+    m_image = new QImage(10,10, QImage::Format_RGB32);
+    m_image->fill(Qt::white);
+    m_labelImage = new QLabel(this);
+    m_labelImage->move(300, 980);
+    m_labelImage->setPixmap(QPixmap::fromImage(*m_image));
+#endif
+
+#if 1 // working pixmap example
+    m_pixmap = new QPixmap(100,100);
+    m_pixmap->fill(Qt::black);
+    QPainter painter(m_pixmap);
+
+    QPen pen;
+    pen.setWidth(5);
+    pen.setColor(Qt::red);
+    QLine line(5,5,50,50);
+
+    painter.setPen(pen);
+    painter.drawLine(line);
+
+    m_labelImage = new QLabel(this);
+    m_labelImage->move(300, 980);
+    m_labelImage->setPixmap(*m_pixmap);
+#endif
+
     connect(m_btnTestTreeCollapse,
             SIGNAL(clicked()),
             m_browser,

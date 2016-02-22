@@ -14,7 +14,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     /** pad colors **/
     m_padId = id;
     m_padIdRel = settings().getRelativeSubchannel(m_padId);
-    qDebug() <<Q_FUNC_INFO <<m_padId <<m_padIdRel;
+    //qDebug() <<Q_FUNC_INFO <<m_padId <<m_padIdRel;
 
     switch (m_padIdRel)
     {
