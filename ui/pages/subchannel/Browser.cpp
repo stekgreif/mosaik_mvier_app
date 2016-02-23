@@ -14,7 +14,7 @@ Browser::Browser(QWidget *uiParent)
 
 
     /** path **/
-    m_defaultPath = "/";
+    m_defaultPath = "/home/dan/samples/mitCamelCase";
     m_path[0] = "/media/dan/Daten/Soundbänke";
     m_path[1] = "/media/dan/Daten/Soundbänke/Mosaik Soundbank";
     m_path[2] = "/home/dan/samples/mitCamelCase";
@@ -48,7 +48,7 @@ Browser::Browser(QWidget *uiParent)
     treeFont.setPixelSize(14);
     m_treeView->setFont(treeFont);
 
-
+    slot_changePath(m_defaultPath);
 
 }
 

@@ -1,6 +1,6 @@
 #include "Sample.h"
 #include <QDebug>
-
+#include <QPainter>
 
 
 Sample::Sample(QString samplePathAndName)
@@ -36,6 +36,78 @@ Sample::Sample(QString samplePathAndName)
     qDebug() <<"length in sec:" <<m_sample->lengthInMs / 1000;
     qDebug() <<Q_FUNC_INFO;
 #endif
+
+    QSize waveFormSize(780,300);
+    m_sample->pixmap = new QPixmap(waveFormSize);
+    m_sample->pixmap->fill(Qt::white);
+
+    QPainter painter(m_sample->pixmap);
+    QPen pen;
+    pen.setWidth(1);
+    pen.setColor(Qt::blue);
+
+    /** only mono **/
+    int stepWidth = m_sample->sndInfo.frames / waveFormSize.width();
+    qDebug() <<Q_FUNC_INFO <<"step Width:" <<stepWidth;
+
+
+    QLine linePos(1,2,3,4);
+    QLine lineNeg(1,2,3,4);
+
+    linePos.setLine(0, 150, 780, 150);
+    painter.drawLine(linePos);
+    painter.setPen(pen);
+
+    float sumPos = 0;
+    float sumNeg = 0;
+    int stepCnt = 0;
+    float scaleFactor = 1/getMaxSumValue();
+    float temp = 0;
+    int posValCnt = 0;
+    int negValCnt = 0;
+
+    for(int frame = 0; frame < m_sample->sndInfo.frames; frame = frame + stepWidth)
+    {
+        sumPos = 0;
+        sumNeg = 0;
+        posValCnt = 0;
+        negValCnt = 0;
+
+        for(int cnt = 0; cnt < stepWidth; cnt++)
+        {
+            temp = m_sample->frameBuffer[frame + cnt];
+
+            if( temp < 0.0 )
+            {
+                sumNeg = sumNeg + temp;
+                negValCnt++;
+            }
+            else
+            {
+                sumPos = sumPos + temp;
+                posValCnt++;
+            }
+        }
+
+#if 0
+        sumPos = sumPos / (float)posValCnt;
+        sumNeg = sumNeg / (float)negValCnt;
+        sumPos = sumPos;
+        sumNeg = sumNeg;
+#endif
+
+        qDebug() <<"xxxxxxxxxxxxxxxxx pos" <<sumPos;
+        qDebug() <<"xxxxxxxxxxxxxxxxx neg" <<sumNeg;
+
+        linePos.setLine(stepCnt, 150, stepCnt, 150-sumPos);
+        lineNeg.setLine(stepCnt, 150, stepCnt, 150-sumNeg);
+        painter.drawLine(linePos);
+        painter.drawLine(lineNeg);
+
+        stepCnt++;
+    }
+
+    qDebug() <<Q_FUNC_INFO <<"max abs value:" <<getMaxSampleValue()  <<"Sample loaded:" <<m_sample->pathAndName;
 }
 
 
@@ -44,7 +116,7 @@ Sample::~Sample()
 {
     if( sf_close(m_sample->sndFile) == 0 )
     {
-        qDebug() <<Q_FUNC_INFO <<"Sample closed.";
+        qDebug() <<Q_FUNC_INFO <<"Closing Sample:" <<m_sample->pathAndName;
     }
     else
     {
@@ -59,6 +131,61 @@ Sample::~Sample()
 Sample_t *Sample::getSampleStructPointer(void)
 {
     return m_sample;
+}
+
+
+
+float Sample::getMaxSampleValue()
+{
+    float max = 0.0;
+    float temp = 0.0;
+
+    for(int frame = 0; m_sample->sndInfo.frames > frame; frame++)
+    {
+        temp = m_sample->frameBuffer[frame];
+
+        if( temp < 0.0 )
+            temp = -temp;
+
+        if( max < temp )
+            max = temp;
+    }
+
+    //qDebug() <<"yyyyyyy  max abs:" <<max;
+    return max;
+}
+
+float Sample::getMaxSumValue()
+{
+    int stepCnt = 0;
+    float sum = 0;
+    float max = 0;
+    float temp = 0;
+    int stepWidth = m_sample->sndInfo.frames / 780;
+
+    for(int frame = 0; frame < m_sample->sndInfo.frames; frame = frame + stepWidth)
+    {
+        sum = 0;
+
+        for(int cnt = 0; cnt < stepWidth; cnt++)
+        {
+            if( temp < 0.0 )
+                temp = -temp;
+
+            sum = sum + temp;
+            sum = sum / (float)stepWidth;
+        }
+
+        if( sum < 0.0 )
+            sum = -sum;
+
+        if( max < sum )
+            max = sum;
+
+        stepCnt++;
+    }
+
+    return max;
 }
 
 

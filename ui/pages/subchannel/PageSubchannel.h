@@ -112,6 +112,7 @@ class PageSubchannel : public QWidget
         QImage *m_image;
         QPixmap *m_pixmap;
         QLabel *m_labelImage;
+
 };
 
 #endif // PAGESUBCHANNEL_H

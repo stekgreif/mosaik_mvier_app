@@ -2,6 +2,7 @@
 #define SAMPLE_H
 
 #include <QString>
+#include <QPixmap>
 
 #include </usr/include/sndfile.h>
 
@@ -10,6 +11,7 @@ typedef struct{
     QString  pathAndName;
     QString  path;
     QString  name;
+    QPixmap  *pixmap;
 
     SF_INFO  sndInfo;
     SNDFILE *sndFile;
@@ -49,7 +51,10 @@ class Sample
 
     private:
         Sample_t *m_sample;
+        float m_peak;
         QString   m_samplePathAndName;
+        float getMaxSampleValue();
+        float getMaxSumValue();
 };
 
 #endif // SAMPLE_H

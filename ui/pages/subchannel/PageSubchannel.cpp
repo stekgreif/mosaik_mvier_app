@@ -37,13 +37,14 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
     /** setup sample waveform plot **/
     m_samplePlot = new QCustomPlot(this);
+#if 0
     m_samplePlot->setBackground(Qt::lightGray);
     m_samplePlot->axisRect()->setBackground(Qt::darkGray);
     m_samplePlot->move(m_sampleWindowAttributes->topLeft());
     m_samplePlot->setFixedSize(m_sampleWindowAttributes->width(), m_sampleWindowAttributes->height());
     m_samplePlot->yAxis->setTickLabels(false);
     m_samplePlot->yAxis->setTicks(false);
-
+#endif
 
     /** sample value labels **/
     m_labelVarPathAndName = new QLabel("-", this);
@@ -91,7 +92,7 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelImage->setPixmap(QPixmap::fromImage(*m_image));
 #endif
 
-#if 1 // working pixmap example
+#if 0 // working pixmap example
     m_pixmap = new QPixmap(100,100);
     m_pixmap->fill(Qt::black);
     QPainter painter(m_pixmap);
@@ -108,6 +109,15 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelImage->move(300, 980);
     m_labelImage->setPixmap(*m_pixmap);
 #endif
+
+
+    m_labelImage = new QLabel(this);
+    m_labelImage->move(20, 20);
+    m_labelImage->setFixedSize(780,300);
+    m_labelImage->setObjectName("labelImage");
+    m_labelImage->setStyleSheet("QLabel#labelImage {background-color: rgb(100,100,120);}");
+
+
 
     m_btnLoadSample = new QPushButton(this);
     m_btnLoadSample->move(500,980);
@@ -142,6 +152,21 @@ PageSubchannel::~PageSubchannel()
 
 void PageSubchannel::refreshSamplePlot()
 {
+    if( subchannelManager().hasCurrentSubchannelSample() )
+    {
+        qDebug() <<Q_FUNC_INFO  <<"xxxxxxxxxxxx Refresh sample plot.";
+
+        QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample();
+        m_labelImage->setPixmap(*samplePtr->getSampleStructPointer()->pixmap);
+    }
+    else
+    {
+        resetSamplePlot();
+    }
+
+
+
+#if 0 // working sample plot widht qcustomplot
     if( subchannelManager().hasCurrentSubchannelSample() )
     {
         qDebug() <<Q_FUNC_INFO  <<"Refresh sample plot.";
@@ -238,11 +263,12 @@ void PageSubchannel::refreshSamplePlot()
     }
     else
         resetSamplePlot();
+#endif
 }
 
 void PageSubchannel::resetSamplePlot()
 {
-#if 1
+#if 0
     qDebug() <<Q_FUNC_INFO;
     m_samplePlot->clearGraphs();
     m_samplePlot->clearItems();
