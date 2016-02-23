@@ -114,16 +114,21 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_btnLoadSample->setFixedSize(100,50);
     m_btnLoadSample->setText("load sample");
 
+    connect( m_btnLoadSample,
+             SIGNAL(clicked()),
+             this,
+             SLOT(slot_loadSample())            );
 
-    connect(m_btnTestTreeCollapse,
-            SIGNAL(clicked()),
-            m_browser,
-            SLOT(slot_toggleParentFolderState()));
 
-    connect(m_btnTestPlayDirection,
-            SIGNAL(clicked()),
-            this,
-            SLOT(slot_togglePlayDirection()));
+    connect( m_btnTestTreeCollapse,
+             SIGNAL(clicked()),
+             m_browser,
+             SLOT(slot_toggleParentFolderState()));
+
+    connect( m_btnTestPlayDirection,
+             SIGNAL(clicked()),
+             this,
+             SLOT(slot_togglePlayDirection()));
 
     refresh();
 }
