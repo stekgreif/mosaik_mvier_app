@@ -109,6 +109,12 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelImage->setPixmap(*m_pixmap);
 #endif
 
+    m_btnLoadSample = new QPushButton(this);
+    m_btnLoadSample->move(500,980);
+    m_btnLoadSample->setFixedSize(100,50);
+    m_btnLoadSample->setText("load sample");
+
+
     connect(m_btnTestTreeCollapse,
             SIGNAL(clicked()),
             m_browser,

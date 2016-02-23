@@ -107,6 +107,7 @@ class PageSubchannel : public QWidget
         /** test **/
         QPushButton *m_btnTestTreeCollapse;
         QPushButton *m_btnTestPlayDirection;
+        QPushButton *m_btnLoadSample;
 
         QImage *m_image;
         QPixmap *m_pixmap;
