@@ -27,6 +27,8 @@ Settings::Settings()
     m_midiFavList.append("SparkLE");
     m_midiFavList.append("Mosaik");
     m_midiFavList.append("HELLA-UNTZtrument");
+
+    qDebug() <<Q_FUNC_INFO <<"Settings initialized.";
 }
 
 Settings::~Settings()

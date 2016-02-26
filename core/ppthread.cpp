@@ -17,7 +17,6 @@ PPThread::~PPThread()
 }
 
 
-
 void *PPThread::__run(void *ptr)
 {
     static_cast<PPThread *>(ptr)->run();
@@ -50,6 +49,7 @@ void PPThread::requestStop()
 {
     terminateRequest = true;
 }
+
 
 
 

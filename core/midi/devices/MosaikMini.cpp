@@ -49,6 +49,8 @@ MosaikMini::MosaikMini()
     m_midiIn  = new MidiIn (settings().getConnectedMidiDevicePort());
     connect(m_midiIn, SIGNAL(signal_midiMsgReceived(quint8*)), this, SLOT(slot_midiMsgReceived(quint8*)) );
     m_midiIn->start();
+
+
     resetHardware();
 
     refreshSubchannelSelection();
@@ -253,11 +255,15 @@ void MosaikMini::refreshSequencer()
 
 void MosaikMini::resetHardware()
 {
+    // all leds off
+    qDebug() <<Q_FUNC_INFO <<"Hardware reseted.";
     quint8 data[3];
     data[0] = MIDI_MSG_NOTE_ON | MIDI_CH_SYS;
     data[1] = 127;
     data[2] = 0;
     m_midiOut->sendDataCopy(data, 3);
+
+    refreshSubchannelSelection();
 }
 
 
