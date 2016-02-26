@@ -176,6 +176,20 @@ void UiManager::refreshSelectionPad()
     m_pageSelection->refreshSampleVolume();
 }
 
+
+
+void UiManager::slot_browserOpenFolder()
+{
+    m_pageSubchannel->slot_browserOpenFolder();
+}
+
+void UiManager::slot_browserCloseFolder()
+{
+    m_pageSubchannel->slot_browserCloseFolder();
+}
+
+
+
 void UiManager::slot_toggleMuteAndSolo()
 {
     qDebug() <<Q_FUNC_INFO;

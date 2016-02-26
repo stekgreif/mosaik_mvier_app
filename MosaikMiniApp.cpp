@@ -356,6 +356,16 @@ void MosaikMiniApp::slot_browserSelectedSampleToPrelisten()
     m_uiManager->loadSelectedSampleToPrelisten();
 }
 
+void MosaikMiniApp::slot_browserOpenFolder()
+{
+    m_uiManager->slot_browserOpenFolder();
+}
+
+void MosaikMiniApp::slot_browserCloseFolder()
+{
+    m_uiManager->slot_browserCloseFolder();
+}
+
 
 
 /** ****************************************************************************

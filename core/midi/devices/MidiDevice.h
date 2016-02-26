@@ -47,6 +47,11 @@ class MidiDevice : public QObject
         void signal_unmuteAll(void);
         void signal_lastMute(void);
 
+        void signal_browserOpenFolder(void);
+        void signal_browserCloseFolder(void);
+
+
+
         /** new signal functions **/
         void signal_stepButtonPressed(int id);
         void signal_selectPageSubchannel(void);

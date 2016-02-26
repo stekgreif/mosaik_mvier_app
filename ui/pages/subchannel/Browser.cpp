@@ -192,3 +192,32 @@ void Browser::slot_toggleParentFolderState()
     //m_treeView->setExpanded(m_treeView->currentIndex(), false);
 }
 
+void Browser::slot_openFolder()
+{
+    //m_treeView->setExpanded( m_treeView->currentIndex(), !m_treeView->isExpanded(m_treeView->currentIndex()) );
+    m_treeView->setExpanded( m_treeView->currentIndex(), true  );
+}
+
+void Browser::slot_closeFolder()
+{
+    QModelIndex curIdx = m_treeView->currentIndex();
+    //qDebug() <<Q_FUNC_INFO <<"start:" <<curIdx.row();
+
+    if(curIdx.row() == 0)
+    {
+        m_treeView->cursorUp();
+        m_treeView->setExpanded(m_treeView->currentIndex(), false);
+    }
+    else
+    {
+        for(int i = curIdx.row(); i >= 0; i--)
+        {
+            m_treeView->cursorUp();
+            curIdx = m_treeView->currentIndex();
+            //qDebug() <<Q_FUNC_INFO <<curIdx.row();
+        }
+
+        m_treeView->setExpanded(m_treeView->currentIndex(), false);
+    }
+}
+

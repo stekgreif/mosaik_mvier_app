@@ -136,7 +136,7 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     connect( m_btnTestTreeCollapse,
              SIGNAL(clicked()),
              m_browser,
-             SLOT(slot_toggleParentFolderState()));
+             SLOT(slot_closeFolder()));
 
     connect( m_btnTestPlayDirection,
              SIGNAL(clicked()),
@@ -430,6 +430,16 @@ void PageSubchannel::slot_loadSample()
 void PageSubchannel::slot_loadSampleToPrelisten()
 {
     m_browser->slot_loadSampleToPrelisten();
+}
+
+void PageSubchannel::slot_browserOpenFolder()
+{
+    m_browser->slot_openFolder();
+}
+
+void PageSubchannel::slot_browserCloseFolder()
+{
+    m_browser->slot_closeFolder();
 }
 
 

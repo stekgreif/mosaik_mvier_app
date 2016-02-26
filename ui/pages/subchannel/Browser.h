@@ -28,6 +28,8 @@ class Browser : public QWidget
         void slot_loadSample(void);
         void slot_loadSampleToPrelisten(void);
         void slot_toggleParentFolderState(void);
+        void slot_openFolder(void);
+        void slot_closeFolder(void);
 
 
     private:

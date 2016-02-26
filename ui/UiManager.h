@@ -71,6 +71,9 @@ class UiManager : public QWidget
         void refreshMutePads(void);
         void refreshSelectionPad(void);
 
+        void slot_browserOpenFolder();
+        void slot_browserCloseFolder();
+
         void slot_toggleMuteAndSolo();
 
 

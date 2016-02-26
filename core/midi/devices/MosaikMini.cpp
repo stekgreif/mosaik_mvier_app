@@ -93,7 +93,7 @@ void MosaikMini::setSubchannelPattern(void)
     QByteArray midiData;
     midiData.resize(192);
 
-    qDebug() <<Q_FUNC_INFO <<"midi bytes to send:" <<midiData.size();
+    //qDebug() <<Q_FUNC_INFO <<"midi bytes to send:" <<midiData.size();
 
     for (int i = 0; i < midiData.size()/3; i++)
     {
@@ -125,7 +125,7 @@ void MosaikMini::setSubchannelPattern(void)
     }
 
     m_midiOut->sendData(midiData);
-    qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
+    //qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
 }
 #endif
 
@@ -202,7 +202,7 @@ void MosaikMini::setChannelPattern(void)
     }
 
     m_midiOut->sendData(midiData);
-    qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
+    //qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
 }
 #endif
 
@@ -253,10 +253,12 @@ void MosaikMini::refreshSequencer()
     }
 }
 
+
+
 void MosaikMini::resetHardware()
 {
     // all leds off
-    qDebug() <<Q_FUNC_INFO <<"Hardware reseted.";
+    //qDebug() <<Q_FUNC_INFO <<"Hardware reseted.";
     quint8 data[3];
     data[0] = MIDI_MSG_NOTE_ON | MIDI_CH_SYS;
     data[1] = 127;
@@ -265,6 +267,7 @@ void MosaikMini::resetHardware()
 
     refreshSubchannelSelection();
 }
+
 
 
 void MosaikMini::toggleSinglePatternView(void)
@@ -286,9 +289,8 @@ void MosaikMini::toggleSinglePatternView(void)
 
     m_midiOut->sendDataCopy(data, 3);
 
-    qDebug() <<Q_FUNC_INFO <<"m_singlePatternView:" <<m_singlePatternView;
+    //qDebug() <<Q_FUNC_INFO <<"m_singlePatternView:" <<m_singlePatternView;
 }
-
 
 
 
@@ -310,6 +312,7 @@ void MosaikMini::refreshSubchannelSelection(void)
 
     m_midiOut->sendData(midiData);
 }
+
 
 
 int MosaikMini::getColorValue(int id)
@@ -392,7 +395,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         /** Sequencer **/
         case MIDI_CH_SEQ:
         {
-            qDebug() <<"SEQ" <<data[1] <<data[2];
+            //qDebug() <<"SEQ" <<data[1] <<data[2];
             if( data[0] == Mosaik::MidiCommand::noteOn )
             {
                 emit signal_stepButtonPressed(data[1]);
@@ -404,7 +407,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         /** Function Left **/
         case MIDI_CH_FNL:
         {
-            qDebug() <<"FNL" <<data[0] <<data[1] <<data[2];
+            //qDebug() <<"FNL" <<data[0] <<data[1] <<data[2];
 
             if( (data[0] & 0xF0) == Mosaik::MidiCommand::noteOn )
             {
@@ -455,14 +458,13 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                 }
             }
 
-            //emit signal_fnlMsg(data[1], data[2]);
             break;
         }
 
         /** Function Right **/
         case MIDI_CH_FNR:
         {
-            qDebug() <<Q_FUNC_INFO <<"FNR";
+            //qDebug() <<Q_FUNC_INFO <<"FNR";
             switch (data[1])
             {
                 case 0:
@@ -540,11 +542,12 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         /** Menu **/
         case MIDI_CH_MEN:
         {
-            qDebug() <<Q_FUNC_INFO <<"MEN" <<data[0] <<data[1] <<data[2];
+            //qDebug() <<Q_FUNC_INFO <<"MEN" <<data[0] <<data[1] <<data[2];
             emit signal_menMsg(data[1], data[2]);
 
             switch (data[1])
             {
+#if 0 //before new HWUI labels
                 case 0:
                     if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Men) )
                         m_shiftMainVol = true;
@@ -597,6 +600,77 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         qDebug() <<Q_FUNC_INFO <<"encoder rotated";
                     }
                     break;
+#endif
+
+
+
+
+#if 1 //new HWUI labels
+                case 0: // prelisten sequence
+                    break;
+                case 1: // up
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        emit signal_menuNavigation(1);
+                    }
+                    break;
+                case 2: // load sample
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        emit signal_loadSample();
+                    }
+                    break;
+                case 3: // close folder
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        emit signal_browserCloseFolder();
+                        //qDebug() <<Q_FUNC_INFO <<"close folder";
+                    }
+                    break;
+                case 4: // open folder
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        emit signal_browserOpenFolder();
+                        //qDebug() <<Q_FUNC_INFO <<"open folder";
+                    }
+                    break;
+                case 5: // prelisten pad sample
+                    break;
+                case 6: // down
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        emit signal_menuNavigation(-1);
+                    }
+                    break;
+                case 7: // prelisten browser
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        emit signal_prelistenBrowserSample();
+                    }
+                    break;
+                case 8: // encoder pushed
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        emit signal_menuEncoderPushed();
+                    }
+                    break;
+                case 9: // encoder rotated
+
+                    if( m_shiftBpm )
+                        emit signal_bpmChanged( (float) (data[2] - 64) );
+                    else if ( m_shiftMainVol )
+                        emit signal_mainVolume( ((float) (data[2] - 64)) / 100 );
+                    else if ( m_shiftPan )
+                        emit signal_currentPan(((float) (data[2] - 64)) / 100 );
+                    else
+                    {
+                        emit signal_encChanged(-1*(data[2] - 64));
+                        qDebug() <<Q_FUNC_INFO <<"encoder rotated";
+                    }
+                    break;
+#endif
+
+
                 default:
                     break;
             }
@@ -691,8 +765,10 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
 void MosaikMini::setMainVolume(quint8 volume)
 {
     if( volume > 127)
+    {
         volume = 127;
-    qDebug() <<Q_FUNC_INFO <<volume;
+    }
+    //qDebug() <<Q_FUNC_INFO <<volume;
 
     m_midiOut->sendData(Mosaik::MidiCommand::controlChange | Mosaik::MidiChannels::Apa, 0, volume);
 }
@@ -700,9 +776,13 @@ void MosaikMini::setMainVolume(quint8 volume)
 void MosaikMini::subToPreLed(bool state)
 {
     if( state )
+    {
         m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Crf, 2, 1);
+    }
     else
+    {
         m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Crf, 2, 0);
+    }
 }
 
 

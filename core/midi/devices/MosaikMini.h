@@ -42,6 +42,9 @@ class MosaikMini : public MidiDevice
         void signal_menuNavigationDownPushed(void);
         void signal_menuNavigation(int direction);
 
+        void signal_browserOpenFolder(void);
+        void signal_browserCloseFolder(void);
+
         void signal_bpmChanged(float val);
         void signal_mainVolume(float relVal);
         void signal_loadSample(void);

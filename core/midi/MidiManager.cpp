@@ -88,6 +88,8 @@ void MidiManager::connectFavouriteDevice(void)
             connect( m_midiDevice, SIGNAL(signal_menuNavigation(int)),                   m_parent, SLOT(slot_browserChangeCursorPosition(int)) );
             connect( m_midiDevice, SIGNAL(signal_menuEncoderPushed()),                   m_parent, SLOT(slot_browserToggleFolderExpansion()) );
             connect( m_midiDevice, SIGNAL(signal_setPathId(int)),                        m_parent, SLOT(slot_browserChangePathId(int)) );
+            connect( m_midiDevice, SIGNAL(signal_browserOpenFolder()),                   m_parent, SLOT(slot_browserOpenFolder()) );
+            connect( m_midiDevice, SIGNAL(signal_browserCloseFolder()),                  m_parent, SLOT(slot_browserCloseFolder()) );
 
             /** prelisten **/
             connect( m_midiDevice, SIGNAL(signal_prelistenBrowserSample()),              m_parent, SLOT(slot_browserSelectedSampleToPrelisten()) );

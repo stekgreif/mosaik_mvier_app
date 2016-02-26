@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QStyleOption>
 
+
 #include </usr/include/sndfile.h>
 
 //#include "ui/pages/subchannel/qcustomplot.h"
@@ -40,6 +41,8 @@ class PageSubchannel : public QWidget
         void slot_toggleItmeExpansion(void);
         void slot_loadSample(void);
         void slot_loadSampleToPrelisten(void);
+        void slot_browserOpenFolder(void);
+        void slot_browserCloseFolder(void);
 
 
     private slots:

@@ -89,6 +89,9 @@ public slots:
     void slot_browserChangeCursorPosition(int direction);
     void slot_browserToggleFolderExpansion(void);
     void slot_browserSelectedSampleToPrelisten(void);
+    void slot_browserOpenFolder(void);
+    void slot_browserCloseFolder(void);
+
 
     void slot_globalMainVolume(float relVal);
     void slot_globalChangeBpmRelative(float diffVal);
