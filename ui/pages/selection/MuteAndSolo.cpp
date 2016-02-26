@@ -30,7 +30,7 @@ MuteAndSolo::MuteAndSolo(QWidget *parent)
     m_pageWidth = settings().getScreenSize().height();
     m_gridWidth = m_pageWidth / settings().getNumberOfSubchannelsPerRow();
     m_padWidth  = (m_gridWidth / 100) * 97;
-    m_padGap    = (m_gridWidth / 100) * 3;
+    m_padGap    = (m_gridWidth / 100) *  3;
 
     setFixedSize( m_pageWidth, m_pageWidth );
 
