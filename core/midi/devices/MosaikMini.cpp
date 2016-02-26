@@ -428,13 +428,11 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                     case 11:
                         emit signal_functionLeftButton11Pressed(); break;
                     case 12:
-                        emit signal_functionLeftButton12Pressed(); break;
                     case 13:
-                        emit signal_functionLeftButton13Pressed(); break;
                     case 14:
-                        emit signal_functionLeftButton14Pressed(); break;
                     case 15:
-                        emit signal_functionLeftButton15Pressed(); break;
+                        emit signal_functionSelectSubchannelRelative(data[1] - 12);
+                        break;
                     default:
                         break;
                 }
