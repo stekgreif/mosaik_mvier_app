@@ -333,77 +333,123 @@ int Settings::getNumberOfChannelsPerCollum()
     return (SETTINGS_SUBS_PER_COL / 2);
 }
 
+
+
 int Settings::getChannelOfSubchannel(int sub)
 {
     int channel;
-    switch (sub)
+
+    switch (SETTINGS_NUM_OF_SUBS)
     {
-        case 0:
-        case 1:
-        case 6:
-        case 7:
-        channel = 0;
-        break;
+        case 36:
+        switch (sub)
+        {
+            case 0:
+            case 1:
+            case 6:
+            case 7:
+            channel = 0;
+            break;
 
-        case 2:
-        case 3:
-        case 8:
-        case 9:
-        channel = 1;
-        break;
+            case 2:
+            case 3:
+            case 8:
+            case 9:
+            channel = 1;
+            break;
 
-        case 4:
-        case 5:
-        case 10:
-        case 11:
-        channel = 2;
-        break;
+            case 4:
+            case 5:
+            case 10:
+            case 11:
+            channel = 2;
+            break;
 
-        case 12:
-        case 13:
-        case 18:
-        case 19:
-        channel = 3;
-        break;
+            case 12:
+            case 13:
+            case 18:
+            case 19:
+            channel = 3;
+            break;
 
-        case 14:
-        case 15:
-        case 20:
-        case 21:
-        channel = 4;
-        break;
+            case 14:
+            case 15:
+            case 20:
+            case 21:
+            channel = 4;
+            break;
+
+            case 16:
+            case 17:
+            case 22:
+            case 23:
+            channel = 5;
+            break;
+
+            case 24:
+            case 25:
+            case 30:
+            case 31:
+            channel = 6;
+            break;
+
+            case 26:
+            case 27:
+            case 32:
+            case 33:
+            channel = 7;
+            break;
+
+            case 28:
+            case 29:
+            case 34:
+            case 35:
+            channel = 8;
+            break;
+
+            default:
+            break;
+        }
 
         case 16:
-        case 17:
-        case 22:
-        case 23:
-        channel = 5;
-        break;
+        switch (sub)
+        {
+            case 0:
+            case 1:
+            case 4:
+            case 5:
+            channel = 0;
+            break;
 
-        case 24:
-        case 25:
-        case 30:
-        case 31:
-        channel = 6;
-        break;
+            case 2:
+            case 3:
+            case 6:
+            case 7:
+            channel = 1;
+            break;
 
-        case 26:
-        case 27:
-        case 32:
-        case 33:
-        channel = 7;
-        break;
+            case 8:
+            case 9:
+            case 12:
+            case 13:
+            channel = 2;
+            break;
 
-        case 28:
-        case 29:
-        case 34:
-        case 35:
-        channel = 8;
-        break;
+            case 10:
+            case 11:
+            case 14:
+            case 15:
+            channel = 3;
+            break;
+
+            default:
+            break;
+        }
 
         default:
-            break;
-    }
+        break;
+     }
+
     return channel;
 }
 
@@ -412,38 +458,42 @@ int Settings::getChannelOfSubchannel(int sub)
 int Settings::getFirstSubchannelOfChannel(int ch)
 {
     int firstSubchannel;
-    switch (ch)
+
+    switch (SETTINGS_NUM_OF_SUBS)
     {
-        case 0:
-            firstSubchannel = 0;
+        case 36:
+        {
+            switch (ch)
+            {
+                case 0: firstSubchannel = 0;  break;
+                case 1: firstSubchannel = 2;  break;
+                case 2: firstSubchannel = 4;  break;
+                case 3: firstSubchannel = 12; break;
+                case 4: firstSubchannel = 14; break;
+                case 5: firstSubchannel = 16; break;
+                case 6: firstSubchannel = 24; break;
+                case 7: firstSubchannel = 26; break;
+                case 8: firstSubchannel = 28; break;
+                default: break;
+            }
             break;
-        case 1:
-            firstSubchannel = 2;
+        }
+
+        case 16:
+        {
+            switch (ch)
+            {
+                case 0: firstSubchannel = 0;  break;
+                case 1: firstSubchannel = 2;  break;
+                case 2: firstSubchannel = 8;  break;
+                case 3: firstSubchannel = 10; break;
+                default: break;
+            }
             break;
-        case 2:
-            firstSubchannel = 4;
-            break;
-        case 3:
-            firstSubchannel = 12;
-            break;
-        case 4:
-            firstSubchannel = 14;
-            break;
-        case 5:
-            firstSubchannel = 16;
-            break;
-        case 6:
-            firstSubchannel = 24;
-            break;
-        case 7:
-            firstSubchannel = 26;
-            break;
-        case 8:
-            firstSubchannel = 28;
-            break;
-        default:
-            break;
+        }
     }
+
+
     return firstSubchannel;
 }
 
@@ -452,8 +502,8 @@ int Settings::getFirstSubchannelOfChannel(int ch)
 QPoint Settings::getCoordinatesOfSubchannel(int sub)
 {
     QPoint coordinates;
-    coordinates.setX(sub%6);
-    coordinates.setY(sub/6);
+    coordinates.setX( sub % SETTINGS_NUM_OF_SUBS);
+    coordinates.setY( sub / SETTINGS_NUM_OF_SUBS);
     return coordinates;
 }
 
@@ -462,124 +512,220 @@ QPoint Settings::getCoordinatesOfSubchannel(int sub)
 QList<int> Settings::getSubchannelsOfChannel(int ch)
 {
     QList<int> subchannels;
-    switch (ch)
+
+    switch (SETTINGS_NUM_OF_SUBS)
     {
-        case 0:
-            subchannels.append(0);
-            subchannels.append(1);
-            subchannels.append(6);
-            subchannels.append(7);
+        case 36:
+        {
+            switch (ch)
+            {
+                case 0:
+                    subchannels.append(0);
+                    subchannels.append(1);
+                    subchannels.append(6);
+                    subchannels.append(7);
+                    break;
+                case 1:
+                    subchannels.append(2);
+                    subchannels.append(3);
+                    subchannels.append(8);
+                    subchannels.append(9);
+                    break;
+                case 2:
+                    subchannels.append(4);
+                    subchannels.append(5);
+                    subchannels.append(10);
+                    subchannels.append(11);
+                    break;
+                case 3:
+                    subchannels.append(12);
+                    subchannels.append(13);
+                    subchannels.append(18);
+                    subchannels.append(19);
+                    break;
+                case 4:
+                    subchannels.append(14);
+                    subchannels.append(15);
+                    subchannels.append(20);
+                    subchannels.append(21);
+                    break;
+                case 5:
+                    subchannels.append(16);
+                    subchannels.append(17);
+                    subchannels.append(22);
+                    subchannels.append(23);
+                    break;
+                case 6:
+                    subchannels.append(24);
+                    subchannels.append(25);
+                    subchannels.append(30);
+                    subchannels.append(31);
+                    break;
+                case 7:
+                    subchannels.append(26);
+                    subchannels.append(27);
+                    subchannels.append(32);
+                    subchannels.append(33);
+                    break;
+                case 8:
+                    subchannels.append(28);
+                    subchannels.append(29);
+                    subchannels.append(34);
+                    subchannels.append(35);
+                    break;
+                default:
+                    break;
+            }
             break;
-        case 1:
-            subchannels.append(2);
-            subchannels.append(3);
-            subchannels.append(8);
-            subchannels.append(9);
+        }
+
+        case 16:
+        {
+            switch (ch)
+            {
+                case 0:
+                    subchannels.append(0);
+                    subchannels.append(1);
+                    subchannels.append(4);
+                    subchannels.append(5);
+                    break;
+                case 1:
+                    subchannels.append(2);
+                    subchannels.append(3);
+                    subchannels.append(6);
+                    subchannels.append(7);
+                    break;
+                case 2:
+                    subchannels.append(8);
+                    subchannels.append(9);
+                    subchannels.append(12);
+                    subchannels.append(13);
+                    break;
+                case 3:
+                    subchannels.append(10);
+                    subchannels.append(11);
+                    subchannels.append(14);
+                    subchannels.append(15);
+                    break;
+            }
             break;
-        case 2:
-            subchannels.append(4);
-            subchannels.append(5);
-            subchannels.append(10);
-            subchannels.append(11);
-            break;
-        case 3:
-            subchannels.append(12);
-            subchannels.append(13);
-            subchannels.append(18);
-            subchannels.append(19);
-            break;
-        case 4:
-            subchannels.append(14);
-            subchannels.append(15);
-            subchannels.append(20);
-            subchannels.append(21);
-            break;
-        case 5:
-            subchannels.append(16);
-            subchannels.append(17);
-            subchannels.append(22);
-            subchannels.append(23);
-            break;
-        case 6:
-            subchannels.append(24);
-            subchannels.append(25);
-            subchannels.append(30);
-            subchannels.append(31);
-            break;
-        case 7:
-            subchannels.append(26);
-            subchannels.append(27);
-            subchannels.append(32);
-            subchannels.append(33);
-            break;
-        case 8:
-            subchannels.append(28);
-            subchannels.append(29);
-            subchannels.append(34);
-            subchannels.append(35);
-            break;
+        }
+
         default:
             break;
     }
+
     return subchannels;
 }
+
+
 
 int Settings::getRelativeSubchannel(int sub)
 {
     int relSub;
-    switch (sub)
+
+    switch (SETTINGS_NUM_OF_SUBS)
     {
-        case 0:
-        case 2:
-        case 4:
-        case 12:
-        case 14:
+        case 36:
+        {
+            switch (sub)
+            {
+                case 0:
+                case 2:
+                case 4:
+                case 12:
+                case 14:
+                case 16:
+                case 24:
+                case 26:
+                case 28:
+                relSub = 0;
+                break;
+
+                case 1:
+                case 3:
+                case 5:
+                case 13:
+                case 15:
+                case 17:
+                case 25:
+                case 27:
+                case 29:
+                relSub = 1;
+                break;
+
+                case 6:
+                case 8:
+                case 10:
+                case 18:
+                case 20:
+                case 22:
+                case 30:
+                case 32:
+                case 34:
+                relSub = 2;
+                break;
+
+                case 7:
+                case 9:
+                case 11:
+                case 19:
+                case 21:
+                case 23:
+                case 31:
+                case 33:
+                case 35:
+                relSub = 3;
+                break;
+
+                default:
+                    break;
+            }
+            break;
+        }
+
         case 16:
-        case 24:
-        case 26:
-        case 28:
-        relSub = 0;
-        break;
+        {
+            switch (sub)
+            {
+                case 0:
+                case 2:
+                case 8:
+                case 10:
+                relSub = 0;
+                break;
 
-        case 1:
-        case 3:
-        case 5:
-        case 13:
-        case 15:
-        case 17:
-        case 25:
-        case 27:
-        case 29:
-        relSub = 1;
-        break;
+                case 1:
+                case 3:
+                case 9:
+                case 11:
+                relSub = 1;
+                break;
 
-        case 6:
-        case 8:
-        case 10:
-        case 18:
-        case 20:
-        case 22:
-        case 30:
-        case 32:
-        case 34:
-        relSub = 2;
-        break;
+                case 4:
+                case 6:
+                case 12:
+                case 14:
+                relSub = 2;
+                break;
 
-        case 7:
-        case 9:
-        case 11:
-        case 19:
-        case 21:
-        case 23:
-        case 31:
-        case 33:
-        case 35:
-        relSub = 3;
-        break;
+                case 5:
+                case 7:
+                case 13:
+                case 15:
+                relSub = 3;
+                break;
+
+                default:
+                break;
+            }
+            break;
+        }
 
         default:
             break;
     }
+
     return relSub;
 }
 
