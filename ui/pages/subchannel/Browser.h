@@ -36,8 +36,8 @@ class Browser : public QWidget
         QRect *m_browserWindowSizeAndPosition;
 
         QString m_defaultPath;
-        QString m_path[4];
-        QString m_pathName[4];
+        QString m_path[8];
+        QString m_pathName[8];
 };
 
 #endif // BROWSER_H
