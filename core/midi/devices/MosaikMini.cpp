@@ -373,12 +373,13 @@ void MosaikMini::setStepsequencerLed(int stepLedId)
 
 void MosaikMini::slot_midiMsgReceived(quint8* data)
 {
-    //qDebug() <<Q_FUNC_INFO;
     quint8 midiBuffer[3] = {};
 
     midiBuffer[0] = data[0];    // midi ch, status
     midiBuffer[1] = data[1];    // note/id
     midiBuffer[2] = data[2];    // value
+
+    //qDebug() <<Q_FUNC_INFO <<"xxxxxxxx" <<data[0] <<data[1] <<data[2];
 
     switch (midiBuffer[0] & 0b00001111)
     {
@@ -455,6 +456,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         /** Function Right **/
         case MIDI_CH_FNR:
         {
+            qDebug() <<Q_FUNC_INFO <<"FNR";
             switch (data[1])
             {
                 case 0:
@@ -483,6 +485,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         m_shiftPlayDir = !m_shiftPlayDir;
                         m_shiftPitch   = false;
                         m_shiftPan     = false;
+                        //qDebug() <<Q_FUNC_INFO <<"PlayDir:" <<m_shiftPlayDir <<" -- Pitch:" <<m_shiftPitch <<" -- Pan:" <<m_shiftPan;
                     }
                     break;
                 case 3: //pitch
@@ -491,6 +494,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         m_shiftPitch   = !m_shiftPitch;
                         m_shiftPlayDir = false;
                         m_shiftPan     = false;
+                        //qDebug() <<Q_FUNC_INFO <<"PlayDir:" <<m_shiftPlayDir <<" -- Pitch:" <<m_shiftPitch <<" -- Pan:" <<m_shiftPan;
                     }
                     break;
                 case 4: //pan
@@ -499,6 +503,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         m_shiftPan     = !m_shiftPan;
                         m_shiftPlayDir = false;
                         m_shiftPitch   = false;
+                        //qDebug() <<Q_FUNC_INFO <<"PlayDir:" <<m_shiftPlayDir <<" -- Pitch:" <<m_shiftPitch <<" -- Pan:" <<m_shiftPan;
                     }
                     break;
                 case 5:
@@ -523,7 +528,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                 default:
                     break;
             }
-
+            break;
         }
 
         /** Menu **/
