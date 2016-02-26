@@ -424,7 +424,9 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                     case 9:
                         emit signal_functionLeftButton09Pressed(); break;
                     case 10:
-                        emit signal_functionLeftButton10Pressed(); break;
+                        toggleSinglePatternView();
+                        refreshSequencer();
+                    break;
                     case 11:
                         emit signal_functionLeftButton11Pressed(); break;
                     case 12:
