@@ -8,7 +8,7 @@
 
 #include </usr/include/sndfile.h>
 
-#include "ui/pages/subchannel/qcustomplot.h"
+//#include "ui/pages/subchannel/qcustomplot.h"
 #include <ui/pages/subchannel/DrawEnvelope.h>
 #include <ui/pages/subchannel/Pattern.h>
 
@@ -89,7 +89,7 @@ class PageSubchannel : public QWidget
 
 
         /** sample view **/
-        QCustomPlot *m_samplePlot;
+        //QCustomPlot *m_samplePlot;
         void refreshSamplePlot(void);
         void resetSamplePlot(void);
 

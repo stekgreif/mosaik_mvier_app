@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDirModel>
 #include <QFileSystemModel>
+#include <QLabel>
 
 #include "ui/pages/subchannel/BrowserTree.h"
 
@@ -38,6 +39,7 @@ class Browser : public QWidget
         QString m_defaultPath;
         QString m_path[8];
         QString m_pathName[8];
+
 };
 
 #endif // BROWSER_H

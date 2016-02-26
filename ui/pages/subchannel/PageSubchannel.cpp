@@ -36,8 +36,8 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
 
     /** setup sample waveform plot **/
-    m_samplePlot = new QCustomPlot(this);
 #if 0
+    m_samplePlot = new QCustomPlot(this);
     m_samplePlot->setBackground(Qt::lightGray);
     m_samplePlot->axisRect()->setBackground(Qt::darkGray);
     m_samplePlot->move(m_sampleWindowAttributes->topLeft());
@@ -368,7 +368,7 @@ void PageSubchannel::refreshStepAxis()
     if( subchannelManager().hasCurrentSubchannelSample() )
     {
         qDebug() <<Q_FUNC_INFO  <<"Refresh Step Axis";
-
+#if 0 // qcustomplot
         QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample();
         int numOfFrames = samplePtr->getSampleStructPointer()->sndInfo.frames;
 
@@ -392,6 +392,7 @@ void PageSubchannel::refreshStepAxis()
         m_samplePlot->xAxis2->setTickVector(x2Ticks);
         m_samplePlot->xAxis2->setTickVectorLabels(x2Label);
         m_samplePlot->replot();
+#endif
     }
 }
 

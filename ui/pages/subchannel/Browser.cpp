@@ -10,7 +10,7 @@ Browser::Browser(QWidget *uiParent)
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
     /** change size and position here **/
-    m_browserWindowSizeAndPosition = new QRect( 20,  20, 780, 600);
+    m_browserWindowSizeAndPosition = new QRect( 20,  160, 780, 600);
 
 
     /** path **/
