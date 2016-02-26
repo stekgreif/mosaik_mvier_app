@@ -10,9 +10,7 @@
     USER SETTINGS
 *******************************************************************************/
 
-#define SETTINGS_INIT_WITH_AUDIO        false
-#define SETTINGS_INIT_WITH_MIDI_IN      false
-#define SETTINGS_INIT_WITH_MIDI_OUT     false
+#define SETTINGS_INIT_WITH_AUDIO        true
 #define SETTINGS_START_WITH_FULL_SCREEN false
 #define SETTINGS_SUBS_PER_ROW           6
 
@@ -20,7 +18,11 @@
 
 
 
+// 2016-02-26 should be obsolete
+#define SETTINGS_INIT_WITH_MIDI_IN      false
+#define SETTINGS_INIT_WITH_MIDI_OUT     false
 
+// 2016-02-26 subchannel tile calculations
 #define SETTINGS_SUBS_PER_COL SETTINGS_SUBS_PER_ROW
 #define SETTINGS_NUM_OF_SUBS (SETTINGS_SUBS_PER_ROW * SETTINGS_SUBS_PER_COL)
 #define SETTINGS_NUM_OF_CHANNELS (SETTINGS_NUM_OF_SUBS/4)

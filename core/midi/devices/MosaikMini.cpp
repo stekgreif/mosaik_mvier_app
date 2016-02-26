@@ -10,6 +10,7 @@
 #include <QDebug>
 
 
+#define SAVE_BW 0
 
 struct RgbColors
 {
@@ -79,7 +80,7 @@ void MosaikMini::sendRawData(const QByteArray &data)
 
 
 
-#if 0 // original working function
+#if !SAVE_BW // original working function
 void MosaikMini::setSubchannelPattern(void)
 {
     qDebug() <<Q_FUNC_INFO;
@@ -122,19 +123,19 @@ void MosaikMini::setSubchannelPattern(void)
     }
 
     m_midiOut->sendData(midiData);
-    qDebug() <<Q_FUNC_INFO <<"sending finished";
+    qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
 }
 #endif
 
 
-#if 1 // 2016-02-21 bandwidth saving function
+#if SAVE_BW // 2016-02-21 bandwidth saving function
 void MosaikMini::setSubchannelPattern(void)
 {
     //qDebug() <<Q_FUNC_INFO;
 
     QBitArray pattern = subchannelManager().getCurrentSubchannelPattern();
     QByteArray midiData;
-    midiData.resize(192);
+    midiData.resize(195);
 
     midiData[0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
     midiData[1] = 127;                              // message to all leds
@@ -153,14 +154,14 @@ void MosaikMini::setSubchannelPattern(void)
             bufferSizeCnt += 3;
         }
     }
-
     midiData.resize(bufferSizeCnt);
     m_midiOut->sendData(midiData);
+    qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<bufferSizeCnt;
 }
 #endif
 
 
-#if 0 // original working function
+#if !SAVE_BW // original working function
 void MosaikMini::setChannelPattern(void)
 {
     qDebug() <<Q_FUNC_INFO;
@@ -199,20 +200,21 @@ void MosaikMini::setChannelPattern(void)
     }
 
     m_midiOut->sendData(midiData);
+    qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
 }
 #endif
 
 
 
 
-#if 1 // 2016-02-21 bandwidth saving function
+#if SAVE_BW // 2016-02-21 bandwidth saving function
 void MosaikMini::setChannelPattern(void)
 {
     qDebug() <<Q_FUNC_INFO;
 
     QByteArray pattern = subchannelManager().getCurrentChannelPattern();
     QByteArray midiData;
-    midiData.resize(192);
+    midiData.resize(195);
 
     midiData[0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
     midiData[1] = 127;  // message to all leds
@@ -230,8 +232,9 @@ void MosaikMini::setChannelPattern(void)
         }
     }
 
-    midiData.resize(3*bufferSizeCnt);
+    midiData.resize(bufferSizeCnt);
     m_midiOut->sendData(midiData);
+    qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<bufferSizeCnt;
 }
 #endif
 
@@ -514,7 +517,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                 case 15:
                     if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
                     {
-                        signal_setPathId( 7 - data[1] );
+                        signal_setPathId( data[1] - 8);
                     }
                     break;
                 default:
