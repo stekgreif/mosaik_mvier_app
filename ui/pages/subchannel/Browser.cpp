@@ -114,7 +114,7 @@ void Browser::slot_toggleItmeExpansion()
     if( fileInfo.isFile() )
     {
         qDebug() <<Q_FUNC_INFO <<"Item is a file => Load sample.";
-        slot_loadSample();
+        //slot_loadSample();
     }
     else if ( fileInfo.isDir() )
     {

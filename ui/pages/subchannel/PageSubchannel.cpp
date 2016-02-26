@@ -110,13 +110,16 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelImage->setPixmap(*m_pixmap);
 #endif
 
+    m_pixmap = new QPixmap;
+    m_pixmap->fill(Qt::white);
+
 
     m_labelImage = new QLabel(this);
     m_labelImage->move(20, 20);
     m_labelImage->setFixedSize(780,300);
     m_labelImage->setObjectName("labelImage");
     m_labelImage->setStyleSheet("QLabel#labelImage {background-color: rgb(100,100,120);}");
-
+    m_labelImage->setPixmap(*m_pixmap);
 
 
     m_btnLoadSample = new QPushButton(this);
@@ -268,6 +271,7 @@ void PageSubchannel::refreshSamplePlot()
 
 void PageSubchannel::resetSamplePlot()
 {
+    m_labelImage->setPixmap(*m_pixmap);
 #if 0
     qDebug() <<Q_FUNC_INFO;
     m_samplePlot->clearGraphs();

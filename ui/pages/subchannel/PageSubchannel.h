@@ -109,9 +109,9 @@ class PageSubchannel : public QWidget
         QPushButton *m_btnTestPlayDirection;
         QPushButton *m_btnLoadSample;
 
-        QImage *m_image;
+        QImage  *m_image;
         QPixmap *m_pixmap;
-        QLabel *m_labelImage;
+        QLabel  *m_labelImage;
 
 };
 

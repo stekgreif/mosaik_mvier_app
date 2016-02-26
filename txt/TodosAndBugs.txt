@@ -1,12 +1,5 @@
 
 
-2016-02-26 - HWUI - RGB-LED update
-Description: RGB LEDs update only works with functions that send out 192 byte every time.
-			 New Bandwidth saving functions do not work
-Cause:		 BW saving functions clear all LEDs and only send out set LEDS
-
-
-
 
 
 - isPlaying, isTriggert Kacheln

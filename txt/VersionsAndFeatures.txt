@@ -3,6 +3,58 @@
 ================================================================================
 2016-02-26
 
+FEATURES
+
+Waveform Display
+ - Lineal (variabel: Pitch und BPM)
+   - Zeit
+   - Takt
+
+Pitch
+
+Jitter/Fluctuation
+ - Pan
+ - Vol
+ - Pitch
+
+Kanal-Farben (jedem Kanal soll vom Benutzer eine Farbe zugeordnet werden können)
+
+Edit-Buffer
+ -> für zahlreiche neu Funktionen wie Fast-Programming wird ein Edit-Buffer benötigt
+	dieser könnte ein zusätzlicher Subkanal sein
+
+Fast Programming Mode
+
+Tile
+ - cut, copy, paster
+
+
+
+TEST
+
+
+
+
+
+BUGS
+
+2016-02-26 - HWUI - RGB-LED update
+Description: RGB LEDs update only works with functions that send out 192 byte every time.
+			 New Bandwidth saving functions do not work
+Cause:		 BW saving functions clear all LEDs and only send out set LEDS
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
