@@ -42,12 +42,11 @@ PageSelection::PageSelection(UiManager *parent)
     m_channelSelectionFrame->setObjectName("channelSelectionFrame");
 
 
+#if 0 // size infos for debugging
     qDebug() <<Q_FUNC_INFO <<"grid width:" <<m_gridWidth;
     qDebug() <<Q_FUNC_INFO <<"pad width:" <<m_padWidth;
     qDebug() <<Q_FUNC_INFO <<"pad x gap:" <<m_padXGap;
-    int usedWidth = m_padWidth + m_padXGap;
-    qDebug() <<Q_FUNC_INFO <<"used width:" <<usedWidth;
-
+#endif
 
 
     QSize *padSize;

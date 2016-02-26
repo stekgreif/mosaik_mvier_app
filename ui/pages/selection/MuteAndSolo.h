@@ -18,6 +18,10 @@ class MuteAndSolo : public QWidget
 
     private:
         MuteAndSoloPad *m_muteAndSoloPad[SETTINGS_NUM_OF_SUBS];
+        float m_gridWidth;
+        float m_padWidth;
+        float m_padGap;
+        float m_pageWidth;
 
     private slots:
         void slot_stateChanged(int id);

@@ -445,17 +445,29 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                     case 5:
                         emit signal_functionLeftButton05Pressed(); break;
                     case 6:
-                        emit signal_functionLeftButton06Pressed(); break;
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_lastMute();
+                        }
                     case 7:
-                        emit signal_functionLeftButton07Pressed(); break;
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_unmuteAll();
+                        }
+                        break;
                     case 8:
-                        emit signal_functionLeftButton08Pressed(); break;
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            m_mute = !m_mute;
+                            emit signal_muteAndSolo(m_mute);
+                        }
+                        break;
                     case 9:
                         emit signal_functionLeftButton09Pressed(); break;
                     case 10:
                         toggleSinglePatternView();
                         refreshSequencer();
-                    break;
+                        break;
                     case 11:
                         emit signal_functionLeftButton11Pressed(); break;
                     case 12:

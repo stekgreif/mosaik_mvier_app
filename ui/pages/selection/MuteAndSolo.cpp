@@ -7,6 +7,9 @@
 #include "Settings.h"
 #include "core/subchannel/SubchannelManager.h"
 
+
+
+
 #define BTN_SIZE  131
 #define BTN_GAP     4
 #define OFFSET      2
@@ -21,13 +24,23 @@ MuteAndSolo::MuteAndSolo(QWidget *parent)
     qDebug() <<Q_FUNC_INFO <<"Created.";
     setObjectName("muteAndSolo");
     setStyleSheet("QWidget#muteAndSolo {background-color: rgba(100,100,100,50%);}");
-    setFixedSize(settings().getScreenSize().height(), settings().getScreenSize().height());
+
+
+    /** sizes **/
+    m_pageWidth = settings().getScreenSize().height();
+    m_gridWidth = m_pageWidth / settings().getNumberOfSubchannelsPerRow();
+    m_padWidth  = (m_gridWidth / 100) * 97;
+    m_padGap    = (m_gridWidth / 100) * 3;
+
+    setFixedSize( m_pageWidth, m_pageWidth );
 
     QSize *padSize;
     padSize = new QSize;
-    padSize->setWidth(BTN_SIZE);
-    padSize->setHeight(BTN_SIZE);
-#if 1
+    padSize->setWidth(m_padWidth);
+    padSize->setHeight(m_padWidth);
+
+
+    /** connect pads **/
     int abs = 0;
     for(int i = 0; i < SETTINGS_SUBS_PER_COL; i++)
     {
@@ -35,14 +48,14 @@ MuteAndSolo::MuteAndSolo(QWidget *parent)
         {
             abs = j+(i*SETTINGS_SUBS_PER_COL);
             m_muteAndSoloPad[abs] = new MuteAndSoloPad(abs, padSize, this);
-            m_muteAndSoloPad[abs]->move(j * BTN_GRID + OFFSET, i * BTN_GRID + OFFSET);
+            m_muteAndSoloPad[abs]->move(j * (m_padWidth + m_padGap), i * (m_padWidth + m_padGap));
             connect(m_muteAndSoloPad[abs], SIGNAL(signal_mutePadPressed(int)),
                     this,                  SLOT(slot_stateChanged(int)) );
         }
     }
-#endif
-
 }
+
+
 
 MuteAndSolo::~MuteAndSolo()
 {
@@ -54,14 +67,7 @@ MuteAndSolo::~MuteAndSolo()
 void MuteAndSolo::display(bool state)
 {
     Q_UNUSED(state);
-#if 0
-    if( state )
-        this->setFixedSize(settings().getScreenSize().height(), settings().getScreenSize().height());
-    else
-        this->setFixedSize(1,1);
-
-    update();
-#endif
+    qDebug() <<Q_FUNC_INFO <<"Not implemented.";
 }
 
 
