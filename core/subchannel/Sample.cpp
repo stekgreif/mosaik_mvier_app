@@ -58,49 +58,42 @@ Sample::Sample(QString samplePathAndName)
     painter.drawLine(linePos);
     painter.setPen(pen);
 
-    float sumPos = 0;
-    float sumNeg = 0;
+
+    float maxVal = 0;
+    float minVal = 0;
     int stepCnt = 0;
-    float scaleFactor = 1/getMaxSumValue();
     float temp = 0;
-    int posValCnt = 0;
-    int negValCnt = 0;
 
     for(int frame = 0; frame < m_sample->sndInfo.frames; frame = frame + stepWidth)
     {
-        sumPos = 0;
-        sumNeg = 0;
-        posValCnt = 0;
-        negValCnt = 0;
+        maxVal = 0;
+        minVal = 0;
 
         for(int cnt = 0; cnt < stepWidth; cnt++)
         {
             temp = m_sample->frameBuffer[frame + cnt];
 
-            if( temp < 0.0 )
+            if( temp < 0.0 )            //negative
             {
-                sumNeg = sumNeg + temp;
-                negValCnt++;
+                if( temp < minVal )
+                {
+                    minVal = temp;
+                }
             }
-            else
+            else                        // positive
             {
-                sumPos = sumPos + temp;
-                posValCnt++;
+                if( temp > maxVal )
+                {
+                    maxVal = temp;
+                }
             }
         }
 
-#if 0
-        sumPos = sumPos / (float)posValCnt;
-        sumNeg = sumNeg / (float)negValCnt;
-        sumPos = sumPos;
-        sumNeg = sumNeg;
-#endif
+        //qDebug() <<"xxxxxxxxxxxxxxxxx pos" <<maxVal;
+        //qDebug() <<"xxxxxxxxxxxxxxxxx neg" <<minVal;
 
-        qDebug() <<"xxxxxxxxxxxxxxxxx pos" <<sumPos;
-        qDebug() <<"xxxxxxxxxxxxxxxxx neg" <<sumNeg;
-
-        linePos.setLine(stepCnt, 150, stepCnt, 150-sumPos);
-        lineNeg.setLine(stepCnt, 150, stepCnt, 150-sumNeg);
+        linePos.setLine(stepCnt, 150, stepCnt, 150 - (maxVal*150) );
+        lineNeg.setLine(stepCnt, 150, stepCnt, 150 - (minVal*150) );
         painter.drawLine(linePos);
         painter.drawLine(lineNeg);
 
