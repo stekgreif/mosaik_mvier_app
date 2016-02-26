@@ -66,6 +66,25 @@ MosaikMini::~MosaikMini()
 }
 
 
+void MosaikMini::setLedState(int section, int id, bool state)
+{
+    qDebug() <<Q_FUNC_INFO <<section <<id <<state;
+    switch( section )
+    {
+        case MosaikMiniDevice::MidiChannelMen:
+        {
+            if( (id >= 0) && (id < 8) )
+            {
+                qDebug() <<Q_FUNC_INFO <<"toggle ";
+                m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Men, id, state);
+            }
+            break;
+        }
+    }
+}
+
+
+
 void MosaikMini::setStepLed(int i)
 {
     quint8 data[3];
@@ -547,66 +566,20 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
 
             switch (data[1])
             {
-#if 0 //before new HWUI labels
-                case 0:
-                    if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Men) )
-                        m_shiftMainVol = true;
-                    else if( data[0] == (Mosaik::MidiCommand::noteOff | Mosaik::MidiChannels::Men) )
-                        m_shiftMainVol = false;
-                    qDebug() <<Q_FUNC_INFO <<"m_shiftMainVol" <<m_shiftMainVol;
-                    break;
-                case 3:
-                    if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Men) )
-                        m_shiftPan = true;
-                    else if( data[0] == (Mosaik::MidiCommand::noteOff | Mosaik::MidiChannels::Men) )
-                        m_shiftPan = false;
-                    qDebug() <<Q_FUNC_INFO <<"m_shiftPan" <<m_shiftPan;
-                    break;
-                case 5: break;
-                case 2:
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                        emit signal_loadSample();
-                    break;
-                case 7:
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                        emit signal_prelistenBrowserSample();
-                    break;
-                case 1:
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                        emit signal_menuNavigation(1);
-                    break;
-                case 6:
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                        emit signal_menuNavigation(-1);
-                    break;
-                case 8: // encoder pushed
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                    {
-                        qDebug() <<Q_FUNC_INFO <<"Menu Encoder Pushed.";
-                        emit signal_menuEncoderPushed();
-                    }
-                    break;
-                case 9: // encoder rotated
-
-                    if( m_shiftBpm )
-                        emit signal_bpmChanged( (float) (data[2] - 64) );
-                    else if ( m_shiftMainVol )
-                        emit signal_mainVolume( ((float) (data[2] - 64)) / 100 );
-                    else if ( m_shiftPan )
-                        emit signal_currentPan(((float) (data[2] - 64)) / 100 );
-                    else
-                    {
-                        emit signal_encChanged(-1*(data[2] - 64));
-                        qDebug() <<Q_FUNC_INFO <<"encoder rotated";
-                    }
-                    break;
-#endif
-
-
-
-
-#if 1 //new HWUI labels
                 case 0: // prelisten sequence
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        if( m_tglSubToPre )
+                        {
+                            emit signal_currentSubchannelToPre(false);
+                            m_tglSubToPre = false;
+                        }
+                        else
+                        {
+                            emit signal_currentSubchannelToPre(true);
+                            m_tglSubToPre = true;
+                        }
+                    }
                     break;
                 case 1: // up
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
@@ -635,6 +608,10 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                     }
                     break;
                 case 5: // prelisten pad sample
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        emit signal_prelistenSubchannelSample();
+                    }
                     break;
                 case 6: // down
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
@@ -668,9 +645,6 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         qDebug() <<Q_FUNC_INFO <<"encoder rotated";
                     }
                     break;
-#endif
-
-
                 default:
                     break;
             }
@@ -687,37 +661,13 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         }
         case MIDI_CH_PAD:
         {
-            //qDebug() <<"PAD" <<data[1] <<data[2];
+            qDebug() <<"PAD" <<data[1] <<data[2];
             emit signal_padMsg(data[1], data[2]);
             break;
         }
         case MIDI_CH_CRF:
         {
             qDebug() <<"CRF" <<data[1] <<data[2];
-            switch (data[1])
-            {
-                case 2:
-                    if( data[0] == (Mosaik::MidiChannels::Crf | Mosaik::MidiCommand::noteOn) )
-                    {
-                        if( m_tglSubToPre )
-                        {
-                            emit signal_currentSubchannelToPre(false);
-                            m_tglSubToPre = false;
-                        }
-                        else
-                        {
-                            emit signal_currentSubchannelToPre(true);
-                            m_tglSubToPre = true;
-                        }
-                    }
-                    break;
-                case 3:
-                    if( data[0] == (Mosaik::MidiChannels::Crf | Mosaik::MidiCommand::noteOn) )
-                    {
-                        emit signal_prelistenSubchannelSample();
-                    }
-                    break;
-            }
             break;
         }
         case MIDI_CH_AHO:
@@ -775,14 +725,16 @@ void MosaikMini::setMainVolume(quint8 volume)
 
 void MosaikMini::subToPreLed(bool state)
 {
+#if 1
     if( state )
     {
-        m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Crf, 2, 1);
+        m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Men, 0, 1);
     }
     else
     {
-        m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Crf, 2, 0);
+        m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Men, 0, 0);
     }
+#endif
 }
 
 

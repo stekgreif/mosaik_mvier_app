@@ -93,6 +93,7 @@ class MosaikMini : public MidiDevice
         void signal_sparkMsg(quint8 id, int sigVal);
 
     private:
+        void setLedState(int section, int id, bool state);
         bool m_singlePatternView;
         void toggleSinglePatternView(void);
         int m_lastStepSequencerLed;
