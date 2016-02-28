@@ -489,8 +489,6 @@ void SubchannelManager::lastMuteStates()
     for( int i = 0; i < SETTINGS_NUM_OF_SUBS; i++ )
     {
         m_subchannel.at(i)->setMute(m_lastMuteStates[i]);
-        if( m_subchannel.at(i)->isMute() )
-            qDebug() <<Q_FUNC_INFO <<"CH" <<i <<"is muted.";
     }
 }
 

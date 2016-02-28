@@ -453,18 +453,24 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         }
                         break;
                     case 4:
-                        emit signal_functionLeftButton04Pressed(); break;
+                        emit signal_functionLeftButton04Pressed();
+                        break;
                     case 5:
-                        emit signal_functionLeftButton05Pressed(); break;
+                    {
+                        emit signal_functionLeftButton05Pressed();
+                    }break;
                     case 6:
                         if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
                         {
                             emit signal_lastMute();
+                            qDebug() <<Q_FUNC_INFO <<"LAST MUTE";
                         }
+                        break;
                     case 7:
                         if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
                         {
                             emit signal_unmuteAll();
+                            qDebug() <<Q_FUNC_INFO <<"UNMUTE ALL";
                         }
                         break;
                     case 8:

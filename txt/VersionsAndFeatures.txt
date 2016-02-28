@@ -48,15 +48,15 @@ Cause:		 BW saving functions clear all LEDs and only send out set LEDS
 2016-02-27 - ALSA stürzt häufig ab, wenn ein neuer Pfad gewählt wird
 			 Neuer Pfad und Sample laden sollte ggf. in einem neuen Thread passieren
 
-2016-02-27 - Last Mute funktioniert noch nicht -> Grafik-Problem?
-
 2016-02-27 - clear pad löscht Pattern und Sample, aber Sample-Informationen auf Kachel bleiben erhalten
 
 
 
 
 
-
+FIXED BUGS
+==========
+2016-02-27 - Last Mute funktioniert noch nicht -> Grafik-Problem?
 
 
 

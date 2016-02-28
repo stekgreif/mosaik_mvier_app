@@ -54,18 +54,6 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelVarPathAndName->move(m_sampleWindowAttributes->left(), m_sampleWindowAttributes->top()-20); //360,160
 
 
-    /** envelope **/
-    QSize envSize;
-    const int frameSize = 30;
-    envSize.setHeight(m_sampleWindowAttributes->height());
-    envSize.setWidth(m_sampleWindowAttributes->width() - frameSize);
-    m_envelope = new DrawEnvelope(envSize, this);
-    //m_envelope->move(m_sampleWindowAttributes->topLeft());
-    m_envelope->move(m_sampleWindowAttributes->left() + 15, m_sampleWindowAttributes->top());
-    m_envelope->setFixedHeight(m_sampleWindowAttributes->height());
-    m_envelope->setFixedWidth(m_sampleWindowAttributes->width());
-
-
     /** BROWSER **/
     m_browser = new Browser(this);
     m_browser->move(20,350);
@@ -120,6 +108,21 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelImage->setObjectName("labelImage");
     m_labelImage->setStyleSheet("QLabel#labelImage {background-color: rgb(100,100,120);}");
     m_labelImage->setPixmap(*m_pixmap);
+
+
+    /** envelope **/
+    QSize envSize;
+    const int frameSize = 0;
+    envSize.setHeight(m_sampleWindowAttributes->height());
+    envSize.setWidth(m_sampleWindowAttributes->width() - frameSize);
+    m_envelope = new DrawEnvelope(envSize, this);
+    //m_envelope->move(m_sampleWindowAttributes->topLeft());
+    m_envelope->move(m_sampleWindowAttributes->left(), m_sampleWindowAttributes->top());
+    m_envelope->setFixedHeight(m_sampleWindowAttributes->height());
+    m_envelope->setFixedWidth(m_sampleWindowAttributes->width());
+
+
+
 
 
     m_btnLoadSample = new QPushButton(this);

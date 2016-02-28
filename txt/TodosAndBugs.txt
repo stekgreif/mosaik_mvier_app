@@ -1,10 +1,5 @@
 
 
-
-
-- isPlaying, isTriggert Kacheln
-
-
 - LED für Subchannel/Channel Ansicht bei Start aktivieren
 - beim Wechsel von einem zu einem anderen Channel funktioniert die RGB Anzeige nicht richtig
 
