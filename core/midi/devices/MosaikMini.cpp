@@ -447,7 +447,11 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                     case 2:
                         emit signal_functionLeftButton02Pressed(); break;
                     case 3:
-                        emit signal_functionLeftButton03Pressed(); break;
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_functionLeftButton03Pressed();
+                        }
+                        break;
                     case 4:
                         emit signal_functionLeftButton04Pressed(); break;
                     case 5:

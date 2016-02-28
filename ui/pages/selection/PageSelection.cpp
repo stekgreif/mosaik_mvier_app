@@ -240,6 +240,8 @@ void PageSelection::refresh()
 #endif
 }
 
+
+
 void PageSelection::refreshTiles()
 {
     qDebug() <<Q_FUNC_INFO <<"delete me";
@@ -257,6 +259,8 @@ void PageSelection::refreshTiles()
     }
 #endif
 }
+
+
 
 void PageSelection::refreshMutePads()
 {

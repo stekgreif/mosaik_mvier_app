@@ -99,7 +99,6 @@ void MidiManager::connectFavouriteDevice(void)
             connect( m_midiDevice, SIGNAL(signal_stepButtonPressed(int)),                m_parent, SLOT(slot_stepButtonPressed(int)) );
             connect( m_midiDevice, SIGNAL(signal_functionRightButton04Pressed()),        m_parent, SLOT(slot_patternClearAll()) );
             connect( m_midiDevice, SIGNAL(signal_functionRightButton06Pressed()),        m_parent, SLOT(slot_patternClearCurrentChannel()) );
-            connect( m_midiDevice, SIGNAL(signal_functionRightButton07Pressed()),        m_parent, SLOT(slot_patternClearCurrentSubchannel()) );
 
             /** main parameter **/
             connect( m_midiDevice, SIGNAL(signal_bpmChanged(float)),                     m_parent, SLOT(slot_globalChangeBpmRelative(float)) );
@@ -109,8 +108,12 @@ void MidiManager::connectFavouriteDevice(void)
             /** sample **/
             connect( m_midiDevice, SIGNAL(signal_functionRightButton00Pressed()),        m_parent, SLOT(slot_sampleUnloadAll() ) );
             connect( m_midiDevice, SIGNAL(signal_functionRightButton02Pressed()),        m_parent, SLOT(slot_sampleUnloadCurrentChannel() ) );
-            connect( m_midiDevice, SIGNAL(signal_functionRightButton03Pressed()),        m_parent, SLOT(slot_sampleUnloadCurrentSubchannel() ) );
             connect( m_midiDevice, SIGNAL(signal_loadSample()),                          m_parent, SLOT(slot_sampleLoadToCurrentSubchannel() ) );
+
+            /** tile **/
+            connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),        m_parent, SLOT(slot_sampleUnloadCurrentSubchannel() ) );
+            connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),        m_parent, SLOT(slot_patternClearCurrentSubchannel()) );
+
 
             /** subchannel parameter **/
             connect( m_midiDevice, SIGNAL(signal_currentPan(float)),                     m_parent, SLOT(slot_parameterPan(float)) );
