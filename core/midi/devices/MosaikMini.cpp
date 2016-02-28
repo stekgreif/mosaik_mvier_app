@@ -428,14 +428,22 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         {
             //qDebug() <<"FNL" <<data[0] <<data[1] <<data[2];
 
-            if( (data[0] & 0xF0) == Mosaik::MidiCommand::noteOn )
+            //if( (data[0] & 0xF0) == Mosaik::MidiCommand::noteOn )
             {
                 switch (data[1])
                 {
                     case 0:
-                        emit signal_functionLeftButton00Pressed(); break;
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_functionLeftButton00Pressed();
+                        }
+                        break;
                     case 1:
-                        emit signal_functionLeftButton01Pressed(); break;
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_functionLeftButton01Pressed();
+                        }
+                        break;
                     case 2:
                         emit signal_functionLeftButton02Pressed(); break;
                     case 3:
@@ -463,32 +471,41 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         }
                         break;
                     case 9:
-                        emit signal_functionLeftButton09Pressed(); break;
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_muteAndSolo(true);
+                        }
+                        else if( data[0] == (Mosaik::MidiCommand::noteOff | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_muteAndSolo(false);
+                        }
+                        break;
                     case 10:
-                        toggleSinglePatternView();
-                        refreshSequencer();
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            toggleSinglePatternView();
+                            refreshSequencer();
+                        }
                         break;
                     case 11:
-                        emit signal_functionLeftButton11Pressed(); break;
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_functionLeftButton11Pressed();
+                        }
+                        break;
                     case 12:
                     case 13:
                     case 14:
                     case 15:
-                        emit signal_functionSelectSubchannelRelative(data[1] - 12);
+                        if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
+                        {
+                            emit signal_functionSelectSubchannelRelative(data[1] - 12);
+                        }
                         break;
                     default:
                         break;
                 }
             }
-            else if ( (data[0] & 0xF0) == Mosaik::MidiCommand::noteOff )
-            {
-                switch (data[1])
-                {
-                    default:
-                        break;
-                }
-            }
-
             break;
         }
 

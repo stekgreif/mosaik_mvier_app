@@ -43,7 +43,8 @@ Description: RGB LEDs update only works with functions that send out 192 byte ev
 			 New Bandwidth saving functions do not work
 Cause:		 BW saving functions clear all LEDs and only send out set LEDS
 
-
+2016-02-27 - ALSA stürzt häufig ab, wenn ein neuer Pfad gewählt wird
+			 Neuer Pfad und Sample laden sollte ggf. in einem neuen Thread passieren
 
 
 
