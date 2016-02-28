@@ -23,6 +23,7 @@ Browser::Browser(QWidget *uiParent)
     m_path[5] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/bass";
     m_path[6] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/noise";
     m_path[7] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/drums";
+    m_path[8] = "/media/dan/Daten/Soundbänke/Mosaik Soundbank";
     m_pathName[0] = "Instuments";
     m_pathName[1] = "Vocal";
     m_pathName[2] = "Fx";
@@ -31,6 +32,7 @@ Browser::Browser(QWidget *uiParent)
     m_pathName[5] = "Bass";
     m_pathName[6] = "Noise";
     m_pathName[7] = "Drums";
+    m_pathName[8] = "Mosaik Soundbank";
 
 
 
@@ -69,7 +71,7 @@ Browser::~Browser()
 
 void Browser::slot_changePath(int pathId)
 {
-    if( (pathId < 8) && (pathId >= 0) )
+    if( (pathId < 9) && (pathId >= 0) )
     {
         qDebug() <<Q_FUNC_INFO <<"PathId valide:" <<pathId <<":" <<m_path[pathId];
         m_treeView->setRootIndex(m_fileSystem->setRootPath(m_path[pathId]));
