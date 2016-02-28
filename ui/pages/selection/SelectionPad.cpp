@@ -223,6 +223,13 @@ void SelectionPad::clearIsMute()
     m_isMute->setStyleSheet("QLabel#tile_isMute {background-color: rgba(200,0,0,0%);}");
 }
 
+void SelectionPad::clearPad()
+{
+    m_sampleTime->setText(" ");
+    m_sampleNameLeft->setText(" ");
+    m_sampleSteps->setText(" ");
+}
+
 
 void SelectionPad::m_slot_padPressed()
 {

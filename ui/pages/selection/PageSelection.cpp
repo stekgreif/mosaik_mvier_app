@@ -165,6 +165,11 @@ void PageSelection::slot_regularTimer()
                                                                           samplePtr->getSampleStructPointer()->lengthInMs,
                                                                           steps);
         }
+        else
+        {
+            m_pad[cnt]->clearPad();
+            m_pad[cnt]->setSampleVolume();
+        }
 
         /** refresh sample volume **/
         m_pad[cnt]->setSampleVolume();

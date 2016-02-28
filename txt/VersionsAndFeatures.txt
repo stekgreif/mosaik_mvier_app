@@ -1,10 +1,35 @@
 ================================================================================
+	CLEANUP
+================================================================================
+Subchannel: Default Subchannel Volume sollte in den Settings eingestellt werden
+
+
+
+
+
 
 ================================================================================
-2016-02-26
+	BUGS
+================================================================================
+2016-02-26 - HWUI - RGB-LED update
+Description: RGB LEDs update only works with functions that send out 192 byte every time.
+			 New Bandwidth saving functions do not work
+Cause:		 BW saving functions clear all LEDs and only send out set LEDS
 
-FEATURES
+2016-02-27 - ALSA stürzt häufig ab, wenn ein neuer Pfad gewählt wird
+			 Neuer Pfad und Sample laden sollte ggf. in einem neuen Thread passieren
 
+
+
+
+
+
+
+
+
+================================================================================
+	FEATURES
+================================================================================
 Waveform Display
  - Lineal (variabel: Pitch und BPM)
    - Zeit
@@ -32,31 +57,14 @@ Tile
 
 
 
-TEST
 
 
 
-
-
-BUGS
-
-2016-02-26 - HWUI - RGB-LED update
-Description: RGB LEDs update only works with functions that send out 192 byte every time.
-			 New Bandwidth saving functions do not work
-Cause:		 BW saving functions clear all LEDs and only send out set LEDS
-
-2016-02-27 - ALSA stürzt häufig ab, wenn ein neuer Pfad gewählt wird
-			 Neuer Pfad und Sample laden sollte ggf. in einem neuen Thread passieren
-
-2016-02-27 - clear pad löscht Pattern und Sample, aber Sample-Informationen auf Kachel bleiben erhalten
-
-
-
-
-
-FIXED BUGS
-==========
+================================================================================
+	FIXED BUGS
+================================================================================
 2016-02-27 - Last Mute funktioniert noch nicht -> Grafik-Problem?
+2016-02-27 - clear pad löscht Pattern und Sample, aber Sample-Informationen auf Kachel bleiben erhalten
 
 
 

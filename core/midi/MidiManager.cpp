@@ -111,8 +111,8 @@ void MidiManager::connectFavouriteDevice(void)
             connect( m_midiDevice, SIGNAL(signal_loadSample()),                          m_parent, SLOT(slot_sampleLoadToCurrentSubchannel() ) );
 
             /** tile **/
-            connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),        m_parent, SLOT(slot_sampleUnloadCurrentSubchannel() ) );
             connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),        m_parent, SLOT(slot_patternClearCurrentSubchannel()) );
+            connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),        m_parent, SLOT(slot_sampleUnloadCurrentSubchannel() ) );
 
 
             /** subchannel parameter **/

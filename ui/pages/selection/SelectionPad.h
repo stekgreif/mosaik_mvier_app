@@ -27,6 +27,8 @@ class SelectionPad : public QWidget
         void setIsMute(void);
         void clearIsMute(void);
 
+        void clearPad(void);
+
 
     private:
         QSize *m_widgetSize;
