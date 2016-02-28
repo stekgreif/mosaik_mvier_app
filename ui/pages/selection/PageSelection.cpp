@@ -113,6 +113,7 @@ void PageSelection::slot_regularTimer()
     QBitArray isPlaying(SETTINGS_NUM_OF_SUBS);
     isPlaying = subchannelManager().getPlayingSubchannels();
 
+    QBitArray isMute = subchannelManager().getMuteStates();
 
     //for( int cnt = 0; cnt < 64; cnt++ )
     for( int cnt = 0; cnt < SETTINGS_NUM_OF_SUBS; cnt++ )
@@ -137,6 +138,16 @@ void PageSelection::slot_regularTimer()
         {
             m_pad[cnt]->clearHasSteps();
         }
+
+        if( isMute.at(cnt) == true )
+        {
+            m_pad[cnt]->setIsMute();
+        }
+        else
+        {
+            m_pad[cnt]->clearIsMute();
+        }
+
 
         /** refresh sample name **/
         QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample(cnt);

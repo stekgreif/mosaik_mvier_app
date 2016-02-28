@@ -26,7 +26,9 @@ Edit-Buffer
 Fast Programming Mode
 
 Tile
- - cut, copy, paster
+ - copy, paster
+
+
 
 
 

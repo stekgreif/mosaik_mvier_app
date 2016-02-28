@@ -119,6 +119,11 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_isPlaying->setText(">");
     m_isPlaying->setAlignment(Qt::AlignCenter);
 
+    m_isMute = new QLabel(this);
+    m_isMute->setObjectName("tile_isMute");
+    m_isMute->setFixedSize( wP*16, hP*4);
+    m_isMute->move( wP*mS, hP*mS );
+    clearIsMute();
 
     /** layer 2 - button color */
     m_buttonPadColor = new QLabel(this);
@@ -206,6 +211,16 @@ void SelectionPad::setSampleVolume()
 {
     m_volumeValue = subchannelManager().getSubchannelVolume(m_padId);
     m_volumeWidget->setVolume(m_volumeValue);
+}
+
+void SelectionPad::setIsMute()
+{
+    m_isMute->setStyleSheet("QLabel#tile_isMute {background-color: rgba(200,0,0,50%);}");
+}
+
+void SelectionPad::clearIsMute()
+{
+    m_isMute->setStyleSheet("QLabel#tile_isMute {background-color: rgba(200,0,0,0%);}");
 }
 
 

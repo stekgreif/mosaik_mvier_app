@@ -24,6 +24,8 @@ class SelectionPad : public QWidget
         void setSampleParameters(QString name, float time, float steps);
         void clearSampleName(void);
         void setSampleVolume(void);
+        void setIsMute(void);
+        void clearIsMute(void);
 
 
     private:
@@ -47,6 +49,7 @@ class SelectionPad : public QWidget
         QLabel *m_volume;
         QLabel *m_subChColor;
         QLabel *m_selectionFrame;
+        QLabel *m_isMute;
 
         float m_volumeValue;
         VolumeWidget *m_volumeWidget;
