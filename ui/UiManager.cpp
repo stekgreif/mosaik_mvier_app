@@ -197,7 +197,7 @@ void UiManager::slot_browserCloseFolder()
 
 void UiManager::slot_toggleMuteAndSolo()
 {
-    qDebug() <<Q_FUNC_INFO;
+    //qDebug() <<Q_FUNC_INFO;
     m_pageSelection->toggleMuteAndSolo();
 }
 

@@ -47,6 +47,7 @@ TopBar:
  - Bar Counter
  - Date, Time,
  - spend time
+ - 03-3-37 | 120.6 bpm | 01:45 | MainVol | Brightness | Akku | 2015-10-16 Thu 12:34");
 
 Pitch
 

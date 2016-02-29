@@ -369,7 +369,7 @@ void PageSelection::slot_setExclusiveSubchannelSelection(int id)
 void PageSelection::toggleMuteAndSolo()
 {
     m_muteAndSoloVisible = !m_muteAndSoloVisible;
-    qDebug() <<Q_FUNC_INFO <<"m_muteAndSoloVisible" <<m_muteAndSoloVisible;
+    //qDebug() <<Q_FUNC_INFO <<"m_muteAndSoloVisible" <<m_muteAndSoloVisible;
 
     if( m_muteAndSoloVisible )
     {

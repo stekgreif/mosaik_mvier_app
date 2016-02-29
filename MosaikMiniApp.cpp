@@ -419,7 +419,7 @@ void MosaikMiniApp::slot_parameterCurrentSubToPre(bool state)
 
 void MosaikMiniApp::slot_parameterMuteAndSolo(bool state)
 {
-    qDebug() <<Q_FUNC_INFO <<"state" <<state;
+    //qDebug() <<Q_FUNC_INFO <<"state" <<state;
     m_uiManager->slot_toggleMuteAndSolo();
 }
 
