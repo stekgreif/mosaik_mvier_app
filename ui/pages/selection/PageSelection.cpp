@@ -19,7 +19,6 @@
 #define BTN_GRID  (BTN_SIZE+BTN_GAP)
 
 
-
 #define TIMER
 
 
@@ -79,7 +78,9 @@ PageSelection::PageSelection(UiManager *parent)
     m_timer->start(50);
 #endif
 
-    refresh();
+    //refresh();
+
+    refreshAllSampleVolumes();
 }
 
 
@@ -168,7 +169,7 @@ void PageSelection::slot_regularTimer()
         else
         {
             m_pad[cnt]->clearPad();
-            m_pad[cnt]->setSampleVolume();
+            //m_pad[cnt]->setSampleVolume();
         }
 
         /** refresh sample volume **/
@@ -319,14 +320,29 @@ void PageSelection::refreshSampleParameters()
 void PageSelection::refreshSampleVolume()
 {
     qDebug() <<Q_FUNC_INFO <<"delete me";
-#ifndef TIMER
+//#ifndef TIMER
+#if 1
     qDebug() <<Q_FUNC_INFO;
 
-    for( int cnt = 0; cnt < 64; cnt++ )
+    for( int cnt = 0; cnt < SETTINGS_NUM_OF_SUBS; cnt++ )
     {
         m_pad[settings().getSubchannelPos(cnt)]->setSampleVolume();
     }
 #endif
+}
+
+void PageSelection::refreshSampleVolumeWidget(int id)
+{
+    m_pad[id]->setSampleVolume();
+}
+
+
+void PageSelection::refreshAllSampleVolumes()
+{
+    for( int id = 0; id < SETTINGS_NUM_OF_SUBS; id++ )
+    {
+        m_pad[id]->setSampleVolume();
+    }
 }
 
 

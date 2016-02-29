@@ -5,6 +5,13 @@ Subchannel: Default Subchannel Volume sollte in den Settings eingestellt werden
 
 
 
+================================================================================
+	OPTIMIZATION
+================================================================================
+PageSelection: implement two refresh mechanisms
+			   1. Event-triggert updates (z.B. Load Sample -> new Name)
+			   2. Regular updates (e.g. isPlaying, Playcursor, ...)
+
 
 
 
@@ -34,6 +41,12 @@ Waveform Display
  - Lineal (variabel: Pitch und BPM)
    - Zeit
    - Takt
+
+TopBar:
+ - CPU Load
+ - Bar Counter
+ - Date, Time,
+ - spend time
 
 Pitch
 

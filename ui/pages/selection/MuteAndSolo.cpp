@@ -9,13 +9,13 @@
 
 
 
-
+#if 0 // 2016-02-29 delete me
 #define BTN_SIZE  131
 #define BTN_GAP     4
 #define OFFSET      2
 #define BTN_GRID  (BTN_SIZE+BTN_GAP)
 #define BTNS  8
-
+#endif
 
 
 MuteAndSolo::MuteAndSolo(QWidget *parent)
@@ -91,7 +91,6 @@ void MuteAndSolo::refresh()
 void MuteAndSolo::slot_stateChanged(int id)
 {
     qDebug() <<Q_FUNC_INFO <<"id" <<id;
-    //emit signal_mutePadPressed(id);
     subchannelManager().toggleMuteState(id);
     refresh();
 }

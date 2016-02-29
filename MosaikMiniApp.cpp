@@ -68,7 +68,6 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
 
     if( settings().initWithAudio() )
     {
-        qDebug() <<"Try to init ALSA.";
         m_alsaPcm = new AlsaPcm;
 
         float randomBpm = rand() % 110 + 70;
@@ -76,10 +75,8 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
         m_alsaPcm->slot_bpmChanged(subchannelManager().getBpm());
         m_uiManager->refreshBpm();
 
-        //connect(m_alsaPcm, SIGNAL(signal_stepCntUpdate(quint64)), this, SLOT(slot_stepCntUpdate(quint64)) );
         m_alsaPcm->start();
     }
-    qDebug() <<"XXXXXXXXXXXXXX";
 
     m_stepCounter = -1;
     m_timer = new QTimer;
@@ -105,10 +102,7 @@ MosaikMiniApp::~MosaikMiniApp()
     delete m_screenInfo;
     delete m_scrollArea;
     delete ui;
-
-    qDebug() <<"~" <<Q_FUNC_INFO;
 }
-
 
 
 void MosaikMiniApp::slot_seqButtonChanged(quint8 id, quint8 val)
@@ -164,6 +158,8 @@ void MosaikMiniApp::slot_fnrButtonChanged(quint8 id, quint8 val)
     }
 }
 
+
+#if 1
 void MosaikMiniApp::slot_sparkEvent(quint8 id, int val)
 {
     qDebug() <<Q_FUNC_INFO <<"midi in val:" <<val;
@@ -190,6 +186,9 @@ void MosaikMiniApp::slot_sparkEvent(quint8 id, int val)
 
     m_uiManager->refresh();
 }
+#endif
+
+
 
 void MosaikMiniApp::slot_stepButtonPressed(int id)
 {
@@ -463,8 +462,9 @@ void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
             break;
         case 4:
             subchannelManager().setCurrentSubchannelVolumeRelative(change);
-            m_uiManager->refreshVolPoti();
-            m_uiManager->refreshSelectionPad();
+            //m_uiManager->refreshVolPoti();
+            //m_uiManager->refreshSelectionPad();
+            m_uiManager->refreshSampleVolumeWidget(subchannelManager().getCurrentSubchannelSelection());
             break;
         default:
             qDebug() <<Q_FUNC_INFO <<"Id out of range:" <<id;

@@ -28,6 +28,8 @@ class PageSelection : public QWidget
         void refreshMutePads(void);
         void refreshSampleParameters(void);
         void refreshSampleVolume(void);
+        void refreshSampleVolumeWidget(int id);
+        void refreshAllSampleVolumes(void);
 
     signals:
         void signal_subchannelSelectionPadPressed(int id);

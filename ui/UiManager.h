@@ -70,6 +70,7 @@ class UiManager : public QWidget
         void refreshMainVol(void);
         void refreshMutePads(void);
         void refreshSelectionPad(void);
+        void refreshSampleVolumeWidget(int id);
 
         void slot_browserOpenFolder();
         void slot_browserCloseFolder();

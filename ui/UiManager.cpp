@@ -176,6 +176,11 @@ void UiManager::refreshSelectionPad()
     m_pageSelection->refreshSampleVolume();
 }
 
+void UiManager::refreshSampleVolumeWidget(int id)
+{
+    m_pageSelection->refreshSampleVolumeWidget(id);
+}
+
 
 
 void UiManager::slot_browserOpenFolder()
