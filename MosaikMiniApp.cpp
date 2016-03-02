@@ -435,6 +435,13 @@ void MosaikMiniApp::slot_parameterSelectLastMutes()
     m_uiManager->refreshMutePads();
 }
 
+void MosaikMiniApp::slot_parameterPlayDirection(bool direction)
+{
+    qDebug() <<Q_FUNC_INFO <<direction;
+    subchannelManager().setCurrentPlayDirection(direction);
+    m_uiManager->refreshPlayDirection();
+}
+
 
 void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
 {

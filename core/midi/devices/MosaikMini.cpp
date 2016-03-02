@@ -677,11 +677,28 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                 case 9: // encoder rotated
 
                     if( m_shiftBpm )
+                    {
                         emit signal_bpmChanged( (float) (data[2] - 64) );
-                    else if ( m_shiftMainVol )
+                    }
+                    else if( m_shiftMainVol )
+                    {
                         emit signal_mainVolume( ((float) (data[2] - 64)) / 100 );
-                    else if ( m_shiftPan )
+                    }
+                    else if( m_shiftPan )
+                    {
                         emit signal_currentPan(((float) (data[2] - 64)) / 100 );
+                    }
+                    else if( m_shiftPlayDir  )
+                    {
+                        if(data[2] > 64)
+                        {
+                            emit signal_playDirection(true);
+                        }
+                        else
+                        {
+                            emit signal_playDirection(false);
+                        }
+                    }
                     else
                     {
                         emit signal_encChanged(-1*(data[2] - 64));

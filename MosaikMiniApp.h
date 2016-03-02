@@ -69,6 +69,7 @@ public slots:
     void slot_sampleLoadToPrelisten(void);
     void slot_prelistenSubchannelSample(void);
 
+
     void slot_patternClearCurrentSubchannel(void);
     void slot_patternClearCurrentChannel(void);
     void slot_patternClearAll(void);
@@ -103,6 +104,7 @@ public slots:
     void slot_parameterMuteAndSolo(bool state);
     void slot_parameterUnmuteAll(void);
     void slot_parameterSelectLastMutes(void);
+    void slot_parameterPlayDirection(bool direction);
 
 #if 0
     void slot_patternStepCounterUpdate(quint64 step);

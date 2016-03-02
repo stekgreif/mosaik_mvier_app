@@ -43,6 +43,7 @@ class PageSubchannel : public QWidget
         void slot_loadSampleToPrelisten(void);
         void slot_browserOpenFolder(void);
         void slot_browserCloseFolder(void);
+        void slot_refreshPlayDirection(void);
 
 
     private slots:

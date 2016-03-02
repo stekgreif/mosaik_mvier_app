@@ -70,6 +70,8 @@ class SubchannelManager
         float getCurrentPan() const;
         float getSubchannelVolume(int subchId);
         void  togglePlayDirection(void);
+        void  setCurrentPlayDirection(bool direction);
+        bool  getCurrentPlayDirection(void);
 
 
         /** sub/channel selection **/

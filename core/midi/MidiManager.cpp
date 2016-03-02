@@ -117,6 +117,7 @@ void MidiManager::connectFavouriteDevice(void)
 
             /** subchannel parameter **/
             connect( m_midiDevice, SIGNAL(signal_currentPan(float)),                     m_parent, SLOT(slot_parameterPan(float)) );
+            connect( m_midiDevice, SIGNAL(signal_playDirection(bool)),                   m_parent, SLOT(slot_parameterPlayDirection(bool)) );
             connect( m_midiDevice, SIGNAL(signal_currentSubchannelToPre(bool)),          m_parent, SLOT(slot_parameterCurrentSubToPre(bool)) );
             connect( m_midiDevice, SIGNAL(signal_muteAndSolo(bool)),                     m_parent, SLOT(slot_parameterMuteAndSolo(bool)) );
             connect( m_midiDevice, SIGNAL(signal_unmuteAll()),                           m_parent, SLOT(slot_parameterUnmuteAll()) );

@@ -181,6 +181,11 @@ void UiManager::refreshSampleVolumeWidget(int id)
     m_pageSelection->refreshSampleVolumeWidget(id);
 }
 
+void UiManager::refreshPlayDirection()
+{
+    m_pageSubchannel->slot_refreshPlayDirection();
+}
+
 
 
 void UiManager::slot_browserOpenFolder()

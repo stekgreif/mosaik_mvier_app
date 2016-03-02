@@ -224,6 +224,17 @@ void Subchannel::togglePlayDirection()
     qDebug() <<Q_FUNC_INFO <<"new play forward: " <<m_playForward;
 }
 
+void Subchannel::setPlayDirection(bool direction)
+{
+    m_playForward = direction;
+}
+
+// true: forward - false: backwards
+bool Subchannel::getPlayDirection()
+{
+    return m_playForward;
+}
+
 
 
 void Subchannel::printSubchannelPatternsToDebug(void)

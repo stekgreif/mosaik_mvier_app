@@ -58,6 +58,7 @@ class MosaikMini : public MidiDevice
 
         void signal_prelistenBrowserSample(void);
         void signal_prelistenSubchannelSample(void);
+        void signal_playDirection(bool direction);
 
 #if 0
         /** new signal functions -> these prototypes are already in MidiDevice**/

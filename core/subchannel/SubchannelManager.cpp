@@ -543,6 +543,16 @@ void SubchannelManager::togglePlayDirection()
     m_subchannel.at(m_currentSubchannel)->togglePlayDirection();
 }
 
+void SubchannelManager::setCurrentPlayDirection(bool direction)
+{
+    m_subchannel.at(m_currentSubchannel)->setPlayDirection(direction);
+}
+
+bool SubchannelManager::getCurrentPlayDirection()
+{
+    m_subchannel.at(m_currentSubchannel)->getPlayDirection();
+}
+
 
 QString SubchannelManager::getCurrentSamplePathAndName()
 {
