@@ -108,7 +108,7 @@ class PageSubchannel : public QWidget
         QRect  *m_patternWidgetAttributes;
 
         /** test **/
-        QPushButton *m_btnTestTreeCollapse;
+        //QPushButton *m_btnTestTreeCollapse;
         QPushButton *m_btnTestPlayDirection;
         QPushButton *m_btnLoadSample;
 

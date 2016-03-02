@@ -10,7 +10,7 @@ Browser::Browser(QWidget *uiParent)
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
     /** change size and position here **/
-    m_browserWindowSizeAndPosition = new QRect( 20,  160, 780, 600);
+    m_browserWindowSizeAndPosition = new QRect( 20,  160, 790, 500);
 
 
     /** path **/
@@ -51,7 +51,7 @@ Browser::Browser(QWidget *uiParent)
     m_treeView->setFocus();
     m_treeView->setModel(m_fileSystem);
     m_treeView->setAutoScroll(true);  // default
-    m_treeView->setColumnWidth(0, 500);
+    m_treeView->setColumnWidth(0, 480);
     m_treeView->hideColumn(3);  // 0:name, 1:size, 2:type, 3:date modified
     m_treeView->hideColumn(2);
     QFont treeFont;

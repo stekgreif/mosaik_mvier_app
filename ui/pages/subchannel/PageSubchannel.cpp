@@ -56,19 +56,21 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
     /** BROWSER **/
     m_browser = new Browser(this);
-    m_browser->move(20,350);
+    m_browser->move(20,415);
     //m_browser->setFixedSize(m_sampleWindowAttributes->width(), m_sampleWindowAttributes->height());
 
     /** test **/
+#if 0 //2016-03-02 can be removed
     m_btnTestTreeCollapse = new QPushButton(this);
     m_btnTestTreeCollapse->setFixedSize(100,50);
     m_btnTestTreeCollapse->move(20,980);
     m_btnTestTreeCollapse->setText("Close Folder");
+#endif
 
     m_btnTestPlayDirection = new QPushButton(this);
-    m_btnTestPlayDirection->setFixedSize(100,50);
-    m_btnTestPlayDirection->move(160,980);
-    m_btnTestPlayDirection->setText("Tgl Play Dir");
+    m_btnTestPlayDirection->setFixedSize(50,50);
+    m_btnTestPlayDirection->move(650,340);
+    m_btnTestPlayDirection->setText(">");
 
 
 
@@ -124,11 +126,10 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
 
 
-
     m_btnLoadSample = new QPushButton(this);
-    m_btnLoadSample->move(500,980);
-    m_btnLoadSample->setFixedSize(100,50);
-    m_btnLoadSample->setText("load sample");
+    m_btnLoadSample->move(720,340);
+    m_btnLoadSample->setFixedSize(50,50);
+    m_btnLoadSample->setText("load \n sample");
 
     connect( m_btnLoadSample,
              SIGNAL(clicked()),
@@ -136,10 +137,12 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
              SLOT(slot_loadSample())            );
 
 
+#if 0 //2016-03-02 can be removed
     connect( m_btnTestTreeCollapse,
              SIGNAL(clicked()),
              m_browser,
              SLOT(slot_closeFolder()));
+#endif
 
     connect( m_btnTestPlayDirection,
              SIGNAL(clicked()),
