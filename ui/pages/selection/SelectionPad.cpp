@@ -44,11 +44,11 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_widgetSize->setWidth(widgetSize->width());
 
 
-    int wP = m_widgetSize->width()/20;      // width pad
-    int hP = m_widgetSize->height()/20;     // height pad
+    wP = m_widgetSize->width()/20;      // width pad
+    hP = m_widgetSize->height()/20;     // height pad
     int mS = 2;
 
-    qDebug() <<Q_FUNC_INFO <<"Pad width:" <<m_widgetSize->width() <<"Pad height" <<m_widgetSize->height();
+    //qDebug() <<Q_FUNC_INFO <<"Pad width:" <<m_widgetSize->width() <<"Pad height" <<m_widgetSize->height();
 
 
     m_selectionFrame = new QLabel(this);
@@ -126,11 +126,15 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_isMute->move( wP*mS, hP*mS );
     clearIsMute();
 
+    /** sample waveform **/
     m_sampleWaveForm = new QLabel(this);
     m_sampleWaveForm->setObjectName("sampleWaveForm");
     m_sampleWaveForm->setStyleSheet("QLabel#sampleWaveForm { background-color: rgb(90,90,90);}");
     m_sampleWaveForm->setFixedSize(wP*16, hP*8);
     m_sampleWaveForm->move(wP*mS, hP*9.8);
+
+    m_emptySampleWaveForm = new QPixmap;
+    m_emptySampleWaveForm->fill(Qt::white);
 
     /** layer 2 - button color */
     m_buttonPadColor = new QLabel(this);
@@ -141,10 +145,6 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_buttonPad = new QPushButton(this);
     m_buttonPad->setObjectName("pad_button");
     m_buttonPad->setFixedSize(*m_widgetSize);
-    //m_buttonPad->setText(QString::number(id));
-
-
-
 
 
     /* internal connections */
@@ -270,6 +270,23 @@ void SelectionPad::setPadToDeselectionColor(void)
 {
     //m_subChColor->setStyleSheet("QLabel#color" + m_padOffColor);
     m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(0,0,0,0%);}");
+}
+
+void SelectionPad::refreshSampleWaveForm()
+{
+    if( subchannelManager().hasCurrentSubchannelSample() )
+    {
+        qDebug() <<Q_FUNC_INFO  <<"Refresh sample plot.";
+
+        QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample();
+        QPixmap miniWaveForm = *samplePtr->getSampleStructPointer()->pixmap;
+        miniWaveForm = miniWaveForm.scaled(wP*16, hP*8, Qt::KeepAspectRatio);
+        m_sampleWaveForm->setPixmap(miniWaveForm);
+    }
+    else
+    {
+        m_sampleWaveForm->setPixmap(*m_emptySampleWaveForm);
+    }
 }
 
 

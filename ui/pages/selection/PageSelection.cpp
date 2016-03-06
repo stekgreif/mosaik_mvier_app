@@ -345,6 +345,11 @@ void PageSelection::refreshAllSampleVolumes()
     }
 }
 
+void PageSelection::refreshWaveFormWindow()
+{
+    m_pad[subchannelManager().getCurrentSubchannelSelection()]->refreshSampleWaveForm();
+}
+
 
 
 void PageSelection::m_slot_selectionChanged(int id)

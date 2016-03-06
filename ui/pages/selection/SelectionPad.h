@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include "ui/pages/selection/VolumeWidget.h"
+#include <QPixmap>
 
 
 class SelectionPad : public QWidget
@@ -54,6 +55,10 @@ class SelectionPad : public QWidget
         QLabel *m_isMute;
 
         QLabel *m_sampleWaveForm;
+        QPixmap *m_emptySampleWaveForm;
+
+        int wP;
+        int hP;
 
         float m_volumeValue;
         VolumeWidget *m_volumeWidget;
@@ -67,6 +72,7 @@ class SelectionPad : public QWidget
     public slots:
         void setPadToSelectionColor(void);
         void setPadToDeselectionColor(void);
+        void refreshSampleWaveForm(void);
 
 
     signals:

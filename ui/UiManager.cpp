@@ -212,6 +212,7 @@ void UiManager::loadSelectedSampleToCurrentSubchannel()
 {
     m_pageSubchannel->slot_loadSample();
     m_pageSelection->refresh();
+    m_pageSelection->refreshWaveFormWindow();
 }
 
 void UiManager::loadSelectedSampleToPrelisten()

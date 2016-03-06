@@ -12,7 +12,7 @@ typedef struct{
     QString  path;
     QString  name;
     QPixmap  *pixmap;
-
+    QPixmap  *miniWaveform;
 
     SF_INFO  sndInfo;
     SNDFILE *sndFile;
