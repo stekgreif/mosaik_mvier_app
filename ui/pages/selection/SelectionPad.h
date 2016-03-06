@@ -53,6 +53,8 @@ class SelectionPad : public QWidget
         QLabel *m_selectionFrame;
         QLabel *m_isMute;
 
+        QLabel *m_sampleWaveForm;
+
         float m_volumeValue;
         VolumeWidget *m_volumeWidget;
 

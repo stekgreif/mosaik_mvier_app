@@ -43,11 +43,12 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_widgetSize->setHeight(widgetSize->height());
     m_widgetSize->setWidth(widgetSize->width());
 
+
     int wP = m_widgetSize->width()/20;      // width pad
     int hP = m_widgetSize->height()/20;     // height pad
     int mS = 2;
-    int lS = 12;
 
+    qDebug() <<Q_FUNC_INFO <<"Pad width:" <<m_widgetSize->width() <<"Pad height" <<m_widgetSize->height();
 
 
     m_selectionFrame = new QLabel(this);
@@ -69,7 +70,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_sampleNameLeft->setObjectName("sampleNameLeft");
     m_sampleNameLeft->setStyleSheet("QLabel#sampleNameLeft {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
     //m_sampleNameLeft->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 1.4 );
-    m_sampleNameLeft->move( (m_widgetSize->width()/20)*2.5, (m_widgetSize->height()/5) * 2.4 );
+    m_sampleNameLeft->move( (m_widgetSize->width()/20)*2.5, (m_widgetSize->height()/5) * 1.7 );
     m_sampleNameLeft->setAlignment(Qt::AlignLeft);
     m_sampleNameLeft->setFixedWidth((m_widgetSize->width()/20)*16);
 
@@ -85,13 +86,13 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_sampleTime = new QLabel(this);
     m_sampleTime->setObjectName("sampleTime");
     m_sampleTime->setStyleSheet("QLabel#sampleTime {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_sampleTime->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 4 );
+    m_sampleTime->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 4.3 );
     m_sampleTime->setAlignment(Qt::AlignCenter);
 
     m_sampleSteps = new QLabel(this);
     m_sampleSteps->setObjectName("sampleSteps");
     m_sampleSteps->setStyleSheet("QLabel#sampleSteps {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_sampleSteps->move( ((m_widgetSize->width()/20) * 10), (m_widgetSize->height()/5) * 4 );
+    m_sampleSteps->move( ((m_widgetSize->width()/20) * 10), (m_widgetSize->height()/5) * 4.3 );
     m_sampleSteps->setAlignment(Qt::AlignRight);
 
 
@@ -125,17 +126,24 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_isMute->move( wP*mS, hP*mS );
     clearIsMute();
 
+    m_sampleWaveForm = new QLabel(this);
+    m_sampleWaveForm->setObjectName("sampleWaveForm");
+    m_sampleWaveForm->setStyleSheet("QLabel#sampleWaveForm { background-color: rgb(90,90,90);}");
+    m_sampleWaveForm->setFixedSize(wP*16, hP*8);
+    m_sampleWaveForm->move(wP*mS, hP*9.8);
+
     /** layer 2 - button color */
     m_buttonPadColor = new QLabel(this);
     m_buttonPadColor->setObjectName("pad_buttonColor");
     m_buttonPadColor->setFixedSize(*m_widgetSize);
-
 
     /** layer 3 - button **/
     m_buttonPad = new QPushButton(this);
     m_buttonPad->setObjectName("pad_button");
     m_buttonPad->setFixedSize(*m_widgetSize);
     //m_buttonPad->setText(QString::number(id));
+
+
 
 
 

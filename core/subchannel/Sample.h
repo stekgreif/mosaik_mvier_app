@@ -13,6 +13,7 @@ typedef struct{
     QString  name;
     QPixmap  *pixmap;
 
+
     SF_INFO  sndInfo;
     SNDFILE *sndFile;
     float 	*frameBuffer;
