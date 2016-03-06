@@ -39,12 +39,13 @@ Sample::Sample(QString samplePathAndName)
 
     QSize waveFormSize(780,300);
     m_sample->pixmap = new QPixmap(waveFormSize);
-    m_sample->pixmap->fill(Qt::white);
+    //m_sample->pixmap->fill(Qt::white);
+    m_sample->pixmap->fill(QColor(80,80,80));
 
     QPainter painter(m_sample->pixmap);
     QPen pen;
     pen.setWidth(1);
-    pen.setColor(Qt::blue);
+    pen.setColor(QColor(180,180,180));
 
     /** only mono **/
     int stepWidth = m_sample->sndInfo.frames / waveFormSize.width();
