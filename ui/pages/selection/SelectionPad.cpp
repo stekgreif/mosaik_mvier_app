@@ -129,7 +129,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     /** sample waveform **/
     m_sampleWaveForm = new QLabel(this);
     m_sampleWaveForm->setObjectName("sampleWaveForm");
-    m_sampleWaveForm->setStyleSheet("QLabel#sampleWaveForm { background-color: rgb(90,90,90);}");
+    m_sampleWaveForm->setStyleSheet("QLabel#sampleWaveForm { background-color: rgb(80,80,80);}");
     m_sampleWaveForm->setFixedSize(wP*16, hP*8);
     m_sampleWaveForm->move(wP*mS, hP*9.8);
 
@@ -249,16 +249,16 @@ void SelectionPad::setPadToSelectionColor(void)
     switch (m_padIdRel)
     {
         case 0:  //red 255,0,0
-            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,  0,  0,25%);}");
+            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,  0,  0,42%);}");
             break;
         case 1: //blue 0,0,255
-            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(  0,  0,255,25%);}");
+            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(  0,  0,255,38%);}");
             break;
         case 2: //yellow 255,255,0
-            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,255,  0,25%);}");
+            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,255,  0,35%);}");
             break;
         case 3: //magenta 255,0,255
-            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,  0,255,25%);}");
+            m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(255,  0,255,40%);}");
             break;
         default:
             break;
@@ -280,7 +280,7 @@ void SelectionPad::refreshSampleWaveForm()
 
         QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample();
         QPixmap miniWaveForm = *samplePtr->getSampleStructPointer()->pixmap;
-        miniWaveForm = miniWaveForm.scaled(wP*16, hP*8, Qt::KeepAspectRatio);
+        miniWaveForm = miniWaveForm.scaled(wP*16, hP*8);
         m_sampleWaveForm->setPixmap(miniWaveForm);
     }
     else

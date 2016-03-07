@@ -8,9 +8,11 @@ PageSelection: delete defines
 ================================================================================
 	OPTIMIZATION
 ================================================================================
-PageSelection: implement two refresh mechanisms !!!!!!!!!!!!!!!!!!!!!!
-			   1. Event-triggert updates (z.B. Load Sample -> new Name)
-			   2. Regular updates (e.g. isPlaying, Playcursor, ...)
+PageSelection:	implement two refresh mechanisms !!!!!!!!!!!!!!!!!!!!!!
+				1. Event-triggert updates (z.B. Load Sample -> new Name)
+				2. Regular updates (e.g. isPlaying, Playcursor, ...)
+HWUI:			Path LEDs
+				PlayDir, Pitch, Pan Mechanismus
 
 
 
