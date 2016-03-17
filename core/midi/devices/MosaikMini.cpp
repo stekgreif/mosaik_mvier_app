@@ -602,13 +602,16 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         }
 
         /** Menu **/
+        //  0   1   2
+        //  3   4   5
+        //  6   7   8
         case MIDI_CH_MEN:
         {
             //qDebug() <<Q_FUNC_INFO <<"MEN" <<data[0] <<data[1] <<data[2];
             emit signal_menMsg(data[1], data[2]);
 
             switch (data[1])
-            {
+                {
                 case 0: // prelisten sequence
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
@@ -624,53 +627,60 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         }
                     }
                     break;
-                case 1: // up
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                    {
-                        emit signal_menuNavigation(1);
-                    }
-                    break;
-                case 2: // load sample
+                case 1:
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         emit signal_loadSample();
+                    }
+                    break;
+                case 2:
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {               
+                        // up:
+                        emit signal_menuNavigation(1);
+                        emit signal_prelistenBrowserSample();
                     }
                     break;
                 case 3: // close folder
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         emit signal_browserCloseFolder();
-                        //qDebug() <<Q_FUNC_INFO <<"close folder";
                     }
                     break;
-                case 4: // open folder
+                case 4:
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
-                        emit signal_browserOpenFolder();
-                        //qDebug() <<Q_FUNC_INFO <<"open folder";
+                        // prelisten browser
+                        emit signal_prelistenBrowserSample();
                     }
                     break;
-                case 5: // prelisten pad sample
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                case 5:
                     {
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                        {
+                        // prelisten pad sample
                         emit signal_prelistenSubchannelSample();
-                    }
+                        }
                     break;
-                case 6: // down
+                    }
+                case 6:
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
+                        //Nothing for now
+                    }
+                    break;
+                case 7:
+                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
+                    {
+                        // down
                         emit signal_menuNavigation(-1);
-                    }
-                    break;
-                case 7: // prelisten browser
-                    if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                    {
                         emit signal_prelistenBrowserSample();
                     }
                     break;
                 case 8: // encoder pushed
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
+                        // emit signal_browserOpenFolder();
                         emit signal_menuEncoderPushed();
                     }
                     break;
