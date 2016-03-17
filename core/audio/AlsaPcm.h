@@ -14,7 +14,7 @@
 #define PCM_DEVICE_2    "plughw:2,0"
 #define PCM_DEVICE_3    "plughw:3,0"
 #define NUM_OF_PERIODS  2
-#define FRAMES          1024
+#define FRAMES          2048
 //#define FRAMES          256
 //#define FRAMES          128
 

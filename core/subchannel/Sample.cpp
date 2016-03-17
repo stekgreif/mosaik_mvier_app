@@ -48,7 +48,7 @@ Sample::Sample(QString samplePathAndName)
     pen.setColor(QColor(140,140,140));
 
     /** only mono **/
-    int stepWidth = m_sample->sndInfo.frames / waveFormSize.width();
+    float stepWidth = m_sample->sndInfo.frames / waveFormSize.width();
     qDebug() <<Q_FUNC_INFO <<"step Width:" <<stepWidth;
 
 
@@ -65,14 +65,14 @@ Sample::Sample(QString samplePathAndName)
     int stepCnt = 0;
     float temp = 0;
 
-    for(int frame = 0; frame < m_sample->sndInfo.frames; frame = frame + stepWidth)
+    for(float frame = 0; frame < m_sample->sndInfo.frames; frame = frame + stepWidth)
     {
         maxVal = 0;
         minVal = 0;
 
         for(int cnt = 0; cnt < stepWidth; cnt++)
         {
-            temp = m_sample->frameBuffer[frame + cnt];
+            temp = m_sample->frameBuffer[(int)frame + cnt];
 
             if( temp < 0.0 )            //negative
             {

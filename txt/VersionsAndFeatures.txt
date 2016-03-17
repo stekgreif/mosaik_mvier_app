@@ -14,7 +14,7 @@ PageSelection:	implement two refresh mechanisms !!!!!!!!!!!!!!!!!!!!!!
 HWUI:			Path LEDs
 				PlayDir, Pitch, Pan Mechanismus
 
-
+GUI:			Mute Overlay über Sample legen, nicht über Trigger+Play
 
 
 ================================================================================
@@ -39,17 +39,67 @@ Cause:		 BW saving functions clear all LEDs and only send out set LEDS
 ================================================================================
 	FEATURES
 ================================================================================
+- Volume Fader farbig
+
+
+
+================================================================================
+2016-03-12	GROUPS (SetOfSamples)
+			- Pads gruppierbar
+				- farbig markierbar
+				- Farbe über 6-Farb-Selektionsfeld auswählbar
+				- jeder Farbe kann in den Grundeinstellungen ein Gruppenname zugewiesen werden
+			- Pads und Gruppen verschieben können
+			- Group Mute
+			- Groups können auf Motor-Fader gelegt werden
+			- Groups laden
+				- SampleSet -> Anzahl der Felder
+			- Groups speichern
+
+
+2016-03-12  Screenshots von der App in spezifischen Ordner machen
+
+			Have a look at Screenshot example:
+			http://doc.qt.io/qt-5/qtwidgets-desktop-screenshot-example.html
+
+			In short:
+
+			QScreen *screen = QGuiApplication::primaryScreen();
+			if (screen)
+				QPixmap originalPixmap = screen->grabWindow(0);
+
+================================================================================
+2016-03-12	Step-Pre-Programming
+			A) Edit-Buffer, dieser könnte ein zusätzlicher Subkanal sein
+			B) Set-Pre-Prog-Subchannel-Pad
+			   beinhaltet zwei bereits funktionierende Unterfunktionen die so
+			   implementiert werden müssten:
+				- PA: Mute
+				- PRE: Sample auf Vorhören
+
+================================================================================
+2016-03-12	Timer/Wecker
+			- man kann sich zu jeder Zeit Takt/mm-ss Wecker stellen
+
+
+
+
+================================================================================
+2016-03-12	TopBar
+			03-3-37 | 120.6 bpm | 01:45 | MainVol | Brightness | Akku | 2015-10-16 Thu 12:34
+			CPU Load, Bar Counter, Date, Time, spend time, ...
+
+
+================================================================================
+
+
+Fast Programming Mode
+
+
 Waveform Display
  - Lineal (variabel: Pitch und BPM)
    - Zeit
    - Takt
-
-TopBar:
- - CPU Load
- - Bar Counter
- - Date, Time,
- - spend time
- - 03-3-37 | 120.6 bpm | 01:45 | MainVol | Brightness | Akku | 2015-10-16 Thu 12:34");
 
 Pitch
 
@@ -60,17 +110,35 @@ Jitter/Fluctuation
 
 Kanal-Farben (jedem Kanal soll vom Benutzer eine Farbe zugeordnet werden können)
 
-Edit-Buffer
- -> für zahlreiche neu Funktionen wie Fast-Programming wird ein Edit-Buffer benötigt
-	dieser könnte ein zusätzlicher Subkanal sein
 
-Fast Programming Mode
 
 Tile
  - copy, paster
 
 
 Load Sample Set
+
+
+
+
+
+
+
+================================================================================
+================================================================================
+	MOSAIK 4
+	FEATURES
+================================================================================
+================================================================================
+- UI komplett skalierbar
+- Anzahl der Kanäle kann
+- Group Mute
+
+
+
+
+
+
 
 
 
