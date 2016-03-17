@@ -671,6 +671,18 @@ int SubchannelManager::getCurrentSubchannelSelection()
     return m_currentSubchannel;
 }
 
+void SubchannelManager::selectNextSubChannel()
+{
+    int id = m_currentSubchannel;
+    id++;
+
+    if( id >= SETTINGS_NUM_OF_SUBS)
+        id = 0;
+
+    setCurrentSubchannelSelection(settings().getSubchannelId(id));
+}
+
+
 
 QList<int> SubchannelManager::getSubchannelIdsOfCurrentChannel()
 {

@@ -77,6 +77,7 @@ public slots:
     void slot_selectionSetCurrentSubchannelRelative(int id);
     void slot_selectionSetCurrentChannelRelative(int relVal);
     void slot_selectionSetCurrentChannel(int id);
+    void slot_selectionNextSubchannel();
 
     void slot_uiSetToPageSubchannel(void);
     void slot_uiSetToPageBrowser(void);

@@ -36,6 +36,7 @@ class MosaikMini : public MidiDevice
         void signal_selectPageBrowser(void);
         void signal_selectChannel(int id);
         void signal_setPathId(int id);
+        void signal_selectionSubchannelNext(void);
 
         void signal_menuEncoderPushed(void);
         void signal_menuNavigationUpPushed(void);

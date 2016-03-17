@@ -76,52 +76,53 @@ void MidiManager::connectFavouriteDevice(void)
             m_midiDevice = new MosaikMini();
 
             /** app **/
-            connect( m_midiDevice, SIGNAL(signal_functionLeftButton00Pressed()),         m_parent, SLOT(slot_appToggleFullScreen()) );
-            connect( m_midiDevice, SIGNAL(signal_functionLeftButton01Pressed()),         m_parent, SLOT(slot_appExit()) );
+            connect( m_midiDevice, SIGNAL(signal_functionLeftButton00Pressed()),         m_parent, SLOT( slot_appToggleFullScreen()) );
+            connect( m_midiDevice, SIGNAL(signal_functionLeftButton01Pressed()),         m_parent, SLOT( slot_appExit()) );
 
             /** selection **/
-            connect( m_midiDevice, SIGNAL(signal_functionSelectSubchannelRelative(int)), m_parent, SLOT(slot_selectionSetCurrentSubchannelRelative(int)) );
-            connect( m_midiDevice, SIGNAL(signal_selectChannel(int)),                    m_parent, SLOT(slot_selectionSetCurrentChannel(int) ) );
+            connect( m_midiDevice, SIGNAL(signal_functionSelectSubchannelRelative(int)), m_parent, SLOT( slot_selectionSetCurrentSubchannelRelative(int)) );
+            connect( m_midiDevice, SIGNAL(signal_selectChannel(int)),                    m_parent, SLOT( slot_selectionSetCurrentChannel(int) ) );
+            connect( m_midiDevice, SIGNAL(signal_selectionSubchannelNext()),             m_parent, SLOT( slot_selectionNextSubchannel() ));
 
             /** browser **/
-            connect( m_midiDevice, SIGNAL(signal_encChanged(int)),                       m_parent, SLOT(slot_browserChangeCursorPosition(int)) );
-            connect( m_midiDevice, SIGNAL(signal_menuNavigation(int)),                   m_parent, SLOT(slot_browserChangeCursorPosition(int)) );
-            connect( m_midiDevice, SIGNAL(signal_menuEncoderPushed()),                   m_parent, SLOT(slot_browserToggleFolderExpansion()) );
-            connect( m_midiDevice, SIGNAL(signal_setPathId(int)),                        m_parent, SLOT(slot_browserChangePathId(int)) );
-            connect( m_midiDevice, SIGNAL(signal_browserOpenFolder()),                   m_parent, SLOT(slot_browserOpenFolder()) );
-            connect( m_midiDevice, SIGNAL(signal_browserCloseFolder()),                  m_parent, SLOT(slot_browserCloseFolder()) );
+            connect( m_midiDevice, SIGNAL(signal_encChanged(int)),                       m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+            connect( m_midiDevice, SIGNAL(signal_menuNavigation(int)),                   m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+            connect( m_midiDevice, SIGNAL(signal_menuEncoderPushed()),                   m_parent, SLOT( slot_browserToggleFolderExpansion()) );
+            connect( m_midiDevice, SIGNAL(signal_setPathId(int)),                        m_parent, SLOT( slot_browserChangePathId(int)) );
+            connect( m_midiDevice, SIGNAL(signal_browserOpenFolder()),                   m_parent, SLOT( slot_browserOpenFolder()) );
+            connect( m_midiDevice, SIGNAL(signal_browserCloseFolder()),                  m_parent, SLOT( slot_browserCloseFolder()) );
 
             /** prelisten **/
-            connect( m_midiDevice, SIGNAL(signal_prelistenBrowserSample()),              m_parent, SLOT(slot_browserSelectedSampleToPrelisten()) );
-            connect( m_midiDevice, SIGNAL(signal_prelistenSubchannelSample()),           m_parent, SLOT(slot_prelistenSubchannelSample()) );
+            connect( m_midiDevice, SIGNAL(signal_prelistenBrowserSample()),              m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
+            connect( m_midiDevice, SIGNAL(signal_prelistenSubchannelSample()),           m_parent, SLOT( slot_prelistenSubchannelSample()) );
 
             /** sequencer/pattern **/
-            connect( m_midiDevice, SIGNAL(signal_stepButtonPressed(int)),                m_parent, SLOT(slot_stepButtonPressed(int)) );
-            connect( m_midiDevice, SIGNAL(signal_functionRightButton04Pressed()),        m_parent, SLOT(slot_patternClearAll()) );
-            connect( m_midiDevice, SIGNAL(signal_functionRightButton06Pressed()),        m_parent, SLOT(slot_patternClearCurrentChannel()) );
+            connect( m_midiDevice, SIGNAL(signal_stepButtonPressed(int)),                m_parent, SLOT( slot_stepButtonPressed(int)) );
+            connect( m_midiDevice, SIGNAL(signal_functionRightButton04Pressed()),        m_parent, SLOT( slot_patternClearAll()) );
+            connect( m_midiDevice, SIGNAL(signal_functionRightButton06Pressed()),        m_parent, SLOT( slot_patternClearCurrentChannel()) );
 
             /** main parameter **/
-            connect( m_midiDevice, SIGNAL(signal_bpmChanged(float)),                     m_parent, SLOT(slot_globalChangeBpmRelative(float)) );
-            connect( m_midiDevice, SIGNAL(signal_mainVolume(float)),                     m_parent, SLOT(slot_globalMainVolume(float)) );
-            connect( m_midiDevice, SIGNAL(signal_headphoneVolume(float)),                m_parent, SLOT(slot_globalPreVolume(float)) );
+            connect( m_midiDevice, SIGNAL(signal_bpmChanged(float)),                     m_parent, SLOT( slot_globalChangeBpmRelative(float)) );
+            connect( m_midiDevice, SIGNAL(signal_mainVolume(float)),                     m_parent, SLOT( slot_globalMainVolume(float)) );
+            connect( m_midiDevice, SIGNAL(signal_headphoneVolume(float)),                m_parent, SLOT( slot_globalPreVolume(float)) );
 
             /** sample **/
-            connect( m_midiDevice, SIGNAL(signal_functionRightButton00Pressed()),        m_parent, SLOT(slot_sampleUnloadAll() ) );
-            connect( m_midiDevice, SIGNAL(signal_functionRightButton02Pressed()),        m_parent, SLOT(slot_sampleUnloadCurrentChannel() ) );
-            connect( m_midiDevice, SIGNAL(signal_loadSample()),                          m_parent, SLOT(slot_sampleLoadToCurrentSubchannel() ) );
+            connect( m_midiDevice, SIGNAL(signal_functionRightButton00Pressed()),        m_parent, SLOT( slot_sampleUnloadAll() ) );
+            connect( m_midiDevice, SIGNAL(signal_functionRightButton02Pressed()),        m_parent, SLOT( slot_sampleUnloadCurrentChannel() ) );
+            connect( m_midiDevice, SIGNAL(signal_loadSample()),                          m_parent, SLOT( slot_sampleLoadToCurrentSubchannel() ) );
 
             /** tile **/
-            connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),        m_parent, SLOT(slot_patternClearCurrentSubchannel()) );
-            connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),        m_parent, SLOT(slot_sampleUnloadCurrentSubchannel() ) );
+            connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),         m_parent, SLOT( slot_patternClearCurrentSubchannel()) );
+            connect( m_midiDevice, SIGNAL(signal_functionLeftButton03Pressed()),         m_parent, SLOT( slot_sampleUnloadCurrentSubchannel() ) );
 
 
             /** subchannel parameter **/
-            connect( m_midiDevice, SIGNAL(signal_currentPan(float)),                     m_parent, SLOT(slot_parameterPan(float)) );
-            connect( m_midiDevice, SIGNAL(signal_playDirection(bool)),                   m_parent, SLOT(slot_parameterPlayDirection(bool)) );
-            connect( m_midiDevice, SIGNAL(signal_currentSubchannelToPre(bool)),          m_parent, SLOT(slot_parameterCurrentSubToPre(bool)) );
-            connect( m_midiDevice, SIGNAL(signal_muteAndSolo(bool)),                     m_parent, SLOT(slot_parameterMuteAndSolo(bool)) );
-            connect( m_midiDevice, SIGNAL(signal_unmuteAll()),                           m_parent, SLOT(slot_parameterUnmuteAll()) );
-            connect( m_midiDevice, SIGNAL(signal_lastMute()),                            m_parent, SLOT(slot_parameterSelectLastMutes()) );
+            connect( m_midiDevice, SIGNAL(signal_currentPan(float)),                     m_parent, SLOT( slot_parameterPan(float)) );
+            connect( m_midiDevice, SIGNAL(signal_playDirection(bool)),                   m_parent, SLOT( slot_parameterPlayDirection(bool)) );
+            connect( m_midiDevice, SIGNAL(signal_currentSubchannelToPre(bool)),          m_parent, SLOT( slot_parameterCurrentSubToPre(bool)) );
+            connect( m_midiDevice, SIGNAL(signal_muteAndSolo(bool)),                     m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
+            connect( m_midiDevice, SIGNAL(signal_unmuteAll()),                           m_parent, SLOT( slot_parameterUnmuteAll()) );
+            connect( m_midiDevice, SIGNAL(signal_lastMute()),                            m_parent, SLOT( slot_parameterSelectLastMutes()) );
 
             //connect( m_midiDevice, SIGNAL(signal_encChanged(float)),                     m_parent, SLOT(slot_subchannelChangeVolume(float)) );
             connect( m_midiDevice, SIGNAL(signal_erpChanged(quint8,qint8)),              m_parent, SLOT(slot_erpChanged(quint8,qint8)) );

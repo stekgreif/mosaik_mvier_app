@@ -287,6 +287,15 @@ void MosaikMiniApp::slot_selectionSetCurrentChannel(int id)
     m_uiManager->refresh();
 }
 
+void MosaikMiniApp::slot_selectionNextSubchannel()
+{
+    qDebug() <<Q_FUNC_INFO;
+    subchannelManager().selectNextSubChannel();
+    midiManager().refreshPatternView();
+    midiManager().refreshSubchannelSelection();
+    m_uiManager->refresh();
+}
+
 
 
 /** ****************************************************************************

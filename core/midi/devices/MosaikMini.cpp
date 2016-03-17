@@ -666,7 +666,8 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                 case 6:
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
-                        //Nothing for now
+                        // net pad
+                        emit signal_selectionSubchannelNext();
                     }
                     break;
                 case 7:

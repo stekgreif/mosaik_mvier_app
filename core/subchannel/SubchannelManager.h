@@ -79,6 +79,7 @@ class SubchannelManager
         void  setCurrentSubchannelSelectionRelative(int id);
         int   getCurrentSubchannelSelelectionRelative(void);
         int   getCurrentSubchannelSelection(void);
+        void  selectNextSubChannel();
         void  setCurrentChannelSelection(int id);
         void  setCurrentChannelRelative(int change);
         int   getCurrentChannelSelection(void);
