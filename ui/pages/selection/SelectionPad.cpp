@@ -289,6 +289,18 @@ void SelectionPad::refreshSampleWaveForm()
     }
 }
 
+void SelectionPad::refreshPlayDirection()
+{
+    if( subchannelManager().getCurrentPlayDirection() )
+    {
+        m_isPlaying->setText(">");
+    }
+    else
+    {
+        m_isPlaying->setText("<");
+    }
+}
+
 
 
 

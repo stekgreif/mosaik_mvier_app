@@ -505,6 +505,7 @@ void MosaikMiniApp::slot_subchannelSelectionPadTriggert(int id)
 {
     qDebug() <<Q_FUNC_INFO <<id;
     subchannelManager().setCurrentSubchannelSelection(id);
+    subchannelManager().prelistenCurrentSubchannelSample();
     midiManager().refreshPatternView();
     midiManager().refreshSubchannelSelection();
     m_uiManager->refresh();

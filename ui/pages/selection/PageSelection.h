@@ -31,6 +31,7 @@ class PageSelection : public QWidget
         void refreshSampleVolumeWidget(int id);
         void refreshAllSampleVolumes(void);
         void refreshWaveFormWindow(void);
+        void refreshPlayDirection(void);
 
     signals:
         void signal_subchannelSelectionPadPressed(int id);

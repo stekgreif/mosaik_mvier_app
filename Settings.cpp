@@ -182,40 +182,40 @@ void Settings::loadSubchannelMap(void)
             // id, pos
             m_subchannelMap->insert(0,  0);
             m_subchannelMap->insert(1,  1);
-            m_subchannelMap->insert(2,  2);
-            m_subchannelMap->insert(3,  3);
-            m_subchannelMap->insert(4,  4);
-            m_subchannelMap->insert(5,  5);
-            m_subchannelMap->insert(6,  6);
-            m_subchannelMap->insert(7,  7);
-            m_subchannelMap->insert(8,  8);
-            m_subchannelMap->insert(9,  9);
-            m_subchannelMap->insert(10,10);
-            m_subchannelMap->insert(11,11);
-            m_subchannelMap->insert(12,12);
-            m_subchannelMap->insert(13,13);
-            m_subchannelMap->insert(14,14);
-            m_subchannelMap->insert(15,15);
-            m_subchannelMap->insert(16,16);
-            m_subchannelMap->insert(17,17);
-            m_subchannelMap->insert(18,18);
-            m_subchannelMap->insert(19,19);
-            m_subchannelMap->insert(20,20);
-            m_subchannelMap->insert(21,21);
-            m_subchannelMap->insert(22,22);
-            m_subchannelMap->insert(23,23);
-            m_subchannelMap->insert(24,24);
-            m_subchannelMap->insert(25,25);
-            m_subchannelMap->insert(26,26);
-            m_subchannelMap->insert(27,27);
-            m_subchannelMap->insert(28,28);
-            m_subchannelMap->insert(29,29);
-            m_subchannelMap->insert(30,30);
-            m_subchannelMap->insert(31,31);
-            m_subchannelMap->insert(32,32);
-            m_subchannelMap->insert(33,33);
-            m_subchannelMap->insert(34,34);
-            m_subchannelMap->insert(35,35);
+            m_subchannelMap->insert(2,  4);
+            m_subchannelMap->insert(3,  5);
+            m_subchannelMap->insert(4,  8);
+            m_subchannelMap->insert(5,  9);
+            m_subchannelMap->insert(6,  2);
+            m_subchannelMap->insert(7,  3);
+            m_subchannelMap->insert(8,  6);
+            m_subchannelMap->insert(9,  7);
+            m_subchannelMap->insert(10, 10);
+            m_subchannelMap->insert(11, 11);
+            m_subchannelMap->insert(12, 12);
+            m_subchannelMap->insert(13, 13);
+            m_subchannelMap->insert(14, 16);
+            m_subchannelMap->insert(15, 17);
+            m_subchannelMap->insert(16, 20);
+            m_subchannelMap->insert(17, 21);
+            m_subchannelMap->insert(18, 14);
+            m_subchannelMap->insert(19, 15);
+            m_subchannelMap->insert(20, 18);
+            m_subchannelMap->insert(21, 19);
+            m_subchannelMap->insert(22, 22);
+            m_subchannelMap->insert(23, 23);
+            m_subchannelMap->insert(24, 24);
+            m_subchannelMap->insert(25, 25);
+            m_subchannelMap->insert(26, 28);
+            m_subchannelMap->insert(27, 19);
+            m_subchannelMap->insert(28, 32);
+            m_subchannelMap->insert(29, 33);
+            m_subchannelMap->insert(30, 26);
+            m_subchannelMap->insert(31, 27);
+            m_subchannelMap->insert(32, 30);
+            m_subchannelMap->insert(33, 31);
+            m_subchannelMap->insert(34, 34);
+            m_subchannelMap->insert(35, 35);
 
         case 16:
             // id, pos
@@ -279,25 +279,25 @@ void Settings::loadChannelMap()
 
 int Settings::getSubchannelId(int pos)
 {
-    qDebug() <<Q_FUNC_INFO <<"Should be obsolete. -> Function has no effect";
+    qDebug() <<Q_FUNC_INFO <<"in POS:" <<pos <<"out ID:" <<m_subchannelMap->value(pos) ;
     return m_subchannelMap->value(pos);
 }
 
 int Settings::getSubchannelPos(int id)
 {
-    qDebug() <<Q_FUNC_INFO <<"Should be obsolete.";
+    qDebug() <<Q_FUNC_INFO <<"in ID:" <<id <<"out POS:" <<m_subchannelMap->key(id) ;
     return m_subchannelMap->key(id);
 }
 
 int Settings::getChannelId(int pos)
 {
-    qDebug() <<Q_FUNC_INFO <<"Should be obsolete.";
+    qDebug() <<Q_FUNC_INFO <<"";
     return m_channelMap->value(pos);
 }
 
 int Settings::getChannelPos(int id)
 {
-    qDebug() <<Q_FUNC_INFO <<"Should be obsolete.";
+    qDebug() <<Q_FUNC_INFO <<"";
     return m_channelMap->key(id);
 }
 

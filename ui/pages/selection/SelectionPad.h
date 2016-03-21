@@ -73,6 +73,7 @@ class SelectionPad : public QWidget
         void setPadToSelectionColor(void);
         void setPadToDeselectionColor(void);
         void refreshSampleWaveForm(void);
+        void refreshPlayDirection(void);
 
 
     signals:

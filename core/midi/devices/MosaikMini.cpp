@@ -510,6 +510,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
                         {
                             emit signal_functionSelectSubchannelRelative(data[1] - 12);
+                            emit signal_prelistenSubchannelSample();
                         }
                         break;
                     default:
@@ -546,12 +547,18 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                     }
                     break;
                 case 2: //play
-                    if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
+                    if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn)  )
                     {
-                        m_shiftPlayDir = !m_shiftPlayDir;
-                        m_shiftPitch   = false;
-                        m_shiftPan     = false;
-                        //qDebug() <<Q_FUNC_INFO <<"PlayDir:" <<m_shiftPlayDir <<" -- Pitch:" <<m_shiftPitch <<" -- Pan:" <<m_shiftPan;
+                        if( m_shiftPlayDir )
+                        {
+                            emit signal_playDirection(true);
+                            m_shiftPlayDir = false;
+                        }
+                        else
+                        {
+                            emit signal_playDirection(false);
+                            m_shiftPlayDir = true;
+                        }
                     }
                     break;
                 case 3: //pitch
@@ -698,17 +705,6 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                     else if( m_shiftPan )
                     {
                         emit signal_currentPan(((float) (data[2] - 64)) / 100 );
-                    }
-                    else if( m_shiftPlayDir  )
-                    {
-                        if(data[2] > 64)
-                        {
-                            emit signal_playDirection(true);
-                        }
-                        else
-                        {
-                            emit signal_playDirection(false);
-                        }
                     }
                     else
                     {

@@ -673,13 +673,13 @@ int SubchannelManager::getCurrentSubchannelSelection()
 
 void SubchannelManager::selectNextSubChannel()
 {
-    int id = m_currentSubchannel;
-    id++;
+    int pos = m_currentSubchannel;
+    pos++;
 
-    if( id >= SETTINGS_NUM_OF_SUBS)
-        id = 0;
+    if( pos >= SETTINGS_NUM_OF_SUBS)
+        pos = 0;
 
-    setCurrentSubchannelSelection(settings().getSubchannelId(id));
+    setCurrentSubchannelSelection(pos);
 }
 
 

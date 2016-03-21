@@ -350,6 +350,11 @@ void PageSelection::refreshWaveFormWindow()
     m_pad[subchannelManager().getCurrentSubchannelSelection()]->refreshSampleWaveForm();
 }
 
+void PageSelection::refreshPlayDirection(void)
+{
+    m_pad[subchannelManager().getCurrentSubchannelSelection()]->refreshPlayDirection();
+}
+
 
 
 void PageSelection::m_slot_selectionChanged(int id)
