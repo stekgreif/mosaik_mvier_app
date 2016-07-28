@@ -44,9 +44,9 @@ AlsaPcm::AlsaPcm()
 #endif
 
     int err2;
-    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_2 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
+    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_3 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
     {
-        if((err2 = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_3 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
+        if((err2 = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_2 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
         {
             fprintf(stderr, "Cannot open audio device %s (%s) nor %s (%s).\n",
                     PCM_DEVICE_2, snd_strerror(err), PCM_DEVICE_3, snd_strerror(err2));

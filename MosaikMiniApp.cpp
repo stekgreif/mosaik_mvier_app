@@ -572,12 +572,12 @@ void MosaikMiniApp::slot_appToggleFullScreen()
 
 void MosaikMiniApp::slot_exitApplication(void)
 {
-    close();
+    //close();
 }
 
 void MosaikMiniApp::slot_appExit()
 {
-    close();
+    //close();
 }
 
 
