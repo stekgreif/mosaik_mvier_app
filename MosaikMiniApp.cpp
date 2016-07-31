@@ -629,6 +629,11 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
             slot_setFullScreen();
             break;
         }
+        case Qt::Key_F12:
+        {
+            midiManager().setStepLed(11);
+            break;
+        }
         case Qt::Key_1:
         {
             m_uiManager->setPageIndex(0);

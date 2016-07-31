@@ -10,7 +10,7 @@
     USER SETTINGS
 *******************************************************************************/
 
-#define SETTINGS_INIT_WITH_AUDIO        false
+#define SETTINGS_INIT_WITH_AUDIO        true
 #define SETTINGS_START_WITH_FULL_SCREEN false
 #define SETTINGS_SUBS_PER_ROW           6
 

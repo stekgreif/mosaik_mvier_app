@@ -9,6 +9,7 @@
 #include "core/midi/devices/MosaikMini.h"
 #include "core/midi/devices/SparkLe.h"
 #include "core/midi/devices/VirtualMidiDevice.h"
+#include "core/midi/devices/ArduinoTest.h"
 
 
 
@@ -150,6 +151,10 @@ void MidiManager::connectFavouriteDevice(void)
         else if( hwMidiNameList.at(midiHwDevice) == "UNTZtrument" )
         {
             //m_midiDevice = new Untztrument;
+        }
+        else if ( hwMidiNameList.at(midiHwDevice) == "Arduino" )
+        {
+            m_midiDevice = new ArduinoTest();
         }
         else
         {

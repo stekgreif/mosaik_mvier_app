@@ -23,10 +23,13 @@ Settings::Settings()
     m_connectedMidiDeviceName.clear();
     m_connectedMidiDevicePort.clear();
 
+    // the order of this list is the order of connection tries
+    m_midiFavList.append("Arduino");
     m_midiFavList.append("MOSAIKmini");
     m_midiFavList.append("SparkLE");
     m_midiFavList.append("Mosaik");
     m_midiFavList.append("HELLA-UNTZtrument");
+
 
     qDebug() <<Q_FUNC_INFO <<"Settings initialized.";
 }
