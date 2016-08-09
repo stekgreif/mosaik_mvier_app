@@ -9,6 +9,7 @@
 
 #include "MosaikMiniApp.h"
 
+#define POS_OFFSET 550
 
 
 UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
@@ -41,25 +42,25 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     /** right side elements **/
     m_labelStepCounter = new QLabel(this);
     m_labelStepCounter->setObjectName("stepcounter");
-    m_labelStepCounter->move(1800,2);
+    m_labelStepCounter->move(1800-POS_OFFSET,2);
     m_labelStepCounter->setText("NOT PLAYING");
 
 
     /** head labels **/
     m_labelBpm = new QLabel(this);
     m_labelBpm->setObjectName("bpmLabel");
-    m_labelBpm->move(1700, 2);
+    m_labelBpm->move(1700-POS_OFFSET, 2);
     m_labelBpm->setText( QString::number( subchannelManager().getBpm(), 'f', 2 ) + "  bpm" );
 
 
     m_labelMainVol = new QLabel("main vol", this);
     m_labelMainVol->setObjectName("headLabel");
-    m_labelMainVol->move(1450, 2);
+    m_labelMainVol->move(1450-POS_OFFSET, 2);
     refreshMainVol();
 
     m_labelPreVol = new QLabel("pre vol", this);
     m_labelPreVol->setObjectName("headLabel");
-    m_labelPreVol->move(1590, 2);
+    m_labelPreVol->move(1590-POS_OFFSET, 2);
     refreshPreVol();
 
 
