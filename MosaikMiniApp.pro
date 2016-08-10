@@ -53,7 +53,9 @@ SOURCES += main.cpp\
     ui/pages/subchannel/BrowserTree.cpp \
     ui/pages/subchannel/Browser.cpp \
     ui/pages/selection/VolumeWidget.cpp \
-    core/midi/devices/ArduinoTest.cpp
+    core/midi/devices/ArduinoTest.cpp \
+    ui/pages/info/PageInfos.cpp \
+    ui/pages/test/PageTest.cpp
 
 HEADERS  += MosaikMiniApp.h \
 	Settings.h \
@@ -91,7 +93,9 @@ HEADERS  += MosaikMiniApp.h \
     ui/pages/subchannel/BrowserTree.h \
     ui/pages/subchannel/Browser.h \
     ui/pages/selection/VolumeWidget.h \
-    core/midi/devices/ArduinoTest.h
+    core/midi/devices/ArduinoTest.h \
+    ui/pages/info/PageInfos.h \
+    ui/pages/test/PageTest.h
 
 FORMS    += MosaikMiniApp.ui \
     pagemidi.ui

@@ -8,6 +8,8 @@
 
 #include "ui/pages/subchannel/PageSubchannel.h"
 #include "ui/pages/selection/PageSelection.h"
+#include "ui/pages/info/PageInfos.h"
+#include "ui/pages/test/PageTest.h"
 
 
 class MosaikMiniApp;
@@ -24,7 +26,10 @@ class UiManager : public QWidget
         void setPageIndex(int id);
         int  getCurrentPageId(void);
         MosaikMiniApp *getParent(void);
+
         PageSubchannel *m_pageSubchannel;
+        PageInfos *m_pageInfo;
+        PageTest *m_pageTest;
 
 
     protected:
