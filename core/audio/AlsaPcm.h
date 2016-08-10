@@ -11,6 +11,7 @@
 
 #define                 USE_4_CHANNEL_AUDIO
 #define CHANNELS        4
+#define PCM_DEVICE_1    "plughw:1,0"
 #define PCM_DEVICE_2    "plughw:2,0"
 #define PCM_DEVICE_3    "plughw:3,0"
 #define NUM_OF_PERIODS  2

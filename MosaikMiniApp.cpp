@@ -641,17 +641,17 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
         }
         case Qt::Key_2:
         {
-            slot_stepButtonPressed(1);
+            slot_stepButtonPressed(16);
             break;
         }
         case Qt::Key_3:
         {
-            slot_stepButtonPressed(2);
+            slot_stepButtonPressed(32);
             break;
         }
         case Qt::Key_4:
         {
-            slot_stepButtonPressed(3);
+            slot_stepButtonPressed(48);
             break;
         }
         case Qt::Key_5:

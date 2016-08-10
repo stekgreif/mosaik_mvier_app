@@ -66,9 +66,11 @@ void ArduinoTest::refreshSequencer()
 
     for (int i = 0; i < midiData.size()/3; i++)
     {
+        // 0 is color
+        midiData[3*i+1] = i;    // led
 
-        midiData[3*i+2] = 25;
-        midiData[3*i+1] = i;
+        midiData[3*i+2] = 100;   // brightness
+
 
         if( pattern.at(i) )
         {
@@ -91,7 +93,7 @@ void ArduinoTest::refreshSequencer()
             }
         }
         else
-            midiData[3*i+2] = 0;
+            midiData[3*i+0] = 0;
     }
 
     m_midiOut->sendData(midiData);
