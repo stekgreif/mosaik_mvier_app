@@ -1,6 +1,7 @@
 #include "Browser.h"
 #include <QDebug>
 #include "core/subchannel/SubchannelManager.h"
+#include "Settings.h"
 
 
 
@@ -9,8 +10,12 @@ Browser::Browser(QWidget *uiParent)
 {
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
-    /** change size and position here **/
-    m_browserWindowSizeAndPosition = new QRect( 20,  160, 780, 620);
+
+    /** change size and position here (x, y, w, h) **/
+    m_browserWindowSizeAndPosition = new QRect( 0,
+                                                0,
+                                                settings().getScreenSize().width() - settings().getScreenSize().height() - 10,
+                                                settings().getScreenSize().height()/3);
 
 
     /** path **/

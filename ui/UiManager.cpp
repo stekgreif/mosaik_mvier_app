@@ -20,21 +20,23 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 
     this->setObjectName("uiManager");
 
+    // screen size of actual screen
     int h = settings().getScreenSize().height();
     int w = settings().getScreenSize().width();
 
     /** pages **/
     m_pageSubchannel = new PageSubchannel(m_mosaikMiniApp, this);
+
     m_pageSelection = new PageSelection(this);
     m_pageSelection->setFixedSize(h,h);
     m_pageSelection->move(0,0);
 
 
-    /** page stack main element **/
+    /** page stack main element - position of right ui side **/
     m_stackedPages = new QStackedWidget(this);
     m_stackedPages->setObjectName("pageStack");
-    m_stackedPages->setFixedSize(w-h-20 , h-20);
-    m_stackedPages->move(h+20, 20);
+    m_stackedPages->setFixedSize(w-h-10 , h-25);
+    m_stackedPages->move(h+4, 20);
     m_stackedPages->addWidget(m_pageSubchannel);
     m_stackedPages->setCurrentIndex(0);
 

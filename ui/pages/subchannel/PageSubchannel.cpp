@@ -43,12 +43,12 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
     /** BROWSER **/
     m_browser = new Browser(this);
-    m_browser->move(20,415);
+    m_browser->move(5,415); //2016-08-10 change browser pos here
 
 
     m_btnTestPlayDirection = new QPushButton(this);
     m_btnTestPlayDirection->setFixedSize(50,50);
-    m_btnTestPlayDirection->move(650,340);
+    m_btnTestPlayDirection->move(10,340);
     m_btnTestPlayDirection->setText(">");
 
     m_pixmap = new QPixmap;
@@ -75,7 +75,7 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
 
     m_btnLoadSample = new QPushButton(this);
-    m_btnLoadSample->move(720,340);
+    m_btnLoadSample->move(120,340);
     m_btnLoadSample->setFixedSize(50,50);
     m_btnLoadSample->setText("load \n sample");
 
