@@ -704,7 +704,7 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
             break;
         case Qt::Key_Escape:
         {
-            slot_exitApplication();
+            close();
         }
         default:
         {
