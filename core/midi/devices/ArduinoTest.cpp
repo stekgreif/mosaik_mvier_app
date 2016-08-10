@@ -1,8 +1,15 @@
 #include "ArduinoTest.h"
 
+#include "MosaikMini.h"
 #include "core/midi/MidiNames.h"
-#include "QDebug"
 #include "Settings.h"
+#include "MosaikTypes.h"
+#include "core/midi/MidiNames.h"
+#include "core/subchannel/SubchannelManager.h"
+
+#include <QObject>
+#include "QDebug"
+
 
 
 
@@ -47,7 +54,48 @@ void ArduinoTest::setChannelPattern()
 
 void ArduinoTest::refreshSequencer()
 {
+    qDebug() <<Q_FUNC_INFO;
 
+    QBitArray pattern = subchannelManager().getCurrentSubchannelPattern();
+    int currentRelativeSubchannel = subchannelManager().getCurrentSubchannelSelelectionRelative();
+
+    QByteArray midiData;
+    midiData.resize(192);
+
+    //qDebug() <<Q_FUNC_INFO <<"midi bytes to send:" <<midiData.size();
+
+    for (int i = 0; i < midiData.size()/3; i++)
+    {
+
+        midiData[3*i+2] = 25;
+        midiData[3*i+1] = i;
+
+        if( pattern.at(i) )
+        {
+            switch (currentRelativeSubchannel)
+            {
+                case 0:
+                    midiData[3*i+0] = MIDI_MSG_CONTROL_CHANGE | 0;
+                    break;
+                case 1:
+                    midiData[3*i+0] = MIDI_MSG_CONTROL_CHANGE | 1;
+                    break;
+                case 2:
+                    midiData[3*i+0] = MIDI_MSG_CONTROL_CHANGE | 2;
+                    break;
+                case 3:
+                    midiData[3*i+0] = MIDI_MSG_CONTROL_CHANGE | 3;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+            midiData[3*i+2] = 0;
+    }
+
+    m_midiOut->sendData(midiData);
+    //qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
 }
 
 void ArduinoTest::refreshSubchannelSelection()

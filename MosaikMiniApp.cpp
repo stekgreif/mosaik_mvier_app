@@ -636,22 +636,22 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
         }
         case Qt::Key_1:
         {
-            m_uiManager->setPageIndex(0);
+            slot_stepButtonPressed(0);
             break;
         }
         case Qt::Key_2:
         {
-            m_uiManager->setPageIndex(1);
+            slot_stepButtonPressed(1);
             break;
         }
         case Qt::Key_3:
         {
-            m_uiManager->setPageIndex(2);
+            slot_stepButtonPressed(2);
             break;
         }
         case Qt::Key_4:
         {
-            m_uiManager->setPageIndex(3);
+            slot_stepButtonPressed(3);
             break;
         }
         case Qt::Key_5:
