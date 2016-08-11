@@ -7,7 +7,8 @@ QWidget#mainWidget
 
 
 UiManager#uiManager{ background-color: rgb(20,20,25);}
-QStackedWidget#pageStack{ background-color: rgb(40,40,45);}
+
+QTabWidget#pageStack{ background-color: rgb(40,40,45);}
 
 
 

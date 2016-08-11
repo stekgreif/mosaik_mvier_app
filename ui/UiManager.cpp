@@ -39,6 +39,7 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     m_stackedPages->setObjectName("pageStack");
     m_stackedPages->setFixedSize(w-h-10 , h-25);
     m_stackedPages->move(h+4, 20);
+    m_stackedPages->setTabPosition(QTabWidget::South);
 
     //m_stackedPages->addWidget(m_pageSubchannel);
     //m_stackedPages->addWidget(m_pageInfo);
