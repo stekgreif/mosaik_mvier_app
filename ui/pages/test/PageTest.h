@@ -2,6 +2,8 @@
 #define PAGETEST_H
 
 #include <QWidget>
+#include <QScrollArea>
+#include <QLabel>
 
 
 class PageTest : public QWidget
@@ -16,6 +18,8 @@ class PageTest : public QWidget
 
     protected:
         void paintEvent(QPaintEvent *event);
+        QScrollArea *m_scrollArea;
+        QLabel *m_toolbarDummy;
 };
 
 #endif // PAGETEST_H
