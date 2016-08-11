@@ -10,6 +10,7 @@
 #include "ui/pages/selection/PageSelection.h"
 #include "ui/pages/info/PageInfos.h"
 #include "ui/pages/test/PageTest.h"
+#include <QTabWidget>
 
 
 class MosaikMiniApp;
@@ -39,7 +40,8 @@ class UiManager : public QWidget
     private:
         MosaikMiniApp *m_mosaikMiniApp;
 
-        QStackedWidget  *m_stackedPages;
+        //QStackedWidget  *m_stackedPages;
+        QTabWidget *m_stackedPages;
 
         /* side panels */
         QLabel              *m_labelStepCounter;

@@ -34,13 +34,16 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 
 
     /** page stack main element - position of right ui side **/
-    m_stackedPages = new QStackedWidget(this);
+    //m_stackedPages = new QStackedWidget(this);
+    m_stackedPages = new QTabWidget(this);
     m_stackedPages->setObjectName("pageStack");
     m_stackedPages->setFixedSize(w-h-10 , h-25);
     m_stackedPages->move(h+4, 20);
 
-    m_stackedPages->addWidget(m_pageSubchannel);
-    m_stackedPages->addWidget(m_pageInfo);
+    //m_stackedPages->addWidget(m_pageSubchannel);
+    //m_stackedPages->addWidget(m_pageInfo);
+    m_stackedPages->addTab(m_pageSubchannel, "Sub");
+    m_stackedPages->addTab(m_pageInfo, "Info");
     //m_stackedPages->addWidget(m_pageTest);
 
 
