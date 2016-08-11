@@ -6,6 +6,8 @@
 #include <QPainter>
 #include <QStyleOption>
 
+#include "Settings.h"
+
 
 PageTest::PageTest(QWidget *parent) : QWidget(parent)
 {
@@ -13,10 +15,11 @@ PageTest::PageTest(QWidget *parent) : QWidget(parent)
     this->setObjectName("pageTest");
 
     QScrollArea *m_scrollArea = new QScrollArea(this);
-    m_scrollArea->setFixedSize(600,600);
+    m_scrollArea->setFixedSize(settings().getScreenSize().height() /  1.3,
+                               settings().getScreenSize().height() - 50);
     m_scrollArea->move(10,100);
     QLabel *m_toolbarDummy = new QLabel;
-    QImage image("Overview.png");
+    QImage image(":/Overview.png");
     if(image.isNull())
         qDebug() <<Q_FUNC_INFO <<"image not found";
     m_toolbarDummy->setPixmap(QPixmap::fromImage(image));
