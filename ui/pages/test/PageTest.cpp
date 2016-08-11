@@ -9,17 +9,23 @@
 
 PageTest::PageTest(QWidget *parent) : QWidget(parent)
 {
+#if 0
     qDebug() <<Q_FUNC_INFO <<"Init";
-
     this->setObjectName("pageTest");
 
     QLabel *headline = new QLabel("Tests", this);
     headline->setObjectName("pageheadline");
     headline->move(40, 40);
+#endif
 }
 
 
 PageTest::~PageTest()
+{
+
+}
+
+void PageTest::refresh()
 {
 
 }

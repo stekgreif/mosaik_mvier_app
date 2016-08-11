@@ -27,6 +27,7 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     /** pages **/
     m_pageSubchannel = new PageSubchannel(m_mosaikMiniApp, this);
     m_pageInfo = new PageInfos(m_mosaikMiniApp);
+    m_pageTest = new PageTest(m_mosaikMiniApp);
 
     m_pageSelection = new PageSelection(this);
     m_pageSelection->setFixedSize(h,h);
@@ -45,7 +46,7 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     //m_stackedPages->addWidget(m_pageInfo);
     m_stackedPages->addTab(m_pageSubchannel, "Sub");
     m_stackedPages->addTab(m_pageInfo, "Info");
-    //m_stackedPages->addWidget(m_pageTest);
+    m_stackedPages->addTab(m_pageTest, "Test");
 
 
     m_stackedPages->setCurrentIndex(0);

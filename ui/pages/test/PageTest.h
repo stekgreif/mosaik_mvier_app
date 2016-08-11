@@ -12,6 +12,8 @@ class PageTest : public QWidget
         explicit PageTest(QWidget *parent = 0);
         ~PageTest();
 
+        void refresh(void);
+
     protected:
         void paintEvent(QPaintEvent *event);
 };
