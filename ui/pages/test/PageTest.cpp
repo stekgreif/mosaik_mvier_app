@@ -16,7 +16,7 @@ PageTest::PageTest(QWidget *parent) : QWidget(parent)
     m_scrollArea->setFixedSize(600,600);
     m_scrollArea->move(10,100);
     QLabel *m_toolbarDummy = new QLabel;
-    QImage image("/home/dan/Development/mosi10/mosaik_mini_app/Overview.png");
+    QImage image("Overview.png");
     if(image.isNull())
         qDebug() <<Q_FUNC_INFO <<"image not found";
     m_toolbarDummy->setPixmap(QPixmap::fromImage(image));
