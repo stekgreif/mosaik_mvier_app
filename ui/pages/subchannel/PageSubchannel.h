@@ -102,7 +102,7 @@ class PageSubchannel : public QWidget
 
 
         DrawEnvelope *m_envelope;
-
+        Pattern *m_pattern;
 
         QRect  *m_sampleWindowAttributes;
         QPoint *m_sampleLabelAttributes;

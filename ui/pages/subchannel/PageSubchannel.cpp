@@ -8,6 +8,7 @@
 
 #include "ui/pages/subchannel/qcustomplot.h"
 #include "core/subchannel/SubchannelManager.h"
+#include <ui/pages/subchannel/Pattern.h>
 #include "MosaikTypes.h"
 #include "ui/UiManager.h"
 #include "MosaikMiniApp.h"
@@ -78,6 +79,8 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_btnLoadSample->move(120,340);
     m_btnLoadSample->setFixedSize(50,50);
     m_btnLoadSample->setText("load \n sample");
+
+    m_pattern = new Pattern(m_mosaikMiniApp, this);
 
     connect( m_btnLoadSample,
              SIGNAL(clicked()),
