@@ -10,12 +10,14 @@
 #include <QObject>
 #include "QDebug"
 
-//#define MIDI_TO_ARDUINO
-#define MIDI_FROM_ARDUINO
+#define MIDI_TO_ARDUINO 1
+#define MIDI_FROM_ARDUINO 1
 
 
 
-ArduinoTest::ArduinoTest()
+ArduinoTest::
+
+ArduinoTest()
 {
 #if MIDI_TO_ARDUINO
     m_lastStepSequencerLed = 0;
@@ -43,7 +45,7 @@ void ArduinoTest::setStepLed(int i)
     quint8 data[3];
     data[0] = MIDI_MSG_CONTROL_CHANGE | 2;  // 0 = red
     data[1] = i;    // led
-    data[2] = 55;  // brightness
+    data[2] = 22;  // brightness
     m_midiOut->sendDataCopy(data, 3);
 #endif
 }
@@ -108,7 +110,12 @@ void ArduinoTest::refreshSequencer()
             midiData[3*i+0] = 0;
     }
 
-    m_midiOut->sendData(midiData);
+    QByteArray midiSendHelper;
+    midiSendHelper = midiData;
+    midiSendHelper.resize(32);
+
+
+    m_midiOut->sendData(midiSendHelper);
     //qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
 #endif
 }
@@ -120,6 +127,12 @@ void ArduinoTest::refreshSubchannelSelection()
 
 void ArduinoTest::resetHardware()
 {
+    qDebug() <<Q_FUNC_INFO;
+    quint8 data[3];
+    data[0] = MIDI_MSG_CONTROL_CHANGE | 5;  // 0 = red
+    data[1] = 0;    // led
+    data[2] = 0;  // brightness
+    m_midiOut->sendDataCopy(data, 3);
 
 }
 
