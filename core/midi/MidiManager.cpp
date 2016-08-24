@@ -155,6 +155,9 @@ void MidiManager::connectFavouriteDevice(void)
         else if ( hwMidiNameList.at(midiHwDevice) == "Arduino" )
         {
             m_midiDevice = new ArduinoTest();
+
+            /** sequencer/pattern **/
+            connect( m_midiDevice, SIGNAL(signal_stepButtonPressed(int)),                m_parent, SLOT( slot_stepButtonPressed(int)) );
         }
         else
         {
