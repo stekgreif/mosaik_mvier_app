@@ -69,6 +69,7 @@ void MidiInfo::deviceList(void)
 
 void MidiInfo::listCardDevices(int card)
 {
+    qDebug() <<Q_FUNC_INFO <<"...";
     snd_ctl_t *ctl;
     char name[32];
     int device;
@@ -139,6 +140,9 @@ void MidiInfo::listDevice(snd_ctl_t *ctl, int card, int device)
     sub_name = snd_rawmidi_info_get_subdevice_name(info);
     subs = snd_rawmidi_info_get_subdevices_count(info);
 
+    qDebug() <<Q_FUNC_INFO <<"Device name:" <<name;
+    qDebug() <<Q_FUNC_INFO <<"SubDevice name:" <<sub_name;
+
     if (sub_name[0] == '\0')
     {
         if (subs == 1)
@@ -157,7 +161,7 @@ void MidiInfo::listDevice(snd_ctl_t *ctl, int card, int device)
             QString port = "hw:" + QString::number(card) + "," + QString::number(device) + "," + QString::number(sub);
             QString name = QString::fromUtf8(sub_name);
 
-            name = name.split(" ").at(0); //remove 'MIDI 1' part of string
+            //name = name.split(" ").at(0); //remove 'MIDI 1' part of string
 
             m_devicePortList.append(port);
             m_deviceNameList.append(name);

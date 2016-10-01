@@ -4,6 +4,10 @@
 #include <QWidget>
 #include <QScrollArea>
 #include <QLabel>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
+
 
 
 class PageTest : public QWidget
@@ -20,6 +24,10 @@ class PageTest : public QWidget
         void paintEvent(QPaintEvent *event);
         QScrollArea *m_scrollArea;
         QLabel *m_toolbarDummy;
+
+        QGraphicsScene *m_scene;
+        QGraphicsView *m_view;
+        QGraphicsPixmapItem *m_pixmap;
 };
 
 #endif // PAGETEST_H

@@ -6,6 +6,7 @@
 #include "core/midi/MidiIn.h"
 
 #include <QObject>
+#include <QBitArray>
 
 class ArduinoTest : public MidiDevice
 {
@@ -29,6 +30,9 @@ class ArduinoTest : public MidiDevice
 
     private:
         int m_lastStepSequencerLed;
+
+		int m_lastRelSubCh;
+		QBitArray m_lastSubPat;
 
     signals:
         void signal_seqMsg(quint8 id, quint8 val);

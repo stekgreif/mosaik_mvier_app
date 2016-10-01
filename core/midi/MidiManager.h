@@ -1,3 +1,13 @@
+/**
+devices:
+0 Sequencer
+1 HWUI L
+2 HWUI M
+3 HWUI R
+*/
+
+
+
 #ifndef MIDIMANAGER_H
 #define MIDIMANAGER_H
 
@@ -45,7 +55,8 @@ class MidiManager : public QObject
         ~MidiManager();
 
     private:
-        MidiDevice *m_midiDevice;
+        //MidiDevice *m_midiDevice;
+        MidiDevice *m_midiDevice[10];
         bool m_isConnected;
         MosaikMiniApp *m_parent;
 };
