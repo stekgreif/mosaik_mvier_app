@@ -13,6 +13,7 @@
 
 
 
+
 MidiManager::MidiManager()
 {
     qDebug() <<Q_FUNC_INFO <<"Init";
@@ -40,32 +41,13 @@ void MidiManager::connectFavouriteDevice(void)
     QList<QString> hwMidiNameList = midiInfo().getDeviceNameList();
     QList<QString> hwMidiPortList = midiInfo().getDevicePortList();
     QList<QString> favMidiDevList = settings().getFavouriteMidiDeviceList();
-
-
-
-
     qDebug() <<Q_FUNC_INFO <<"Number of MIDI Devices:" <<hwMidiPortList.size();
 
-    int midiHwDevice = 0;
-#if 0
+
+	int midiHwDevice = 0;
 
 
-
-    if( m_isConnected )
-        delete m_midiDevice;
-
-
-    /** no midi device is connected - go virtual*/
-    if( midiHwDevice == -1 )
-    {
-        qDebug() <<Q_FUNC_INFO <<"Connected to virtual";
-        settings().setConnectedMidiDeviceName("virtual");
-        settings().setConnectedMidiDevicePort("virtual");
-        m_midiDevice[9] = new VirtualMidiDevice();
-    }
-#endif
-    /** there are some midi devices - connect to*/
-
+	if( hwMidiPortList.size() > 0 )
     {
         qDebug() <<Q_FUNC_INFO <<"Favourite device is:" <<hwMidiNameList.at(midiHwDevice);
         settings().setConnectedMidiDeviceName(hwMidiNameList.at(midiHwDevice));
@@ -73,7 +55,13 @@ void MidiManager::connectFavouriteDevice(void)
         m_midiDevice[0] = new ArduinoTest();
         connect( m_midiDevice[0], SIGNAL(signal_stepButtonPressed(int)),  m_parent, SLOT( slot_stepButtonPressed(int)) );
     }
-
+	else
+	{
+		qDebug() <<Q_FUNC_INFO <<"Connected to virtual";
+		settings().setConnectedMidiDeviceName("virtual");
+		settings().setConnectedMidiDevicePort("virtual");
+		m_midiDevice[0] = new VirtualMidiDevice();
+	}
 
 
 

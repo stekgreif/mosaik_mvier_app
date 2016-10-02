@@ -12,6 +12,7 @@
 //#include "ui/pages/subchannel/qcustomplot.h"
 #include <ui/pages/subchannel/DrawEnvelope.h>
 #include <ui/pages/subchannel/Pattern.h>
+#include "ui/pages/subchannel/ToolBoxMute.h"
 
 #include "Browser.h"
 
@@ -110,6 +111,8 @@ class PageSubchannel : public QWidget
 
         /** test **/
         //QPushButton *m_btnTestTreeCollapse;
+		ToolBoxMute *m_toolBoxMute;
+
         QPushButton *m_btnTestPlayDirection;
         QPushButton *m_btnLoadSample;
 

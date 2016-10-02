@@ -81,7 +81,15 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_btnLoadSample->setText("load \n sample");
 
     m_pattern = new Pattern(m_mosaikMiniApp, this);
+	m_pattern->move(50,500);
 
+
+	/** toolbox test **/
+	m_toolBoxMute = new ToolBoxMute(this);
+	m_toolBoxMute->move(50,800);
+
+
+	/** connect **/
     connect( m_btnLoadSample,
              SIGNAL(clicked()),
              this,
