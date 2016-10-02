@@ -57,7 +57,7 @@ void VirtualMidiDevice::refreshSubchannelSelection()
 void VirtualMidiDevice::setStepsequencerLed(int stepLedId)
 {
     Q_UNUSED(stepLedId);
-    //qDebug() <<Q_FUNC_INFO;
+    qDebug() <<Q_FUNC_INFO;
 }
 
 void VirtualMidiDevice::setMainVolume(quint8 volume)

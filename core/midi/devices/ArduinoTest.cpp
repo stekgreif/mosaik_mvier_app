@@ -36,13 +36,17 @@ ArduinoTest::ArduinoTest()
     m_midiIn  = new MidiIn (settings().getConnectedMidiDevicePort());
     connect(m_midiIn, SIGNAL(signal_midiMsgReceived(quint8*)), this, SLOT(slot_midiMsgReceived(quint8*)) );
     m_midiIn->start();
+
+    m_lastSubPat.resize(64);
+
+    resetHardware();
 }
 
 
 
 ArduinoTest::~ArduinoTest()
 {
-
+    resetHardware();
 }
 
 
@@ -96,8 +100,11 @@ void ArduinoTest::refreshSequencer()
 {
 	int curRelSubCh = subchannelManager().getCurrentSubchannelSelelectionRelative(); //0..3
 
-	QBitArray curSubPat = subchannelManager().getCurrentSubchannelPattern();
-	QByteArray sendFlags;
+    QBitArray curSubPat;
+    curSubPat.resize(64);
+    curSubPat = subchannelManager().getCurrentSubchannelPattern();
+
+    QByteArray sendFlags;
 	sendFlags.resize(64);
 
 	if( curRelSubCh == m_lastRelSubCh)
@@ -109,7 +116,7 @@ void ArduinoTest::refreshSequencer()
 			else if( !curSubPat[i] && m_lastSubPat[i] )
 				sendFlags[i] = -1;
 			else if( curSubPat[i] && !m_lastSubPat[i] )
-				sendFlags[i] = 1;
+                sendFlags[i] = 1;
 			else if( !curSubPat[i] && !m_lastSubPat[i] )
 				sendFlags[i] = 0;
 		}
@@ -119,7 +126,7 @@ void ArduinoTest::refreshSequencer()
 		for( int i = 0; i < 64; i++ )
 		{
 			if(	curSubPat[i] && m_lastSubPat[i] )
-				sendFlags[i] = 0;
+                sendFlags[i] = 1;
 			else if( !curSubPat[i] && m_lastSubPat[i] )
 				sendFlags[i] = -1;
 			else if( curSubPat[i] && !m_lastSubPat[i] )
@@ -146,6 +153,11 @@ void ArduinoTest::refreshSequencer()
 			sendBuffer.append( color_table[5] );
 		}
 	}
+
+
+    sendBuffer.append( (char) (MIDI_MSG_NOTE_ON | CMD_UPDATE) );
+    sendBuffer.append( (char) 0 );
+    sendBuffer.append( (char) 0 );
 
 	m_lastRelSubCh = curRelSubCh;
 	m_lastSubPat = curSubPat;
@@ -243,15 +255,35 @@ void ArduinoTest::setStepsequencerLed(int stepLedId)
 	QByteArray data;
 	data.resize(9);
 
-	data[0] = MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE;
-	data[1] = stepLedId;
-	data[2] = color_table[1];
+    QBitArray pattern = subchannelManager().getCurrentSubchannelPattern();
+    int color;
 
-	data[3] = MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE;
-	data[4] = m_lastStepSequencerLed;
-	data[5] = color_table[0];
+    if( pattern.at(m_lastStepSequencerLed) )
+        color = color_table[subchannelManager().getCurrentSubchannelSelelectionRelative()];
+    else
+        color = color_table[5];
 
-    m_lastStepSequencerLed = stepLedId;
+
+    data[0] = MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE;
+    data[1] = stepLedId;
+    data[2] = color_table[4];
+
+    data[3] = MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE;
+    data[4] = m_lastStepSequencerLed;
+    data[5] = color;
+
+    data[6] = MIDI_MSG_NOTE_ON | CMD_UPDATE;
+    data[7] = 0;
+    data[8] = 0;
+
+
+
+    m_midiOut->sendData(data);
+
+
+
+m_lastStepSequencerLed = stepLedId;
+
 }
 
 
@@ -260,6 +292,7 @@ void ArduinoTest::setMainVolume(quint8 volume)
 {
 
 }
+
 
 
 

@@ -25,6 +25,7 @@ class ArduinoTest : public MidiDevice
         void setStepsequencerLed(int stepLedId) Q_DECL_OVERRIDE;
         void setMainVolume(quint8 volume) Q_DECL_OVERRIDE;
 
+
     public slots:
         void slot_midiMsgReceived(quint8* data);
 

@@ -46,8 +46,9 @@ void MidiManager::connectFavouriteDevice(void)
 
     qDebug() <<Q_FUNC_INFO <<"Number of MIDI Devices:" <<hwMidiPortList.size();
 
+    int midiHwDevice = 0;
+#if 0
 
-    int midiHwDevice = -1;
 
 
     if( m_isConnected )
@@ -62,10 +63,13 @@ void MidiManager::connectFavouriteDevice(void)
         settings().setConnectedMidiDevicePort("virtual");
         m_midiDevice[9] = new VirtualMidiDevice();
     }
-
+#endif
     /** there are some midi devices - connect to*/
-    else
+
     {
+        qDebug() <<Q_FUNC_INFO <<"Favourite device is:" <<hwMidiNameList.at(midiHwDevice);
+        settings().setConnectedMidiDeviceName(hwMidiNameList.at(midiHwDevice));
+        settings().setConnectedMidiDevicePort(hwMidiPortList.at(midiHwDevice));
         m_midiDevice[0] = new ArduinoTest();
         connect( m_midiDevice[0], SIGNAL(signal_stepButtonPressed(int)),  m_parent, SLOT( slot_stepButtonPressed(int)) );
     }
