@@ -38,7 +38,6 @@ MidiManager::~MidiManager()
 
 void MidiManager::connectToAllMidiDevices()
 {
-#if 1
 	midiInfo().rescanMidiPorts();
 
 	QList<QString> hwMidiNameList = midiInfo().getDeviceNameList();
@@ -64,8 +63,6 @@ void MidiManager::connectToAllMidiDevices()
 	}
 
 	qDebug() <<Q_FUNC_INFO <<m_deviceMap;
-
-#endif
 }
 
 
@@ -354,7 +351,7 @@ void MidiManager::setMainVolume(float volume)
 
 void MidiManager::resetHardware()
 {
-    //m_midiDevice[0]->resetHardware();
+	m_rgbwButtons->resetHardware();
 }
 
 void MidiManager::subToPreLed(bool state)

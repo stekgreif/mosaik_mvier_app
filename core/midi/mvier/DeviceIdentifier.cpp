@@ -61,8 +61,6 @@ int DeviceIdentifier::getDeviceId(void)
 
 void DeviceIdentifier::slot_midiMsgReceived(quint8 *data)
 {
-	qDebug() <<Q_FUNC_INFO <<QDateTime::currentMSecsSinceEpoch();
-
 	quint8 midiBuffer[3] = {};
 
 	midiBuffer[0] = data[0];    // midi ch, status
@@ -77,7 +75,6 @@ void DeviceIdentifier::slot_midiMsgReceived(quint8 *data)
 		qDebug() <<Q_FUNC_INFO <<"m_id is:" <<data[2];
 		m_id = data[2];
 	}
-
 }
 
 

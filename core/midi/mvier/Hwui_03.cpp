@@ -11,7 +11,6 @@
 
 Hwui_03::Hwui_03(QString hwPort)
 {
-	qDebug() <<Q_FUNC_INFO <<"";
 	m_hwPort = hwPort;
 
 	m_midiOut = new MidiOut(m_hwPort);
