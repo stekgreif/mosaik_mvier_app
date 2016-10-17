@@ -243,10 +243,10 @@ int AlsaPcm::playbackCallback(snd_pcm_sframes_t nFrames)
         //fourChFrame = subchannelManager().getFourChannelAudioTestFrame();
         fourChFrame = subchannelManager().getFourChannelAudioFrame();
 
-        m_pcmBuffer[n*4    ] = fourChFrame.mainLeft ;
-        m_pcmBuffer[n*4 + 1] = fourChFrame.mainRight;
-        m_pcmBuffer[n*4 + 2] = fourChFrame.preLeft  ;
-        m_pcmBuffer[n*4 + 3] = fourChFrame.preRight ;
+		m_pcmBuffer[n*4    ] = fourChFrame.preLeft ;
+		m_pcmBuffer[n*4 + 1] = fourChFrame.preRight;
+		m_pcmBuffer[n*4 + 2] = fourChFrame.mainLeft  ;
+		m_pcmBuffer[n*4 + 3] = fourChFrame.mainRight ;
 #endif
         m_frameCnt++;
     }
