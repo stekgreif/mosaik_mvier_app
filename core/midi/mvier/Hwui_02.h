@@ -1,12 +1,28 @@
 #ifndef HWUI_02_H
 #define HWUI_02_H
 
+#include <QObject>
+#include "core/midi/MidiIn.h"
+#include "core/midi/MidiOut.h"
 
-class Hwui_02
+
+class Hwui_02 : public QObject
 {
-public:
-	Hwui_02();
-	~Hwui_02();
+	Q_OBJECT
+
+	public:
+		Hwui_02(QString hwPort);
+		~Hwui_02();
+
+	public slots:
+		void slot_midiMsgReceived(quint8* data);
+
+	protected:
+		MidiOut *m_midiOut;
+		MidiIn  *m_midiIn;
+
+	private:
+		QString m_hwPort;
 };
 
 #endif // HWUI_02_H
