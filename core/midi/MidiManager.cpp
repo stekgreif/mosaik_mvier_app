@@ -100,6 +100,11 @@ void MidiManager::connectFavouriteDevice(void)
 
 					break;
 				}
+				case 2:
+				{
+					m_hwui02 = new Hwui_02( m_deviceMap.key( i ) );
+					break;
+				}
 				case 3:
 				{
 					m_hwui03 = new Hwui_03( m_deviceMap.key( i ) );

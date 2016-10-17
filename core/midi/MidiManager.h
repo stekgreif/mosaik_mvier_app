@@ -16,6 +16,7 @@ devices:
 #include "MosaikMiniApp.h"
 #include "core/midi/mvier/DeviceIdentifier.h"
 #include "core/midi/mvier/Hwui_01.h"
+#include "core/midi/mvier/Hwui_02.h"
 #include "core/midi/mvier/Hwui_03.h"
 #include "core/midi/mvier/RgbwButtons.h"
 
@@ -74,6 +75,7 @@ class MidiManager : public QObject
 
 		RgbwButtons *m_rgbwButtons;
 		Hwui_01 *m_hwui01;
+		Hwui_02 *m_hwui02;
 		Hwui_03 *m_hwui03;
 };
 
