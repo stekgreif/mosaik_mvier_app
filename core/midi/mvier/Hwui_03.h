@@ -34,7 +34,7 @@ class Hwui_03 : public QObject
 		void signal_button07Pressed();
 		void signal_button08Pressed();
 		void signal_button09Pressed();
-		void signal_button10Pressed();
+		void signal_button10Pressed(int down);
 		void signal_button11Pressed();
 };
 

@@ -51,7 +51,11 @@ void Hwui_03::slot_midiMsgReceived(quint8 *data)
 		case  7:	emit signal_button07Pressed(); break;
 		case  8:	emit signal_button08Pressed(); break;
 		case  9:	emit signal_button09Pressed(); break;
-		case 10:	emit signal_button10Pressed(); break;
+		case 10:
+		{
+			emit signal_button10Pressed(-1);
+			break;
+		}
 		case 11:	emit signal_button11Pressed(); break;
 	}
 }
