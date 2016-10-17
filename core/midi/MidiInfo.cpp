@@ -20,13 +20,21 @@ void MidiInfo::rescanMidiPorts()
 {
     m_deviceNameList.clear();
     m_devicePortList.clear();
+	//qDebug() <<Q_FUNC_INFO <<"elements:" <<m_deviceNameList.size() <<"; name:" <<m_deviceNameList <<"port:" <<m_devicePortList;
     deviceList();
-    qDebug() <<Q_FUNC_INFO <<"elements:" <<m_deviceNameList.size() <<"name:" <<m_deviceNameList <<"port:" <<m_devicePortList;
+	qDebug() <<Q_FUNC_INFO <<"Elements in device list:" <<m_deviceNameList.size();
+	qDebug() <<Q_FUNC_INFO <<"Names:" <<m_deviceNameList;
+	qDebug() <<Q_FUNC_INFO <<"HW-Ports:" <<m_devicePortList;
 }
 
 QList<QString> MidiInfo::getDevicePortList(void)
 {
-    return m_devicePortList;
+	return m_devicePortList;
+}
+
+QList<int> MidiInfo::getDevicePortListInt()
+{
+	return m_devicePortListInt;
 }
 
 QList<QString> MidiInfo::getDeviceNameList(void)
@@ -69,7 +77,6 @@ void MidiInfo::deviceList(void)
 
 void MidiInfo::listCardDevices(int card)
 {
-    qDebug() <<Q_FUNC_INFO <<"...";
     snd_ctl_t *ctl;
     char name[32];
     int device;
@@ -165,6 +172,7 @@ void MidiInfo::listDevice(snd_ctl_t *ctl, int card, int device)
 
             m_devicePortList.append(port);
             m_deviceNameList.append(name);
+			m_devicePortListInt.append(card);
 
             if (++sub >= subs)
                 break;

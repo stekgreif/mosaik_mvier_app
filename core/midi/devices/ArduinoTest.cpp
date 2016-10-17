@@ -30,7 +30,7 @@ uint8_t color_table[6] = {0,1,2,3,4,5};
 ArduinoTest::ArduinoTest()
 {
 	m_lastStepSequencerLed = 0;
-    qDebug() <<Q_FUNC_INFO <<"Get connected midi device" <<settings().getConnectedMidiDevicePort();
+//	qebug() <<Q_FUNC_INFO <<"Get connected midi device" <<settings().getConnectedMidiDevicePort();
     m_midiOut = new MidiOut(settings().getConnectedMidiDevicePort());
 
     m_midiIn  = new MidiIn (settings().getConnectedMidiDevicePort());
@@ -46,7 +46,7 @@ ArduinoTest::ArduinoTest()
 
 ArduinoTest::~ArduinoTest()
 {
-    resetHardware();
+
 }
 
 

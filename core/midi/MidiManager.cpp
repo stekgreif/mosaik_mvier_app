@@ -11,6 +11,14 @@
 #include "core/midi/devices/VirtualMidiDevice.h"
 #include "core/midi/devices/ArduinoTest.h"
 
+#include "core/midi/mvier/Hwui_01.h"
+#include "core/midi/mvier/Hwui_02.h"
+#include "core/midi/mvier/RgbwButtons.h"
+#include "core/midi/mvier/DeviceIdentifier.h"
+#include <QDateTime>
+#include <QEventLoop>
+
+
 
 
 
@@ -18,19 +26,101 @@ MidiManager::MidiManager()
 {
     qDebug() <<Q_FUNC_INFO <<"Init";
     m_isConnected = false;
+
+
     //connectFavouriteDevice();
 }
 
 MidiManager::~MidiManager()
 {
-    qDebug() <<"~" <<Q_FUNC_INFO;
+	qDebug() <<"~" <<Q_FUNC_INFO;
+}
+
+void MidiManager::connectToAllMidiDevices()
+{
+#if 1
+	midiInfo().rescanMidiPorts();
+
+	QList<QString> hwMidiNameList = midiInfo().getDeviceNameList();
+	QList<QString> hwMidiPortList = midiInfo().getDevicePortList();
+
+	for( int i = 0; i < hwMidiPortList.size(); i++ )
+	{
+		m_deviceIdentifier.append(new DeviceIdentifier());
+		m_deviceIdentifier.at(i)->midiConnect(hwMidiPortList.at(i));
+	}
+
+	/* wait for 100ms, non blocking so midi messages can be reveived */
+	QEventLoop loop;
+	QTimer::singleShot( 100, &loop, SLOT(quit()) );
+	loop.exec();
+
+
+	for( int i = 0; i < hwMidiPortList.size(); i++ )
+	{
+		m_deviceMap.insert( hwMidiPortList.at(i), m_deviceIdentifier.at(i)->getDeviceId());
+		m_deviceIdentifier.at(i)->midiDisconnect();
+		m_deviceIdentifier.at(i)->~DeviceIdentifier();
+	}
+
+	qDebug() <<Q_FUNC_INFO <<m_deviceMap;
+
+#endif
+}
+
+
+
+void MidiManager::connectFavouriteDevice(void)
+{
+	connectToAllMidiDevices();
+
+	//qDebug() <<Q_FUNC_INFO <<"Device map at pos 0:" <<m_deviceMap[1];
+
+	for(int i = 0; i < 10; i++)
+	{
+		if( m_deviceMap.key(i).isEmpty() )
+		{
+			qDebug() <<Q_FUNC_INFO <<"No matching object to key";
+		}
+		else
+		{
+			switch(i)
+			{
+				case 0:
+				{
+					m_rgbwButtons = new RgbwButtons( m_deviceMap.key( i ) );
+					connect( m_rgbwButtons, SIGNAL(signal_stepButtonPressed(int)),  m_parent, SLOT( slot_stepButtonPressed(int)) );
+					break;
+				}
+				case 1:
+				{
+					m_hwui01 = new Hwui_01( m_deviceMap.key( i ) );
+					connect( m_hwui01, SIGNAL(signal_button00Pressed()), m_parent, SLOT( slot_appToggleFullScreen()) );
+					connect( m_hwui01, SIGNAL(signal_button04Pressed(bool)), m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
+					break;
+				}
+				case 3:
+				{
+					m_hwui03 = new Hwui_03( m_deviceMap.key( i ) );
+					connect( m_hwui03, SIGNAL(signal_button11Pressed()), m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
+					break;
+				}
+
+				default:
+					break;
+			}
+		}
+	}
+
+
+
+
 }
 
 
 
 
-
-#if 1 // 2016-08-28 new version: should connect with more than one midi device
+#if 0 // 2016-08-28 new version: should connect with more than one midi device
 void MidiManager::connectFavouriteDevice(void)
 {
     qDebug() <<Q_FUNC_INFO <<"New MIDI connector function";
@@ -62,9 +152,6 @@ void MidiManager::connectFavouriteDevice(void)
 		settings().setConnectedMidiDevicePort("virtual");
 		m_midiDevice[0] = new VirtualMidiDevice();
 	}
-
-
-
 
     m_isConnected = true;
 }

@@ -53,10 +53,15 @@ SOURCES += main.cpp\
     ui/pages/subchannel/BrowserTree.cpp \
     ui/pages/subchannel/Browser.cpp \
     ui/pages/selection/VolumeWidget.cpp \
-    core/midi/devices/ArduinoTest.cpp \
     ui/pages/info/PageInfos.cpp \
     ui/pages/test/PageTest.cpp \
-    ui/pages/subchannel/ToolBoxMute.cpp
+    ui/pages/subchannel/ToolBoxMute.cpp \
+    core/midi/devices/MidiDevices.cpp \
+    core/midi/mvier/Hwui_01.cpp \
+    core/midi/mvier/Hwui_02.cpp \
+    core/midi/mvier/RgbwButtons.cpp \
+    core/midi/mvier/DeviceIdentifier.cpp \
+    core/midi/mvier/Hwui_03.cpp
 
 HEADERS  += MosaikMiniApp.h \
 	Settings.h \
@@ -94,10 +99,15 @@ HEADERS  += MosaikMiniApp.h \
     ui/pages/subchannel/BrowserTree.h \
     ui/pages/subchannel/Browser.h \
     ui/pages/selection/VolumeWidget.h \
-    core/midi/devices/ArduinoTest.h \
     ui/pages/info/PageInfos.h \
     ui/pages/test/PageTest.h \
-    ui/pages/subchannel/ToolBoxMute.h
+    ui/pages/subchannel/ToolBoxMute.h \
+    core/midi/devices/MidiDevices.h \
+    core/midi/mvier/Hwui_01.h \
+    core/midi/mvier/Hwui_02.h \
+    core/midi/mvier/RgbwButtons.h \
+    core/midi/mvier/DeviceIdentifier.h \
+    core/midi/mvier/Hwui_03.h
 
 FORMS    += MosaikMiniApp.ui \
     pagemidi.ui

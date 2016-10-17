@@ -26,7 +26,7 @@ class ArduinoTest : public MidiDevice
         void setMainVolume(quint8 volume) Q_DECL_OVERRIDE;
 
 
-    public slots:
+	public slots:
         void slot_midiMsgReceived(quint8* data);
 
     private:

@@ -22,6 +22,7 @@ public:
 
     QList<QString> getDeviceNameList(void);
     QList<QString> getDevicePortList(void);
+	QList<int> getDevicePortListInt(void);
 
     void rescanMidiPorts(void);
 
@@ -37,6 +38,7 @@ private:
 
     QList <QString> m_deviceNameList;
     QList <QString> m_devicePortList;
+	QList <int> m_devicePortListInt;
 };
 
 inline MidiInfo& midiInfo() { return MidiInfo::Instance(); }

@@ -12,10 +12,17 @@ devices:
 #define MIDIMANAGER_H
 
 #include <core/midi/devices/MidiDevice.h>
+#include <core/midi/devices/MidiDevices.h>
 #include "MosaikMiniApp.h"
+#include "core/midi/mvier/DeviceIdentifier.h"
+#include "core/midi/mvier/Hwui_01.h"
+#include "core/midi/mvier/Hwui_03.h"
+#include "core/midi/mvier/RgbwButtons.h"
+
 
 #include <QObject>
 #include <QtGlobal>
+#include <QMap>
 
 
 
@@ -57,8 +64,17 @@ class MidiManager : public QObject
     private:
         //MidiDevice *m_midiDevice;
         MidiDevice *m_midiDevice[10];
+		QList<MidiDevices*> m_midiDevicesList;
         bool m_isConnected;
         MosaikMiniApp *m_parent;
+		void connectToAllMidiDevices(void);
+
+		QList<DeviceIdentifier*> m_deviceIdentifier;
+		QMap<QString, int> m_deviceMap;
+
+		RgbwButtons *m_rgbwButtons;
+		Hwui_01 *m_hwui01;
+		Hwui_03 *m_hwui03;
 };
 
 inline MidiManager& midiManager() {return MidiManager::Instance(); }
