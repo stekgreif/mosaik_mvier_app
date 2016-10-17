@@ -305,7 +305,7 @@ void MidiManager::connectFavouriteDevice(void)
 
 void MidiManager::setStepLed(int i)
 {
-    m_midiDevice[0]->setStepLed(i);
+	m_rgbwButtons->setStepLed(i);
 }
 
 void MidiManager::setParentWidget(MosaikMiniApp *parent)
@@ -322,34 +322,34 @@ void MidiManager::slot_erpChanged(quint8 id, qint8 val)
 void MidiManager::sendData(const QByteArray &data)
 {
     qDebug() << Q_FUNC_INFO << data.size();
-    m_midiDevice[0]->sendRawData(data);
+	m_rgbwButtons->sendRawData(data);
 }
 
 void MidiManager::setChannelPattern()
 {
-    m_midiDevice[0]->setChannelPattern();
+	m_rgbwButtons->setChannelPattern();
 }
 
 void MidiManager::refreshPatternView()
 {
-    m_midiDevice[0]->refreshSequencer();
+	m_rgbwButtons->refreshSequencer();
 }
 
 void MidiManager::refreshSubchannelSelection()
 {
-    m_midiDevice[0]->refreshSubchannelSelection();
+	m_rgbwButtons->refreshSubchannelSelection();
 }
 
 void MidiManager::setStepsequencerLed(int stepLedId)
 {
-    m_midiDevice[0]->setStepsequencerLed(stepLedId);
+	m_rgbwButtons->setStepsequencerLed(stepLedId);
 }
 
 void MidiManager::setMainVolume(float volume)
 {
     int vol = 127 - (127 * volume);
     qDebug() <<Q_FUNC_INFO <<"vol" <<vol;
-    m_midiDevice[0]->setMainVolume(vol);
+	//m_midiDevice[0]->setMainVolume(vol);
 }
 
 void MidiManager::resetHardware()
@@ -359,5 +359,5 @@ void MidiManager::resetHardware()
 
 void MidiManager::subToPreLed(bool state)
 {
-    m_midiDevice[0]->subToPreLed(state);
+	//m_midiDevice[0]->subToPreLed(state);
 }
