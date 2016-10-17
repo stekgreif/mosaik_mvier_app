@@ -102,8 +102,16 @@ void MidiManager::connectFavouriteDevice(void)
 				case 3:
 				{
 					m_hwui03 = new Hwui_03( m_deviceMap.key( i ) );
-					connect( m_hwui03, SIGNAL(signal_button10Pressed(int)),      m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
-					connect( m_hwui03, SIGNAL(signal_button11Pressed(int)),      m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+					connect( m_hwui03, SIGNAL(signal_button10Pressed(int)),     m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+					connect( m_hwui03, SIGNAL(signal_button10Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
+					connect( m_hwui03, SIGNAL(signal_button11Pressed(int)),     m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+					connect( m_hwui03, SIGNAL(signal_button11Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
+
+					connect( m_hwui03, SIGNAL(signal_button05Pressed(int)),		m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+					connect( m_hwui03, SIGNAL(signal_button08Pressed(int)),		m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+
+					connect( m_hwui03, SIGNAL(signal_button07Pressed()),		m_parent, SLOT( slot_browserCloseFolder() ) );
+					connect( m_hwui03, SIGNAL(signal_button09Pressed()),		m_parent, SLOT( slot_browserOpenFolder() ) );
 
 					break;
 				}
