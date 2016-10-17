@@ -22,13 +22,14 @@ class Hwui_03 : public QObject
 
 	private:
 		QString m_hwPort;
+		bool m_curSubToPre;
 
 	signals:
 		void signal_button00Pressed();
 		void signal_button01Pressed();
 		void signal_button02Pressed();
 		void signal_button03Pressed();
-		void signal_button04Pressed();
+		void signal_button04Pressed(bool state);
 		void signal_button05Pressed(int up);
 		void signal_button06Pressed();
 		void signal_button07Pressed();

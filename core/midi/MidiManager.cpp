@@ -92,10 +92,11 @@ void MidiManager::connectFavouriteDevice(void)
 				case 1:
 				{
 					m_hwui01 = new Hwui_01( m_deviceMap.key( i ) );
-					connect( m_hwui01, SIGNAL(signal_button00Pressed()),		m_parent, SLOT( slot_appToggleFullScreen()) );
 					connect( m_hwui01, SIGNAL(signal_button04Pressed(bool)),	m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
 					connect( m_hwui01, SIGNAL(signal_button10Pressed()),        m_parent, SLOT( slot_sampleLoadToCurrentSubchannel() ) );
 					connect( m_hwui01, SIGNAL(signal_button11Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
+
+
 
 					break;
 				}
@@ -104,6 +105,7 @@ void MidiManager::connectFavouriteDevice(void)
 					m_hwui03 = new Hwui_03( m_deviceMap.key( i ) );
 					connect( m_hwui03, SIGNAL(signal_button10Pressed(int)),     m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
 					connect( m_hwui03, SIGNAL(signal_button10Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
+
 					connect( m_hwui03, SIGNAL(signal_button11Pressed(int)),     m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
 					connect( m_hwui03, SIGNAL(signal_button11Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
 
@@ -112,6 +114,9 @@ void MidiManager::connectFavouriteDevice(void)
 
 					connect( m_hwui03, SIGNAL(signal_button07Pressed()),		m_parent, SLOT( slot_browserCloseFolder() ) );
 					connect( m_hwui03, SIGNAL(signal_button09Pressed()),		m_parent, SLOT( slot_browserOpenFolder() ) );
+
+
+					connect( m_hwui03, SIGNAL(signal_button04Pressed(bool)),          m_parent, SLOT( slot_parameterCurrentSubToPre(bool)) );
 
 					break;
 				}

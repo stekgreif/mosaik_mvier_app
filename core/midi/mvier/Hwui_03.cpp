@@ -18,6 +18,8 @@ Hwui_03::Hwui_03(QString hwPort)
 	m_midiIn  = new MidiIn(m_hwPort);
 	connect(m_midiIn, SIGNAL(signal_midiMsgReceived(quint8*)), this, SLOT(slot_midiMsgReceived(quint8*)) );
 	m_midiIn->start();
+
+	m_curSubToPre = false;
 }
 
 
@@ -45,7 +47,12 @@ void Hwui_03::slot_midiMsgReceived(quint8 *data)
 		case  1:	emit signal_button01Pressed(); break;
 		case  2:	emit signal_button02Pressed(); break;
 		case  3:	emit signal_button03Pressed(); break;
-		case  4:	emit signal_button04Pressed(); break;
+		case  4:
+		{
+			m_curSubToPre = !m_curSubToPre;
+			emit signal_button04Pressed(m_curSubToPre);
+			break;
+		}
 		case  5:	emit signal_button05Pressed(1); break;
 		case  6:	emit signal_button06Pressed(); break;
 		case  7:	emit signal_button07Pressed(); break;
