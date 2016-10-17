@@ -229,6 +229,7 @@ void RgbwButtons::setMainVolume(quint8 volume)
 
 void RgbwButtons::slot_midiMsgReceived(quint8 *data)
 {
+
 		quint8 midiBuffer[3] = {};
 
 		midiBuffer[0] = data[0];    // midi ch, status

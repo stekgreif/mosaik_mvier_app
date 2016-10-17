@@ -10,6 +10,8 @@
 
 class RgbwButtons : public MidiDevice
 {
+	Q_OBJECT
+
 	public:
 		RgbwButtons(QString hwPort);
 		~RgbwButtons();

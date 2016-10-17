@@ -108,10 +108,6 @@ void MidiManager::connectFavouriteDevice(void)
 			}
 		}
 	}
-
-
-
-
 }
 
 
