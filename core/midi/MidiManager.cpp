@@ -95,8 +95,9 @@ void MidiManager::connectFavouriteDevice(void)
 					connect( m_hwui01, SIGNAL(signal_button04Pressed(bool)),	m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
 					connect( m_hwui01, SIGNAL(signal_button10Pressed()),        m_parent, SLOT( slot_sampleLoadToCurrentSubchannel() ) );
 					connect( m_hwui01, SIGNAL(signal_button11Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
-
-
+					connect( m_hwui01, SIGNAL(signal_mainVolume(float)),        m_parent, SLOT( slot_globalMainVolume(float)) );
+					connect( m_hwui01, SIGNAL(signal_currentPan(float)),        m_parent, SLOT( slot_parameterPan(float)) );
+					connect( m_hwui01, SIGNAL(signal_bpmChanged(float)),        m_parent, SLOT( slot_globalChangeBpmRelative(float)) );
 
 					break;
 				}

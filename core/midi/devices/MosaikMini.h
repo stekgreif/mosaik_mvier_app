@@ -79,7 +79,7 @@ class MosaikMini : public MidiDevice
         void signal_fnrMsg(quint8 id, quint8 val);
         void signal_menMsg(quint8 id, quint8 val);
 
-        void signal_erpMsg(quint8 id, quint8 val);
+		void signal_erpMsg(quint8 id, quint8 val);
         void signal_padMsg(quint8 id, quint8 val);
         void signal_crfMsg(quint8 id, quint8 val);
         void signal_ahoMsg(quint8 id, quint8 val);

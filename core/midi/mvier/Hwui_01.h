@@ -23,8 +23,19 @@ class Hwui_01 : public QObject
 	private:
 		QString m_hwPort;
 		bool m_mute;
+		bool m_shiftBpm;
+		bool m_shiftMainVol;
+		bool m_shiftPan;
+		bool m_shiftPitch;
+		bool m_shiftPlayDir;
+		bool m_tglSubToPre;
 
 	signals:
+		//void signal_encChanged(int val);
+		void signal_mainVolume(float relVal);
+		void signal_currentPan(float relVal);
+		void signal_bpmChanged(float val);
+
 		void signal_button00Pressed();
 		void signal_button01Pressed();
 		void signal_button02Pressed();
