@@ -24,6 +24,8 @@ Hwui_01::Hwui_01(QString hwPort)
 	m_shiftSubVol = false;
 	m_shiftPan = false;
 	m_shiftBpm = false;
+	m_shiftHpVol = false;
+	m_tempHpVol = 0.0;
 }
 
 
@@ -64,6 +66,11 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 			{
 				emit signal_bpmChanged( (float) (data[2] - 64) );
 			}
+			else if( m_shiftHpVol )
+			{
+				m_tempHpVol = m_tempHpVol + ((float) (data[2] - 64)) * 0.01;
+				emit signal_headphoneVolume( m_tempHpVol );
+			}
 		}
 	}
 	else if( midiBuffer[0] == 0x90 )
@@ -83,37 +90,50 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 				m_shiftSubVol = false;
 				m_shiftPan = false;
 				m_shiftBpm = false;
+				m_shiftHpVol = false;
 				break;
 			}
 			case  1:
 			{
 				qDebug() <<Q_FUNC_INFO <<"bpm";
+				m_shiftBpm = true;
 				m_shiftMainVol = false;
 				m_shiftSubVol = false;
 				m_shiftPan = false;
-				m_shiftBpm = true;
+				m_shiftHpVol = false;
 				break;
 			}
 			case  2:
 			{
 				qDebug() <<Q_FUNC_INFO <<"sub vol";
-				m_shiftMainVol = false;
 				m_shiftSubVol = true;
+				m_shiftMainVol = false;
 				m_shiftPan = false;
 				m_shiftBpm = false;
+				m_shiftHpVol = false;
 				break;
 			}
 			case  3:
 			{
 				qDebug() <<Q_FUNC_INFO <<"pan";
+				m_shiftPan = true;
 				m_shiftMainVol = false;
 				m_shiftSubVol = false;
-				m_shiftPan = true;
 				m_shiftBpm = false;
+				m_shiftHpVol = false;
 				break;
 			}
 			case  4:	emit signal_button04Pressed(); break;
-			case  5:	emit signal_button05Pressed(); break;
+			case  5:
+			{
+				qDebug() <<Q_FUNC_INFO <<"hp vol";
+				m_shiftHpVol = true;
+				m_shiftMainVol = false;
+				m_shiftSubVol = false;
+				m_shiftPan = false;
+				m_shiftBpm = false;
+				break;
+			}
 			case  6:	emit signal_button06Pressed(); break;
 			case  7:
 			{

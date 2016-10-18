@@ -30,6 +30,8 @@ class Hwui_01 : public QObject
 		bool m_shiftPlayDir;
 		bool m_tglSubToPre;
 		bool m_shiftSubVol;
+		bool m_shiftHpVol;
+		float m_tempHpVol;
 
 	signals:
 		//void signal_encChanged(int val);
@@ -37,6 +39,8 @@ class Hwui_01 : public QObject
 		void signal_currentPan(float relVal);
 		void signal_bpmChanged(float val);
 		void signal_erpChanged(quint8 v1, qint8 v2);
+
+		void signal_headphoneVolume( float hpVal );
 
 		void signal_button00Pressed();
 		void signal_button01Pressed();

@@ -104,6 +104,7 @@ void MidiManager::connectFavouriteDevice(void)
 					//connect( m_hwui01, SIGNAL(signal_muteAndSolo(bool)),		m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
 					connect( m_hwui01, SIGNAL(signal_button08Pressed()),        m_parent, SLOT( slot_parameterUnmuteAll()) );
 					connect( m_hwui01, SIGNAL(signal_button09Pressed()),        m_parent, SLOT( slot_parameterSelectLastMutes()) );
+					connect( m_hwui01, SIGNAL(signal_headphoneVolume(float)),                m_parent, SLOT( slot_globalPreVolume(float)) );
 					break;
 				}
 				case 2:
