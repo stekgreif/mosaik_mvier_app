@@ -20,6 +20,10 @@ Hwui_01::Hwui_01(QString hwPort)
 	m_midiIn->start();
 
 	m_mute = false;
+	m_shiftMainVol = true;
+	m_shiftSubVol = false;
+	m_shiftPan = false;
+	m_shiftBpm = false;
 }
 
 
@@ -74,31 +78,39 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 #endif
 			case  0:
 			{
+			qDebug() <<Q_FUNC_INFO <<"mail vol";
 				m_shiftMainVol = true;
 				m_shiftSubVol = false;
 				m_shiftPan = false;
 				m_shiftBpm = false;
+				break;
 			}
 			case  1:
 			{
-				m_shiftMainVol = false;
-				m_shiftSubVol = true;
-				m_shiftPan = false;
-				m_shiftBpm = false;
-			}
-			case  2:
-			{
-				m_shiftMainVol = false;
-				m_shiftSubVol = false;
-				m_shiftPan = true;
-				m_shiftBpm = false;
-			}
-			case  3:
-			{
+				qDebug() <<Q_FUNC_INFO <<"bpm";
 				m_shiftMainVol = false;
 				m_shiftSubVol = false;
 				m_shiftPan = false;
 				m_shiftBpm = true;
+				break;
+			}
+			case  2:
+			{
+				qDebug() <<Q_FUNC_INFO <<"sub vol";
+				m_shiftMainVol = false;
+				m_shiftSubVol = true;
+				m_shiftPan = false;
+				m_shiftBpm = false;
+				break;
+			}
+			case  3:
+			{
+				qDebug() <<Q_FUNC_INFO <<"pan";
+				m_shiftMainVol = false;
+				m_shiftSubVol = false;
+				m_shiftPan = true;
+				m_shiftBpm = false;
+				break;
 			}
 			case  4:	emit signal_button04Pressed(); break;
 			case  5:	emit signal_button05Pressed(); break;
