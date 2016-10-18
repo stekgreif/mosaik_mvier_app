@@ -80,8 +80,8 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_btnLoadSample->setFixedSize(50,50);
     m_btnLoadSample->setText("load \n sample");
 
-    m_pattern = new Pattern(m_mosaikMiniApp, this);
-	m_pattern->move(50,500);
+	//m_pattern = new Pattern(m_mosaikMiniApp, this);
+	//m_pattern->move(50,500);
 
 
 	/** toolbox test **/

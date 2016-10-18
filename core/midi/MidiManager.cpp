@@ -103,6 +103,7 @@ void MidiManager::connectFavouriteDevice(void)
 				case 2:
 				{
 					m_hwui02 = new Hwui_02( m_deviceMap.key( i ) );
+					connect( m_hwui02, SIGNAL(signal_erpChanged(quint8,qint8)),	m_parent, SLOT(slot_erpChanged(quint8,qint8)) );
 					break;
 				}
 				case 3:

@@ -17,6 +17,9 @@ class Hwui_02 : public QObject
 	public slots:
 		void slot_midiMsgReceived(quint8* data);
 
+	signals:
+		void signal_erpChanged(quint8 v1, qint8 v2);
+
 	protected:
 		MidiOut *m_midiOut;
 		MidiIn  *m_midiIn;

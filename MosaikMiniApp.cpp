@@ -456,7 +456,7 @@ void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
 {
     qDebug() <<Q_FUNC_INFO <<"erp changed:" <<"id:" <<id <<"val:" <<val;
 
-    float change = ((float) val) / 5000;
+	float change = ((float) val) / 250;
 
     switch(id)
     {

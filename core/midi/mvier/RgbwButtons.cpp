@@ -52,7 +52,7 @@ RgbwButtons::~RgbwButtons()
 
 void RgbwButtons::setStepLed(int i)
 {
-	qDebug() <<Q_FUNC_INFO <<"send midi";
+	//qDebug() <<Q_FUNC_INFO <<"send midi";
 
 	QByteArray data;
 	data.resize(6);
@@ -187,7 +187,7 @@ void RgbwButtons::resetHardware()
 //erstmal ok
 void RgbwButtons::setStepsequencerLed(int stepLedId)
 {
-	qDebug() <<Q_FUNC_INFO <<"send midi";
+	//qDebug() <<Q_FUNC_INFO <<"send midi";
 
 	QByteArray data;
 	data.resize(9);
