@@ -29,23 +29,25 @@ class Hwui_01 : public QObject
 		bool m_shiftPitch;
 		bool m_shiftPlayDir;
 		bool m_tglSubToPre;
+		bool m_shiftSubVol;
 
 	signals:
 		//void signal_encChanged(int val);
 		void signal_mainVolume(float relVal);
 		void signal_currentPan(float relVal);
 		void signal_bpmChanged(float val);
+		void signal_erpChanged(quint8 v1, qint8 v2);
 
 		void signal_button00Pressed();
 		void signal_button01Pressed();
 		void signal_button02Pressed();
 		void signal_button03Pressed();
-		void signal_button04Pressed(bool state);
+		void signal_button04Pressed();
 		void signal_button05Pressed();
 		void signal_button06Pressed();
-		void signal_button07Pressed();
-		void signal_button08Pressed();
-		void signal_button09Pressed();
+		void signal_button07Pressed(bool state);	// mute
+		void signal_button08Pressed();				// unmute all
+		void signal_button09Pressed();				// last mute
 		void signal_button10Pressed();
 		void signal_button11Pressed();
 };

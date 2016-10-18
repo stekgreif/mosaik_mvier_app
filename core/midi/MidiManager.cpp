@@ -92,13 +92,18 @@ void MidiManager::connectFavouriteDevice(void)
 				case 1:
 				{
 					m_hwui01 = new Hwui_01( m_deviceMap.key( i ) );
-					connect( m_hwui01, SIGNAL(signal_button04Pressed(bool)),	m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
+					connect( m_hwui01, SIGNAL(signal_button07Pressed(bool)),	m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
 					connect( m_hwui01, SIGNAL(signal_button10Pressed()),        m_parent, SLOT( slot_sampleLoadToCurrentSubchannel() ) );
 					connect( m_hwui01, SIGNAL(signal_button11Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
+
 					connect( m_hwui01, SIGNAL(signal_mainVolume(float)),        m_parent, SLOT( slot_globalMainVolume(float)) );
 					connect( m_hwui01, SIGNAL(signal_currentPan(float)),        m_parent, SLOT( slot_parameterPan(float)) );
 					connect( m_hwui01, SIGNAL(signal_bpmChanged(float)),        m_parent, SLOT( slot_globalChangeBpmRelative(float)) );
+					connect( m_hwui01, SIGNAL(signal_erpChanged(quint8,qint8)),	m_parent, SLOT(slot_erpChanged(quint8,qint8)) );
 
+					//connect( m_hwui01, SIGNAL(signal_muteAndSolo(bool)),		m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
+					connect( m_hwui01, SIGNAL(signal_button08Pressed()),        m_parent, SLOT( slot_parameterUnmuteAll()) );
+					connect( m_hwui01, SIGNAL(signal_button09Pressed()),        m_parent, SLOT( slot_parameterSelectLastMutes()) );
 					break;
 				}
 				case 2:
@@ -111,10 +116,8 @@ void MidiManager::connectFavouriteDevice(void)
 				{
 					m_hwui03 = new Hwui_03( m_deviceMap.key( i ) );
 					connect( m_hwui03, SIGNAL(signal_button10Pressed(int)),     m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
-					connect( m_hwui03, SIGNAL(signal_button10Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
 
 					connect( m_hwui03, SIGNAL(signal_button11Pressed(int)),     m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
-					connect( m_hwui03, SIGNAL(signal_button11Pressed()),		m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
 
 					connect( m_hwui03, SIGNAL(signal_button05Pressed(int)),		m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
 					connect( m_hwui03, SIGNAL(signal_button08Pressed(int)),		m_parent, SLOT( slot_browserChangeCursorPosition(int)) );

@@ -44,28 +44,71 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 	{
 		if( midiBuffer[1] == 5 )
 		{
-			//emit signal_mainVolume( ((float) (midiBuffer[2] - 64)) / 100 ); //works
-			//emit signal_currentPan(((float) (data[2] - 64)) / 100 );	// ??? no visual feedback
-			emit signal_bpmChanged( (float) (data[2] - 64) );
+			if( m_shiftMainVol )
+			{
+				emit signal_mainVolume( ((float) (midiBuffer[2] - 64)) / 100 ); //works
+			}
+			else if( m_shiftSubVol )
+			{
+				emit signal_erpChanged(4, (data[2] - 64));	// subch vol
+			}
+			else if( m_shiftPan )
+			{
+				emit signal_currentPan(((float) (data[2] - 64)) / 100 );	// works
+			}
+			else if( m_shiftBpm )
+			{
+				emit signal_bpmChanged( (float) (data[2] - 64) );
+			}
 		}
 	}
-	else if( midiBuffer[0] == 0x80 )
+	else if( midiBuffer[0] == 0x90 )
 	{
 		switch( midiBuffer[1] )
 		{
+#if 0
 			case  0:	emit signal_button00Pressed(); break;
 			case  1:	emit signal_button01Pressed(); break;
 			case  2:	emit signal_button02Pressed(); break;
 			case  3:	emit signal_button03Pressed(); break;
-			case  4:
+#endif
+			case  0:
 			{
-				m_mute = !m_mute;
-				emit signal_button04Pressed(m_mute);
-				break;
+				m_shiftMainVol = true;
+				m_shiftSubVol = false;
+				m_shiftPan = false;
+				m_shiftBpm = false;
 			}
+			case  1:
+			{
+				m_shiftMainVol = false;
+				m_shiftSubVol = true;
+				m_shiftPan = false;
+				m_shiftBpm = false;
+			}
+			case  2:
+			{
+				m_shiftMainVol = false;
+				m_shiftSubVol = false;
+				m_shiftPan = true;
+				m_shiftBpm = false;
+			}
+			case  3:
+			{
+				m_shiftMainVol = false;
+				m_shiftSubVol = false;
+				m_shiftPan = false;
+				m_shiftBpm = true;
+			}
+			case  4:	emit signal_button04Pressed(); break;
 			case  5:	emit signal_button05Pressed(); break;
 			case  6:	emit signal_button06Pressed(); break;
-			case  7:	emit signal_button07Pressed(); break;
+			case  7:
+			{
+				m_mute = !m_mute;
+				emit signal_button07Pressed(m_mute);
+				break;
+			}
 			case  8:	emit signal_button08Pressed(); break;
 			case  9:	emit signal_button09Pressed(); break;
 			case 10:	emit signal_button10Pressed(); break;
