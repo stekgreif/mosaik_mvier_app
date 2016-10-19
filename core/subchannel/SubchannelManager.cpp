@@ -9,9 +9,9 @@ SubchannelManager::SubchannelManager()
     : m_currentSubchannel(0)
     , m_currentChannel(0)
 {
-    m_bpm = 110.0;
-    m_mainVolume = 0.5;
-    m_preVolume = 0.1;
+	m_bpm = 178.0;
+	m_mainVolume = 0.9;
+	m_preVolume = 0.7;
     m_currentSubchannelToHeadphones = 0.0;
     m_lastMuteStates.resize(SETTINGS_NUM_OF_SUBS);
 

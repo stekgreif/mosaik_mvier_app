@@ -63,7 +63,8 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 	m_labelBpm = new QLabel(this);
 	m_labelBpm->setObjectName("bpmLabel");
 	m_labelBpm->move( (offset + interval*2) * screenWidth/100, 98*screenHeight/100 );
-	m_labelBpm->setText( QString::number( subchannelManager().getBpm(), 'f', 2 ) + "  bpm" );
+	//m_labelBpm->setText( QString::number( subchannelManager().getBpm(), 'f', 2 ) + "  bpm" );
+	m_labelBpm->setText( QString::number( subchannelManager().getBpm() ) + " bpm" );
 
 	m_labelStepCounter = new QLabel(this);
     m_labelStepCounter->setObjectName("stepcounter");
@@ -150,7 +151,7 @@ void UiManager::refreshEnvelope()
 
 void UiManager::refreshStepCounterAbsolute(quint64 cnt)
 {
-    m_labelStepCounter->setText(QString::number(cnt%64));
+	m_labelStepCounter->setText( QString::number(cnt%256) + QString::number(cnt%64) );
     m_labelStepCounter->adjustSize();
 }
 
