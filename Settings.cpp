@@ -5,7 +5,7 @@
 #include <QString>
 #include <QList>
 
-
+//#define _MVIER10
 
 
 Settings::Settings()
@@ -88,14 +88,14 @@ void Settings::setConnectedMidiDevicePort(QString port)
 
 void Settings::setScreenSize(QRect screen)
 {
-#if 1 // working
+#ifndef _MVIER10
     m_screenSize.setWidth(screen.width());
     m_screenSize.setHeight(screen.height());
 #endif
 
-#if 0 // test
-	m_screenSize.setWidth(1400);
-	m_screenSize.setHeight(800);
+#ifdef _MVIER10
+	m_screenSize.setWidth(1366);
+	m_screenSize.setHeight(768);
 #endif
 
     qDebug() <<Q_FUNC_INFO <<"screensize:" <<m_screenSize;

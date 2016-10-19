@@ -48,28 +48,29 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 
     m_stackedPages->setCurrentIndex(0);
 
+	const int interval = 6;
+	const int offset = 77;
 
-    /** right side elements **/
-    m_labelStepCounter = new QLabel(this);
+	/** bottom labels **/
+	m_labelPreVol = new QLabel("pre vol", this);
+	m_labelPreVol->setObjectName("headLabel");
+	m_labelPreVol->move( (offset + interval*0) * screenWidth/100, 98*screenHeight/100 );
+
+	m_labelMainVol = new QLabel("main vol", this);
+	m_labelMainVol->setObjectName("headLabel");
+	m_labelMainVol->move( (offset + interval*1) * screenWidth/100, 98*screenHeight/100 );
+
+	m_labelBpm = new QLabel(this);
+	m_labelBpm->setObjectName("bpmLabel");
+	m_labelBpm->move( (offset + interval*2) * screenWidth/100, 98*screenHeight/100 );
+	m_labelBpm->setText( QString::number( subchannelManager().getBpm(), 'f', 2 ) + "  bpm" );
+
+	m_labelStepCounter = new QLabel(this);
     m_labelStepCounter->setObjectName("stepcounter");
-	m_labelStepCounter->move( 95* screenWidth/100, 98*screenHeight/100 );
+	m_labelStepCounter->move( (offset + interval*3) * screenWidth/100, 98*screenHeight/100 );
     m_labelStepCounter->setText("NOT PLAYING");
 
-
-    /** head labels **/
-    m_labelBpm = new QLabel(this);
-    m_labelBpm->setObjectName("bpmLabel");
-	m_labelBpm->move( 90* screenWidth/100, 98*screenHeight/100 );
-    m_labelBpm->setText( QString::number( subchannelManager().getBpm(), 'f', 2 ) + "  bpm" );
-
-    m_labelMainVol = new QLabel("main vol", this);
-    m_labelMainVol->setObjectName("headLabel");
-	m_labelMainVol->move( 87* screenWidth/100, 98*screenHeight/100 );
-    refreshMainVol();
-
-    m_labelPreVol = new QLabel("pre vol", this);
-    m_labelPreVol->setObjectName("headLabel");
-	m_labelPreVol->move( 83* screenWidth/100, 98*screenHeight/100 );
+	refreshMainVol();
     refreshPreVol();
 
 

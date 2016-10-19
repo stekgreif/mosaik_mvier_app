@@ -34,13 +34,7 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 	int screenWidth = settings().getScreenSize().width();
 
 
-    /** ui layout -- use these to change to position of widgets on the page - xPos, yPos, width, height **/
-    m_sampleWindowAttributes  = new QRect(  20,  20, 780, 300 );
-	//m_sampleLabelAttributes   = new QPoint(635, 350);
-	//m_patternWidgetAttributes = new QRect( 635, 600, 400, 400 );
-
-
-    /** sample value labels **/
+	/** sample value labels - upper left corner of subchannel ui **/
     m_labelVarPathAndName = new QLabel("-", this);
     m_labelVarPathAndName->setFont(varLabelFont);
     m_labelVarPathAndName->setObjectName("labelVarPathAndName");
@@ -63,30 +57,14 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 	m_sampleWaveform->setStyleSheet("QLabel#labelImage {background-color: rgb(100,100,120);}");
 	m_sampleWaveform->setPixmap(*m_pixmap);
 
-	QSize envSize;
 
-#if 1 // new, working
+	// new, working; HINT: change size in envSive AND m_envelope in order to work
+	QSize envSize;
 	envSize.setWidth( 40*screenWidth/100 );
 	envSize.setHeight( 25*screenHeight/100 );
 	m_envelope = new DrawEnvelope(envSize, this);
 	m_envelope->move( 1.3* screenWidth/100, 3* screenHeight/100 );
 	m_envelope->setFixedSize( 40* screenWidth/100, 25* screenHeight/100 );
-
-#endif
-
-
-#if 0 // old
-	envSize.setHeight( m_sampleWindowAttributes->height() );
-	envSize.setWidth( m_sampleWindowAttributes->width() );
-	m_envelope = new DrawEnvelope(envSize, this);
-	//m_envelope->move(m_sampleWindowAttributes->topLeft());
-	m_envelope->move(m_sampleWindowAttributes->left(), m_sampleWindowAttributes->top());
-	m_envelope->setFixedHeight(m_sampleWindowAttributes->height());
-	m_envelope->setFixedWidth(m_sampleWindowAttributes->width());
-#endif
-
-
-
 
 
 	/** move out of nirvana if needed **/
@@ -102,7 +80,6 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
 
 	//m_pattern = new Pattern(m_mosaikMiniApp, this);
 	//m_pattern->move(50,500);
-
 
 
 	/** connect **/
