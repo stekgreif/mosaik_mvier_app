@@ -20,9 +20,10 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 
     this->setObjectName("uiManager");
 
-    // screen size of actual screen
-    int h = settings().getScreenSize().height();
-    int w = settings().getScreenSize().width();
+
+	/** size of actual screen **/
+	int screenHeight = settings().getScreenSize().height();
+	int screenWidth = settings().getScreenSize().width();
 
     /** pages **/
     m_pageSubchannel = new PageSubchannel(m_mosaikMiniApp, this);
@@ -30,58 +31,50 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     m_pageTest = new PageTest(m_mosaikMiniApp);
 
     m_pageSelection = new PageSelection(this);
-    m_pageSelection->setFixedSize(h,h);
+	m_pageSelection->setFixedSize(screenHeight,screenHeight);
     m_pageSelection->move(0,0);
 
 
     /** page stack main element - position of right ui side **/
-    //m_stackedPages = new QStackedWidget(this);
     m_stackedPages = new QTabWidget(this);
     m_stackedPages->setObjectName("pageStack");
-    m_stackedPages->setFixedSize(w-h-10 , h-25);
-    m_stackedPages->move(h+4, 20);
-	m_stackedPages->setTabPosition(QTabWidget::East);
+	m_stackedPages->setFixedSize(screenWidth-screenHeight-10, screenHeight);
+	m_stackedPages->move(screenHeight+4, 0);
+	m_stackedPages->setTabPosition(QTabWidget::South);
 
-    //m_stackedPages->addWidget(m_pageSubchannel);
-    //m_stackedPages->addWidget(m_pageInfo);
 	m_stackedPages->addTab(m_pageSubchannel, "      Sub      ");
 	m_stackedPages->addTab(m_pageInfo, "      Info      ");
 	m_stackedPages->addTab(m_pageTest, "      Test      ");
 
-
     m_stackedPages->setCurrentIndex(0);
-
-
 
 
     /** right side elements **/
     m_labelStepCounter = new QLabel(this);
     m_labelStepCounter->setObjectName("stepcounter");
-    m_labelStepCounter->move(1800-POS_OFFSET,2);
+	m_labelStepCounter->move( 95* screenWidth/100, 98*screenHeight/100 );
     m_labelStepCounter->setText("NOT PLAYING");
 
 
     /** head labels **/
     m_labelBpm = new QLabel(this);
     m_labelBpm->setObjectName("bpmLabel");
-    m_labelBpm->move(1700-POS_OFFSET, 2);
+	m_labelBpm->move( 90* screenWidth/100, 98*screenHeight/100 );
     m_labelBpm->setText( QString::number( subchannelManager().getBpm(), 'f', 2 ) + "  bpm" );
-
 
     m_labelMainVol = new QLabel("main vol", this);
     m_labelMainVol->setObjectName("headLabel");
-    m_labelMainVol->move(1450-POS_OFFSET, 2);
+	m_labelMainVol->move( 87* screenWidth/100, 98*screenHeight/100 );
     refreshMainVol();
 
     m_labelPreVol = new QLabel("pre vol", this);
     m_labelPreVol->setObjectName("headLabel");
-    m_labelPreVol->move(1590-POS_OFFSET, 2);
+	m_labelPreVol->move( 83* screenWidth/100, 98*screenHeight/100 );
     refreshPreVol();
 
 
     /** signal slot connections **/
     connect(m_pageSelection,  SIGNAL(signal_subchannelSelectionPadPressed(int)), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
-    //connect(m_pageSubchannel, SIGNAL(signal_btnLoadSamplePressed()), this, SLOT(refresh()) );
 
 #if 0
     m_timer = new QTimer;
@@ -167,19 +160,19 @@ void UiManager::refreshVolPoti()
 
 void UiManager::refreshBpm()
 {
-    m_labelBpm->setText( QString::number( subchannelManager().getBpm(), 'f', 2 ) + "  bpm" );
+	m_labelBpm->setText( QString::number(subchannelManager().getBpm(), 'f', 2 ) + "bpm" );
     m_pageSubchannel->refreshLabels();
     m_pageSubchannel->refreshStepAxis();
 }
 
 void UiManager::refreshPreVol()
 {
-    m_labelPreVol->setText( "Pre Vol: " + QString::number( subchannelManager().getPreVolume(), 'f', 2 ) );
+	m_labelPreVol->setText( "HP: " + QString::number( subchannelManager().getPreVolume(), 'f', 2 ) );
 }
 
 void UiManager::refreshMainVol()
 {
-    m_labelMainVol->setText( "Main Vol: " + QString::number( subchannelManager().getMainVolume(), 'f', 2 ) );
+	m_labelMainVol->setText( "PA: " + QString::number( subchannelManager().getMainVolume(), 'f', 2 ) );
 }
 
 void UiManager::refreshMutePads()

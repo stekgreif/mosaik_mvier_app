@@ -11,11 +11,10 @@ Browser::Browser(QWidget *uiParent)
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
 
-    /** change size and position here (x, y, w, h) **/
-    m_browserWindowSizeAndPosition = new QRect( 0,
-                                                0,
-                                                settings().getScreenSize().width() - settings().getScreenSize().height() - 10,
-                                                settings().getScreenSize().height()/3);
+
+	/** size of actual screen **/
+	int screenHeight = settings().getScreenSize().height();
+	int screenWidth = settings().getScreenSize().width();
 
 
     /** path **/
@@ -43,15 +42,15 @@ Browser::Browser(QWidget *uiParent)
 
     /** file browser **/
     m_treeView = new BrowserTree(this);
-    //m_treeView->move(m_browserWindowSizeAndPosition->topLeft());
-    m_treeView->setFixedSize(m_browserWindowSizeAndPosition->size());
-    //m_treeView->setFixedSize(this->size());
-    m_fileSystem = new QFileSystemModel(this);
+	m_treeView->setFixedSize( 40* screenWidth/100, 63* screenHeight/100 );
+
+	m_fileSystem = new QFileSystemModel(this);
     m_fileSystem->setFilter( QDir::NoDotAndDotDot | QDir::AllDirs | QDir::Files );
     m_fileSystem->setNameFilters( QStringList() <<"*.wav" <<"*.WAV" );
     m_fileSystem->setNameFilterDisables(false); // hide other files than wav and do not gray them out
     m_fileSystem->setRootPath(m_defaultPath);
-    m_treeView->setObjectName("treeView");
+
+	m_treeView->setObjectName("treeView");
     m_treeView->setStyleSheet("QTreeView#treeView {background-color: rgb(90,90,90);}");
     m_treeView->setFocus();
     m_treeView->setModel(m_fileSystem);

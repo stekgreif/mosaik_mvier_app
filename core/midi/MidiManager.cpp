@@ -376,7 +376,7 @@ void MidiManager::setMainVolume(float volume)
 
 void MidiManager::resetHardware()
 {
-	m_rgbwButtons->resetHardware();
+	//m_rgbwButtons->resetHardware();
 }
 
 void MidiManager::subToPreLed(bool state)

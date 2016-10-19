@@ -12,6 +12,7 @@
 #include "MosaikTypes.h"
 #include "ui/UiManager.h"
 #include "MosaikMiniApp.h"
+#include "Settings.h"
 
 
 
@@ -28,10 +29,15 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_rightChannelPen.setColor( QColor(255,0,0,10) );
 
 
+	/** size of actual screen **/
+	int screenHeight = settings().getScreenSize().height();
+	int screenWidth = settings().getScreenSize().width();
+
+
     /** ui layout -- use these to change to position of widgets on the page - xPos, yPos, width, height **/
     m_sampleWindowAttributes  = new QRect(  20,  20, 780, 300 );
-    m_sampleLabelAttributes   = new QPoint(635, 350);
-    m_patternWidgetAttributes = new QRect( 635, 600, 400, 400 );
+	//m_sampleLabelAttributes   = new QPoint(635, 350);
+	//m_patternWidgetAttributes = new QRect( 635, 600, 400, 400 );
 
 
     /** sample value labels **/
@@ -39,18 +45,12 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelVarPathAndName->setFont(varLabelFont);
     m_labelVarPathAndName->setObjectName("labelVarPathAndName");
     m_labelVarPathAndName->setStyleSheet("QLabel#labelVarPathAndName {color: rgb(200,200,200)};");
-    m_labelVarPathAndName->move(m_sampleWindowAttributes->left(), m_sampleWindowAttributes->top()-20); //360,160
+	m_labelVarPathAndName->move( 1.3* screenWidth/100, 1* screenHeight/100 );
 
 
     /** BROWSER **/
     m_browser = new Browser(this);
-    m_browser->move(5,415); //2016-08-10 change browser pos here
-
-
-    m_btnTestPlayDirection = new QPushButton(this);
-    m_btnTestPlayDirection->setFixedSize(50,50);
-    m_btnTestPlayDirection->move(10,340);
-    m_btnTestPlayDirection->setText(">");
+	m_browser->move( 1.3* screenWidth/100, 32* screenHeight/100 );
 
     m_pixmap = new QPixmap;
     m_pixmap->fill(Qt::white);
@@ -63,30 +63,47 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_labelImage->setPixmap(*m_pixmap);
 
 
-    /** envelope **/
-    QSize envSize;
-    const int frameSize = 0;
-    envSize.setHeight(m_sampleWindowAttributes->height());
-    envSize.setWidth(m_sampleWindowAttributes->width() - frameSize);
-    m_envelope = new DrawEnvelope(envSize, this);
-    //m_envelope->move(m_sampleWindowAttributes->topLeft());
-    m_envelope->move(m_sampleWindowAttributes->left(), m_sampleWindowAttributes->top());
-    m_envelope->setFixedHeight(m_sampleWindowAttributes->height());
-    m_envelope->setFixedWidth(m_sampleWindowAttributes->width());
+	/** envelope **/
+	QSize envSize;
 
+#if 0 // new, not working
+	envSize.setHeight( 25*screenHeight/100 );
+	envSize.setWidth( 25*screenWidth/100 );
+	m_envelope = new DrawEnvelope(envSize, this);
+	m_envelope->move( 1.3* screenWidth/100, 3* screenHeight/100 );
+	m_envelope->setFixedSize( 38* screenWidth/100, 60* screenHeight/100 );
+
+#endif
+
+
+#if 1 // old
+	envSize.setHeight( m_sampleWindowAttributes->height() );
+	envSize.setWidth( m_sampleWindowAttributes->width() );
+	m_envelope = new DrawEnvelope(envSize, this);
+	//m_envelope->move(m_sampleWindowAttributes->topLeft());
+	m_envelope->move(m_sampleWindowAttributes->left(), m_sampleWindowAttributes->top());
+	m_envelope->setFixedHeight(m_sampleWindowAttributes->height());
+	m_envelope->setFixedWidth(m_sampleWindowAttributes->width());
+#endif
+
+
+
+
+
+	/** move out of nirvana if needed **/
+	m_btnTestPlayDirection = new QPushButton(this);
+	m_btnTestPlayDirection->setFixedSize(50,50);
+	m_btnTestPlayDirection->move( 99*screenWidth/100, 90*screenHeight/100);
+	m_btnTestPlayDirection->setText(">");
 
     m_btnLoadSample = new QPushButton(this);
-    m_btnLoadSample->move(120,340);
+	m_btnLoadSample->move( 99*screenWidth/100, 90*screenHeight/100);
     m_btnLoadSample->setFixedSize(50,50);
     m_btnLoadSample->setText("load \n sample");
 
 	//m_pattern = new Pattern(m_mosaikMiniApp, this);
 	//m_pattern->move(50,500);
 
-
-	/** toolbox test **/
-	m_toolBoxMute = new ToolBoxMute(this);
-	m_toolBoxMute->move(50,800);
 
 
 	/** connect **/
