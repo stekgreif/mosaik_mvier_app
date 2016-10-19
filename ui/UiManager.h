@@ -53,6 +53,7 @@ class UiManager : public QWidget
         PageSelection  *m_pageSelection;
         QTimer *m_timer;
 
+		qint64 m_phraseCnt;
 
 
 
