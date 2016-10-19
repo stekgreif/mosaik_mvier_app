@@ -13,8 +13,10 @@ DrawEnvelope::DrawEnvelope(QSize size, QWidget *parent)
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
     m_widgetSize = new QSize;
-    m_widgetSize->setHeight(size.height());
+	m_widgetSize->setHeight(size.height());
+	qDebug() <<Q_FUNC_INFO <<"h: " <<m_widgetSize->height();
     m_widgetSize->setWidth(size.width());
+	qDebug() <<Q_FUNC_INFO <<"w: " <<m_widgetSize->width();
 
     m_envelope = new envelope_t;
 }

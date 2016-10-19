@@ -27,7 +27,7 @@ void Envelope::setStartPointRel(float start)
     if( fInAbs < 0 )
         fInAbs = 0;
 
-    if( (startAbs >= 0) && (startAbs <= m_envelope.fadeIn+0.003) && (fInAbs <= m_envelope.fadeOut)  )
+	if( (startAbs >= 0) && (startAbs <= m_envelope.fadeIn+0.01) && (fInAbs <= m_envelope.fadeOut)  )
     {
         m_envelope.start  = startAbs;
         m_envelope.fadeIn = fInAbs;
@@ -56,7 +56,7 @@ void Envelope::setFadeOutPointRel(float fadeOut)
 {
     float fOutAbs = fadeOut + m_envelope.fadeOut;
 
-    if( (fOutAbs >= m_envelope.fadeIn) && (fOutAbs <= m_envelope.end) )
+	if( (fOutAbs >= m_envelope.fadeIn) && (fOutAbs <= m_envelope.end) )
     {
         m_envelope.fadeOut = fOutAbs;
         qDebug() <<Q_FUNC_INFO <<"fade out point changed to:" <<fOutAbs;
@@ -71,7 +71,7 @@ void Envelope::setEndPointRel(float end)
     float endAbs  = end + m_envelope.end;
     float fOutAbs = end + m_envelope.fadeOut;
 
-    if( (endAbs >= m_envelope.fadeOut-0.003) && (endAbs <= 1) && (fOutAbs >= m_envelope.fadeIn) )
+	if( (endAbs >= m_envelope.fadeOut-0.01) && (endAbs <= 1) && (fOutAbs >= m_envelope.fadeIn) )
     {
         m_envelope.end     = endAbs;
         m_envelope.fadeOut = fOutAbs;

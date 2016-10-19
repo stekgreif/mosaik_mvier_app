@@ -52,31 +52,30 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_browser = new Browser(this);
 	m_browser->move( 1.3* screenWidth/100, 32* screenHeight/100 );
 
+
+	/** sample waveform and envelope **/
     m_pixmap = new QPixmap;
     m_pixmap->fill(Qt::white);
+	m_sampleWaveform = new QLabel(this);
+	m_sampleWaveform->move( 1.3* screenWidth/100, 3* screenHeight/100 );
+	m_sampleWaveform->setFixedSize( 40* screenWidth/100, 25* screenHeight/100 );
+	m_sampleWaveform->setObjectName("labelImage");
+	m_sampleWaveform->setStyleSheet("QLabel#labelImage {background-color: rgb(100,100,120);}");
+	m_sampleWaveform->setPixmap(*m_pixmap);
 
-    m_labelImage = new QLabel(this);
-    m_labelImage->move(20, 20);
-    m_labelImage->setFixedSize(780,300);
-    m_labelImage->setObjectName("labelImage");
-    m_labelImage->setStyleSheet("QLabel#labelImage {background-color: rgb(100,100,120);}");
-    m_labelImage->setPixmap(*m_pixmap);
-
-
-	/** envelope **/
 	QSize envSize;
 
-#if 0 // new, not working
+#if 1 // new, working
+	envSize.setWidth( 40*screenWidth/100 );
 	envSize.setHeight( 25*screenHeight/100 );
-	envSize.setWidth( 25*screenWidth/100 );
 	m_envelope = new DrawEnvelope(envSize, this);
 	m_envelope->move( 1.3* screenWidth/100, 3* screenHeight/100 );
-	m_envelope->setFixedSize( 38* screenWidth/100, 60* screenHeight/100 );
+	m_envelope->setFixedSize( 40* screenWidth/100, 25* screenHeight/100 );
 
 #endif
 
 
-#if 1 // old
+#if 0 // old
 	envSize.setHeight( m_sampleWindowAttributes->height() );
 	envSize.setWidth( m_sampleWindowAttributes->width() );
 	m_envelope = new DrawEnvelope(envSize, this);
@@ -134,7 +133,7 @@ void PageSubchannel::refreshSamplePlot()
         qDebug() <<Q_FUNC_INFO  <<"Refresh sample plot.";
 
         QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample();
-        m_labelImage->setPixmap(*samplePtr->getSampleStructPointer()->pixmap);
+		m_sampleWaveform->setPixmap(*samplePtr->getSampleStructPointer()->pixmap);
     }
     else
     {
@@ -144,7 +143,7 @@ void PageSubchannel::refreshSamplePlot()
 
 void PageSubchannel::resetSamplePlot()
 {
-    m_labelImage->setPixmap(*m_pixmap);
+	m_sampleWaveform->setPixmap(*m_pixmap);
 }
 
 

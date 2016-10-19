@@ -88,8 +88,15 @@ void Settings::setConnectedMidiDevicePort(QString port)
 
 void Settings::setScreenSize(QRect screen)
 {
+#if 1 // working
     m_screenSize.setWidth(screen.width());
     m_screenSize.setHeight(screen.height());
+#endif
+
+#if 0 // test
+	m_screenSize.setWidth(1400);
+	m_screenSize.setHeight(800);
+#endif
 
     qDebug() <<Q_FUNC_INFO <<"screensize:" <<m_screenSize;
 }

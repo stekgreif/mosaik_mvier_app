@@ -49,9 +49,9 @@ void MidiManager::connectToAllMidiDevices()
 		m_deviceIdentifier.at(i)->midiConnect(hwMidiPortList.at(i));
 	}
 
-	/* wait for 100ms, non blocking so midi messages can be reveived */
+	/* wait for x ms, non blocking so midi messages can be reveived */
 	QEventLoop loop;
-	QTimer::singleShot( 100, &loop, SLOT(quit()) );
+	QTimer::singleShot( 250, &loop, SLOT(quit()) );
 	loop.exec();
 
 
