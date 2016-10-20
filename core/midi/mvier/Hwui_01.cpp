@@ -83,7 +83,7 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 			case  2:	emit signal_button02Pressed(); break;
 			case  3:	emit signal_button03Pressed(); break;
 #endif
-			case  0:
+			case  4:
 			{
 			qDebug() <<Q_FUNC_INFO <<"mail vol";
 				m_shiftMainVol = true;
@@ -93,7 +93,7 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 				m_shiftHpVol = false;
 				break;
 			}
-			case  1:
+			case  5:
 			{
 				qDebug() <<Q_FUNC_INFO <<"bpm";
 				m_shiftBpm = true;
@@ -103,7 +103,7 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 				m_shiftHpVol = false;
 				break;
 			}
-			case  2:
+			case  1:
 			{
 				qDebug() <<Q_FUNC_INFO <<"sub vol";
 				m_shiftSubVol = true;
@@ -123,8 +123,7 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 				m_shiftHpVol = false;
 				break;
 			}
-			case  4:	emit signal_button04Pressed(); break;
-			case  5:
+			case  6:
 			{
 				qDebug() <<Q_FUNC_INFO <<"hp vol";
 				m_shiftHpVol = true;
@@ -134,14 +133,13 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 				m_shiftBpm = false;
 				break;
 			}
-			case  6:	emit signal_button06Pressed(); break;
-			case  7:
+			case  7:	emit signal_button07Pressed(); break;
+			case  8:
 			{
 				m_mute = !m_mute;
-				emit signal_button07Pressed(m_mute);
+				emit signal_button08Pressed(m_mute);
 				break;
 			}
-			case  8:	emit signal_button08Pressed(); break;
 			case  9:	emit signal_button09Pressed(); break;
 			case 10:	emit signal_button10Pressed(); break;
 			case 11:	emit signal_button11Pressed(); break;

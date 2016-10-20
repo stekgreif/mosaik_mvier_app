@@ -49,9 +49,9 @@ class Hwui_01 : public QObject
 		void signal_button04Pressed();
 		void signal_button05Pressed();
 		void signal_button06Pressed();
-		void signal_button07Pressed(bool state);	// mute
-		void signal_button08Pressed();				// unmute all
-		void signal_button09Pressed();				// last mute
+		void signal_button07Pressed();
+		void signal_button08Pressed(bool state);
+		void signal_button09Pressed();
 		void signal_button10Pressed();
 		void signal_button11Pressed();
 };
