@@ -64,6 +64,7 @@ void Hwui_03::slot_midiMsgReceived(quint8 *data)
 			case  6:
 			{
 				m_curSubToPre = !m_curSubToPre;
+				qDebug() <<Q_FUNC_INFO <<"m_curSubToPre:" <<m_curSubToPre;
 				emit signal_button06Pressed(m_curSubToPre);
 				break;
 			}

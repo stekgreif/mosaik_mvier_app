@@ -104,7 +104,7 @@ void MidiManager::connectFavouriteDevice(void)
 					connect( m_hwui01, SIGNAL(signal_button09Pressed()),        m_parent, SLOT( slot_parameterSelectLastMutes()) );
 
 					connect( m_hwui01, SIGNAL(signal_mainVolume(float)),        m_parent, SLOT( slot_globalMainVolume(float)) );
-					connect( m_hwui01, SIGNAL(signal_headphoneVolume(float)),                m_parent, SLOT( slot_globalPreVolume(float)) );
+					connect( m_hwui01, SIGNAL(signal_headphoneVolume(float)),   m_parent, SLOT( slot_globalPreVolume(float)) );
 					break;
 				}
 				case 2:
@@ -127,7 +127,10 @@ void MidiManager::connectFavouriteDevice(void)
 					connect( m_hwui03, SIGNAL(signal_button09Pressed()),		m_parent, SLOT( slot_browserOpenFolder() ) );
 
 
+					/** prelisten **/
+					connect( m_hwui03, SIGNAL(signal_button04Pressed()),        m_parent, SLOT( slot_prelistenSubchannelSample()) );
 					connect( m_hwui03, SIGNAL(signal_button06Pressed(bool)),    m_parent, SLOT( slot_parameterCurrentSubToPre(bool)) );
+
 
 					break;
 				}
