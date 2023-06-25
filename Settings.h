@@ -10,7 +10,7 @@
     USER SETTINGS
 *******************************************************************************/
 
-#define SETTINGS_INIT_WITH_AUDIO        false
+#define SETTINGS_INIT_WITH_AUDIO        false//true
 #define SETTINGS_START_WITH_FULL_SCREEN true
 #define SETTINGS_SUBS_PER_ROW           6
 
@@ -43,7 +43,6 @@ class Settings
         int getChannelId(int pos);
         int getChannelPos(int id);
 
-#if 1 //
         int getNumberOfSubchannelsTotal(void);
         int getNumberOfSubchannelsPerRow(void);
         int getNumberOfSubchannelsPerCollum(void);
@@ -56,7 +55,6 @@ class Settings
         QPoint getCoordinatesOfSubchannel(int sub);
         QList<int> getSubchannelsOfChannel(int ch);
         int getRelativeSubchannel(int sub);
-#endif
 
         QList<QString> getFavouriteMidiDeviceList(void);
 
@@ -65,14 +63,12 @@ class Settings
         QString getConnectedMidiDevicePort(void);
         void    setConnectedMidiDevicePort(QString port);
 
-
         bool initWithAudio(void);
         bool initWithHwMidiIn(void);
         bool initWithHwMidiOut(void);
 
         QString getPageName(int key);
         int getNumberOfPages(void);
-
 
         void setScreenSize(QRect screen);
         QSize getScreenSize(void);

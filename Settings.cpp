@@ -226,6 +226,7 @@ void Settings::loadSubchannelMap(void)
             m_subchannelMap->insert(33, 31);
             m_subchannelMap->insert(34, 34);
             m_subchannelMap->insert(35, 35);
+            break;
 
         case 16:
             // id, pos
@@ -247,7 +248,7 @@ void Settings::loadSubchannelMap(void)
             m_subchannelMap->insert(15,15);
             m_subchannelMap->insert(16,16);
 
-    default:
+        default:
             break;
     }
 

@@ -550,7 +550,7 @@ void SubchannelManager::setCurrentPlayDirection(bool direction)
 
 bool SubchannelManager::getCurrentPlayDirection()
 {
-    m_subchannel.at(m_currentSubchannel)->getPlayDirection();
+    return m_subchannel.at(m_currentSubchannel)->getPlayDirection();
 }
 
 

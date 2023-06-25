@@ -74,8 +74,8 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
         subchannelManager().setBpm(randomBpm);
         m_alsaPcm->slot_bpmChanged(subchannelManager().getBpm());
         m_uiManager->refreshBpm();
-
         m_alsaPcm->start();
+        qDebug() << "##Alsa started.";
     }
 
     m_stepCounter = -1;

@@ -384,5 +384,6 @@ void MidiManager::resetHardware()
 
 void MidiManager::subToPreLed(bool state)
 {
+    Q_UNUSED(state);
 	//m_midiDevice[0]->subToPreLed(state);
 }

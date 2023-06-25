@@ -25,35 +25,37 @@ AlsaPcm::AlsaPcm()
     : m_sampleRate(44100)
     , m_frameCnt(0)
     , m_barCnt(0)
-    , m_pendingBpmValue(110)
     , m_framesPerStep(6000) // defines the bp: 12000=60
+    , m_pendingBpmValue(110)
     , m_stepCnt(-1)  // so the first step is 0
 {
     //m_sampleRate = 48000;
 
-
+    qDebug() << "## audio start" <<Qt::endl;
     /** set mosaik_hw_params **/
 
 //if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE , SND_PCM_STREAM_PLAYBACK, 0)) < 0 )
-#if 0 // 2015-05-11 original -> works
-    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
+#if 1 // 2015-05-11 original -> works
+    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_1 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
     {
-        fprintf(stderr, "Cannot open audio device %s (%s).\n", PCM_DEVICE, snd_strerror(err));
+        fprintf(stderr, "Cannot open audio device %s (%s).\n", PCM_DEVICE_1, snd_strerror(err));
         exit(1);
     }
 #endif
 
+#if 0
     int err2;
-    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_1 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
+    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_2 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
     {
-        if((err2 = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_2 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
+        if((err2 = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_3 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
         {
             fprintf(stderr, "Cannot open audio device %s (%s) nor %s (%s).\n",
-                    PCM_DEVICE_1, snd_strerror(err), PCM_DEVICE_2, snd_strerror(err2));
+                    PCM_DEVICE_2, snd_strerror(err), PCM_DEVICE_3, snd_strerror(err2));
             exit(1);
         }
+        qDebug() << "##audio device opened";
     }
-
+#endif
 
     if((err = snd_pcm_hw_params_malloc (&m_hwParams)) < 0)
     {
@@ -161,12 +163,12 @@ AlsaPcm::AlsaPcm()
         exit (1);
     }
 
-    qDebug() << "Software parameters initialized.";
+    qDebug() << "## Software parameters initialized.";
 
     /* start thread now! */
     terminateRequest = true;
-
-#if 1
+    qDebug() << "Audio started" <<Qt::endl;
+#if 0
     /* init square buffer */
     int i = 0;
     for(i = 0; i < FRAMES/2; i++)
@@ -221,7 +223,7 @@ int AlsaPcm::playbackCallback(snd_pcm_sframes_t nFrames)
         m_newBpmValue = false;
     }
     /* collect all audio frames */
-    for(int n = 0; n < FRAMES; n++)
+    for(int n = 0; n < nFrames; n++)
     {
         if( (m_frameCnt % m_framesPerStep) == 0 )
         {
@@ -303,7 +305,7 @@ void AlsaPcm::run()
         }
         else
         {
-            m_framesToDeliver = m_framesToDeliver;
+            // m_framesToDeliver = m_framesToDeliver;
         }
 
         /* deliver the data */

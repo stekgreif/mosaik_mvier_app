@@ -5,8 +5,13 @@
 #-------------------------------------------------
 
 QT       += core gui\
-                        printsupport
+            printsupport
 
+
+#find_package(Qt6 REQUIRED COMPONENTS Core5Compat)
+#target_link_libraries(mytarget PRIVATE Qt6::Core5Compat)
+
+greaterThan(QT_MAJOR_VERSION,5): QT += core5compat
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = MosaikMiniApp
