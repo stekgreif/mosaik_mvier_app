@@ -127,5 +127,4 @@ DISTFILES += \
     txt/HowTos.txt \
     txt/cppFragen \
     txt/TodosAndBugs.txt \
-    txt/git_cheat_sheet.txt \
     txt/cpp_cheat_sheet.txt

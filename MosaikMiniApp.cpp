@@ -152,6 +152,7 @@ void MosaikMiniApp::slot_fnrButtonChanged(quint8 id, quint8 val)
             subchannelManager().clearCurrentSubchannelPattern();
             m_uiManager->refresh();
             //m_midiOutRenderer->rstSeqLeds();
+            break;
         default:
             qDebug() <<"default";
             break;
@@ -429,6 +430,7 @@ void MosaikMiniApp::slot_parameterCurrentSubToPre(bool state)
 void MosaikMiniApp::slot_parameterMuteAndSolo(bool state)
 {
     //qDebug() <<Q_FUNC_INFO <<"state" <<state;
+    Q_UNUSED(state);
     m_uiManager->slot_toggleMuteAndSolo();
 }
 
@@ -700,7 +702,7 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
 
             for (int i = 0; i < m_data.size()/3; i++)
             {
-                m_data[3*i+0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
+                m_data[3*i+0] = (char) (MIDI_MSG_NOTE_ON | MIDI_CH_SEQ);
                 m_data[3*i+1] = i;
                 m_data[3*i+2] = 0x3;
             }

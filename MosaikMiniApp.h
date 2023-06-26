@@ -19,9 +19,6 @@
 #include <QTimer>
 
 
-
-
-
 namespace Ui {
 class MosaikMiniApp;
 }
