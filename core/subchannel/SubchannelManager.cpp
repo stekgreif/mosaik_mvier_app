@@ -14,13 +14,10 @@ SubchannelManager::SubchannelManager()
 	m_preVolume = 0.7;
     m_currentSubchannelToHeadphones = 0.0;
     m_lastMuteStates.resize(SETTINGS_NUM_OF_SUBS);
-
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
     //int numOfSubs = settings().getNumberOfSubchannels();
     int numOfSubs = SETTINGS_NUM_OF_SUBS;
-
-
 
     for(int i = 0; i < SETTINGS_NUM_OF_SUBS; i++)
     {
@@ -48,10 +45,12 @@ SubchannelManager::~SubchannelManager()
     qDebug() <<"~" <<Q_FUNC_INFO;
 }
 
+
 float SubchannelManager::getPreVolume() const
 {
     return m_preVolume;
 }
+
 
 void SubchannelManager::setPreVolumeRelative(float relVal)
 {
@@ -71,6 +70,7 @@ void SubchannelManager::setPreVolumeRelative(float relVal)
     qDebug() <<Q_FUNC_INFO <<"m_preVolume" <<m_preVolume;
 }
 
+
 void SubchannelManager::setPreVolumeAbs(float absVal)
 {
     if( absVal >= 1 )
@@ -81,13 +81,9 @@ void SubchannelManager::setPreVolumeAbs(float absVal)
     {
         absVal  = 0;
     }
-
     m_preVolume = absVal;
-
     qDebug() <<Q_FUNC_INFO <<"m_preVolume" <<m_preVolume;
 }
-
-
 
 
 void SubchannelManager::setBpm(float bpm)
@@ -96,16 +92,19 @@ void SubchannelManager::setBpm(float bpm)
     qDebug() <<Q_FUNC_INFO <<"Bpm set to:" <<m_bpm;
 }
 
+
 void SubchannelManager::setBpmRelative(float change)
 {
     m_bpm = m_bpm + change;
     qDebug() <<Q_FUNC_INFO <<"Bpm changed to:" <<m_bpm;
 }
 
+
 float SubchannelManager::getMainVolume() const
 {
     return m_mainVolume;
 }
+
 
 void SubchannelManager::setMainVolumeRelative(float relVal)
 {
@@ -115,9 +114,9 @@ void SubchannelManager::setMainVolumeRelative(float relVal)
         m_mainVolume = 0.0;
     else
         m_mainVolume += relVal;
-
     qDebug() <<Q_FUNC_INFO <<"m_mainVolume:" <<m_mainVolume;
 }
+
 
 float SubchannelManager::getBpm() const
 {
@@ -125,17 +124,16 @@ float SubchannelManager::getBpm() const
 }
 
 
-
 void SubchannelManager::setCurrentSubchannelVolumeRelative(float vol)
 {
     m_subchannel.at(m_currentSubchannel)->setVolumeRel(vol);
 }
 
+
 float SubchannelManager::getCurrentSubchannelVolume()
 {
     return m_subchannel.at(m_currentSubchannel)->getVolume();
 }
-
 
 
 void SubchannelManager::setStepSequencerCounter(int absoluteStep)
@@ -152,7 +150,6 @@ void SubchannelManager::setStepSequencerCounter(int absoluteStep)
 }
 
 
-
 QBitArray SubchannelManager::hasSample()
 {
     QBitArray returnVal(SETTINGS_NUM_OF_SUBS);
@@ -164,12 +161,10 @@ QBitArray SubchannelManager::hasSample()
 }
 
 
-
 bool SubchannelManager::hasCurrentSubchannelSample()
 {
     return m_subchannel.at(m_currentSubchannel)->hasSample();
 }
-
 
 
 void SubchannelManager::toggleStep(quint8 id)
@@ -181,19 +176,16 @@ void SubchannelManager::toggleStep(quint8 id)
 }
 
 
-
 quint8 SubchannelManager::getStepValue(int id)
 {
     return m_subchannel.at(m_currentSubchannel)->getStepValue(id);
 }
 
 
-
 void SubchannelManager::clearCurrentSubchannelPattern()
 {
     m_subchannel.at(m_currentSubchannel)->clearPattern();
 }
-
 
 
 void SubchannelManager::clearCurrentChannelPattern()
@@ -209,7 +201,6 @@ void SubchannelManager::clearAllPattern()
 }
 
 
-
 QBitArray SubchannelManager::getCurrentSubchannelPattern(void)
 {
     return m_subchannel.at(m_currentSubchannel)->getPattern();
@@ -221,7 +212,6 @@ int SubchannelManager::getCurrentSubchannelStep()
 }
 
 
-
 QByteArray SubchannelManager::getCurrentChannelPattern(void)
 {
     int subchsIdsOfCurrentChannel[4];
@@ -229,9 +219,7 @@ QByteArray SubchannelManager::getCurrentChannelPattern(void)
     QBitArray  curPattern(SETTINGS_NUM_OF_SUBS);
     QByteArray retPattern;
     retPattern.resize(SETTINGS_NUM_OF_SUBS);
-
     QList<int> subchsIds = settings().getSubchannelsOfChannel(m_currentChannel);
-
 
     for(int i = 0; i < 4; i++)
     {
@@ -239,8 +227,6 @@ QByteArray SubchannelManager::getCurrentChannelPattern(void)
         subchsIdsOfCurrentChannel[i] = subchsIds.at(i);   //e.g. 16,17,18,19
         //qDebug() <<Q_FUNC_INFO <<"subchannel" <<i <<":" <<subchsIdsOfCurrentChannel[i];
     }
-
-
 
     // set all return pattern elements to 0
     for( int k = 0; k < 64; k++ )
@@ -295,7 +281,6 @@ int SubchannelManager::getChannelStep(int stepId)
 }
 
 
-
 QBitArray SubchannelManager::getAllHasSteps(void)
 {
     QBitArray returnVal(SETTINGS_NUM_OF_SUBS);
@@ -309,7 +294,6 @@ QBitArray SubchannelManager::getAllHasSteps(void)
 }
 
 
-
 /** ****************************************************************************
     sample
 *******************************************************************************/
@@ -317,7 +301,6 @@ TwoChannelFrame_t SubchannelManager::getFrame(int subchannelId)
 {
     return m_subchannel.at(subchannelId)->getTestFrame();
 }
-
 
 
 #define NUMBER_OF_SUBCHANNELS 16
@@ -450,7 +433,6 @@ QBitArray SubchannelManager::getMuteStates()
     {
         muteStates[i] = m_subchannel.at(i)->isMute();
     }
-
     return muteStates;
 }
 
@@ -653,18 +635,16 @@ void SubchannelManager::setCurrentChannelRelative(int change)
 }
 
 
-
 int SubchannelManager::getCurrentChannelSelection()
 {
     return m_currentChannel;
 }
 
 /*  @return 0..3 */
-int SubchannelManager::getCurrentSubchannelSelelectionRelative()
+int SubchannelManager::getCurrentSubchannelSelectionRelative()
 {
     return settings().getRelativeSubchannel(m_currentSubchannel);
 }
-
 
 int SubchannelManager::getCurrentSubchannelSelection()
 {
@@ -682,13 +662,10 @@ void SubchannelManager::selectNextSubChannel()
     setCurrentSubchannelSelection(pos);
 }
 
-
-
 QList<int> SubchannelManager::getSubchannelIdsOfCurrentChannel()
 {
     return (settings().getSubchannelsOfChannel(m_currentChannel));
 }
-
 
 
 /** ****************************************************************************
@@ -723,10 +700,6 @@ envelope_t SubchannelManager::getEnvelope(int id)
 {
     return m_subchannel.at(id)->getEnvelope();
 }
-
-
-
-
 
 
 /** ****************************************************************************

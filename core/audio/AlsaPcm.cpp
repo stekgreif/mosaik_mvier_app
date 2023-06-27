@@ -1,18 +1,10 @@
-#include "AlsaPcm.h"
 #include <QDebug>
 //#include "mosaik.h"
 #include <math.h>
 #include <QWidget>
+#include "core/audio/AlsaPcm.h"
 #include "core/subchannel/SubchannelManager.h"
 #include "core/subchannel/Sample.h"
-
-/*
-aplay- l
-
-hw:X,Y
-X: card number
-Y: device number
-*/
 
 /// @todo 66 - add function for scanning and selecting audio cards
 /// @todo 73 - make this class a singleton pattern
@@ -36,9 +28,9 @@ AlsaPcm::AlsaPcm()
 
 //if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE , SND_PCM_STREAM_PLAYBACK, 0)) < 0 )
 #if 1 // 2015-05-11 original -> works
-    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_1 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
+    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_0 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
     {
-        fprintf(stderr, "Cannot open audio device %s (%s).\n", PCM_DEVICE_1, snd_strerror(err));
+        fprintf(stderr, "Cannot open audio device %s (%s).\n", PCM_DEVICE_0, snd_strerror(err));
         exit(1);
     }
 #endif
@@ -87,7 +79,7 @@ AlsaPcm::AlsaPcm()
         exit (1);
     }
 
-    if ((err = snd_pcm_hw_params_set_channels (m_pcmHandle, m_hwParams, CHANNELS)) < 0)
+    if ((err = snd_pcm_hw_params_set_channels( m_pcmHandle, m_hwParams, CHANNELS)) < 0)
     {
         fprintf (stderr, "Cannot set channel count (%s).\n", snd_strerror (err));
         exit (1);
@@ -99,18 +91,20 @@ AlsaPcm::AlsaPcm()
         exit (1);
     }
 
-    if (snd_pcm_hw_params_set_buffer_size(m_pcmHandle, m_hwParams, (FRAMES * NUM_OF_PERIODS)) < 0)
+    //if (snd_pcm_hw_params_set_buffer_size(m_pcmHandle, m_hwParams, (FRAMES * NUM_OF_PERIODS)) < 0)
+    snd_pcm_uframes_t buf_size = (FRAMES * NUM_OF_PERIODS);
+    err = snd_pcm_hw_params_set_buffer_size_near(m_pcmHandle, m_hwParams, &buf_size );
+    if( err < 0)
     {
-        fprintf(stderr, "Error setting buffersize.\n");
-        exit (1);
+        fprintf( stderr, "Error setting buffersize: %s\n", snd_strerror (err));
+        //exit (1);
     }
 
-    if ((err = snd_pcm_hw_params (m_pcmHandle, m_hwParams)) < 0)
+    if(( err = snd_pcm_hw_params (m_pcmHandle, m_hwParams)) < 0)
     {
-        fprintf (stderr, "XXX Cannot set parameters (%s).\n", snd_strerror (err));
+        fprintf( stderr, "Cannot set parameters (%s).\n", snd_strerror (err));
         exit (1);
     }
-
 
     /** check hw param settings **/
     snd_pcm_uframes_t bufferSize;

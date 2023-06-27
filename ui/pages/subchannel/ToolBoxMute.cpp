@@ -15,6 +15,7 @@ ToolBoxMute::ToolBoxMute(QWidget *uiParent)	: QWidget(uiParent)
 	m_buttonMute->setCheckable(true);
 }
 
+
 ToolBoxMute::~ToolBoxMute()
 {
 

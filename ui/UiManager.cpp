@@ -3,10 +3,8 @@
 #include <QDebug>
 #include <QPainter>
 #include <QStyleOption>
-
 #include <core/subchannel/SubchannelManager.h>
 #include "Settings.h"
-
 #include "MosaikMiniApp.h"
 
 #define POS_OFFSET 550
@@ -21,7 +19,6 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 
     this->setObjectName("uiManager");
 
-
 	/** size of actual screen **/
 	int screenHeight = settings().getScreenSize().height();
 	int screenWidth = settings().getScreenSize().width();
@@ -35,18 +32,15 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 	m_pageSelection->setFixedSize(screenHeight,screenHeight);
     m_pageSelection->move(0,0);
 
-
     /** page stack main element - position of right ui side **/
     m_stackedPages = new QTabWidget(this);
     m_stackedPages->setObjectName("pageStack");
 	m_stackedPages->setFixedSize(screenWidth-screenHeight-10, screenHeight);
 	m_stackedPages->move(screenHeight+4, 0);
 	m_stackedPages->setTabPosition(QTabWidget::South);
-
 	m_stackedPages->addTab(m_pageSubchannel, "      Sub      ");
 	m_stackedPages->addTab(m_pageInfo, "      Info      ");
 	m_stackedPages->addTab(m_pageTest, "      Test      ");
-
     m_stackedPages->setCurrentIndex(0);
 
 	const int interval = 6;
@@ -75,7 +69,6 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 	refreshMainVol();
     refreshPreVol();
 
-
     /** signal slot connections **/
     connect(m_pageSelection,  SIGNAL(signal_subchannelSelectionPadPressed(int)), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
 
@@ -87,14 +80,11 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 }
 
 
-
 void UiManager::slot_regularTimer()
 {
     //qDebug() <<Q_FUNC_INFO <<"";
     m_pageSelection->refreshTiles();
 }
-
-
 
 
 void UiManager::slot_subchannelSelectionPadTriggert(int id)
@@ -110,7 +100,6 @@ UiManager::~UiManager()
     delete m_stackedPages;
     delete m_pageSelection;
     //delete m_pageSubchannel;
-
     qDebug() <<"~" <<Q_FUNC_INFO;
 }
 
@@ -122,11 +111,9 @@ void UiManager::setPageIndex(int id)
 }
 
 
-
 void UiManager::refresh()
 {
     qDebug() <<Q_FUNC_INFO;
-
     m_pageSelection->refresh();
 
     switch (m_stackedPages->currentIndex())
@@ -216,14 +203,11 @@ void UiManager::slot_browserCloseFolder()
     m_pageSubchannel->slot_browserCloseFolder();
 }
 
-
-
 void UiManager::slot_toggleMuteAndSolo()
 {
     //qDebug() <<Q_FUNC_INFO;
     m_pageSelection->toggleMuteAndSolo();
 }
-
 
 /** browser **/
 void UiManager::loadSelectedSampleToCurrentSubchannel()
@@ -244,8 +228,6 @@ void UiManager::slot_setPathId(int pathId)
     m_pageSubchannel->slot_changePath(pathId);
 }
 
-
-
 int UiManager::getCurrentPageId()
 {
     return m_stackedPages->currentIndex();
@@ -255,9 +237,6 @@ MosaikMiniApp *UiManager::getParent()
 {
     return m_mosaikMiniApp;
 }
-
-
-
 
 void UiManager::paintEvent(QPaintEvent *event)
 {

@@ -55,11 +55,11 @@ class MidiManager : public QObject
 
     protected:
         MidiManager();
-        MidiManager(const MidiManager& other)
+        /*MidiManager(const MidiManager& other)
         {
             //QObject;
             Q_UNUSED(other);
-        }
+        }*/
         ~MidiManager();
 
     private:

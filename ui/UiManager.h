@@ -5,7 +5,6 @@
 #include <QStackedWidget>
 #include <QTimer>
 
-
 #include "ui/pages/subchannel/PageSubchannel.h"
 #include "ui/pages/selection/PageSelection.h"
 #include "ui/pages/info/PageInfos.h"
@@ -32,10 +31,8 @@ class UiManager : public QWidget
         PageInfos *m_pageInfo;
         PageTest *m_pageTest;
 
-
     protected:
         void paintEvent(QPaintEvent *event);
-
 
     private:
         MosaikMiniApp *m_mosaikMiniApp;
@@ -44,10 +41,10 @@ class UiManager : public QWidget
         QTabWidget *m_stackedPages;
 
         /* side panels */
-        QLabel              *m_labelStepCounter;
-        QLabel              *m_labelBpm;
-        QLabel              *m_labelMainVol;
-        QLabel              *m_labelPreVol;
+        QLabel *m_labelStepCounter;
+        QLabel *m_labelBpm;
+        QLabel *m_labelMainVol;
+        QLabel *m_labelPreVol;
 
         /* pages */
         PageSelection  *m_pageSelection;
@@ -55,17 +52,12 @@ class UiManager : public QWidget
 
 		qint64 m_phraseCnt;
 
-
-
-
     signals:
         void signal_subchannelSelectionPadTriggert(int id);
-
 
     private slots:
         void slot_subchannelSelectionPadTriggert(int id);
         void slot_regularTimer(void);
-
 
     public slots:
         void refresh(void);
@@ -86,10 +78,8 @@ class UiManager : public QWidget
 
         void slot_toggleMuteAndSolo();
 
-
         void loadSelectedSampleToCurrentSubchannel(void);
         void loadSelectedSampleToPrelisten(void);
         void slot_setPathId(int pathId);
 };
-
 #endif // UIMANAGER_H

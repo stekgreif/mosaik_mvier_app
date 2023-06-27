@@ -26,7 +26,9 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
 {
     /** CORE **/
     subchannelManager().init();
-    settings().setScreenSize(m_screenInfo->screenGeometry());
+    //settings().setScreenSize(m_screenInfo->screenGeometry());
+    settings().setScreenSize( QGuiApplication::primaryScreen()->virtualGeometry() );
+
 
     /** UI **/
     this->setCursor(Qt::CrossCursor);
@@ -190,7 +192,6 @@ void MosaikMiniApp::slot_sparkEvent(quint8 id, int val)
 #endif
 
 
-
 void MosaikMiniApp::slot_stepButtonPressed(int id)
 {
     qDebug() <<Q_FUNC_INFO <<id;
@@ -198,7 +199,6 @@ void MosaikMiniApp::slot_stepButtonPressed(int id)
     midiManager().refreshPatternView();
     m_uiManager->refresh();
 }
-
 
 
 void MosaikMiniApp::slot_regularTimer()
@@ -216,7 +216,6 @@ void MosaikMiniApp::slot_regularTimer()
         }
     }
 }
-
 
 
 /** ****************************************************************************
@@ -260,8 +259,6 @@ void MosaikMiniApp::slot_prelistenSubchannelSample()
 }
 
 
-
-
 /** ****************************************************************************
     selection
 *******************************************************************************/
@@ -298,7 +295,6 @@ void MosaikMiniApp::slot_selectionNextSubchannel()
 }
 
 
-
 /** ****************************************************************************
     pattern
 *******************************************************************************/
@@ -322,7 +318,6 @@ void MosaikMiniApp::slot_patternClearAll()
     midiManager().refreshPatternView();
     m_uiManager->refresh();
 }
-
 
 
 /** ****************************************************************************
@@ -376,7 +371,6 @@ void MosaikMiniApp::slot_browserCloseFolder()
 }
 
 
-
 /** ****************************************************************************
     envelope and audio parameter
 *******************************************************************************/
@@ -410,9 +404,6 @@ void MosaikMiniApp::slot_parameterChangeCurrentSubchVolume(float relVal)
     subchannelManager().setCurrentSubchannelVolumeRelative(relVal);
     m_uiManager->refreshVolPoti();
 }
-
-
-
 
 void MosaikMiniApp::slot_parameterPan(float relVal)
 {
@@ -453,7 +444,6 @@ void MosaikMiniApp::slot_parameterPlayDirection(bool direction)
     m_uiManager->refreshPlayDirection();
 }
 
-
 void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
 {
     qDebug() <<Q_FUNC_INFO <<"erp changed:" <<"id:" <<id <<"val:" <<val;
@@ -491,8 +481,6 @@ void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
 }
 
 
-
-
 /** make obsolete */
 void MosaikMiniApp::slot_subchannelChangeVolume(float relVal)
 {
@@ -500,7 +488,6 @@ void MosaikMiniApp::slot_subchannelChangeVolume(float relVal)
     subchannelManager().setCurrentSubchannelVolumeRelative(relVal);
     m_uiManager->refreshVolPoti();
 }
-
 
 
 void MosaikMiniApp::slot_subchannelSelectionPadTriggert(int id)
@@ -512,7 +499,6 @@ void MosaikMiniApp::slot_subchannelSelectionPadTriggert(int id)
     midiManager().refreshSubchannelSelection();
     m_uiManager->refresh();
 }
-
 
 
 /** ****************************************************************************
@@ -541,8 +527,6 @@ void MosaikMiniApp::slot_globalPreVolume(float absVal)
     subchannelManager().setPreVolumeAbs(absVal);
     m_uiManager->refreshPreVol();
 }
-
-
 
 
 /** ****************************************************************************
@@ -582,8 +566,6 @@ void MosaikMiniApp::slot_appExit()
     //close();
 }
 
-
-
 void MosaikMiniApp::slot_buttonPressed(int id)
 {
     switch (id)
@@ -607,14 +589,6 @@ void MosaikMiniApp::slot_buttonPressed(int id)
             break;
     }
 }
-
-
-
-
-
-
-
-
 
 
 void MosaikMiniApp::keyPressEvent(QKeyEvent* event)

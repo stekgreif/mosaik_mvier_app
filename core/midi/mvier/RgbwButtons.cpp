@@ -57,14 +57,14 @@ void RgbwButtons::setStepLed(int i)
 	QByteArray data;
 	data.resize(6);
 
-	int curRelSubCh = subchannelManager().getCurrentSubchannelSelelectionRelative();
+	int curRelSubCh = subchannelManager().getCurrentSubchannelSelectionRelative();
 
-	data[0] = MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE;
+    data[0] = (char) (MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE);
 	data[1] = i;    // led
 	data[2] = curRelSubCh;
 
 
-	data[3] = MIDI_MSG_NOTE_ON | CMD_UPDATE;
+    data[3] = (char) (MIDI_MSG_NOTE_ON | CMD_UPDATE);
 	data[4] = 0;
 	data[5] = 0;
 
@@ -72,12 +72,10 @@ void RgbwButtons::setStepLed(int i)
 }
 
 
-
 void RgbwButtons::sendRawData(const QByteArray &data)
 {
-
+    Q_UNUSED(data);
 }
-
 
 
 void RgbwButtons::setSubchannelPattern()
@@ -86,18 +84,16 @@ void RgbwButtons::setSubchannelPattern()
 }
 
 
-
 void RgbwButtons::setChannelPattern()
 {
 
 }
 
 
-
 // works only for single subchannel
 void RgbwButtons::refreshSequencer()
 {
-	int curRelSubCh = subchannelManager().getCurrentSubchannelSelelectionRelative(); //0..3
+	int curRelSubCh = subchannelManager().getCurrentSubchannelSelectionRelative(); //0..3
 
 	QBitArray curSubPat;
 	curSubPat.resize(64);
@@ -152,8 +148,6 @@ void RgbwButtons::refreshSequencer()
 			sendBuffer.append( color_table[5] );
 		}
 	}
-
-
 	sendBuffer.append( (char) (MIDI_MSG_NOTE_ON | CMD_UPDATE) );
 	sendBuffer.append( (char) 0 );
 	sendBuffer.append( (char) 0 );
@@ -183,7 +177,6 @@ void RgbwButtons::resetHardware()
 }
 
 
-
 //erstmal ok
 void RgbwButtons::setStepsequencerLed(int stepLedId)
 {
@@ -196,20 +189,20 @@ void RgbwButtons::setStepsequencerLed(int stepLedId)
 	int color;
 
 	if( pattern.at(m_lastStepSequencerLed) )
-		color = color_table[subchannelManager().getCurrentSubchannelSelelectionRelative()];
+		color = color_table[subchannelManager().getCurrentSubchannelSelectionRelative()];
 	else
 		color = color_table[5];
 
 
-	data[0] = MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE;
+    data[0] = (char) (MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE);
 	data[1] = stepLedId;
 	data[2] = color_table[4];
 
-	data[3] = MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE;
+    data[3] = (char) (MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE);
 	data[4] = m_lastStepSequencerLed;
 	data[5] = color;
 
-	data[6] = MIDI_MSG_NOTE_ON | CMD_UPDATE;
+    data[6] = (char) (MIDI_MSG_NOTE_ON | CMD_UPDATE);
 	data[7] = 0;
 	data[8] = 0;
 
@@ -218,31 +211,26 @@ void RgbwButtons::setStepsequencerLed(int stepLedId)
 }
 
 
-
 void RgbwButtons::setMainVolume(quint8 volume)
 {
-
+    Q_UNUSED(volume);
 }
-
-
 
 
 void RgbwButtons::slot_midiMsgReceived(quint8 *data)
 {
+    #if 0
+    quint8 midiBuffer[3] = {};
+    midiBuffer[0] = data[0];    // midi ch, status
+    midiBuffer[1] = data[1];    // note/id
+    midiBuffer[2] = data[2];    // value
+    #endif
 
-		quint8 midiBuffer[3] = {};
+    qDebug() <<Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
 
-		midiBuffer[0] = data[0];    // midi ch, status
-		midiBuffer[1] = data[1];    // note/id
-		midiBuffer[2] = data[2];    // value
-
-		qDebug() <<Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
-
-		if( data[0] == Mosaik::MidiCommand::noteOn )
-		{
-			//qDebug() <<Q_FUNC_INFO <<"LABBA";
-			emit signal_stepButtonPressed(data[1]);
-		}
-//		emit signal_seqMsg(data[1], data[2]);
+    if( data[0] == Mosaik::MidiCommand::noteOn )
+    {
+        emit signal_stepButtonPressed(data[1]);
+    }
 }
 

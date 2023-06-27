@@ -12,7 +12,6 @@ Pattern::Pattern(MosaikMiniApp *mosaikMiniApp, QWidget *parent)
 {
     qDebug() <<Q_FUNC_INFO <<"Init";
 
-
 #if 0 // original button sizes
     const int btnSize   = 34;
     const int btnOffset =  4;
@@ -52,16 +51,17 @@ Pattern::~Pattern()
 
 }
 
+
 void Pattern::setStep(int id)
 {
     m_button[id]->setStep();
 }
 
+
 void Pattern::clrStep(int id)
 {
     m_button[id]->clrStep();
 }
-
 
 
 void Pattern::refresh()
@@ -78,7 +78,6 @@ void Pattern::refresh()
 
     //qDebug() <<Q_FUNC_INFO <<pattern;
 }
-
 
 
 void Pattern::slot_padPressed(int id)

@@ -57,7 +57,6 @@ class SubchannelManager
         void unmuteAll(void);
         void lastMuteStates(void);
 
-
         QString getCurrentSamplePathAndName(void);
         QSharedPointer<Sample> getSharedPointerToSample(void);
         QSharedPointer<Sample> getSharedPointerToSample(int subchannel);
@@ -77,7 +76,7 @@ class SubchannelManager
         /** sub/channel selection **/
         void  setCurrentSubchannelSelection(int id);
         void  setCurrentSubchannelSelectionRelative(int id);
-        int   getCurrentSubchannelSelelectionRelative(void);
+        int   getCurrentSubchannelSelectionRelative(void);
         int   getCurrentSubchannelSelection(void);
         void  selectNextSubChannel();
         void  setCurrentChannelSelection(int id);

@@ -1,29 +1,29 @@
 #ifndef ALSA_PCM_H
 #define ALSA_PCM_H
 
+/*  aplay -l
+    hw:X,Y
+    X: card number
+    Y: device number */
+
 #include "core/ppthread.h"
 #include "alsa/asoundlib.h"
-//#include "core/audio/AlsaPcm.h"
-
 #include <atomic>
 
-
-
-#define USE_4_CHANNEL_AUDIO
-#define CHANNELS        4
+//#define USE_4_CHANNEL_AUDIO
+#define CHANNELS        2
+#define PCM_DEVICE_0    "plughw:0,0"
 #define PCM_DEVICE_1    "plughw:1,0"
 #define PCM_DEVICE_2    "plughw:2,0"
 #define PCM_DEVICE_3    "plughw:3,0"
 #define PCM_DEVICE_4    "plughw:4,0"
 #define PCM_DEVICE_5    "plughw:5,0"
 #define NUM_OF_PERIODS  2
-#define FRAMES          2048
-//#define FRAMES          256
+//#define FRAMES          2048
+#define FRAMES          512
 //#define FRAMES          128
 
 #define BUFFER_SIZE     FRAMES * CHANNELS
-
-
 
 
 class AlsaPcm : public PPThread

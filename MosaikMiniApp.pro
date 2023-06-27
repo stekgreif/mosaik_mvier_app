@@ -122,9 +122,7 @@ RESOURCES += \
 
 DISTFILES += \
     stylesheet.qss \
-    txt/SignalFlow.txt \
-    txt/VersionsAndFeatures.txt \
-    txt/HowTos.txt \
-    txt/cppFragen \
-    txt/TodosAndBugs.txt \
-    txt/cpp_cheat_sheet.txt
+    txt/_SignalFlow.txt \
+    txt/_TodosAndBugs.txt \
+    txt/_VersionsAndFeatures.txt \
+    txt/_help.txt

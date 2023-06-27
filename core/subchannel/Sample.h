@@ -23,9 +23,6 @@ typedef struct{
 } Sample_t;
 
 
-
-
-
 typedef struct{
     float left;
     float right;
@@ -38,8 +35,6 @@ typedef struct{
     float mainLeft;
     float mainRight;
 } FourChannelFrame_t;
-
-
 
 
 class Sample

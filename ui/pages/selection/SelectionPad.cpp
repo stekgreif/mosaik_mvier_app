@@ -195,10 +195,6 @@ void SelectionPad::clearIsPlaying()
 
 void SelectionPad::setSampleParameters(QString name, float time, float steps)
 {
-#if 0
-    m_sampleNameRight->setText(name);
-    m_sampleNameRight->adjustSize();
-#endif
     m_sampleNameLeft->setText(name);
     m_sampleNameLeft->adjustSize();
     m_sampleTime->setText( QString::number(time/1000, 'f', 2) + " s" );
@@ -209,9 +205,6 @@ void SelectionPad::setSampleParameters(QString name, float time, float steps)
 
 void SelectionPad::clearSampleName()
 {
-#if 0
-    m_sampleNameRight->setText(" ");
-#endif
     m_sampleTime->setText(" ");
 }
 
@@ -272,6 +265,7 @@ void SelectionPad::setPadToDeselectionColor(void)
     m_selectionFrame->setStyleSheet("QLabel#subchannelSelectionFrame {background-color: rgba(0,0,0,0%); border: 2px solid rgba(0,0,0,0%);}");
 }
 
+
 void SelectionPad::refreshSampleWaveForm()
 {
     if( subchannelManager().hasCurrentSubchannelSample() )
@@ -289,6 +283,7 @@ void SelectionPad::refreshSampleWaveForm()
     }
 }
 
+
 void SelectionPad::refreshPlayDirection()
 {
     if( subchannelManager().getCurrentPlayDirection() )
@@ -300,8 +295,6 @@ void SelectionPad::refreshPlayDirection()
         m_isPlaying->setText("<");
     }
 }
-
-
 
 
 

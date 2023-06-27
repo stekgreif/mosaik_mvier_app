@@ -28,9 +28,6 @@ struct RgbColors
 };
 
 
-
-
-
 MosaikMini::MosaikMini()
 {
     m_singlePatternView = false;
@@ -107,7 +104,7 @@ void MosaikMini::setSubchannelPattern(void)
     qDebug() <<Q_FUNC_INFO;
 
     QBitArray pattern = subchannelManager().getCurrentSubchannelPattern();
-    int currentRelativeSubchannel = subchannelManager().getCurrentSubchannelSelelectionRelative();
+    int currentRelativeSubchannel = subchannelManager().getCurrentSubchannelSelectionRelative();
 
     QByteArray midiData;
     midiData.resize(192);
@@ -321,12 +318,12 @@ void MosaikMini::refreshSubchannelSelection(void)
 
     for( int i = 0; i < 4; i++)
     {
-        midiData[3*i+0] = Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl;
+        midiData[3*i+0] = (char) (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl);
         midiData[3*i+1] = 12 + i; // led offset
         midiData[3*i+2] = 0;
     }
 
-    int led = subchannelManager().getCurrentSubchannelSelelectionRelative();
+    int led = subchannelManager().getCurrentSubchannelSelectionRelative();
     midiData[3*led +2] = 1;
 
     m_midiOut->sendData(midiData);
@@ -365,30 +362,23 @@ void MosaikMini::setStepsequencerLed(int stepLedId)
 
         if( pattern.at(m_lastStepSequencerLed) )
         {
-            color = getColorValue(subchannelManager().getCurrentSubchannelSelelectionRelative() + 1);
+            color = getColorValue(subchannelManager().getCurrentSubchannelSelectionRelative() + 1);
         }
         else
         {
             color = getColorValue( 0 );
         }
 
-        m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq,
-                            m_lastStepSequencerLed,
-                            color);
+        m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq, m_lastStepSequencerLed, color);
     }
     else
     {
         QByteArray pattern = subchannelManager().getCurrentChannelPattern();
         int topLayerStep = pattern.at(m_lastStepSequencerLed);
-
-        m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq,
-                            m_lastStepSequencerLed,
-                            getColorValue(topLayerStep));
+        m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq, m_lastStepSequencerLed, getColorValue(topLayerStep));
     }
 
-    m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq,
-                        stepLedId,
-                        RgbColors::white);
+    m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq, stepLedId, RgbColors::white);
 
     m_lastStepSequencerLed = stepLedId;
 }
@@ -406,7 +396,6 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
     midiBuffer[0] = data[0];    // midi ch, status
     midiBuffer[1] = data[1];    // note/id
     midiBuffer[2] = data[2];    // value
-
     //qDebug() <<Q_FUNC_INFO <<"xxxxxxxx" <<data[0] <<data[1] <<data[2];
 
     switch (midiBuffer[0] & 0b00001111)

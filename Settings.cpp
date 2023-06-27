@@ -30,20 +30,20 @@ Settings::Settings()
     m_midiFavList.append("Mosaik");
     m_midiFavList.append("HELLA-UNTZtrument");
 
-
     qDebug() <<Q_FUNC_INFO <<"Settings initialized.";
 }
+
 
 Settings::~Settings()
 {
     qDebug() <<"~" <<Q_FUNC_INFO;
 }
 
+
 bool Settings::startWithFullScreen(void)
 {
     return m_startWithFullScreen;
 }
-
 
 
 void Settings::loadPageIdMap(void)
@@ -56,35 +56,42 @@ void Settings::loadPageIdMap(void)
     //m_pageMap->insert(0, "Subchannel");
 }
 
+
 QString Settings::getPageName(int key)
 {
     return m_pageMap->value(key);
 }
+
 
 int Settings::getNumberOfPages(void)
 {
     return m_pageMap->size();
 }
 
+
 QString Settings::getConnectedMidiDeviceName()
 {
     return m_connectedMidiDeviceName;
 }
+
 
 void Settings::setConnectedMidiDeviceName(QString name)
 {
     m_connectedMidiDeviceName = name;
 }
 
+
 QString Settings::getConnectedMidiDevicePort()
 {
     return m_connectedMidiDevicePort;
 }
 
+
 void Settings::setConnectedMidiDevicePort(QString port)
 {
     m_connectedMidiDevicePort = port;
 }
+
 
 void Settings::setScreenSize(QRect screen)
 {
@@ -101,12 +108,11 @@ void Settings::setScreenSize(QRect screen)
     qDebug() <<Q_FUNC_INFO <<"screensize:" <<m_screenSize;
 }
 
+
 QSize Settings::getScreenSize()
 {
     return m_screenSize;
 }
-
-
 
 
 void Settings::loadSubchannelMap(void)
@@ -247,12 +253,11 @@ void Settings::loadSubchannelMap(void)
             m_subchannelMap->insert(14,14);
             m_subchannelMap->insert(15,15);
             m_subchannelMap->insert(16,16);
+            break;
 
         default:
             break;
     }
-
-
 }
 
 
@@ -286,13 +291,12 @@ void Settings::loadChannelMap()
 }
 
 
-
-
 int Settings::getSubchannelId(int pos)
 {
     qDebug() <<Q_FUNC_INFO <<"in POS:" <<pos <<"out ID:" <<m_subchannelMap->value(pos) ;
     return m_subchannelMap->value(pos);
 }
+
 
 int Settings::getSubchannelPos(int id)
 {
@@ -300,11 +304,13 @@ int Settings::getSubchannelPos(int id)
     return m_subchannelMap->key(id);
 }
 
+
 int Settings::getChannelId(int pos)
 {
     qDebug() <<Q_FUNC_INFO <<"";
     return m_channelMap->value(pos);
 }
+
 
 int Settings::getChannelPos(int id)
 {
@@ -313,34 +319,36 @@ int Settings::getChannelPos(int id)
 }
 
 
-
-
-
 /** 2016-02-05 sub/channel get functions **/
 int Settings::getNumberOfSubchannelsTotal()
 {
     return SETTINGS_NUM_OF_SUBS;
 }
 
+
 int Settings::getNumberOfSubchannelsPerRow()
 {
     return SETTINGS_SUBS_PER_ROW;
 }
+
 
 int Settings::getNumberOfSubchannelsPerCollum()
 {
     return SETTINGS_SUBS_PER_COL;
 }
 
+
 int Settings::getNumberOfChannelsTotal()
 {
     return SETTINGS_NUM_OF_CHANNELS;
 }
 
+
 int Settings::getNumberOfChannelsPerRow()
 {
     return (SETTINGS_SUBS_PER_ROW / 2);
 }
+
 
 int Settings::getNumberOfChannelsPerCollum()
 {
@@ -348,10 +356,9 @@ int Settings::getNumberOfChannelsPerCollum()
 }
 
 
-
 int Settings::getChannelOfSubchannel(int sub)
 {
-    int channel;
+    int channel = 0;
 
 #if SETTINGS_NUM_OF_SUBS == 36
     switch (sub)
@@ -360,67 +367,76 @@ int Settings::getChannelOfSubchannel(int sub)
         case 1:
         case 6:
         case 7:
-        channel = 0;
-        break;
-
+        {
+            channel = 0;
+            break;
+        }
         case 2:
         case 3:
         case 8:
         case 9:
-        channel = 1;
-        break;
-
+        {
+            channel = 1;
+            break;
+        }
         case 4:
         case 5:
         case 10:
         case 11:
-        channel = 2;
-        break;
-
+        {
+            channel = 2;
+            break;
+        }
         case 12:
         case 13:
         case 18:
         case 19:
-        channel = 3;
-        break;
-
+        {
+            channel = 3;
+            break;
+        }
         case 14:
         case 15:
         case 20:
         case 21:
-        channel = 4;
-        break;
-
+        {
+            channel = 4;
+            break;
+        }
         case 16:
         case 17:
         case 22:
         case 23:
-        channel = 5;
-        break;
-
+        {
+            channel = 5;
+            break;
+        }
         case 24:
         case 25:
         case 30:
         case 31:
-        channel = 6;
-        break;
-
+        {
+            channel = 6;
+            break;
+        }
         case 26:
         case 27:
         case 32:
         case 33:
-        channel = 7;
-        break;
-
+        {
+            channel = 7;
+            break;
+        }
         case 28:
         case 29:
         case 34:
         case 35:
-        channel = 8;
-        break;
-
+        {
+            channel = 8;
+            break;
+        }
         default:
-        break;
+            break;
     }
 #endif
 
@@ -464,12 +480,11 @@ int Settings::getChannelOfSubchannel(int sub)
 }
 
 
-
 int Settings::getFirstSubchannelOfChannel(int ch)
 {
-    int firstSubchannel;
+    int firstSubchannel = 0;
 
-#if SETTINGS_NUM_OF_SUBS == 36
+    #if SETTINGS_NUM_OF_SUBS == 36
     switch (ch)
     {
         case 0: firstSubchannel = 0;  break;
@@ -483,9 +498,9 @@ int Settings::getFirstSubchannelOfChannel(int ch)
         case 8: firstSubchannel = 28; break;
         default: break;
     }
-#endif
+    #endif
 
-#if SETTINGS_NUM_OF_SUBS == 16
+    #if SETTINGS_NUM_OF_SUBS == 16
     switch (ch)
     {
         case 0: firstSubchannel = 0;  break;
@@ -494,11 +509,10 @@ int Settings::getFirstSubchannelOfChannel(int ch)
         case 3: firstSubchannel = 10; break;
         default: break;
     }
-#endif
+    #endif
 
     return firstSubchannel;
 }
-
 
 
 QPoint Settings::getCoordinatesOfSubchannel(int sub)
@@ -510,12 +524,11 @@ QPoint Settings::getCoordinatesOfSubchannel(int sub)
 }
 
 
-
 QList<int> Settings::getSubchannelsOfChannel(int ch)
 {
     QList<int> subchannels;
 
-#if SETTINGS_NUM_OF_SUBS == 36
+    #if SETTINGS_NUM_OF_SUBS == 36
     switch (ch)
     {
         case 0:
@@ -575,7 +588,7 @@ QList<int> Settings::getSubchannelsOfChannel(int ch)
         default:
             break;
     }
-#endif
+    #endif
 
 #if SETTINGS_NUM_OF_SUBS == 16
     switch (ch)
@@ -614,7 +627,7 @@ QList<int> Settings::getSubchannelsOfChannel(int ch)
 
 int Settings::getRelativeSubchannel(int sub)
 {
-    int relSub;
+    int relSub = 0;
 
 #if SETTINGS_NUM_OF_SUBS == 36
     switch (sub)
@@ -627,9 +640,7 @@ int Settings::getRelativeSubchannel(int sub)
         case 16:
         case 24:
         case 26:
-        case 28:
-        relSub = 0;
-        break;
+        case 28: relSub = 0; break;
 
         case 1:
         case 3:
@@ -639,9 +650,7 @@ int Settings::getRelativeSubchannel(int sub)
         case 17:
         case 25:
         case 27:
-        case 29:
-        relSub = 1;
-        break;
+        case 29: relSub = 1; break;
 
         case 6:
         case 8:
@@ -651,9 +660,7 @@ int Settings::getRelativeSubchannel(int sub)
         case 22:
         case 30:
         case 32:
-        case 34:
-        relSub = 2;
-        break;
+        case 34: relSub = 2; break;
 
         case 7:
         case 9:
@@ -663,12 +670,9 @@ int Settings::getRelativeSubchannel(int sub)
         case 23:
         case 31:
         case 33:
-        case 35:
-        relSub = 3;
-        break;
+        case 35: relSub = 3; break;
 
-        default:
-            break;
+        default: break;
     }
 #endif
 
@@ -713,30 +717,26 @@ int Settings::getRelativeSubchannel(int sub)
 }
 
 
-
-
-
-
-
 QList<QString> Settings::getFavouriteMidiDeviceList()
 {
     return m_midiFavList;
 }
+
 
 bool Settings::initWithAudio()
 {
     return SETTINGS_INIT_WITH_AUDIO;
 }
 
+
 bool Settings::initWithHwMidiIn()
 {
     return SETTINGS_INIT_WITH_MIDI_IN;
 }
 
+
 bool Settings::initWithHwMidiOut()
 {
     return SETTINGS_INIT_WITH_MIDI_OUT;
 }
-
-
 
