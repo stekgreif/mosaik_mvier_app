@@ -14,8 +14,8 @@ Browser::Browser(QWidget *uiParent)
 	int screenWidth = settings().getScreenSize().width();
 
     /** path **/
-    m_defaultPath = "/home/dan/samples/mitCamelCase";
-    m_path[0] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/instruments";
+    m_defaultPath = "/mnt/ad4247cf-f066-4f4c-a5f3-3ab1a55586e0/SAMPLES";
+    m_path[0] = "/mnt/ad4247cf-f066-4f4c-a5f3-3ab1a55586e0/SAMPLES";
     m_path[1] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/vocal";
     m_path[2] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/fx";
     m_path[3] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/tonal";
@@ -56,7 +56,7 @@ Browser::Browser(QWidget *uiParent)
     treeFont.setPixelSize(14);
     m_treeView->setFont(treeFont);
 
-    slot_changePath(m_defaultPath);
+    slot_changePath( 0 );
 
     connect( m_treeView, SIGNAL( signal_enterPressed() ), this, SLOT( slot_loadSample ) );
 }

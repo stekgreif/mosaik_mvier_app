@@ -181,7 +181,8 @@ void MosaikMiniApp::slot_stepButtonPressed(int id)
 {
     qDebug() <<Q_FUNC_INFO <<id;
     subchannelManager().toggleStep(id);
-    midiManager().refreshPatternView();
+    /// @todo midi out checker
+    //midiManager().refreshPatternView();
     m_uiManager->refresh();
 }
 
@@ -256,6 +257,7 @@ void MosaikMiniApp::slot_prelistenSubchannelSample()
 void MosaikMiniApp::slot_selectionSetCurrentSubchannelRelative(int id)
 {
     subchannelManager().setCurrentSubchannelSelectionRelative(id);
+
     midiManager().refreshPatternView();
     midiManager().refreshSubchannelSelection();
     m_uiManager->refresh();
@@ -558,7 +560,6 @@ void MosaikMiniApp::slot_setNormalScreen(void)
 {
     showNormal();
     this->resize(settings().getScreenSize().width(), settings().getScreenSize().height() * 0.5);
-
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 }
@@ -567,9 +568,13 @@ void MosaikMiniApp::slot_setNormalScreen(void)
 void MosaikMiniApp::slot_appToggleFullScreen()
 {
     if( isFullScreen() )
+    {
         slot_setNormalScreen();
+    }
     else
+    {
         slot_setFullScreen();
+    }
 }
 
 
@@ -585,9 +590,9 @@ void MosaikMiniApp::slot_appExit()
 }
 
 
-void MosaikMiniApp::slot_buttonPressed(int id)
+void MosaikMiniApp::slot_buttonPressed( int id )
 {
-    switch (id)
+    switch( id )
     {
         case 0:
         case 1:
@@ -676,8 +681,9 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
 
             QString pat;
             for(int i = 0; i < pattern.size(); i++)
+            {
                 pat = pat + QString::number(pattern.at(i));
-
+            }
             qDebug() <<Q_FUNC_INFO <<"Pattern:" <<pat;
             break;
         }
