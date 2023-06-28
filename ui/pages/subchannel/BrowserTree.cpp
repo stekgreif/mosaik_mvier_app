@@ -48,3 +48,4 @@ void BrowserTree::cursorRight()
     event = new QKeyEvent(QEvent::KeyPress, Qt::Key_Right, Qt::NoModifier, "right", false, 0);
     keyPressEvent(event);
 }
+

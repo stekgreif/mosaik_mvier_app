@@ -716,6 +716,10 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
         {
             close();
         }
+        case Qt::Key_Return:
+        {
+            slot_sampleLoadToCurrentSubchannel();
+        }
         default:
         {
             break;

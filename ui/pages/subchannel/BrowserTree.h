@@ -13,7 +13,7 @@ class BrowserTree : public QTreeView
     void cursorUp(void);
     void cursorDown(void);
     void cursorLeft(void);
-    void cursorRight(void);
+    void cursorRight(void);    
 };
 
 #endif // BROWSERTREE_H

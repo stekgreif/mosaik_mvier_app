@@ -10,7 +10,6 @@ MosaikMiniApp
 				r_selectSubchannel(id)
 			MuteSolo
 			SampleAndSteps
-
 		PageStack
 			Subchannel
 				SampleWindow
@@ -25,13 +24,9 @@ MosaikMiniApp
 					s_refresh
 			Browser
 				s_newSampleSelected(path)
-
-
+                                BrowserTree
 	MidiManager
 		s_stepBtnPressed(id)
-
-
-
 
 
 

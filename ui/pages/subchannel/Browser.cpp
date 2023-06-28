@@ -57,6 +57,8 @@ Browser::Browser(QWidget *uiParent)
     m_treeView->setFont(treeFont);
 
     slot_changePath(m_defaultPath);
+
+    connect( m_treeView, SIGNAL( signal_enterPressed() ), this, SLOT( slot_loadSample ) );
 }
 
 
