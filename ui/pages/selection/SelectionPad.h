@@ -27,19 +27,17 @@ class SelectionPad : public QWidget
         void setSampleVolume(void);
         void setIsMute(void);
         void clearIsMute(void);
-
         void clearPad(void);
-
 
     private:
         QSize *m_widgetSize;
 
-        QLabel      *m_buttonPadColor;
+        QLabel *m_buttonPadColor;
         QPushButton *m_buttonPad;
-        int          m_padId;
-        int          m_padIdRel; //0...3
-        QString      m_padOnColor;
-        QString      m_padOffColor;
+        int m_padId;
+        int m_padIdRel; //0...3
+        QString m_padOnColor;
+        QString m_padOffColor;
 
         QLabel *m_hasSample;
         QLabel *m_hasSteps;
@@ -53,7 +51,6 @@ class SelectionPad : public QWidget
         QLabel *m_subChColor;
         QLabel *m_selectionFrame;
         QLabel *m_isMute;
-
         QLabel *m_sampleWaveForm;
         QPixmap *m_emptySampleWaveForm;
 
@@ -70,17 +67,13 @@ class SelectionPad : public QWidget
         void m_slot_padPressed(void);
 
     public slots:
-        void setPadToSelectionColor(void);
-        void setPadToDeselectionColor(void);
-        void refreshSampleWaveForm(void);
-        void refreshPlayDirection(void);
-
+        void setPadToSelectionColor( void );
+        void setPadToDeselectionColor( void );
+        void refreshSampleWaveForm( void );
+        void refreshPlayDirection( void );
 
     signals:
-        void signal_subchPadPressed(int padId);
-
-
-
+        void signal_subchPadPressed( int padId );
 
     #if 0 // not implemented yet
     private slots:
@@ -92,11 +85,8 @@ class SelectionPad : public QWidget
 
     #endif
 
-
     protected:
-        void paintEvent(QPaintEvent *event);
-
-
+        void paintEvent( QPaintEvent *event );
 };
 
 #endif // SELECTIONPAD_H

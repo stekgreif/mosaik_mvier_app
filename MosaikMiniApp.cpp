@@ -71,8 +71,8 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
     m_timer->start(10);
 
     /** signal slot connections **/
-    connect( m_uiManager,    SIGNAL(signal_subchannelSelectionPadTriggert(int)), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
-    connect( m_timer, SIGNAL(timeout()), this,  SLOT(slot_regularTimer()) );
+    connect( m_uiManager,    SIGNAL( signal_subchannelSelectionPadTriggert(int) ), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
+    connect( m_timer, SIGNAL( timeout() ), this,  SLOT( slot_regularTimer()));
 }
 
 
@@ -188,7 +188,7 @@ void MosaikMiniApp::slot_stepButtonPressed(int id)
 
 void MosaikMiniApp::slot_regularTimer()
 {
-    if(settings().initWithAudio())
+    if( settings().initWithAudio() )
     {
         quint32 stepCounter = m_alsaPcm->getStepCounter();
 
@@ -197,7 +197,8 @@ void MosaikMiniApp::slot_regularTimer()
             m_stepCounter = stepCounter;
             //qDebug() <<Q_FUNC_INFO <<"Update Step Counter:" <<m_stepCounter;
             m_uiManager->refreshStepCounterAbsolute( m_stepCounter );
-            midiManager().setStepsequencerLed(m_stepCounter % 64);
+            /// @todo crashes without a connected midi device
+            //midiManager().setStepsequencerLed(m_stepCounter % 64);
         }
     }
 }
@@ -505,8 +506,9 @@ void MosaikMiniApp::slot_subchannelSelectionPadTriggert(int id)
     qDebug() <<Q_FUNC_INFO <<id;
     subchannelManager().setCurrentSubchannelSelection(id);
     subchannelManager().prelistenCurrentSubchannelSample();
-    midiManager().refreshPatternView();
-    midiManager().refreshSubchannelSelection();
+    /// @todo don't try to send midi when no midi device connected: implement protection to midi send function
+    //midiManager().refreshPatternView();
+    //midiManager().refreshSubchannelSelection();
     m_uiManager->refresh();
 }
 

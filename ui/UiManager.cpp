@@ -70,7 +70,7 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     refreshPreVol();
 
     /** signal slot connections **/
-    connect(m_pageSelection,  SIGNAL(signal_subchannelSelectionPadPressed(int)), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
+    connect(m_pageSelection,  SIGNAL( signal_subchannelSelectionPadPressed(int) ), this, SLOT(slot_subchannelSelectionPadTriggert( int )));
 
 #if 0
     m_timer = new QTimer;

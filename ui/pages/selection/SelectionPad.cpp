@@ -47,9 +47,7 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     wP = m_widgetSize->width()/20;      // width pad
     hP = m_widgetSize->height()/20;     // height pad
     int mS = 2;
-
     //qDebug() <<Q_FUNC_INFO <<"Pad width:" <<m_widgetSize->width() <<"Pad height" <<m_widgetSize->height();
-
 
     m_selectionFrame = new QLabel(this);
     m_selectionFrame->setFixedSize( m_widgetSize->width(),  m_widgetSize->height());
@@ -60,10 +58,8 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     this->setObjectName("pad_widget");
     this->setFixedSize(*m_widgetSize);
 
-
     m_volumeWidget = new VolumeWidget(this);
     m_volumeWidget->move(wP*19, hP*2);
-
 
     /** layer 1 - info tiles **/
     m_sampleNameLeft = new QLabel(this);
@@ -73,15 +69,6 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_sampleNameLeft->move( (m_widgetSize->width()/20)*2.5, (m_widgetSize->height()/5) * 1.7 );
     m_sampleNameLeft->setAlignment(Qt::AlignLeft);
     m_sampleNameLeft->setFixedWidth((m_widgetSize->width()/20)*16);
-
-#if 0
-    m_sampleNameRight = new QLabel(this);
-    m_sampleNameRight->setObjectName("sampleNameRight");
-    m_sampleNameRight->setStyleSheet("QLabel#sampleNameRight {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
-    m_sampleNameRight->move( (m_widgetSize->width()/20)*2, (m_widgetSize->height()/5) * 2.0 );
-    m_sampleNameRight->setAlignment(Qt::AlignRight);
-    m_sampleNameRight->setFixedWidth((m_widgetSize->width()/20)*18);
-#endif
 
     m_sampleTime = new QLabel(this);
     m_sampleTime->setObjectName("sampleTime");
@@ -94,7 +81,6 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_sampleSteps->setStyleSheet("QLabel#sampleSteps {background-color: rgba(127,127,127, 0%); color: rgb(180,180,180); }");
     m_sampleSteps->move( ((m_widgetSize->width()/20) * 10), (m_widgetSize->height()/5) * 4.3 );
     m_sampleSteps->setAlignment(Qt::AlignRight);
-
 
 #if 1 // subchannel color pads
     m_subChColor = new QLabel(this);
@@ -146,16 +132,15 @@ SelectionPad::SelectionPad(int id, QSize *widgetSize, QWidget *parent)
     m_buttonPad->setObjectName("pad_button");
     m_buttonPad->setFixedSize(*m_widgetSize);
 
-
     /* internal connections */
-    connect(m_buttonPad, SIGNAL(pressed()),  this, SLOT(m_slot_padPressed()) );
+    connect(m_buttonPad, SIGNAL(pressed()),  this, SLOT( m_slot_padPressed() ));
 }
+
 
 SelectionPad::~SelectionPad()
 {
 
 }
-
 
 
 /** tiles **/
@@ -165,27 +150,32 @@ void SelectionPad::setHasSteps()
     m_hasSteps->setStyleSheet("QLabel#tile_hasStep" + m_padOffColor);
 }
 
+
 void SelectionPad::clearHasSteps()
 {
     m_hasSteps->setStyleSheet("QLabel#tile_hasStep {background-color: rgb(127,127,127);}");
     //m_hasSteps->setStyleSheet(m_padOffColor);
 }
 
+
 void SelectionPad::setHasSample()
 {
     //m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(250,250,250);}");
 }
+
 
 void SelectionPad::clearHasSample()
 {
     //m_hasSample->setStyleSheet("QLabel#tile_hasSample {background-color: rgb(127,127,127);}");
 }
 
+
 void SelectionPad::setIsPlaying()
 {
     //m_isPlaying->setStyleSheet("QLabel#tile_isPlaying {background-color: rgb(250,250,250);}");
     m_isPlaying->setStyleSheet("QLabel#tile_isPlaying" + m_padOnColor);
 }
+
 
 void SelectionPad::clearIsPlaying()
 {
@@ -203,10 +193,12 @@ void SelectionPad::setSampleParameters(QString name, float time, float steps)
     m_sampleSteps->adjustSize();
 }
 
+
 void SelectionPad::clearSampleName()
 {
     m_sampleTime->setText(" ");
 }
+
 
 void SelectionPad::setSampleVolume()
 {
@@ -214,15 +206,18 @@ void SelectionPad::setSampleVolume()
     m_volumeWidget->setVolume(m_volumeValue);
 }
 
+
 void SelectionPad::setIsMute()
 {
     m_isMute->setStyleSheet("QLabel#tile_isMute {background-color: rgba(200,0,0,50%);}");
 }
 
+
 void SelectionPad::clearIsMute()
 {
     m_isMute->setStyleSheet("QLabel#tile_isMute {background-color: rgba(200,0,0,0%);}");
 }
+
 
 void SelectionPad::clearPad()
 {
@@ -236,6 +231,7 @@ void SelectionPad::m_slot_padPressed()
 {
     emit signal_subchPadPressed(m_padId);
 }
+
 
 void SelectionPad::setPadToSelectionColor(void)
 {
@@ -256,8 +252,8 @@ void SelectionPad::setPadToSelectionColor(void)
         default:
             break;
     }
-
 }
+
 
 void SelectionPad::setPadToDeselectionColor(void)
 {
@@ -295,7 +291,6 @@ void SelectionPad::refreshPlayDirection()
         m_isPlaying->setText("<");
     }
 }
-
 
 
 void SelectionPad::paintEvent(QPaintEvent *event)
