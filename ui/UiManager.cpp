@@ -131,11 +131,13 @@ void UiManager::refreshSelection()
     m_pageSelection->refresh();
 }
 
+
 void UiManager::refreshEnvelope()
 {
     qDebug() <<Q_FUNC_INFO;
     m_pageSubchannel->refreshEnvelope();
 }
+
 
 void UiManager::refreshStepCounterAbsolute(quint64 cnt)
 {
@@ -149,10 +151,12 @@ void UiManager::refreshStepCounterAbsolute(quint64 cnt)
     m_labelStepCounter->adjustSize();
 }
 
+
 void UiManager::refreshVolPoti()
 {
     m_pageSubchannel->refreshLabels();
 }
+
 
 void UiManager::refreshBpm()
 {
@@ -162,30 +166,36 @@ void UiManager::refreshBpm()
     m_pageSubchannel->refreshStepAxis();
 }
 
+
 void UiManager::refreshPreVol()
 {
 	m_labelPreVol->setText( "HP: " + QString::number( subchannelManager().getPreVolume(), 'f', 2 ) );
 }
+
 
 void UiManager::refreshMainVol()
 {
 	m_labelMainVol->setText( "PA: " + QString::number( subchannelManager().getMainVolume(), 'f', 2 ) );
 }
 
+
 void UiManager::refreshMutePads()
 {
     m_pageSelection->refreshMutePads();
 }
+
 
 void UiManager::refreshSelectionPad()
 {
     m_pageSelection->refreshSampleVolume();
 }
 
+
 void UiManager::refreshSampleVolumeWidget(int id)
 {
     m_pageSelection->refreshSampleVolumeWidget(id);
 }
+
 
 void UiManager::refreshPlayDirection()
 {
@@ -193,15 +203,18 @@ void UiManager::refreshPlayDirection()
     m_pageSelection->refreshPlayDirection();
 }
 
+
 void UiManager::slot_browserOpenFolder()
 {
     m_pageSubchannel->slot_browserOpenFolder();
 }
 
+
 void UiManager::slot_browserCloseFolder()
 {
     m_pageSubchannel->slot_browserCloseFolder();
 }
+
 
 void UiManager::slot_toggleMuteAndSolo()
 {
@@ -217,33 +230,37 @@ void UiManager::loadSelectedSampleToCurrentSubchannel()
     m_pageSelection->refreshWaveFormWindow();
 }
 
+
 void UiManager::loadSelectedSampleToPrelisten()
 {
     m_pageSubchannel->slot_loadSampleToPrelisten();
     m_pageSelection->refresh();
 }
 
-void UiManager::slot_setPathId(int pathId)
+
+void UiManager::slot_setPathId( int pathId )
 {
     m_pageSubchannel->slot_changePath(pathId);
 }
+
 
 int UiManager::getCurrentPageId()
 {
     return m_stackedPages->currentIndex();
 }
 
+
 MosaikMiniApp *UiManager::getParent()
 {
     return m_mosaikMiniApp;
 }
 
-void UiManager::paintEvent(QPaintEvent *event)
+void UiManager::paintEvent( QPaintEvent *event )
 {
     Q_UNUSED(event);
     QStyleOption myOption;
     myOption.initFrom(this);
     QPainter myPainter(this);
-    style()->drawPrimitive( QStyle::PE_Widget, &myOption, &myPainter,this);
+    style()->drawPrimitive( QStyle::PE_Widget, &myOption, &myPainter,this );
 }
 

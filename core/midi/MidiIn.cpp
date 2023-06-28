@@ -3,7 +3,6 @@
 #include <QtCore>
 
 
-
 MidiIn::MidiIn()
 {
     snd_rawmidi_open(&midi_in_handle, NULL, "virtual", SND_RAWMIDI_SYNC);
@@ -18,14 +17,12 @@ MidiIn::MidiIn(QString hwId)
 }
 
 
-
 MidiIn::~MidiIn()
 {
     snd_rawmidi_close(midi_in_handle);
     terminateRequest = false;
     qDebug() <<"~" <<Q_FUNC_INFO;
 }
-
 
 
 void MidiIn::run(void)

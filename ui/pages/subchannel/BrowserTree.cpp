@@ -3,17 +3,18 @@
 #include <QKeyEvent>
 #include <QDebug>
 
+
 BrowserTree::BrowserTree(QWidget *parent)
     : QTreeView(parent)
 {
 
 }
 
+
 BrowserTree::~BrowserTree()
 {
 
 }
-
 
 
 void BrowserTree::cursorUp()
@@ -23,12 +24,14 @@ void BrowserTree::cursorUp()
     keyPressEvent(event);
 }
 
+
 void BrowserTree::cursorDown()
 {
     QKeyEvent *event = nullptr;
     event = new QKeyEvent(QEvent::KeyPress, Qt::Key_Down, Qt::NoModifier, "down", false, 0);
     keyPressEvent(event);
 }
+
 
 void BrowserTree::cursorLeft()
 {
@@ -37,6 +40,7 @@ void BrowserTree::cursorLeft()
     event = new QKeyEvent(QEvent::KeyPress, Qt::Key_Left, Qt::NoModifier, "left", false, 0);
     keyPressEvent(event);
 }
+
 
 void BrowserTree::cursorRight()
 {

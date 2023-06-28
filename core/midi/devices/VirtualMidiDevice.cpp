@@ -1,6 +1,6 @@
 #include "VirtualMidiDevice.h"
-
 #include <QDebug>
+
 
 VirtualMidiDevice::VirtualMidiDevice()
 {
@@ -10,6 +10,7 @@ VirtualMidiDevice::VirtualMidiDevice()
     m_midiIn->start();
 }
 
+
 VirtualMidiDevice::~VirtualMidiDevice()
 {
     delete m_midiOut;
@@ -17,11 +18,13 @@ VirtualMidiDevice::~VirtualMidiDevice()
     qDebug() <<"~" <<Q_FUNC_INFO;
 }
 
+
 void VirtualMidiDevice::setStepLed(int i)
 {
     Q_UNUSED(i);
     qDebug() <<Q_FUNC_INFO;
 }
+
 
 void VirtualMidiDevice::sendRawData(const QByteArray &data)
 {
@@ -29,20 +32,24 @@ void VirtualMidiDevice::sendRawData(const QByteArray &data)
     qDebug() <<Q_FUNC_INFO;
 }
 
+
 void VirtualMidiDevice::setSubchannelPattern()
 {
     qDebug() <<Q_FUNC_INFO;
 }
+
 
 void VirtualMidiDevice::setChannelPattern()
 {
     qDebug() <<Q_FUNC_INFO;
 }
 
+
 void VirtualMidiDevice::refreshSequencer()
 {
     qDebug() <<Q_FUNC_INFO;
 }
+
 
 void VirtualMidiDevice::resetHardware()
 {
@@ -54,11 +61,13 @@ void VirtualMidiDevice::refreshSubchannelSelection()
     qDebug() <<Q_FUNC_INFO;
 }
 
+
 void VirtualMidiDevice::setStepsequencerLed(int stepLedId)
 {
     Q_UNUSED(stepLedId);
     qDebug() <<Q_FUNC_INFO;
 }
+
 
 void VirtualMidiDevice::setMainVolume(quint8 volume)
 {

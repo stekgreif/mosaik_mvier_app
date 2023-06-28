@@ -12,15 +12,12 @@ class DrawPlayCursor : public QWidget
     public:
         DrawPlayCursor(QWidget *parent);
 
-
     private:
         QWidget *m_background;
         int m_cursorPos;
 
-
     public slots:
         void setPlayCursorPosition(int pos);
-
 
     protected:
         void paintEvent(QPaintEvent *event);

@@ -100,113 +100,12 @@ class MosaikMini : public MidiDevice
         void toggleSinglePatternView(void);
         int m_lastStepSequencerLed;
         int getColorValue(int id);
-
         bool m_shiftBpm;
         bool m_shiftMainVol;
-
         bool m_shiftPan;
         bool m_shiftPitch;
         bool m_shiftPlayDir;
-
         bool m_tglSubToPre;
         bool m_mute;
-
-
 };
-
 #endif // MOSAIKMINI_H
-
-
-
-#if 0
-#ifndef MIDIINPARSER_H
-#define MIDIINPARSER_H
-
-#include "MidiIn.h"
-#include <QObject>
-#include <QWidget>
-
-class MidiInParser : public QWidget
-{
-    Q_OBJECT
-public:
-    MidiInParser();
-    ~MidiInParser();
-
-private:
-    MidiIn *m_midiIn;
-
-public slots:
-    void slot_midiMsgReceived(quint8* data);
-
-signals:
-    void signal_seqMsg(quint8 id, quint8 val);
-    void signal_fnlMsg(quint8 id, quint8 val);
-    void signal_fnrMsg(quint8 id, quint8 val);
-    void signal_menMsg(quint8 id, quint8 val);
-
-    void signal_erpMsg(quint8 id, quint8 val);
-    void signal_padMsg(quint8 id, quint8 val);
-    void signal_crfMsg(quint8 id, quint8 val);
-    void signal_ahoMsg(quint8 id, quint8 val);
-
-    void signal_ahcMsg(quint8 id, quint8 val);
-    void signal_apaMsg(quint8 id, quint8 val);
-    void signal_ainMsg(quint8 id, quint8 val);
-    void signal_sprMsg(quint8 id, quint8 val);
-
-    void signal_sysMsg(quint8 id, quint8 val);
-
-    void signal_sparkMsg(quint8 id, int sigVal);
-};
-
-#endif // MIDIINPARSER_H
-
-#endif
-
-
-
-
-#if 0
-
-#ifndef MIDIOUTRENDERER_H
-#define MIDIOUTRENDERER_H
-
-#include "core/midi/MidiOut.h"
-
-
-
-class MidiOutRenderer
-{
-    public:
-        MidiOutRenderer();
-        ~MidiOutRenderer();
-
-        void setFnlLed(quint8 id, quint8 color);
-        void rstFnlLeds(void);
-
-        void setSeqLed(quint8 id, quint8 color);
-        void rstSeqLeds(void);
-
-        void setMenLed(quint8 id, quint8 color);
-        void rstMenLeds(void);
-
-        void setCrfLed(quint8 id, quint8 color);
-        void rstCrfLeds(void);
-
-        void setFnrLed(quint8 id, quint8 color);
-        void rstFnrLeds(void);
-
-        void setApaVolume(quint8 val);
-        void rstApa(void);
-
-        void rstSys(void);
-
-    private:
-        MidiOut *m_midiOut;
-};
-
-#endif // MIDIOUTRENDERER_H
-
-
-#endif

@@ -9,7 +9,6 @@
 #include "ui/pages/subchannel/BrowserTree.h"
 
 
-
 class UiManager;
 
 class Browser : public QWidget
@@ -31,7 +30,6 @@ class Browser : public QWidget
         void slot_openFolder(void);
         void slot_closeFolder(void);
 
-
     private:
         /** path and file system **/
         QFileSystemModel *m_fileSystem;
@@ -43,5 +41,4 @@ class Browser : public QWidget
         QString m_pathName[10];
 
 };
-
 #endif // BROWSER_H

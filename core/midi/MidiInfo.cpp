@@ -9,11 +9,11 @@ MidiInfo::MidiInfo()
     //rescanMidiPorts();
 }
 
+
 MidiInfo::~MidiInfo()
 {
     qDebug() <<"~" <<Q_FUNC_INFO;
 }
-
 
 
 void MidiInfo::rescanMidiPorts()
@@ -27,22 +27,23 @@ void MidiInfo::rescanMidiPorts()
 	qDebug() <<Q_FUNC_INFO <<"HW-Ports:" <<m_devicePortList;
 }
 
+
 QList<QString> MidiInfo::getDevicePortList(void)
 {
 	return m_devicePortList;
 }
+
 
 QList<int> MidiInfo::getDevicePortListInt()
 {
 	return m_devicePortListInt;
 }
 
+
 QList<QString> MidiInfo::getDeviceNameList(void)
 {
     return m_deviceNameList;
 }
-
-
 
 
 void MidiInfo::deviceList(void)
@@ -61,8 +62,6 @@ void MidiInfo::deviceList(void)
         return;
     }
 
-    //qDebug() << "Device    Name";
-
     do {
         listCardDevices(card);
         if ((err = snd_card_next(&card)) < 0)
@@ -74,14 +73,12 @@ void MidiInfo::deviceList(void)
 }
 
 
-
 void MidiInfo::listCardDevices(int card)
 {
     snd_ctl_t *ctl;
     char name[32];
     int device;
     int err;
-
     sprintf(name, "hw:%d", card);
 
     if ((err = snd_ctl_open(&ctl, name, 0)) < 0)
@@ -107,7 +104,6 @@ void MidiInfo::listCardDevices(int card)
     }
     snd_ctl_close(ctl);
 }
-
 
 
 void MidiInfo::listDevice(snd_ctl_t *ctl, int card, int device)
@@ -141,21 +137,26 @@ void MidiInfo::listDevice(snd_ctl_t *ctl, int card, int device)
     }
 
     if (err == -ENOENT)
+    {
         return;
+    }
 
     name = snd_rawmidi_info_get_name(info);
     sub_name = snd_rawmidi_info_get_subdevice_name(info);
     subs = snd_rawmidi_info_get_subdevices_count(info);
-
     qDebug() <<Q_FUNC_INFO <<"Device name:" <<name;
     qDebug() <<Q_FUNC_INFO <<"SubDevice name:" <<sub_name;
 
     if (sub_name[0] == '\0')
     {
         if (subs == 1)
+        {
             qDebug() << Q_FUNC_INFO  << "hw:" << card <<"," << device <<"," << name;
+        }
         else
+        {
             qDebug() << Q_FUNC_INFO << "hw:" << card <<"," << device <<"," << name <<"(" << subs << ")";
+        }
     }
     else
     {
@@ -164,19 +165,18 @@ void MidiInfo::listDevice(snd_ctl_t *ctl, int card, int device)
         for (;;)
         {
             //qDebug() <<"card:" <<card <<"device:" <<device <<"sub:" <<sub <<endl <<"sub_name:" <<sub_name;
-
             QString port = "hw:" + QString::number(card) + "," + QString::number(device) + "," + QString::number(sub);
             QString name = QString::fromUtf8(sub_name);
 
             //name = name.split(" ").at(0); //remove 'MIDI 1' part of string
-
             m_devicePortList.append(port);
             m_deviceNameList.append(name);
 			m_devicePortListInt.append(card);
 
             if (++sub >= subs)
+            {
                 break;
-
+            }
             snd_rawmidi_info_set_subdevice(info, sub);
 
             if ((err = snd_ctl_rawmidi_info(ctl, info)) < 0)

@@ -29,7 +29,6 @@ class MidiOut : public PPThread
 
         snd_rawmidi_params_t *m_params;
 };
-
 #endif // MIDIOUT_H
 
 

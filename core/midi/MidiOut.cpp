@@ -15,7 +15,6 @@ MidiOut::MidiOut()
 }
 
 
-
 MidiOut::MidiOut(QString hwId)
 {
     m_midiOutDevice = hwId;
@@ -38,8 +37,6 @@ MidiOut::~MidiOut()
 }
 
 
-
-
 void MidiOut::run(void)
 {
     qDebug() <<Q_FUNC_INFO << "Thread started.";
@@ -48,13 +45,12 @@ void MidiOut::run(void)
 }
 
 
-
-
 void MidiOut::sendData(const QByteArray &data)
 {
     snd_rawmidi_write(m_midiOutHandle, data.data(), data.size());
     //qDebug() << Q_FUNC_INFO << data.size();
 }
+
 
 void MidiOut::sendData(quint8 midi, quint8 id, quint8 value)
 {
@@ -74,6 +70,4 @@ void MidiOut::sendDataCopy(quint8 data[], quint8 elements)
     snd_rawmidi_write(m_midiOutHandle, data, elements);
     //qDebug() << Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
 }
-
-
 

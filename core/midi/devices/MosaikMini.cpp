@@ -1,14 +1,10 @@
 #include "MosaikMini.h"
-
 #include "Settings.h"
 #include "MosaikTypes.h"
-
 #include "core/midi/MidiNames.h"
 #include "core/subchannel/SubchannelManager.h"
-
 #include <QObject>
 #include <QDebug>
-
 
 #define SAVE_BW 0
 
@@ -47,9 +43,7 @@ MosaikMini::MosaikMini()
     connect(m_midiIn, SIGNAL(signal_midiMsgReceived(quint8*)), this, SLOT(slot_midiMsgReceived(quint8*)) );
     m_midiIn->start();
 
-
     resetHardware();
-
     refreshSubchannelSelection();
 }
 
@@ -81,7 +75,6 @@ void MosaikMini::setLedState(int section, int id, bool state)
 }
 
 
-
 void MosaikMini::setStepLed(int i)
 {
     quint8 data[3];
@@ -90,6 +83,7 @@ void MosaikMini::setStepLed(int i)
     data[2] = 1;
     m_midiOut->sendDataCopy(data, 3);
 }
+
 
 void MosaikMini::sendRawData(const QByteArray &data)
 {
@@ -113,7 +107,7 @@ void MosaikMini::setSubchannelPattern(void)
 
     for (int i = 0; i < midiData.size()/3; i++)
     {
-        midiData[3*i+0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
+        midiData[3*i+0] = (char) (MIDI_MSG_NOTE_ON | MIDI_CH_SEQ);
         midiData[3*i+1] = i;
 
         if( pattern.at(i) )
@@ -137,9 +131,10 @@ void MosaikMini::setSubchannelPattern(void)
             }
         }
         else
+        {
             midiData[3*i+2] = RgbColors::off;
+        }
     }
-
     m_midiOut->sendData(midiData);
     //qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
 }
@@ -191,7 +186,7 @@ void MosaikMini::setChannelPattern(void)
 
     for (int cnt = 0; cnt < 64; cnt++)
     {
-        midiData[3*cnt+0] = MIDI_MSG_NOTE_ON | MIDI_CH_SEQ;
+        midiData[3*cnt+0] = (char) (MIDI_MSG_NOTE_ON | MIDI_CH_SEQ);
         midiData[3*cnt+1] = cnt;
 
         switch (pattern.at(cnt))
@@ -216,13 +211,10 @@ void MosaikMini::setChannelPattern(void)
                 break;
         }
     }
-
     m_midiOut->sendData(midiData);
     //qDebug() <<Q_FUNC_INFO <<"Midi Bytes to send:" <<midiData.size();
 }
 #endif
-
-
 
 
 #if SAVE_BW // 2016-02-21 bandwidth saving function
@@ -270,7 +262,6 @@ void MosaikMini::refreshSequencer()
 }
 
 
-
 void MosaikMini::resetHardware()
 {
     // all leds off
@@ -283,7 +274,6 @@ void MosaikMini::resetHardware()
 
     refreshSubchannelSelection();
 }
-
 
 
 void MosaikMini::toggleSinglePatternView(void)
@@ -307,7 +297,6 @@ void MosaikMini::toggleSinglePatternView(void)
 
     //qDebug() <<Q_FUNC_INFO <<"m_singlePatternView:" <<m_singlePatternView;
 }
-
 
 
 void MosaikMini::refreshSubchannelSelection(void)
@@ -377,9 +366,7 @@ void MosaikMini::setStepsequencerLed(int stepLedId)
         int topLayerStep = pattern.at(m_lastStepSequencerLed);
         m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq, m_lastStepSequencerLed, getColorValue(topLayerStep));
     }
-
     m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq, stepLedId, RgbColors::white);
-
     m_lastStepSequencerLed = stepLedId;
 }
 
@@ -388,7 +375,6 @@ void MosaikMini::setStepsequencerLed(int stepLedId)
 /** ****************************************************************************
     MIDI IN
 *******************************************************************************/
-
 void MosaikMini::slot_midiMsgReceived(quint8* data)
 {
     quint8 midiBuffer[3] = {};
@@ -445,9 +431,9 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         emit signal_functionLeftButton04Pressed();
                         break;
                     case 5:
-                    {
-                        emit signal_functionLeftButton05Pressed();
-                    }break;
+                        {
+                            emit signal_functionLeftButton05Pressed();
+                        }break;
                     case 6:
                         if( data[0] == (Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl) )
                         {
@@ -575,7 +561,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                 case 7:
                     if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
                     {
-                        signal_setPathId(8);
+                        emit signal_setPathId(8);
                     }
                     break;
                 case  8:
@@ -588,7 +574,7 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                 case 15:
                     if( data[0] == (Mosaik::MidiChannels::Fnr | Mosaik::MidiCommand::noteOn) )
                     {
-                        signal_setPathId( data[1] - 8);
+                        emit signal_setPathId( data[1] - 8);
                     }
                     break;
                 default:
@@ -596,7 +582,6 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
             }
             break;
         }
-
         /** Menu **/
         //  0   1   2
         //  3   4   5
@@ -764,7 +749,6 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         }
     }
 }
-
 
 
 /** @param volume: 0->no attenuation; 127->mute */

@@ -22,12 +22,12 @@ ToolBoxMute::~ToolBoxMute()
 }
 
 
-void ToolBoxMute::paintEvent(QPaintEvent *event)
+void ToolBoxMute::paintEvent( QPaintEvent *event )
 {
-	Q_UNUSED(event);
+    Q_UNUSED( event );
 	QStyleOption myOption;
-	myOption.initFrom(this);
-	QPainter myPainter(this);
-	style()->drawPrimitive( QStyle::PE_Widget, &myOption, &myPainter, this);
+    myOption.initFrom( this );
+    QPainter myPainter( this );
+    style()->drawPrimitive( QStyle::PE_Widget, &myOption, &myPainter, this );
 }
 

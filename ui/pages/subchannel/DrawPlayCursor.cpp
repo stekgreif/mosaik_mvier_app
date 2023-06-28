@@ -4,7 +4,6 @@
 #include <QDebug>
 
 
-
 DrawPlayCursor::DrawPlayCursor(QWidget *parent)
     : QWidget(parent)
     , m_background(new QWidget(this))
@@ -17,13 +16,11 @@ DrawPlayCursor::DrawPlayCursor(QWidget *parent)
 }
 
 
-
 void DrawPlayCursor::setPlayCursorPosition(int pos)
 {
     m_cursorPos = pos*6;
     this->update();
 }
-
 
 
 void DrawPlayCursor::paintEvent(QPaintEvent *ev)
@@ -37,6 +34,3 @@ void DrawPlayCursor::paintEvent(QPaintEvent *ev)
     myPainter.setPen(myPen);
     myPainter.drawLine(m_cursorPos, 0, m_cursorPos, 400);
 }
-
-
-

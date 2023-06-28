@@ -17,12 +17,10 @@ VolumeWidget::VolumeWidget(QWidget *parent)
 }
 
 
-
 VolumeWidget::~VolumeWidget()
 {
 
 }
-
 
 
 void VolumeWidget::setVolume(float vol)
@@ -30,7 +28,6 @@ void VolumeWidget::setVolume(float vol)
     m_value = vol;
     this->update();
 }
-
 
 
 void VolumeWidget::paintEvent(QPaintEvent *event)

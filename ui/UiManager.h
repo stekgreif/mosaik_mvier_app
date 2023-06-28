@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QStackedWidget>
 #include <QTimer>
-
 #include "ui/pages/subchannel/PageSubchannel.h"
 #include "ui/pages/selection/PageSelection.h"
 #include "ui/pages/info/PageInfos.h"

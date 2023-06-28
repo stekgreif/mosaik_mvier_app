@@ -6,7 +6,6 @@
 #include <QObject>
 
 
-
 class MidiDevices : public QObject
 {
 	Q_OBJECT
@@ -27,8 +26,6 @@ class MidiDevices : public QObject
 	private:
 		int m_deviceId = 0;
 		int m_deviceType = 0;
-
-
 };
 
 #endif // MIDIDEVICES_H

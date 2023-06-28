@@ -5,8 +5,6 @@
 #include <QStyleOption>
 
 
-
-
 DrawEnvelope::DrawEnvelope(QSize size, QWidget *parent)
     : QWidget(parent)
 {
@@ -22,7 +20,6 @@ DrawEnvelope::DrawEnvelope(QSize size, QWidget *parent)
 }
 
 
-
 void DrawEnvelope::setEnvelope(envelope_t envelope)
 {
     qDebug() <<Q_FUNC_INFO;
@@ -35,44 +32,10 @@ void DrawEnvelope::setEnvelope(envelope_t envelope)
 }
 
 
-
 void DrawEnvelope::refresh()
 {
     qDebug() <<Q_FUNC_INFO <<"delete me";
-#if 0
-    QPainter painter(this);
-    QPen     line;
-    QBrush   fill;
-    QColor   fillColor;
-    QColor   lineColor;
-
-    line.setWidth(3);
-
-    fillColor.setRgba(qRgba(20,20,20,20));
-    lineColor.setRgb(200,200,200);
-
-    line.setColor(lineColor);
-    fill.setColor(fillColor);
-
-    painter.setPen(line);
-    painter.setBrush(fill);
-    painter.setRenderHint(QPainter::Antialiasing, true);
-
-    QPolygon poly(4);
-    poly.setPoint(0, 0,0);
-    poly.setPoint(1, (int)m_envelope->fadeIn,0);
-    poly.setPoint(2, 0,m_widgetSize->height());
-    poly.setPoint(3, (int)m_envelope->start,m_widgetSize->height());
-
-    painter.drawPolygon(poly);
-
-    //painter.drawLine(m_envelope->start, 0, m_envelope->start, m_widgetSize->height());
-
-    update();
-#endif
 }
-
-
 
 
 void DrawEnvelope::paintEvent(QPaintEvent *event)
@@ -82,7 +45,6 @@ void DrawEnvelope::paintEvent(QPaintEvent *event)
     myOption.initFrom(this);
     QPainter myPainter(this);
     style()->drawPrimitive( QStyle::PE_Widget, &myOption, &myPainter, this);
-
 
     QPainter painter(this);
     QPen     line;
@@ -115,11 +77,7 @@ void DrawEnvelope::paintEvent(QPaintEvent *event)
     polyEnd.setPoint(2, m_widgetSize->width(), m_widgetSize->height());
     polyEnd.setPoint(3, (int)m_envelope->end, m_widgetSize->height());
 
-
     painter.drawPolygon(polyStart);
     painter.drawPolygon(polyEnd);
-
-    //painter.drawLine(m_envelope->start, 0, m_envelope->start, m_widgetSize->height());
-
 }
 

@@ -5,7 +5,6 @@
 #include <QWidget>
 
 
-
 class VolumeWidget : public QWidget
 {
     Q_OBJECT

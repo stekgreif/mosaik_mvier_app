@@ -1,21 +1,16 @@
 #include "MosaikMiniApp.h"
 #include "ui_MosaikMiniApp.h"
-
 #include <QtWidgets>
 #include <QScrollArea>
 #include <QDesktopWidget>
 #include <QDebug>
-
 #include "Settings.h"
 #include "MosaikTypes.h"
-
 #include "ui/pages/subchannel/PageSubchannel.h"
-
 #include "core/audio/AlsaPcm.h"
 #include "core/midi/MidiInfo.h"
 #include "core/midi/MidiManager.h"
 #include "core/midi/MidiNames.h"
-
 
 
 MosaikMiniApp::MosaikMiniApp(QWidget *parent)
@@ -29,27 +24,21 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
     //settings().setScreenSize(m_screenInfo->screenGeometry());
     settings().setScreenSize( QGuiApplication::primaryScreen()->virtualGeometry() );
 
-
     /** UI **/
     this->setCursor(Qt::CrossCursor);
     //this->setCursor(Qt::BlankCursor);
-
     ui->setupUi(this);
     ui->statusBar->hide();
     ui->mainToolBar->hide();
     ui->menuBar->hide();
     //this->setContentsMargins(1,1,1,1);
-
-
     m_uiManager = new UiManager(this, m_scrollArea);
     m_uiManager->setFixedSize( settings().getScreenSize() );
-
     m_scrollArea->setFrameStyle(QFrame::NoFrame);
     m_scrollArea->setWidget(m_uiManager);
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setCentralWidget(m_scrollArea);
-
 
     /** general **/
     if( settings().startWithFullScreen() )
@@ -61,12 +50,9 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
         slot_setNormalScreen();
     }
 
-
     /** MIDI **/
     midiManager().setParentWidget(this);
     midiManager().connectFavouriteDevice();
-
-
 
     if( settings().initWithAudio() )
     {
@@ -84,12 +70,11 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
     m_timer = new QTimer;
     m_timer->start(10);
 
-
     /** signal slot connections **/
     connect( m_uiManager,    SIGNAL(signal_subchannelSelectionPadTriggert(int)), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
     connect( m_timer, SIGNAL(timeout()), this,  SLOT(slot_regularTimer()) );
-
 }
+
 
 MosaikMiniApp::~MosaikMiniApp()
 {
@@ -227,17 +212,20 @@ void MosaikMiniApp::slot_sampleUnloadCurrentSubchannel()
     m_uiManager->refresh();
 }
 
+
 void MosaikMiniApp::slot_sampleUnloadCurrentChannel()
 {
     subchannelManager().unloadSamplesOfCurrentChannel();
     m_uiManager->refresh();
 }
 
+
 void MosaikMiniApp::slot_sampleUnloadAll()
 {
     subchannelManager().unloadAllSamples();
     m_uiManager->refresh();
 }
+
 
 void MosaikMiniApp::slot_sampleLoadToCurrentSubchannel()
 {
@@ -246,11 +234,13 @@ void MosaikMiniApp::slot_sampleLoadToCurrentSubchannel()
     m_uiManager->refresh();
 }
 
+
 void MosaikMiniApp::slot_sampleLoadToPrelisten()
 {
     qDebug() <<Q_FUNC_INFO;
     m_uiManager->loadSelectedSampleToPrelisten();
 }
+
 
 void MosaikMiniApp::slot_prelistenSubchannelSample()
 {
@@ -270,12 +260,14 @@ void MosaikMiniApp::slot_selectionSetCurrentSubchannelRelative(int id)
     m_uiManager->refresh();
 }
 
+
 void MosaikMiniApp::slot_selectionSetCurrentChannelRelative(int relVal)
 {
     qDebug() <<Q_FUNC_INFO <<"relVal" <<relVal;
     subchannelManager().setCurrentChannelRelative(relVal);
     m_uiManager->refresh();
 }
+
 
 void MosaikMiniApp::slot_selectionSetCurrentChannel(int id)
 {
@@ -284,6 +276,7 @@ void MosaikMiniApp::slot_selectionSetCurrentChannel(int id)
     midiManager().refreshSubchannelSelection();
     m_uiManager->refresh();
 }
+
 
 void MosaikMiniApp::slot_selectionNextSubchannel()
 {
@@ -305,12 +298,14 @@ void MosaikMiniApp::slot_patternClearCurrentSubchannel()
     m_uiManager->refresh();
 }
 
+
 void MosaikMiniApp::slot_patternClearCurrentChannel()
 {
     subchannelManager().clearCurrentChannelPattern();
     midiManager().refreshPatternView();
     m_uiManager->refresh();
 }
+
 
 void MosaikMiniApp::slot_patternClearAll()
 {
@@ -328,6 +323,7 @@ void MosaikMiniApp::slot_uiSetToPageSubchannel()
     m_uiManager->setPageIndex(Mosaik::Pages::Subchannel);
 }
 
+
 void MosaikMiniApp::slot_uiSetToPageBrowser()
 {
     m_uiManager->setPageIndex(Mosaik::Pages::Browser);
@@ -343,16 +339,19 @@ void MosaikMiniApp::slot_browserChangePathId(int id)
     m_uiManager->refresh();
 }
 
+
 void MosaikMiniApp::slot_browserChangeCursorPosition(int direction)
 {
     qDebug() <<Q_FUNC_INFO;
     m_uiManager->m_pageSubchannel->slot_moveCursor(direction);
 }
 
+
 void MosaikMiniApp::slot_browserToggleFolderExpansion()
 {
     m_uiManager->m_pageSubchannel->slot_toggleItmeExpansion();
 }
+
 
 void MosaikMiniApp::slot_browserSelectedSampleToPrelisten()
 {
@@ -360,10 +359,12 @@ void MosaikMiniApp::slot_browserSelectedSampleToPrelisten()
     m_uiManager->loadSelectedSampleToPrelisten();
 }
 
+
 void MosaikMiniApp::slot_browserOpenFolder()
 {
     m_uiManager->slot_browserOpenFolder();
 }
+
 
 void MosaikMiniApp::slot_browserCloseFolder()
 {
@@ -374,12 +375,12 @@ void MosaikMiniApp::slot_browserCloseFolder()
 /** ****************************************************************************
     envelope and audio parameter
 *******************************************************************************/
-
 void MosaikMiniApp::slot_envelopeChangeCurrentSubchFadeIn(float relVal)
 {
     subchannelManager().setCurrentFadeInPointRel(relVal);
     m_uiManager->refreshEnvelope();
 }
+
 
 void MosaikMiniApp::slot_envelopeChangeCurrentSubchStart(float relVal)
 {
@@ -387,11 +388,13 @@ void MosaikMiniApp::slot_envelopeChangeCurrentSubchStart(float relVal)
     m_uiManager->refreshEnvelope();
 }
 
+
 void MosaikMiniApp::slot_envelopeChangeCurrentSubchEnd(float relVal)
 {
     subchannelManager().setCurrentEndPointRel(relVal);
     m_uiManager->refreshEnvelope();
 }
+
 
 void MosaikMiniApp::slot_envelopeChangeCurrentSubchFadeOut(float relVal)
 {
@@ -399,17 +402,20 @@ void MosaikMiniApp::slot_envelopeChangeCurrentSubchFadeOut(float relVal)
     m_uiManager->refreshEnvelope();
 }
 
+
 void MosaikMiniApp::slot_parameterChangeCurrentSubchVolume(float relVal)
 {
     subchannelManager().setCurrentSubchannelVolumeRelative(relVal);
     m_uiManager->refreshVolPoti();
 }
 
+
 void MosaikMiniApp::slot_parameterPan(float relVal)
 {
     subchannelManager().setCurrentPan(relVal);
     m_uiManager->refreshVolPoti();
 }
+
 
 void MosaikMiniApp::slot_parameterCurrentSubToPre(bool state)
 {
@@ -418,6 +424,7 @@ void MosaikMiniApp::slot_parameterCurrentSubToPre(bool state)
     midiManager().subToPreLed(state);
 }
 
+
 void MosaikMiniApp::slot_parameterMuteAndSolo(bool state)
 {
     //qDebug() <<Q_FUNC_INFO <<"state" <<state;
@@ -425,17 +432,20 @@ void MosaikMiniApp::slot_parameterMuteAndSolo(bool state)
     m_uiManager->slot_toggleMuteAndSolo();
 }
 
+
 void MosaikMiniApp::slot_parameterUnmuteAll()
 {
     subchannelManager().unmuteAll();
     m_uiManager->refreshMutePads();
 }
 
+
 void MosaikMiniApp::slot_parameterSelectLastMutes()
 {
     subchannelManager().lastMuteStates();
     m_uiManager->refreshMutePads();
 }
+
 
 void MosaikMiniApp::slot_parameterPlayDirection(bool direction)
 {
@@ -444,10 +454,10 @@ void MosaikMiniApp::slot_parameterPlayDirection(bool direction)
     m_uiManager->refreshPlayDirection();
 }
 
+
 void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
 {
     qDebug() <<Q_FUNC_INFO <<"erp changed:" <<"id:" <<id <<"val:" <<val;
-
 	float change = ((float) val) / 250;
 
     switch(id)
@@ -513,6 +523,7 @@ void MosaikMiniApp::slot_globalMainVolume(float relVal)
     m_uiManager->refreshMainVol();
 }
 
+
 void MosaikMiniApp::slot_globalChangeBpmRelative(float diffVal)
 {
     qDebug() <<Q_FUNC_INFO;
@@ -520,6 +531,7 @@ void MosaikMiniApp::slot_globalChangeBpmRelative(float diffVal)
     m_alsaPcm->slot_bpmChanged(subchannelManager().getBpm());
     m_uiManager->refreshBpm();
 }
+
 
 void MosaikMiniApp::slot_globalPreVolume(float absVal)
 {
@@ -539,6 +551,7 @@ void MosaikMiniApp::slot_setFullScreen(void)
     m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
+
 void MosaikMiniApp::slot_setNormalScreen(void)
 {
     showNormal();
@@ -548,6 +561,7 @@ void MosaikMiniApp::slot_setNormalScreen(void)
     m_scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 }
 
+
 void MosaikMiniApp::slot_appToggleFullScreen()
 {
     if( isFullScreen() )
@@ -556,15 +570,18 @@ void MosaikMiniApp::slot_appToggleFullScreen()
         slot_setFullScreen();
 }
 
+
 void MosaikMiniApp::slot_exitApplication(void)
 {
     //close();
 }
 
+
 void MosaikMiniApp::slot_appExit()
 {
     //close();
 }
+
 
 void MosaikMiniApp::slot_buttonPressed(int id)
 {

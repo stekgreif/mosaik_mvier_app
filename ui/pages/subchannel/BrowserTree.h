@@ -3,6 +3,7 @@
 
 #include <QTreeView>
 
+
 class BrowserTree : public QTreeView
 {
     public:

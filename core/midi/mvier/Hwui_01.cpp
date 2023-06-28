@@ -1,12 +1,8 @@
-#include "Hwui_01.h"
-
-#include "core/midi/MidiNames.h"
-#include "Settings.h"
-#include "MosaikTypes.h"
-
 #include <QDebug>
-
-
+#include "MosaikTypes.h"
+#include "Settings.h"
+#include "core/midi/MidiNames.h"
+#include "Hwui_01.h"
 
 
 Hwui_01::Hwui_01(QString hwPort)
@@ -77,12 +73,6 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 	{
 		switch( midiBuffer[1] )
 		{
-#if 0
-			case  0:	emit signal_button00Pressed(); break;
-			case  1:	emit signal_button01Pressed(); break;
-			case  2:	emit signal_button02Pressed(); break;
-			case  3:	emit signal_button03Pressed(); break;
-#endif
 			case  4:
 			{
 			qDebug() <<Q_FUNC_INFO <<"mail vol";

@@ -4,9 +4,9 @@
 #include "core/midi/devices/MidiDevice.h"
 #include "core/midi/MidiOut.h"
 #include "core/midi/MidiIn.h"
-
 #include <QObject>
 #include <QWidget>
+
 
 class VirtualMidiDevice : public MidiDevice
 {

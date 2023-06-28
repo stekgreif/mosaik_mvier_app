@@ -8,6 +8,7 @@ DeviceIdentifier::DeviceIdentifier()
 	qDebug() <<Q_FUNC_INFO;
 }
 
+
 DeviceIdentifier::~DeviceIdentifier()
 {
 	qDebug() <<Q_FUNC_INFO <<m_id;
@@ -36,7 +37,6 @@ void DeviceIdentifier::midiConnect(QString hwPort)
 }
 
 
-
 void DeviceIdentifier::midiScanConnection()
 {
 
@@ -57,18 +57,17 @@ int DeviceIdentifier::getDeviceId(void)
 }
 
 
-
-
 void DeviceIdentifier::slot_midiMsgReceived(quint8 *data)
 {
+#if 0
 	quint8 midiBuffer[3] = {};
 
 	midiBuffer[0] = data[0];    // midi ch, status
 	midiBuffer[1] = data[1];    // note/id
 	midiBuffer[2] = data[2];    // value
+#endif
 
 	qDebug() <<Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
-
 
 	if( data[0] == 0xA0 )
 	{
@@ -76,6 +75,4 @@ void DeviceIdentifier::slot_midiMsgReceived(quint8 *data)
 		m_id = data[2];
 	}
 }
-
-
 

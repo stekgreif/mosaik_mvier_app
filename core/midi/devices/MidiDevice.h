@@ -50,8 +50,6 @@ class MidiDevice : public QObject
         void signal_browserOpenFolder(void);
         void signal_browserCloseFolder(void);
 
-
-
         /** new signal functions **/
         void signal_stepButtonPressed(int id);
         void signal_selectPageSubchannel(void);
@@ -98,12 +96,6 @@ class MidiDevice : public QObject
         void signal_functionLeftButton15Pressed(void);
 
         void signal_functionSelectSubchannelRelative(int id);
-
-
-#if 0
-    public slots:
-        void slot_midiMsgReceived(quint8* data);
-#endif
 
     protected:
         MidiOut *m_midiOut;

@@ -6,8 +6,6 @@ devices:
 3 HWUI R
 */
 
-
-
 #ifndef MIDIMANAGER_H
 #define MIDIMANAGER_H
 
@@ -19,12 +17,9 @@ devices:
 #include "core/midi/mvier/Hwui_02.h"
 #include "core/midi/mvier/Hwui_03.h"
 #include "core/midi/mvier/RgbwButtons.h"
-
-
 #include <QObject>
 #include <QtGlobal>
 #include <QMap>
-
 
 
 class MidiManager : public QObject
@@ -37,7 +32,6 @@ class MidiManager : public QObject
             static MidiManager instance;
             return instance;
         }
-
         void connectFavouriteDevice(void);
         void setStepLed(int i);
         void setParentWidget(MosaikMiniApp *parent);
@@ -69,10 +63,8 @@ class MidiManager : public QObject
         bool m_isConnected;
         MosaikMiniApp *m_parent;
 		void connectToAllMidiDevices(void);
-
 		QList<DeviceIdentifier*> m_deviceIdentifier;
 		QMap<QString, int> m_deviceMap;
-
 		RgbwButtons *m_rgbwButtons;
 		Hwui_01 *m_hwui01;
 		Hwui_02 *m_hwui02;

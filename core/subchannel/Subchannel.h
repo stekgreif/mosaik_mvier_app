@@ -4,13 +4,10 @@
 #include <QList>
 #include <QString>
 #include <QSharedPointer>
-
 #include "core/subchannel/Sample.h"
 #include "core/subchannel/Envelope.h"
 #include "core/subchannel/Sequencer.h"
 #include "core/subchannel/AudioParameter.h"
-
-
 
 
 class Subchannel
@@ -18,7 +15,6 @@ class Subchannel
     public:
         Subchannel(int id);
         ~Subchannel();
-
 
         /** envelope **/
         Envelope *m_envelope;
@@ -29,7 +25,6 @@ class Subchannel
         void setStartOffsetPoint(float offset );
         envelope_t getEnvelope(void);
 
-
         /** audio parameter **/
         void  setVolumeRel(float vol);
         float getVolume(void);
@@ -39,10 +34,8 @@ class Subchannel
         void  setPlayDirection(bool direction);
         bool  getPlayDirection(void);
         //bool  getPlayDirectionForward();
-
         bool  isMute() const;
         void  setMute(bool state);
-
 
         /** Sample **/
         bool hasSample(void);
@@ -53,9 +46,7 @@ class Subchannel
         TwoChannelFrame_t getFrame(void);
         TwoChannelFrame_t getTestFrame(void);
         TwoChannelFrame_t getTestFrameWithSteps(void);
-
         QSharedPointer<Sample> getSharedSamplePtr(void);
-
 
         /** sequencer **/
         void      toggleStep(int stepId);
@@ -65,8 +56,6 @@ class Subchannel
         QBitArray getPattern(void);
         bool      hasSteps(void);
         void      updateRelativeStepCounter(int step);  //0..63
-
-
 
     private:
         QSharedPointer<Sample> m_sharedSamplePtr;
@@ -93,7 +82,6 @@ class Subchannel
 
         /** IMPLEMENT! **/
         int m_sampleId;
-
 
         /** 2015-04-24 parameter for new trigger algorithm **/
         bool m_finishedPlaying;

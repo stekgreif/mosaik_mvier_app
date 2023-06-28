@@ -20,7 +20,6 @@ class ToolBoxMute : public QWidget
 	private:
 		QLabel *m_testLabel;
 		QPushButton *m_buttonMute;
-
 };
 
 #endif // TOOLBOXMUTE_H

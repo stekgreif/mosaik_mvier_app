@@ -22,5 +22,4 @@ class DrawEnvelope : public QWidget
     protected:
         void paintEvent(QPaintEvent *event);
 };
-
 #endif // DRAWENVELOPE_H

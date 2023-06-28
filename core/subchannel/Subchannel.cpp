@@ -14,9 +14,7 @@ Subchannel::Subchannel(int id)
 {
     m_subchannelId = id;
     m_frameReturnState = 0;
-
     m_pattern = new QList<int>; /// @todo 99 - move to Pattern class
-
     m_envelope = new Envelope;
 
     for(int i = 0; i < 64; i++)
@@ -25,13 +23,9 @@ Subchannel::Subchannel(int id)
     }
 
     m_hasSample = false;
-
     m_tempCnt = 0;
     m_tgl = false;
     m_volume = 0.6;
-
-
-
     m_finishedPlaying = true;
     m_step = -1;
     m_alsaStep = -1;
@@ -43,32 +37,36 @@ Subchannel::Subchannel(int id)
 }
 
 
-
 Subchannel::~Subchannel()
 {
     delete m_envelope;
     m_pattern->clear();
 }
 
-void Subchannel::setStartPointRel(float start)
+
+void Subchannel::setStartPointRel( float start )
 {
-    m_envelope->setStartPointRel(start);
+    m_envelope->setStartPointRel( start );
 }
 
-void Subchannel::setEndPointRel(float end)
+
+void Subchannel::setEndPointRel( float end )
 {
-    m_envelope->setEndPointRel(end);
+    m_envelope->setEndPointRel( end );
 }
 
-void Subchannel::setFadeInPointRel(float fadeIn)
+
+void Subchannel::setFadeInPointRel( float fadeIn )
 {
-    m_envelope->setFadeInPointRel(fadeIn);
+    m_envelope->setFadeInPointRel( fadeIn );
 }
 
-void Subchannel::setFadeOutPointRel(float fadeOut)
+
+void Subchannel::setFadeOutPointRel( float fadeOut )
 {
-    m_envelope->setFadeOutPointRel(fadeOut);
+    m_envelope->setFadeOutPointRel( fadeOut );
 }
+
 
 envelope_t Subchannel::getEnvelope()
 {
@@ -76,77 +74,72 @@ envelope_t Subchannel::getEnvelope()
 }
 
 
-
 /** sequencer **/
-
-void Subchannel::toggleStep(int stepId)
+void Subchannel::toggleStep( int stepId )
 {
-    if( m_pattern->at(stepId) == 1)
+    if( m_pattern->at(stepId) == 1 )
     {
-        m_pattern->replace(stepId, 0);
+        m_pattern->replace( stepId, 0 );
     }
     else
     {
-        m_pattern->replace(stepId, 1);
+        m_pattern->replace( stepId, 1 );
     }
 }
 
 
 void Subchannel::clearPattern()
 {
-    for(int i = 0; i < 64; i++)
+    for( int i = 0; i < 64; i++ )
     {
-        m_pattern->replace(i, 0);
+        m_pattern->replace( i, 0 );
     }
 }
 
 
-quint8 Subchannel::getStepValue(int stepId)
+quint8 Subchannel::getStepValue( int stepId )
 {
-    return m_pattern->at(stepId);
+    return m_pattern->at( stepId );
 }
 
 
-QString Subchannel::getPatternForPrinting(void)
+QString Subchannel::getPatternForPrinting( void )
 {
     QString pattern;
-
     for(int i = 0; i < 64; i++)
     {
-        pattern += QString::number(m_pattern->at(i));
-        if(((i+1) % 8) == 0)
+        pattern += QString::number( m_pattern->at(i) );
+        if( ((i+1) % 8) == 0 )
+        {
             pattern += "  ";
+        }
     }
     return pattern;
 }
 
 
-
-QBitArray Subchannel::getPattern()
+QBitArray Subchannel::getPattern( void )
 {
-    QBitArray pattern(64);
-
+    QBitArray pattern( 64 );
     for (int i = 0; i < 64; i++)
     {
-        if( m_pattern->at(i) == 1)
+        if( m_pattern->at(i) == 1 )
         {
-            pattern.setBit(i);
+            pattern.setBit( i );
         }
         else
         {
-            pattern.clearBit(i);
+            pattern.clearBit( i );
         }
     }
-
     //qDebug() <<Q_FUNC_INFO <<pattern;
     return pattern;
 }
 
 
-
-bool Subchannel::hasSteps(void)
+bool Subchannel::hasSteps( void )
 {
-    if(m_pattern->count(1) > 0)
+    if( m_pattern->count(1) > 0 )
     {
         return true;
     }
@@ -157,12 +150,10 @@ bool Subchannel::hasSteps(void)
 }
 
 
-
-void Subchannel::updateRelativeStepCounter(int step)
+void Subchannel::updateRelativeStepCounter( int step )
 {
     m_alsaStep = step;
 }
-
 
 
 void Subchannel::setVolumeRel(float vol)
@@ -185,24 +176,28 @@ void Subchannel::setVolumeRel(float vol)
 }
 
 
-
-float Subchannel::getVolume()
+float Subchannel::getVolume( void )
 {
     return m_volume;
 }
 
-void Subchannel::setPan(float relVal)
+
+void Subchannel::setPan( float relVal )
 {
     if( (m_pan + relVal) < 0 )
+    {
         m_pan = 0;
-    else if((m_pan + relVal) > 1)
+    }
+    else if( (m_pan + relVal) > 1 )
+    {
         m_pan = 1;
+    }
     else
+    {
         m_pan = m_pan + relVal;
-
+    }
     qDebug() <<Q_FUNC_INFO <<"m_pan:" <<m_pan;
 }
-
 
 
 float Subchannel::getPan()
@@ -210,10 +205,11 @@ float Subchannel::getPan()
     return m_pan;
 }
 
+
 void Subchannel::togglePlayDirection()
 {
     qDebug() <<Q_FUNC_INFO <<"old play forward: " <<m_playForward;
-    if(m_playForward)
+    if( m_playForward )
     {
         m_playForward = false;
     }
@@ -224,37 +220,36 @@ void Subchannel::togglePlayDirection()
     qDebug() <<Q_FUNC_INFO <<"new play forward: " <<m_playForward;
 }
 
+
 void Subchannel::setPlayDirection(bool direction)
 {
     m_playForward = direction;
 }
 
+
 // true: forward - false: backwards
-bool Subchannel::getPlayDirection()
+bool Subchannel::getPlayDirection( void )
 {
     return m_playForward;
 }
 
 
-
-void Subchannel::printSubchannelPatternsToDebug(void)
+void Subchannel::printSubchannelPatternsToDebug( void )
 {
     qDebug() <<"Subchannel" <<m_subchannelId <<getPatternForPrinting() ;
 }
 
 
-
-
 /** Sample **/
-void Subchannel::loadSample(QString pathAndName)
+void Subchannel::loadSample( QString pathAndName )
 {
     m_volume = 0.6;
-    m_sharedSamplePtr = QSharedPointer<Sample>(new Sample(pathAndName));
+    m_sharedSamplePtr = QSharedPointer<Sample>( new Sample(pathAndName) );
     m_hasSample = true;
 }
 
 
-void Subchannel::unloadSample(void)
+void Subchannel::unloadSample( void )
 {
     qDebug() <<Q_FUNC_INFO <<"Try to unload sample of subchannel" <<m_subchannelId;
 
@@ -267,10 +262,10 @@ void Subchannel::unloadSample(void)
         qDebug() <<Q_FUNC_INFO <<"Sample Unloaded";
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"Nothing to unload";
+    }
 }
-
-
 
 
 bool Subchannel::isPlaying()
@@ -279,24 +274,29 @@ bool Subchannel::isPlaying()
 }
 
 
-
-
-
 bool Subchannel::isMute() const
 {
     if( (m_audioMute > 0.9) && (m_audioMute < 1.1) )
+    {
         return false;
+    }
     else
+    {
         return true;
+    }
 }
+
 
 void Subchannel::setMute(bool state)
 {
     if( state )
+    {
         m_audioMute = 0.0;
+    }
     else
+    {
         m_audioMute = 1.0;
-
+    }
     //qDebug() <<Q_FUNC_INFO <<"m_audioMute (0:mute):" <<m_audioMute;
 }
 
@@ -305,7 +305,6 @@ void Subchannel::setMute(bool state)
 TwoChannelFrame_t Subchannel::getFrame()
 {
     TwoChannelFrame_t retVal = {0.0,0.0};
-
 
     if( m_step != m_alsaStep ) // step has changed
     {
@@ -333,13 +332,17 @@ TwoChannelFrame_t Subchannel::getFrame()
         else
         {
             if( m_finishedPlaying )
+            {
                 return retVal;
+            }
         }
     }
     else
     {
         if( m_finishedPlaying )
+        {
             return retVal;
+        }
     }
 
     if(m_playForward)
@@ -359,7 +362,9 @@ TwoChannelFrame_t Subchannel::getFrame()
         }
 
         if( m_frameCounter >= (m_envEnd) )
+        {
             m_finishedPlaying = true;
+        }
     }
     else // play backwards
     {
@@ -376,11 +381,11 @@ TwoChannelFrame_t Subchannel::getFrame()
             retVal.right = m_sampleBuffer[m_frameCounter] * m_volume * m_volume * 2 *    m_pan  * m_audioMute;
             m_frameCounter--;
         }
-
         if( m_frameCounter <= (m_envEnd) )
+        {
             m_finishedPlaying = true;
+        }
     }
-
     return retVal;
 }
 #endif
@@ -430,10 +435,6 @@ TwoChannelFrame_t Subchannel::getFrame()
 #endif
 
 
-
-
-
-
 TwoChannelFrame_t Subchannel::getTestFrameWithSteps()
 {
     TwoChannelFrame_t retValue = {0.0,0.0};
@@ -442,9 +443,13 @@ TwoChannelFrame_t Subchannel::getTestFrameWithSteps()
     if( m_tempCnt % 50 == 0)
     {
         if( m_tgl )
+        {
             m_tgl = false;
+        }
         else
+        {
             m_tgl = true;
+        }
     }
     if( m_pattern->at(m_stepCounter) )
     {
@@ -465,14 +470,11 @@ TwoChannelFrame_t Subchannel::getTestFrameWithSteps()
         retValue.left  = 0.0;
         retValue.right = 0.0;
     }
-
     return retValue;
 }
 
 
-
-
-TwoChannelFrame_t Subchannel::getTestFrame()
+TwoChannelFrame_t Subchannel::getTestFrame( void )
 {
     TwoChannelFrame_t retValue = {0.0,0.0};
     m_tempCnt++;
@@ -480,9 +482,13 @@ TwoChannelFrame_t Subchannel::getTestFrame()
     if( m_tempCnt % 50 == 0)
     {
         if( m_tgl )
+        {
             m_tgl = false;
+        }
         else
+        {
             m_tgl = true;
+        }
     }
 
     if( (m_stepCounter % 4) == 0 )
@@ -503,19 +509,17 @@ TwoChannelFrame_t Subchannel::getTestFrame()
         retValue.left  = 0.0;
         retValue.right = 0.0;
     }
-
     return retValue;
 }
 
 
-
-
-QSharedPointer<Sample> Subchannel::getSharedSamplePtr(void)
+QSharedPointer<Sample> Subchannel::getSharedSamplePtr( void )
 {
     return m_sharedSamplePtr;
 }
 
-bool Subchannel::hasSample(void)
+
+bool Subchannel::hasSample( void )
 {
     return m_hasSample;
 }

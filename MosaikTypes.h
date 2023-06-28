@@ -2,13 +2,13 @@
 #define MOSAIKTYPES_H
 
 
-typedef struct {
+typedef struct
+{
     float start;
     float fadeIn;
     float fadeOut;
     float end;
 } envelope_t;
-
 
 
 namespace Mosaik
@@ -63,8 +63,6 @@ namespace Mosaik
     };
 #endif
 
-
-
     struct SparkLeCc
     {
         enum sparkLeCc
@@ -109,8 +107,10 @@ namespace Mosaik
 
 
 
-namespace MosaikMiniDevice {
-    enum MidiChannel {
+namespace MosaikMiniDevice
+{
+    enum MidiChannel
+    {
         MidiChannelSeq =  0,
         MidiChannelFnl =  1,
         MidiChannelFnr =  2,
@@ -126,7 +126,8 @@ namespace MosaikMiniDevice {
         MidiChannelSys = 15
     };
 
-    enum RgbColors {
+    enum RgbColors
+    {
         RgbColorOff     = 0xF,
         RgbColorRed     = 0xD,
         RgbColorGreen   = 0xB,

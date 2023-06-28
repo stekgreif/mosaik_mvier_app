@@ -1,1 +1,3 @@
-# mosaik_mini_app
+# Mosaik App
+
+64 Step Sample based Drummachine

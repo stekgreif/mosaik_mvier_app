@@ -1,7 +1,6 @@
 #ifndef SUBCHANNELMANAGER_H
 #define SUBCHANNELMANAGER_H
 
-
 #include <core/subchannel/Subchannel.h>
 #include <QList>
 #include <QBitArray>
@@ -72,7 +71,6 @@ class SubchannelManager
         void  setCurrentPlayDirection(bool direction);
         bool  getCurrentPlayDirection(void);
 
-
         /** sub/channel selection **/
         void  setCurrentSubchannelSelection(int id);
         void  setCurrentSubchannelSelectionRelative(int id);
@@ -85,7 +83,6 @@ class SubchannelManager
         void  getAudioParameter();
         QList<int> getSubchannelIdsOfCurrentChannel(void);
 
-
         /** envelope **/
         void setCurrentStartPointRel(  float start  );
         void setCurrentEndPointRel(    float end    );
@@ -93,7 +90,6 @@ class SubchannelManager
         void setCurrentFadeOutPointRel(float fadeOut);
         envelope_t getCurrentEnvelope(void);
         envelope_t getEnvelope(int id);
-
 
         /** global **/
         float getBpm() const;
@@ -128,11 +124,6 @@ class SubchannelManager
         Prelisten *m_prelistenCurrentSubchannelSample;
 };
 
-
 inline SubchannelManager& subchannelManager() {return SubchannelManager::Instance(); }
-
-
-
-
 
 #endif // SUBCHANNELMANAGER_H

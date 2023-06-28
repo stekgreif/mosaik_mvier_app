@@ -4,18 +4,14 @@
 #include "Settings.h"
 
 
-
 Browser::Browser(QWidget *uiParent)
     : QWidget(uiParent)
 {
     qDebug() <<Q_FUNC_INFO <<"Init.";
 
-
-
 	/** size of actual screen **/
 	int screenHeight = settings().getScreenSize().height();
 	int screenWidth = settings().getScreenSize().width();
-
 
     /** path **/
     m_defaultPath = "/home/dan/samples/mitCamelCase";
@@ -38,13 +34,11 @@ Browser::Browser(QWidget *uiParent)
     m_pathName[7] = "Drums";
     m_pathName[8] = "Mosaik Soundbank";
 
-
-
     /** file browser **/
     m_treeView = new BrowserTree(this);
 	m_treeView->setFixedSize( 40* screenWidth/100, 63* screenHeight/100 );
 
-	m_fileSystem = new QFileSystemModel(this);
+    m_fileSystem = new QFileSystemModel(this);
     m_fileSystem->setFilter( QDir::NoDotAndDotDot | QDir::AllDirs | QDir::Files );
     m_fileSystem->setNameFilters( QStringList() <<"*.wav" <<"*.WAV" );
     m_fileSystem->setNameFilterDisables(false); // hide other files than wav and do not gray them out
@@ -63,14 +57,13 @@ Browser::Browser(QWidget *uiParent)
     m_treeView->setFont(treeFont);
 
     slot_changePath(m_defaultPath);
-
 }
+
 
 Browser::~Browser()
 {
 
 }
-
 
 
 void Browser::slot_changePath(int pathId)
@@ -87,13 +80,12 @@ void Browser::slot_changePath(int pathId)
     }
 }
 
+
 void Browser::slot_changePath(QString pathName)
 {
     Q_UNUSED(pathName);
     qDebug() <<Q_FUNC_INFO <<"Not implemented yet.";
 }
-
-
 
 
 void Browser::slot_moveCursor(int direction)
@@ -110,7 +102,6 @@ void Browser::slot_moveCursor(int direction)
             break;
     }
 }
-
 
 
 void Browser::slot_toggleItmeExpansion()
@@ -134,7 +125,6 @@ void Browser::slot_toggleItmeExpansion()
 }
 
 
-
 void Browser::slot_loadSample(void)
 {
     QFileInfo fileInfo(m_fileSystem->filePath(m_treeView->currentIndex()));
@@ -152,6 +142,7 @@ void Browser::slot_loadSample(void)
 
 }
 
+
 void Browser::slot_loadSampleToPrelisten()
 {
     QFileInfo fileInfo(m_fileSystem->filePath(m_treeView->currentIndex()));
@@ -165,6 +156,7 @@ void Browser::slot_loadSampleToPrelisten()
         qDebug() <<Q_FUNC_INFO <<"Not a file.";
     }
 }
+
 
 void Browser::slot_toggleParentFolderState()
 {
@@ -198,11 +190,13 @@ void Browser::slot_toggleParentFolderState()
     //m_treeView->setExpanded(m_treeView->currentIndex(), false);
 }
 
+
 void Browser::slot_openFolder()
 {
     //m_treeView->setExpanded( m_treeView->currentIndex(), !m_treeView->isExpanded(m_treeView->currentIndex()) );
     m_treeView->setExpanded( m_treeView->currentIndex(), true  );
 }
+
 
 void Browser::slot_closeFolder()
 {

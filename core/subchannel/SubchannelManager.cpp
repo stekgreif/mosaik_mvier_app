@@ -3,8 +3,6 @@
 #include <Settings.h>
 
 
-
-
 SubchannelManager::SubchannelManager()
     : m_currentSubchannel(0)
     , m_currentChannel(0)
@@ -66,7 +64,6 @@ void SubchannelManager::setPreVolumeRelative(float relVal)
     {
         m_preVolume = relVal;
     }
-
     qDebug() <<Q_FUNC_INFO <<"m_preVolume" <<m_preVolume;
 }
 
@@ -109,11 +106,17 @@ float SubchannelManager::getMainVolume() const
 void SubchannelManager::setMainVolumeRelative(float relVal)
 {
     if( (m_mainVolume + relVal) >= 1.0 )
+    {
         m_mainVolume = 1.0;
+    }
     else if( (m_mainVolume + relVal) <= 0.0  )
+    {
         m_mainVolume = 0.0;
+    }
     else
+    {
         m_mainVolume += relVal;
+    }
     qDebug() <<Q_FUNC_INFO <<"m_mainVolume:" <<m_mainVolume;
 }
 
@@ -167,16 +170,20 @@ bool SubchannelManager::hasCurrentSubchannelSample()
 }
 
 
-void SubchannelManager::toggleStep(quint8 id)
+void SubchannelManager::toggleStep( quint8 id )
 {
     if (id < 64)
+    {
         m_subchannel.at(m_currentSubchannel)->toggleStep(id);
+    }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"Step id" <<id <<"not in range";
+    }
 }
 
 
-quint8 SubchannelManager::getStepValue(int id)
+quint8 SubchannelManager::getStepValue( int id )
 {
     return m_subchannel.at(m_currentSubchannel)->getStepValue(id);
 }
@@ -191,13 +198,18 @@ void SubchannelManager::clearCurrentSubchannelPattern()
 void SubchannelManager::clearCurrentChannelPattern()
 {
     for(int i = 0; i < 4; i++)
+    {
         m_subchannel.at((m_currentChannel * 4) + i)->clearPattern();
+    }
 }
+
 
 void SubchannelManager::clearAllPattern()
 {
     for( int i = 0; i < SETTINGS_NUM_OF_SUBS; i++ )
+    {
         m_subchannel.at(i)->clearPattern();
+    }
 }
 
 
@@ -206,13 +218,14 @@ QBitArray SubchannelManager::getCurrentSubchannelPattern(void)
     return m_subchannel.at(m_currentSubchannel)->getPattern();
 }
 
+
 int SubchannelManager::getCurrentSubchannelStep()
 {
     return m_subchannel.at(m_currentSubchannel)->getStepValue(m_currentStep);
 }
 
 
-QByteArray SubchannelManager::getCurrentChannelPattern(void)
+QByteArray SubchannelManager::getCurrentChannelPattern( void )
 {
     int subchsIdsOfCurrentChannel[4];
     int topSubchannelId;
@@ -261,17 +274,20 @@ QByteArray SubchannelManager::getCurrentChannelPattern(void)
     for ( int j = 0; j < 64; j++)
     {
         if( curPattern.at(j) )
+        {
             retPattern[j] = topSubchannelId + 1;
+        }
     }
-
     return retPattern;
 }
+
 
 int SubchannelManager::getCurrentChannelStep()
 {
     qDebug() <<Q_FUNC_INFO <<"Notimplemented jet.";
     return 0;
 }
+
 
 int SubchannelManager::getChannelStep(int stepId)
 {
@@ -289,7 +305,6 @@ QBitArray SubchannelManager::getAllHasSteps(void)
     {
         returnVal.setBit(i, m_subchannel.at(i)->hasSteps());
     }
-
     return returnVal;
 }
 
@@ -368,7 +383,9 @@ void SubchannelManager::unloadAllSamples()
 {
     qDebug() <<Q_FUNC_INFO;
     for(int i = 0; i < SETTINGS_NUM_OF_SUBS; i++)
+    {
         m_subchannel.at(i)->unloadSample();
+    }
 }
 
 
@@ -392,9 +409,13 @@ void SubchannelManager::currentSubchannelToPrelisten(bool status)
 {
     qDebug() <<Q_FUNC_INFO <<"status" <<status;
     if( status )
+    {
         m_currentSubchannelToHeadphones = 1.0;
+    }
     else
+    {
         m_currentSubchannelToHeadphones = 0.0;
+    }
 
     qDebug() <<Q_FUNC_INFO <<"m_currentSubchannelToHeadphones" <<m_currentSubchannelToHeadphones;
 }
@@ -417,9 +438,10 @@ void SubchannelManager::prelistenCurrentSubchannelSample()
         m_prelistenCurrentSubchannelSample->playSample(pathAndName);
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"Current subchannel has no sample -> nothing to prelisten to.";
+    }
 }
-
 
 
 /** ****************************************************************************
@@ -460,7 +482,9 @@ void SubchannelManager::unmuteAll()
         qDebug() <<Q_FUNC_INFO <<"Unmuted. Last Mute is saved.";
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"Nothing to unmute. Last Mute is not saved again.";
+    }
 }
 
 
@@ -492,11 +516,10 @@ bool SubchannelManager::checkIfAllSubchannelsAreUnmuted()
 }
 
 
-
 /** ****************************************************************************
     pan
 *******************************************************************************/
-void SubchannelManager::setCurrentPan(float relVal)
+void SubchannelManager::setCurrentPan( float relVal )
 {
     m_subchannel.at(m_currentSubchannel)->setPan(relVal);
 }
@@ -507,7 +530,8 @@ float SubchannelManager::getCurrentPan() const
     return m_subchannel.at(m_currentSubchannel)->getPan();
 }
 
-float SubchannelManager::getSubchannelVolume(int subchId)
+
+float SubchannelManager::getSubchannelVolume( int subchId )
 {
     if(( subchId >= 0 ) && ( subchId < SETTINGS_NUM_OF_SUBS ))
     {
@@ -520,15 +544,18 @@ float SubchannelManager::getSubchannelVolume(int subchId)
     }
 }
 
+
 void SubchannelManager::togglePlayDirection()
 {
     m_subchannel.at(m_currentSubchannel)->togglePlayDirection();
 }
 
+
 void SubchannelManager::setCurrentPlayDirection(bool direction)
 {
     m_subchannel.at(m_currentSubchannel)->setPlayDirection(direction);
 }
+
 
 bool SubchannelManager::getCurrentPlayDirection()
 {
@@ -544,13 +571,10 @@ QString SubchannelManager::getCurrentSamplePathAndName()
 }
 
 
-
-
 QSharedPointer<Sample> SubchannelManager::getSharedPointerToSample()
 {
     return m_subchannel.at(m_currentSubchannel)->getSharedSamplePtr();
 }
-
 
 
 QSharedPointer<Sample> SubchannelManager::getSharedPointerToSample(int subchannel)
@@ -562,7 +586,6 @@ QSharedPointer<Sample> SubchannelManager::getSharedPointerToSample(int subchanne
 
     return m_subchannel.at(subchannel)->getSharedSamplePtr();
 }
-
 
 
 /** ****************************************************************************
@@ -584,7 +607,7 @@ void SubchannelManager::setCurrentSubchannelSelection(int id)
 
 void SubchannelManager::setCurrentSubchannelSelectionRelative(int id)
 {
-    if ((id >= 0) && (id < 4))
+    if( (id >= 0) && (id < 4) )
     {
         //m_currentSubchannel = (m_currentChannel * 4) + id;
 
@@ -598,7 +621,7 @@ void SubchannelManager::setCurrentSubchannelSelectionRelative(int id)
 }
 
 
-void SubchannelManager::setCurrentChannelSelection(int chId)
+void SubchannelManager::setCurrentChannelSelection( int chId )
 {
     if(( chId >= 0 ) && (chId < SETTINGS_NUM_OF_CHANNELS) )
     {
@@ -613,7 +636,7 @@ void SubchannelManager::setCurrentChannelSelection(int chId)
 
 
 /** @param[in] +/- 1 */
-void SubchannelManager::setCurrentChannelRelative(int change)
+void SubchannelManager::setCurrentChannelRelative( int change )
 {
     if( change < -1)
     {
@@ -640,16 +663,19 @@ int SubchannelManager::getCurrentChannelSelection()
     return m_currentChannel;
 }
 
+
 /*  @return 0..3 */
 int SubchannelManager::getCurrentSubchannelSelectionRelative()
 {
     return settings().getRelativeSubchannel(m_currentSubchannel);
 }
 
+
 int SubchannelManager::getCurrentSubchannelSelection()
 {
     return m_currentSubchannel;
 }
+
 
 void SubchannelManager::selectNextSubChannel()
 {
@@ -657,10 +683,12 @@ void SubchannelManager::selectNextSubChannel()
     pos++;
 
     if( pos >= SETTINGS_NUM_OF_SUBS)
+    {
         pos = 0;
-
+    }
     setCurrentSubchannelSelection(pos);
 }
+
 
 QList<int> SubchannelManager::getSubchannelIdsOfCurrentChannel()
 {
@@ -671,30 +699,35 @@ QList<int> SubchannelManager::getSubchannelIdsOfCurrentChannel()
 /** ****************************************************************************
     Envelope
 *******************************************************************************/
-void SubchannelManager::setCurrentStartPointRel(float start)
+void SubchannelManager::setCurrentStartPointRel( float start )
 {
     m_subchannel.at(m_currentSubchannel)->setStartPointRel(start);
 }
+
 
 void SubchannelManager::setCurrentEndPointRel(float end)
 {
     m_subchannel.at(m_currentSubchannel)->setEndPointRel(end);
 }
 
+
 void SubchannelManager::setCurrentFadeInPointRel(float fadeIn)
 {
     m_subchannel.at(m_currentSubchannel)->setFadeInPointRel(fadeIn);
 }
+
 
 void SubchannelManager::setCurrentFadeOutPointRel(float fadeOut)
 {
     m_subchannel.at(m_currentSubchannel)->setFadeOutPointRel(fadeOut);
 }
 
+
 envelope_t SubchannelManager::getCurrentEnvelope()
 {
     return m_subchannel.at(m_currentSubchannel)->getEnvelope();
 }
+
 
 envelope_t SubchannelManager::getEnvelope(int id)
 {
@@ -716,9 +749,13 @@ FourChannelFrame_t SubchannelManager::getFourChannelAudioTestFrame()
     if( m_tempCnt % 50 == 0)
     {
         if( m_tgl )
+        {
             m_tgl = false;
+        }
         else
+        {
             m_tgl = true;
+        }
     }
 
     if( m_tgl )

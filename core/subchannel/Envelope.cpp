@@ -6,11 +6,11 @@ Envelope::Envelope()
     resetAll();
 }
 
+
 Envelope::~Envelope()
 {
 
 }
-
 
 
 envelope_t Envelope::getEnvelope()
@@ -18,15 +18,19 @@ envelope_t Envelope::getEnvelope()
     return m_envelope;
 }
 
+
 void Envelope::setStartPointRel(float start)
 {
     float startAbs = start + m_envelope.start;
     if( startAbs < 0 )
+    {
         startAbs = 0;
+    }
     float fInAbs   = start + m_envelope.fadeIn;
     if( fInAbs < 0 )
+    {
         fInAbs = 0;
-
+    }
 	if( (startAbs >= 0) && (startAbs <= m_envelope.fadeIn+0.01) && (fInAbs <= m_envelope.fadeOut)  )
     {
         m_envelope.start  = startAbs;
@@ -48,7 +52,9 @@ void Envelope::setFadeInPointRel(float fadeIn)
         qDebug() <<Q_FUNC_INFO <<"fade in point changed to:" <<fInAbs;
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"fade in point not in range" <<fadeIn;
+    }
 }
 
 
@@ -62,7 +68,9 @@ void Envelope::setFadeOutPointRel(float fadeOut)
         qDebug() <<Q_FUNC_INFO <<"fade out point changed to:" <<fOutAbs;
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"fade out point not in range" <<fadeOut;
+    }
 }
 
 
@@ -78,10 +86,10 @@ void Envelope::setEndPointRel(float end)
         qDebug() <<Q_FUNC_INFO <<"end point changed to:" <<endAbs;
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"end point not in range" <<end;
+    }
 }
-
-
 
 
 void Envelope::setStartOffsetPoint(float offset)
@@ -89,7 +97,6 @@ void Envelope::setStartOffsetPoint(float offset)
     Q_UNUSED(offset)
     qDebug() <<Q_FUNC_INFO <<"offset not implemented yet";
 }
-
 
 
 void Envelope::setRelativeStart(float start)
@@ -102,27 +109,28 @@ void Envelope::setRelativeStart(float start)
         qDebug() <<Q_FUNC_INFO <<"start point changed to:" <<m_envelope.start;
     }
     else
+    {
         qDebug() <<Q_FUNC_INFO <<"start point not in range";
+    }
 }
+
 
 void Envelope::setRelativeEnd(float end)
 {
     Q_UNUSED(end);
 }
 
+
 void Envelope::setRelativeFadeIn(float fadeIn)
 {
     Q_UNUSED(fadeIn);
 }
 
+
 void Envelope::setRelativeFadeOut(float fadeOut)
 {
     Q_UNUSED(fadeOut);
 }
-
-
-
-
 
 
 void Envelope::resetAll()
