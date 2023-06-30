@@ -1,18 +1,14 @@
 #include "RgbwButtons.h"
-
 #include "core/midi/MidiNames.h"
 #include "Settings.h"
 #include "MosaikTypes.h"
 #include "core/midi/MidiNames.h"
 #include "core/subchannel/SubchannelManager.h"
-
 #include <QObject>
 #include "QDebug"
 
 #define MIDI_TO_ARDUINO 1
 #define MIDI_FROM_ARDUINO 1
-
-
 #define CMD_SINGLE_COLOR_R	0
 #define CMD_SINGLE_COLOR_G	1
 #define CMD_SINGLE_COLOR_B	2
@@ -23,8 +19,6 @@
 #define CMD_RESET_LEDS		7
 
 uint8_t color_table[6] = {0,1,2,3,4,5};
-
-
 
 
 RgbwButtons::RgbwButtons(QString hwPort)
@@ -41,7 +35,6 @@ RgbwButtons::RgbwButtons(QString hwPort)
 
 	resetHardware();
 }
-
 
 
 RgbwButtons::~RgbwButtons()
@@ -62,7 +55,6 @@ void RgbwButtons::setStepLed(int i)
     data[0] = (char) (MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE);
 	data[1] = i;    // led
 	data[2] = curRelSubCh;
-
 
     data[3] = (char) (MIDI_MSG_NOTE_ON | CMD_UPDATE);
 	data[4] = 0;
@@ -189,9 +181,13 @@ void RgbwButtons::setStepsequencerLed(int stepLedId)
 	int color;
 
 	if( pattern.at(m_lastStepSequencerLed) )
+    {
 		color = color_table[subchannelManager().getCurrentSubchannelSelectionRelative()];
+    }
 	else
+    {
 		color = color_table[5];
+    }
 
 
     data[0] = (char) (MIDI_MSG_NOTE_ON | CMD_COLOR_TABLE);

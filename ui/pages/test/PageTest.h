@@ -9,7 +9,6 @@
 #include <QGraphicsPixmapItem>
 
 
-
 class PageTest : public QWidget
 {
     Q_OBJECT
@@ -17,14 +16,12 @@ class PageTest : public QWidget
     public:
         explicit PageTest(QWidget *parent = 0);
         ~PageTest();
-
         void refresh(void);
 
     protected:
         void paintEvent(QPaintEvent *event);
         QScrollArea *m_scrollArea;
         QLabel *m_toolbarDummy;
-
         QGraphicsScene *m_scene;
         QGraphicsView *m_view;
         QGraphicsPixmapItem *m_pixmap;

@@ -91,7 +91,6 @@ void MosaikMini::sendRawData(const QByteArray &data)
 }
 
 
-
 #if !SAVE_BW // original working function
 void MosaikMini::setSubchannelPattern(void)
 {
@@ -182,7 +181,6 @@ void MosaikMini::setChannelPattern(void)
     QByteArray pattern = subchannelManager().getCurrentChannelPattern();
     QByteArray midiData;
     midiData.resize(192);
-
 
     for (int cnt = 0; cnt < 64; cnt++)
     {

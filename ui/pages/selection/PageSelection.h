@@ -7,7 +7,6 @@
 #include <QPushButton>
 #include <QStyleOption>
 #include <QTimer>
-
 #include "Settings.h"
 #include "ui/pages/selection/SelectionPad.h"
 #include "ui/pages/selection/MuteAndSolo.h"
@@ -35,7 +34,6 @@ class PageSelection : public QWidget
 
     signals:
         void signal_subchannelSelectionPadPressed(int id);
-
 
     private slots:
         void m_slot_selectionChanged(int id);

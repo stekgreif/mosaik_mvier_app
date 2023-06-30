@@ -92,11 +92,11 @@ MosaikMiniApp::~MosaikMiniApp()
 }
 
 
-void MosaikMiniApp::slot_seqButtonChanged(quint8 id, quint8 val)
+void MosaikMiniApp::slot_seqButtonChanged( quint8 id, quint8 val )
 {
-    if (id < 64)
+    if( id < 64 )
     {
-        if(val == 127)
+        if( val == 127 )
         {
             subchannelManager().toggleStep(id);
         }
@@ -111,7 +111,7 @@ void MosaikMiniApp::slot_seqButtonChanged(quint8 id, quint8 val)
 
 void MosaikMiniApp::slot_fnlButtonChanged(quint8 id, quint8 val)
 {
-    if ((id < settings().getNumberOfPages()) && (val == 127))
+    if( (id < settings().getNumberOfPages()) && (val == 127) )
     {
         m_uiManager->setPageIndex(id);
         //qDebug() <<Q_FUNC_INFO <<"Page changed";
@@ -124,7 +124,7 @@ void MosaikMiniApp::slot_fnrButtonChanged(quint8 id, quint8 val)
     Q_UNUSED(val);
 
     qDebug() <<Q_FUNC_INFO;
-    switch(id)
+    switch( id )
     {
         case 1:
             slot_exitApplication();
@@ -141,7 +141,6 @@ void MosaikMiniApp::slot_fnrButtonChanged(quint8 id, quint8 val)
             //m_midiOutRenderer->rstSeqLeds();
             break;
         default:
-            qDebug() <<"default";
             break;
     }
 }
@@ -171,16 +170,15 @@ void MosaikMiniApp::slot_sparkEvent(quint8 id, int val)
         default:
             break;
     }
-
     m_uiManager->refresh();
 }
 #endif
 
 
-void MosaikMiniApp::slot_stepButtonPressed(int id)
+void MosaikMiniApp::slot_stepButtonPressed( int id )
 {
     qDebug() <<Q_FUNC_INFO <<id;
-    subchannelManager().toggleStep(id);
+    subchannelManager().toggleStep( id );
     /// @todo midi out checker
     //midiManager().refreshPatternView();
     m_uiManager->refresh();
@@ -254,28 +252,27 @@ void MosaikMiniApp::slot_prelistenSubchannelSample()
 /** ****************************************************************************
     selection
 *******************************************************************************/
-void MosaikMiniApp::slot_selectionSetCurrentSubchannelRelative(int id)
+void MosaikMiniApp::slot_selectionSetCurrentSubchannelRelative( int id )
 {
-    subchannelManager().setCurrentSubchannelSelectionRelative(id);
-
+    subchannelManager().setCurrentSubchannelSelectionRelative( id );
     midiManager().refreshPatternView();
     midiManager().refreshSubchannelSelection();
     m_uiManager->refresh();
 }
 
 
-void MosaikMiniApp::slot_selectionSetCurrentChannelRelative(int relVal)
+void MosaikMiniApp::slot_selectionSetCurrentChannelRelative( int relVal )
 {
     qDebug() <<Q_FUNC_INFO <<"relVal" <<relVal;
-    subchannelManager().setCurrentChannelRelative(relVal);
+    subchannelManager().setCurrentChannelRelative( relVal );
     m_uiManager->refresh();
 }
 
 
-void MosaikMiniApp::slot_selectionSetCurrentChannel(int id)
+void MosaikMiniApp::slot_selectionSetCurrentChannel( int id )
 {
     qDebug() <<Q_FUNC_INFO <<"id" <<id;
-    subchannelManager().setCurrentChannelSelection(id);
+    subchannelManager().setCurrentChannelSelection( id );
     midiManager().refreshSubchannelSelection();
     m_uiManager->refresh();
 }
@@ -336,17 +333,17 @@ void MosaikMiniApp::slot_uiSetToPageBrowser()
 /** ****************************************************************************
     browser
 *******************************************************************************/
-void MosaikMiniApp::slot_browserChangePathId(int id)
+void MosaikMiniApp::slot_browserChangePathId( int id )
 {
     m_uiManager->slot_setPathId(id);
     m_uiManager->refresh();
 }
 
 
-void MosaikMiniApp::slot_browserChangeCursorPosition(int direction)
+void MosaikMiniApp::slot_browserChangeCursorPosition( int direction )
 {
     qDebug() <<Q_FUNC_INFO;
-    m_uiManager->m_pageSubchannel->slot_moveCursor(direction);
+    m_uiManager->m_pageSubchannel->slot_moveCursor( direction );
 }
 
 
@@ -378,57 +375,57 @@ void MosaikMiniApp::slot_browserCloseFolder()
 /** ****************************************************************************
     envelope and audio parameter
 *******************************************************************************/
-void MosaikMiniApp::slot_envelopeChangeCurrentSubchFadeIn(float relVal)
+void MosaikMiniApp::slot_envelopeChangeCurrentSubchFadeIn( float relVal )
 {
     subchannelManager().setCurrentFadeInPointRel(relVal);
     m_uiManager->refreshEnvelope();
 }
 
 
-void MosaikMiniApp::slot_envelopeChangeCurrentSubchStart(float relVal)
+void MosaikMiniApp::slot_envelopeChangeCurrentSubchStart( float relVal )
 {
-    subchannelManager().setCurrentStartPointRel(relVal);
+    subchannelManager().setCurrentStartPointRel( relVal );
     m_uiManager->refreshEnvelope();
 }
 
 
-void MosaikMiniApp::slot_envelopeChangeCurrentSubchEnd(float relVal)
+void MosaikMiniApp::slot_envelopeChangeCurrentSubchEnd( float relVal )
 {
-    subchannelManager().setCurrentEndPointRel(relVal);
+    subchannelManager().setCurrentEndPointRel( relVal );
     m_uiManager->refreshEnvelope();
 }
 
 
-void MosaikMiniApp::slot_envelopeChangeCurrentSubchFadeOut(float relVal)
+void MosaikMiniApp::slot_envelopeChangeCurrentSubchFadeOut( float relVal )
 {
-    subchannelManager().setCurrentFadeOutPointRel(relVal);
+    subchannelManager().setCurrentFadeOutPointRel( relVal );
     m_uiManager->refreshEnvelope();
 }
 
 
-void MosaikMiniApp::slot_parameterChangeCurrentSubchVolume(float relVal)
+void MosaikMiniApp::slot_parameterChangeCurrentSubchVolume( float relVal )
 {
-    subchannelManager().setCurrentSubchannelVolumeRelative(relVal);
+    subchannelManager().setCurrentSubchannelVolumeRelative( relVal );
     m_uiManager->refreshVolPoti();
 }
 
 
-void MosaikMiniApp::slot_parameterPan(float relVal)
+void MosaikMiniApp::slot_parameterPan( float relVal )
 {
-    subchannelManager().setCurrentPan(relVal);
+    subchannelManager().setCurrentPan( relVal );
     m_uiManager->refreshVolPoti();
 }
 
 
-void MosaikMiniApp::slot_parameterCurrentSubToPre(bool state)
+void MosaikMiniApp::slot_parameterCurrentSubToPre( bool state )
 {
     qDebug() <<Q_FUNC_INFO <<"state" <<state;
-    subchannelManager().currentSubchannelToPrelisten(state);
-    midiManager().subToPreLed(state);
+    subchannelManager().currentSubchannelToPrelisten( state );
+    midiManager().subToPreLed( state );
 }
 
 
-void MosaikMiniApp::slot_parameterMuteAndSolo(bool state)
+void MosaikMiniApp::slot_parameterMuteAndSolo( bool state )
 {
     //qDebug() <<Q_FUNC_INFO <<"state" <<state;
     Q_UNUSED(state);
@@ -450,7 +447,7 @@ void MosaikMiniApp::slot_parameterSelectLastMutes()
 }
 
 
-void MosaikMiniApp::slot_parameterPlayDirection(bool direction)
+void MosaikMiniApp::slot_parameterPlayDirection( bool direction )
 {
     qDebug() <<Q_FUNC_INFO <<direction;
     subchannelManager().setCurrentPlayDirection(direction);
@@ -458,7 +455,7 @@ void MosaikMiniApp::slot_parameterPlayDirection(bool direction)
 }
 
 
-void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
+void MosaikMiniApp::slot_erpChanged( quint8 id, qint8 val )
 {
     qDebug() <<Q_FUNC_INFO <<"erp changed:" <<"id:" <<id <<"val:" <<val;
 	float change = ((float) val) / 250;
@@ -466,23 +463,23 @@ void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
     switch(id)
     {
         case 0:
-            subchannelManager().setCurrentFadeInPointRel(change);
+            subchannelManager().setCurrentFadeInPointRel( change );
             m_uiManager->refreshEnvelope();
             break;
         case 1:
-            subchannelManager().setCurrentFadeOutPointRel(change);
+            subchannelManager().setCurrentFadeOutPointRel( change );
             m_uiManager->refreshEnvelope();
             break;
         case 2:
-            subchannelManager().setCurrentStartPointRel(change);
+            subchannelManager().setCurrentStartPointRel( change );
             m_uiManager->refreshEnvelope();
             break;
         case 3:
-            subchannelManager().setCurrentEndPointRel(change);
+            subchannelManager().setCurrentEndPointRel( change );
             m_uiManager->refreshEnvelope();
             break;
         case 4:
-            subchannelManager().setCurrentSubchannelVolumeRelative(change);
+            subchannelManager().setCurrentSubchannelVolumeRelative( change );
             //m_uiManager->refreshVolPoti();
             //m_uiManager->refreshSelectionPad();
             m_uiManager->refreshSampleVolumeWidget(subchannelManager().getCurrentSubchannelSelection());
@@ -495,10 +492,10 @@ void MosaikMiniApp::slot_erpChanged(quint8 id, qint8 val)
 
 
 /** make obsolete */
-void MosaikMiniApp::slot_subchannelChangeVolume(float relVal)
+void MosaikMiniApp::slot_subchannelChangeVolume( float relVal )
 {
     qDebug() <<Q_FUNC_INFO <<"relVal" <<relVal;
-    subchannelManager().setCurrentSubchannelVolumeRelative(relVal);
+    subchannelManager().setCurrentSubchannelVolumeRelative( relVal );
     m_uiManager->refreshVolPoti();
 }
 
@@ -518,17 +515,17 @@ void MosaikMiniApp::slot_subchannelSelectionPadTriggert(int id)
 /** ****************************************************************************
     Global
 *******************************************************************************/
-void MosaikMiniApp::slot_globalMainVolume(float relVal)
+void MosaikMiniApp::slot_globalMainVolume( float relVal )
 {
-    subchannelManager().setMainVolumeRelative(relVal);
+    subchannelManager().setMainVolumeRelative( relVal );
     float volume = subchannelManager().getMainVolume();
     qDebug() <<Q_FUNC_INFO <<"volume" <<volume;
-    midiManager().setMainVolume(volume);
+    midiManager().setMainVolume( volume );
     m_uiManager->refreshMainVol();
 }
 
 
-void MosaikMiniApp::slot_globalChangeBpmRelative(float diffVal)
+void MosaikMiniApp::slot_globalChangeBpmRelative( float diffVal )
 {
     qDebug() <<Q_FUNC_INFO;
     subchannelManager().setBpmRelative(diffVal);
@@ -537,10 +534,10 @@ void MosaikMiniApp::slot_globalChangeBpmRelative(float diffVal)
 }
 
 
-void MosaikMiniApp::slot_globalPreVolume(float absVal)
+void MosaikMiniApp::slot_globalPreVolume( float absVal )
 {
     qDebug() <<Q_FUNC_INFO;
-    subchannelManager().setPreVolumeAbs(absVal);
+    subchannelManager().setPreVolumeAbs( absVal );
     m_uiManager->refreshPreVol();
 }
 
@@ -548,7 +545,7 @@ void MosaikMiniApp::slot_globalPreVolume(float absVal)
 /** ****************************************************************************
     App
 *******************************************************************************/
-void MosaikMiniApp::slot_setFullScreen(void)
+void MosaikMiniApp::slot_setFullScreen( void )
 {
     showFullScreen();
     m_scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -556,7 +553,7 @@ void MosaikMiniApp::slot_setFullScreen(void)
 }
 
 
-void MosaikMiniApp::slot_setNormalScreen(void)
+void MosaikMiniApp::slot_setNormalScreen( void )
 {
     showNormal();
     this->resize(settings().getScreenSize().width(), settings().getScreenSize().height() * 0.5);
@@ -578,7 +575,7 @@ void MosaikMiniApp::slot_appToggleFullScreen()
 }
 
 
-void MosaikMiniApp::slot_exitApplication(void)
+void MosaikMiniApp::slot_exitApplication( void )
 {
     //close();
 }
@@ -598,7 +595,7 @@ void MosaikMiniApp::slot_buttonPressed( int id )
         case 1:
         case 2:
         case 3:
-            m_uiManager->setPageIndex(id);
+            m_uiManager->setPageIndex( id );
             break;
         case 4:
             slot_setFullScreen();
@@ -615,9 +612,9 @@ void MosaikMiniApp::slot_buttonPressed( int id )
 }
 
 
-void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
+void MosaikMiniApp::keyPressEvent( QKeyEvent* event )
 {
-    switch (event->key())
+    switch( event->key() )
     {
         case Qt::Key_F1:
         {
@@ -671,7 +668,7 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
         }
         case Qt::Key_5:
         {
-            m_uiManager->setPageIndex(4);
+            //m_uiManager->setPageIndex(4);
             break;
         }
         case Qt::Key_6:
@@ -705,7 +702,6 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
                 m_data[3*i+1] = i;
                 m_data[3*i+2] = 0x3;
             }
-
             midiManager().sendData(m_data);
             qDebug() <<Q_FUNC_INFO <<"sending finished";
             break;
@@ -721,6 +717,7 @@ void MosaikMiniApp::keyPressEvent(QKeyEvent* event)
         case Qt::Key_Escape:
         {
             close();
+            break;
         }
         case Qt::Key_Return:
         {

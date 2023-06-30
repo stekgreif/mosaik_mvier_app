@@ -5,16 +5,13 @@
 #include <QPainter>
 #include <QPushButton>
 #include <QStyleOption>
-
-
 #include </usr/include/sndfile.h>
-
-//#include "ui/pages/subchannel/qcustomplot.h"
 #include <ui/pages/subchannel/DrawEnvelope.h>
 #include <ui/pages/subchannel/Pattern.h>
 #include "ui/pages/subchannel/ToolBoxMute.h"
-
 #include "Browser.h"
+
+//#include "ui/pages/subchannel/qcustomplot.h"
 
 
 class UiManager;
@@ -25,34 +22,32 @@ class PageSubchannel : public QWidget
     Q_OBJECT
 
     public:
-        explicit PageSubchannel(MosaikMiniApp *mosaikMiniApp = 0, UiManager *parent = 0);
+        explicit PageSubchannel( MosaikMiniApp *mosaikMiniApp = 0, UiManager *parent = 0 );
         //explicit PageSubchannel(UiManager *parent, QWidget *uiParent = 0);
         ~PageSubchannel();
-        void refresh(void);
-        void refreshEnvelope(void);
-        void refreshPots(void);
-        void refreshLabels(void);
-        void refreshStepAxis(void);
-
+        void refresh( void );
+        void refreshEnvelope( void );
+        void refreshPots( void );
+        void refreshLabels( void );
+        void refreshStepAxis( void );
 
     public slots:
-        void slot_changePath(int pathId);
-        void slot_changePath(QString pathName);
-        void slot_moveCursor(int direction);
-        void slot_toggleItmeExpansion(void);
-        void slot_loadSample(void);
-        void slot_loadSampleToPrelisten(void);
-        void slot_browserOpenFolder(void);
-        void slot_browserCloseFolder(void);
-        void slot_refreshPlayDirection(void);
-
+        void slot_changePath( int pathId );
+        void slot_changePath( QString pathName );
+        void slot_moveCursor( int direction );
+        void slot_toggleItmeExpansion( void );
+        void slot_loadSample( void );
+        void slot_loadSampleToPrelisten( void );
+        void slot_browserOpenFolder( void );
+        void slot_browserCloseFolder( void );
+        void slot_refreshPlayDirection( void );
 
     private slots:
-        void slot_changePage(void);
-        void slot_togglePlayDirection(void);
+        void slot_changePage( void );
+        void slot_togglePlayDirection( void );
 
     protected:
-        void paintEvent(QPaintEvent *event);
+        void paintEvent( QPaintEvent *event );
 
     private:
         /** order of appearance can be changed here */
@@ -76,7 +71,8 @@ class PageSubchannel : public QWidget
         QVector<QLabel*> *m_samplePropertyLabel;
         QVector<QString> *m_samplePropertyNames;
 
-        enum AudioChannels{
+        enum AudioChannels
+        {
             mono = 1,
             stereo = 2
         };
@@ -86,40 +82,25 @@ class PageSubchannel : public QWidget
 
         UiManager *m_parent;
         MosaikMiniApp *m_mosaikMiniApp;
-
-
-        /** BROWSER **/
         Browser    *m_browser;
-
-
 
         /** sample view **/
         //QCustomPlot *m_samplePlot;
-        void refreshSamplePlot(void);
-        void resetSamplePlot(void);
+        void refreshSamplePlot( void );
+        void resetSamplePlot( void );
 
         QLabel *m_headline;
         QLabel *m_labelVarPathAndName;
-
-
         DrawEnvelope *m_envelope;
         Pattern *m_pattern;
-
-        QRect  *m_sampleWindowAttributes;
+        QRect *m_sampleWindowAttributes;
         QPoint *m_sampleLabelAttributes;
-        QRect  *m_patternWidgetAttributes;
-
-        /** test **/
-        //QPushButton *m_btnTestTreeCollapse;
-		//ToolBoxMute *m_toolBoxMute;
-
+        QRect *m_patternWidgetAttributes;
 		QPushButton *m_btnTestPlayDirection;
         QPushButton *m_btnLoadSample;
-
-        QImage  *m_image;
+        QImage *m_image;
         QPixmap *m_pixmap;
-		QLabel  *m_sampleWaveform;
-
+        QLabel *m_sampleWaveform;
 };
 
 #endif // PAGESUBCHANNEL_H

@@ -5,10 +5,9 @@
 #include "MosaikMiniApp.h"
 
 
-
-Pattern::Pattern(MosaikMiniApp *mosaikMiniApp, QWidget *parent)
-    : QWidget(parent)
-    , m_mosaikMiniApp(mosaikMiniApp)
+Pattern::Pattern( MosaikMiniApp *mosaikMiniApp, QWidget *parent )
+    : QWidget( parent )
+    , m_mosaikMiniApp( mosaikMiniApp )
 {
     qDebug() <<Q_FUNC_INFO <<"Init";
 
