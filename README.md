@@ -1,9 +1,7 @@
 # Mosaik App
+Live Step-Programming and Performance optimized, sample based Rhythm machine
 
-64 Step Sample based Drummachine
-
-
-## Keyboad
+## Keyboad Shortcuts for Debugging
 - ESC: Exit
 - F1: Screen size normal
 - F2: Full Screen
@@ -22,50 +20,70 @@
 - 0: unload sample
 - RETURN: load Sample
 
+## Mosaik Feature Overview
 
+### Main
+- Volume
+- BPM
+- Time
+- Step counter
+- CPU meter
+- Battery meter
 
-## Feature Overview
+### Toolboxes
+- Sample Browser
+- Fadelope
+- Audio Parameter
+- Step Programming Wizard
+- Meta Pattern
+- Mute and Solo
+- Prelisten
 
-### main
-- volume
-- bpm
-- start/stop
-- cpu meter
-- power meter
+### Tile Parameter
+- Sequence/steps
+- Sample
+- Volume
+- Panorama
+- Play Direction
+- Fadelope (sample optimized Envelope)
+- Hitpoint 
 
-### tile
-- sequence/steps
-- volume
-- pan
-- dir
-- fadelope
-- hitpoint
-- fx:
-    - pitch
-    - eq/filter
-    - distortion/waveshaper
-    - delay
-    - reverb
+### Sequencer
+- Step programming Wizard
+- Single Sequence
+- Multiple Sequence View
     
-### sequencer view
-- multi
-- single
+### Effects
+- Pitch
+- Waveshaper (Distortion, Bit-Reducing, Power Amp)
+- Delay
+- Reverb
+- EQ/Filter
 
-### mute states
-- select
-- unmute all
-- last mute
-- temp
+### Mute and Solo
+Concept optimized for Performance/Breaks
 
-### prelisten
-- vol
-- pan
-- mix
-- pad
-- sequencer
+- Mute/Solo
+- Unmute All
+- Recall Last Mute
+- Temporary Mute
 
-### sample browser
-- navigate
-- load
-- stack
+### Prelisten
+Workflow optimizes for Prelistening:
+
+- Tile
+- Sample Browser
+- Sequencer
+
+### Sample Browser
+- Navigate
+- Prelisten
+- Load Sample to selected tile
+- Samples
+
+### Pages
+- Main: Tiles and Toolboxes
+- Dub-Mixer
+- Sample Cutter and Organizer
+
 
