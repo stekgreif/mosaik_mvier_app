@@ -7,7 +7,7 @@
 #define MESSAGE_CC			0xB0
 
 /// @todo Midi Out needs HW detection functions
-#define MIDI_OUT 0
+#define MIDI_OUT 1
 
 MidiOut::MidiOut()
 {
@@ -57,7 +57,7 @@ void MidiOut::sendData(const QByteArray &data)
 {
 #if MIDI_OUT
     snd_rawmidi_write(m_midiOutHandle, data.data(), data.size());
-    //qDebug() << Q_FUNC_INFO << data.size();
+    qDebug() << Q_FUNC_INFO << data.size();
 #endif
 }
 
@@ -72,7 +72,7 @@ void MidiOut::sendData(quint8 midi, quint8 id, quint8 value)
 
     snd_rawmidi_write(m_midiOutHandle, data, 3);
 #endif
-    //qDebug() << Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
+    qDebug() << Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
 }
 
 
@@ -80,7 +80,7 @@ void MidiOut::sendDataCopy(quint8 data[], quint8 elements)
 {
 #if MIDI_OUT
     snd_rawmidi_write(m_midiOutHandle, data, elements);
-    //qDebug() << Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
+    qDebug() << Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
 #endif
 }
 

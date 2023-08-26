@@ -23,7 +23,7 @@ MidiManager::MidiManager()
 {
     qDebug() <<Q_FUNC_INFO <<"Init";
     m_isConnected = false;
-    //connectFavouriteDevice();
+    connectFavouriteDevice();
 }
 
 
@@ -71,7 +71,7 @@ void MidiManager::connectFavouriteDevice(void)
 		{
             qDebug() <<Q_FUNC_INFO <<"No MIDI Device detected.";
 
-            #if 0
+            #if 1
             qDebug() <<Q_FUNC_INFO <<"Connected to virtual";
             settings().setConnectedMidiDeviceName("virtual");
             settings().setConnectedMidiDevicePort("virtual");

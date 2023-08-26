@@ -590,8 +590,9 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
             emit signal_menMsg(data[1], data[2]);
 
             switch (data[1])
-                {
+            {
                 case 0: // prelisten sequence
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         if( m_tglSubToPre )
@@ -606,13 +607,17 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         }
                     }
                     break;
+                }
                 case 1:
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         emit signal_loadSample();
                     }
                     break;
+                }
                 case 2:
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {               
                         // up:
@@ -620,36 +625,44 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         emit signal_prelistenBrowserSample();
                     }
                     break;
+                }
                 case 3: // close folder
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         emit signal_browserCloseFolder();
                     }
                     break;
+                }
                 case 4:
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         // prelisten browser
                         emit signal_prelistenBrowserSample();
                     }
                     break;
+                }
                 case 5:
-                    {
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
-                        {
+                    {
                         // prelisten pad sample
                         emit signal_prelistenSubchannelSample();
-                        }
-                    break;
                     }
+                    break;
+                }
                 case 6:
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         // net pad
                         emit signal_selectionSubchannelNext();
                     }
                     break;
+                }
                 case 7:
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         // down
@@ -657,15 +670,18 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         emit signal_prelistenBrowserSample();
                     }
                     break;
+                }
                 case 8: // encoder pushed
+                {
                     if( data[0] == (Mosaik::MidiChannels::Men | Mosaik::MidiCommand::noteOn) )
                     {
                         // emit signal_browserOpenFolder();
                         emit signal_menuEncoderPushed();
                     }
                     break;
+                }
                 case 9: // encoder rotated
-
+                {
                     if( m_shiftBpm )
                     {
                         emit signal_bpmChanged( (float) (data[2] - 64) );
@@ -684,10 +700,10 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
                         qDebug() <<Q_FUNC_INFO <<"encoder rotated";
                     }
                     break;
+                }
                 default:
                     break;
             }
-
             break;
         }
         case MIDI_CH_ERP:
@@ -761,9 +777,9 @@ void MosaikMini::setMainVolume(quint8 volume)
     m_midiOut->sendData(Mosaik::MidiCommand::controlChange | Mosaik::MidiChannels::Apa, 0, volume);
 }
 
+
 void MosaikMini::subToPreLed(bool state)
 {
-#if 1
     if( state )
     {
         m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Men, 0, 1);
@@ -772,7 +788,6 @@ void MosaikMini::subToPreLed(bool state)
     {
         m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Men, 0, 0);
     }
-#endif
 }
 
 
