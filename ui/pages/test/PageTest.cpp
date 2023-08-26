@@ -13,7 +13,7 @@ PageTest::PageTest(QWidget *parent) : QWidget(parent)
     this->setObjectName("pageTest");
 
     QSize size;
-    size.setWidth( settings().getScreenSize().height() /  1.3 );
+    size.setWidth( settings().getScreenSize().height() /  1.65 );
     size.setHeight( settings().getScreenSize().height() - 50 );
 
     //QScrollArea *m_scrollArea = new QScrollArea(this);

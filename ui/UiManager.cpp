@@ -38,9 +38,9 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
 	m_stackedPages->setFixedSize(screenWidth-screenHeight-10, screenHeight);
 	m_stackedPages->move(screenHeight+4, 0);
 	m_stackedPages->setTabPosition(QTabWidget::South);
-	m_stackedPages->addTab(m_pageSubchannel, "      Sub      ");
-	m_stackedPages->addTab(m_pageInfo, "      Info      ");
-	m_stackedPages->addTab(m_pageTest, "      Test      ");
+    m_stackedPages->addTab(m_pageSubchannel, "    Channel    ");
+    m_stackedPages->addTab(m_pageInfo, "      Keys      ");
+    m_stackedPages->addTab(m_pageTest, "      Demo      ");
     m_stackedPages->setCurrentIndex(0);
 
 	const int interval = 6;
@@ -120,6 +120,7 @@ void UiManager::refresh()
     {
         case 0:
             m_pageSubchannel->refresh();
+            //m_pageSelection->refresh();
             break;
         default:
             break;

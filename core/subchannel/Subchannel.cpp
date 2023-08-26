@@ -259,7 +259,7 @@ void Subchannel::unloadSample( void )
         m_hasSample = false;
         m_envelope->resetAll();
         m_volume = 0.6;
-        qDebug() <<Q_FUNC_INFO <<"Sample Unloaded";
+        qDebug() <<Q_FUNC_INFO <<"Sample Unloaded.";
     }
     else
     {

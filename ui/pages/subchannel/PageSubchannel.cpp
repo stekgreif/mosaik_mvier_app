@@ -98,7 +98,10 @@ void PageSubchannel::refreshSamplePlot()
 
 void PageSubchannel::resetSamplePlot()
 {
+    //m_pixmap->fill(Qt::white);
     m_sampleWaveform->setPixmap( *m_pixmap );
+    //m_sampleWaveform->clear();
+    //m_sampleWaveform->setPixmap( );
 }
 
 

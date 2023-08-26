@@ -275,6 +275,7 @@ void SelectionPad::refreshSampleWaveForm()
     }
     else
     {
+        qDebug() <<Q_FUNC_INFO  <<"Unload sample plot (load empty plot).";
         m_sampleWaveForm->setPixmap(*m_emptySampleWaveForm);
     }
 }
