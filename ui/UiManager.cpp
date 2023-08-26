@@ -120,7 +120,7 @@ void UiManager::refresh()
     {
         case 0:
             m_pageSubchannel->refresh();
-            //m_pageSelection->refresh();
+            m_pageSelection->refreshWaveFormWindow();
             break;
         default:
             break;
