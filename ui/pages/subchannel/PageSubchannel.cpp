@@ -21,7 +21,7 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     this->setObjectName("pageSubchannel");
     QFont labelFont("Droid Sans", 12);
     QFont varLabelFont("Droid Sans Mono", 12);
-    m_leftChannelPen.setColor(  QColor(0,0,255) );
+    m_leftChannelPen.setColor( QColor(0,0,255) );
     m_rightChannelPen.setColor( QColor(255,0,0,10) );
 
 	/** size of actual screen **/
@@ -85,7 +85,6 @@ void PageSubchannel::refreshSamplePlot()
     if( subchannelManager().hasCurrentSubchannelSample() )
     {
         qDebug() <<Q_FUNC_INFO  <<"Refresh sample plot.";
-
         QSharedPointer<Sample> samplePtr = subchannelManager().getSharedPointerToSample();
 		m_sampleWaveform->setPixmap(*samplePtr->getSampleStructPointer()->pixmap);
     }
@@ -98,10 +97,7 @@ void PageSubchannel::refreshSamplePlot()
 
 void PageSubchannel::resetSamplePlot()
 {
-    //m_pixmap->fill(Qt::white);
     m_sampleWaveform->setPixmap( *m_pixmap );
-    //m_sampleWaveform->clear();
-    //m_sampleWaveform->setPixmap( );
 }
 
 
@@ -125,7 +121,10 @@ void PageSubchannel::refresh()
     if( samplePtr != NULL )
     {
         qDebug() <<Q_FUNC_INFO <<"Sample is loaded.";
-        m_labelVarPathAndName->setText(samplePtr->getSampleStructPointer()->pathAndName);
+        QString orgPath = samplePtr->getSampleStructPointer()->pathAndName;
+        QString shortPath = orgPath.section('/',4,-1);
+        m_labelVarPathAndName->setText(shortPath);
+        //m_labelVarPathAndName->setText(samplePtr->getSampleStructPointer()->pathAndName);
         m_labelVarPathAndName->adjustSize();
     }
     m_envelope->setEnvelope(subchannelManager().getCurrentEnvelope());

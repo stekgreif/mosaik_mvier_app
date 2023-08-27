@@ -223,6 +223,7 @@ void MosaikMiniApp::slot_sampleUnloadCurrentChannel()
 void MosaikMiniApp::slot_sampleUnloadAll()
 {
     subchannelManager().unloadAllSamples();
+    // add confirmation message: Do you really want to unload all samples?
     m_uiManager->refresh();
 }
 

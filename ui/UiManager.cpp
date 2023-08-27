@@ -43,8 +43,8 @@ UiManager::UiManager(MosaikMiniApp *mosaikMiniApp, QWidget *uiParent)
     m_stackedPages->addTab(m_pageTest, "      Demo      ");
     m_stackedPages->setCurrentIndex(0);
 
-	const int interval = 6;
-	const int offset = 77;
+    const int interval = 6;
+    const int offset = 78;
 
 	/** bottom labels **/
 	m_labelPreVol = new QLabel("pre vol", this);
@@ -127,6 +127,7 @@ void UiManager::refresh()
     }
 }
 
+
 void UiManager::refreshSelection()
 {
     m_pageSelection->refresh();
@@ -142,7 +143,6 @@ void UiManager::refreshEnvelope()
 
 void UiManager::refreshStepCounterAbsolute(quint64 cnt)
 {
-
 	quint64 stepCnt = cnt%64;
 	if( stepCnt == 0 )
 	{
@@ -170,7 +170,7 @@ void UiManager::refreshBpm()
 
 void UiManager::refreshPreVol()
 {
-	m_labelPreVol->setText( "HP: " + QString::number( subchannelManager().getPreVolume(), 'f', 2 ) );
+    m_labelPreVol->setText( "HP: " + QString::number( subchannelManager().getPreVolume(), 'f', 2 ) );
 }
 
 

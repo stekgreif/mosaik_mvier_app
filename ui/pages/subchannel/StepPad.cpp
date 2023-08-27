@@ -1,9 +1,7 @@
 #include "StepPad.h"
-
 #include <QDebug>
 #include <QWidget>
 #include <core/subchannel/SubchannelManager.h>
-
 
 
 StepPad::StepPad(int id, QWidget *parent)
@@ -11,14 +9,7 @@ StepPad::StepPad(int id, QWidget *parent)
 {
     //qDebug() <<Q_FUNC_INFO <<"Init";
 
-#if 0 // not working
-    this->setObjectName("stepPad");
-    this->setStyleSheet("StepPad#stepPad {background-color: rgb(130,30,30);}");
-    this->setStyleSheet("QWidget#stepPad {background-color: rgb(130,30,30);}");
-#endif
-
     m_id = id;
-
     m_colorPad  = new QWidget(this);
     m_colorPad->setObjectName("colorPad");
 
@@ -31,11 +22,11 @@ StepPad::StepPad(int id, QWidget *parent)
     clrStep();
 }
 
+
 StepPad::~StepPad()
 {
 
 }
-
 
 
 void StepPad::setStep()
@@ -60,10 +51,12 @@ void StepPad::setStep()
     }
 }
 
+
 void StepPad::clrStep()
 {
     m_colorPad->setStyleSheet("QWidget#colorPad {background-color: rgb(40,40,45);}");
 }
+
 
 void StepPad::setSize(int x, int y)
 {
@@ -71,13 +64,12 @@ void StepPad::setSize(int x, int y)
     m_buttonPad->setFixedSize(x,y);
 }
 
+
 void StepPad::slot_btnPressed()
 {
     qDebug() <<Q_FUNC_INFO <<"pad pressed";
     emit signal_padPressed(m_id);
 }
-
-
 
 
 void StepPad::paintEvent(QPaintEvent *event)
