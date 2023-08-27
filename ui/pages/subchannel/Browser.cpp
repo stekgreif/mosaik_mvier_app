@@ -36,12 +36,12 @@ Browser::Browser(QWidget *uiParent)
 
     /** file browser **/
     m_treeView = new BrowserTree(this);
-	m_treeView->setFixedSize( 40* screenWidth/100, 63* screenHeight/100 );
+    m_treeView->setFixedSize( 34* screenWidth/100, 63* screenHeight/100 );
 
     m_fileSystem = new QFileSystemModel(this);
     m_fileSystem->setFilter( QDir::NoDotAndDotDot | QDir::AllDirs | QDir::Files );
     m_fileSystem->setNameFilters( QStringList() <<"*.wav" <<"*.WAV" );
-    m_fileSystem->setNameFilterDisables(false); // hide other files than wav and do not gray them out
+    m_fileSystem->setNameFilterDisables(false); // hide other files then wav and do not gray them out
     m_fileSystem->setRootPath(m_defaultPath);
 
 	m_treeView->setObjectName("treeView");

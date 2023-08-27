@@ -723,6 +723,12 @@ void MosaikMiniApp::keyPressEvent( QKeyEvent* event )
         case Qt::Key_Return:
         {
             slot_sampleLoadToCurrentSubchannel();
+            break;
+        }
+        case Qt::Key_M:
+        {
+            slot_parameterMuteAndSolo(true);
+            break;
         }
         default:
         {

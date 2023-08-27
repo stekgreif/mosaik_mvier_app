@@ -44,7 +44,7 @@ PageSubchannel::PageSubchannel(MosaikMiniApp *mosaikMiniApp, UiManager *parent)
     m_pixmap->fill(Qt::white);
 	m_sampleWaveform = new QLabel(this);
 	m_sampleWaveform->move( 1.3* screenWidth/100, 3* screenHeight/100 );
-	m_sampleWaveform->setFixedSize( 40* screenWidth/100, 25* screenHeight/100 );
+    m_sampleWaveform->setFixedSize( 34* screenWidth/100, 25* screenHeight/100 );
 	m_sampleWaveform->setObjectName("labelImage");
 	m_sampleWaveform->setStyleSheet("QLabel#labelImage {background-color: rgb(100,100,120);}");
 	m_sampleWaveform->setPixmap(*m_pixmap);

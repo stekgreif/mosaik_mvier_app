@@ -18,6 +18,7 @@ PageInfos::PageInfos(QWidget *parent) : QWidget(parent)
     headline->setObjectName("pageheadline");
     headline->move(40, 40);
 
+
     QLabel *textbody = new QLabel("ESC: Exit\n"
                                   "RETURN: load Sample\n"
                                   "F1: Screen size normal\n"
@@ -26,6 +27,7 @@ PageInfos::PageInfos(QWidget *parent) : QWidget(parent)
                                   "F6: Info page (this)\n"
                                   "F7: Toolbox Demo View\n"
                                   "F12: Set Step LED 11\n"
+                                  "M: Toggle Mute"
                                   "1: Step Button 1\n"
                                   "2: Step Button 17\n"
                                   "3: Step Button 33\n"
@@ -36,6 +38,7 @@ PageInfos::PageInfos(QWidget *parent) : QWidget(parent)
                                   "9: Toggle Step 3\n"
                                   "0: unload sample\n", this);
     textbody->setObjectName("textbody");
+    textbody->setStyleSheet("QLabel#textbody {color: rgb(200,200,200); font: 16px};");
     textbody->move(40,80);
 }
 
