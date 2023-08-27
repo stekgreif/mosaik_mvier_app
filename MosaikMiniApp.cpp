@@ -57,13 +57,11 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
     if( settings().initWithAudio() )
     {
         m_alsaPcm = new AlsaPcm;
-
-        float randomBpm = rand() % 110 + 70;
-        subchannelManager().setBpm(randomBpm);
+        subchannelManager().setBpm( QRandomGenerator::global()->generate() % 110 + 70 );
         m_alsaPcm->slot_bpmChanged(subchannelManager().getBpm());
         m_uiManager->refreshBpm();
         m_alsaPcm->start();
-        qDebug() << "##Alsa started.";
+        qDebug() << "Alsa started.";
     }
 
     m_stepCounter = -1;
