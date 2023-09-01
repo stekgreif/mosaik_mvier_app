@@ -11,6 +11,7 @@ devices:
 
 #include <core/midi/devices/MidiDevice.h>
 #include <core/midi/devices/MidiDevices.h>
+#include <core/midi/devices/MosaikMini.h>
 #include "MosaikMiniApp.h"
 #include "core/midi/mvier/DeviceIdentifier.h"
 #include "core/midi/mvier/Hwui_01.h"
@@ -69,6 +70,7 @@ class MidiManager : public QObject
 		Hwui_01 *m_hwui01;
 		Hwui_02 *m_hwui02;
 		Hwui_03 *m_hwui03;
+        MosaikMini *m_mosaikMini;
 };
 
 inline MidiManager& midiManager() {return MidiManager::Instance(); }

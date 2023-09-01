@@ -19,24 +19,27 @@ PageInfos::PageInfos(QWidget *parent) : QWidget(parent)
     headline->move(40, 40);
 
 
-    QLabel *textbody = new QLabel("ESC: Exit\n"
-                                  "RETURN: load Sample\n"
-                                  "F1: Screen size normal\n"
-                                  "F2: Full Screen\n"
-                                  "F5: Sample and Browser View\n"
-                                  "F6: Info page (this)\n"
-                                  "F7: Toolbox Demo View\n"
-                                  "F12: Set Step LED 11\n"
-                                  "M: Toggle Mute"
-                                  "1: Step Button 1\n"
-                                  "2: Step Button 17\n"
-                                  "3: Step Button 33\n"
-                                  "4: Step Button 48\n"
-                                  "6: Print Pattern to console\n"
-                                  "7: Connect to MIDI Device\n"
-                                  "8: Send out Pattern via MIDI\n"
-                                  "9: Toggle Step 3\n"
-                                  "0: unload sample\n", this);
+    QLabel *textbody = new QLabel("ESC:  Exit\n"
+                                  "RETURN:  load Sample\n\n"
+                                  "F1:  Screen size normal\n"
+                                  "F2:  Full Screen\n"
+                                  "F3:  Toggle Full screen\n"
+                                  "F5:  Sample and Browser View\n"
+                                  "F6:  Info page (this)\n"
+                                  "F7:  Toolbox Demo View\n"
+                                  "F12:  Set Step LED 11\n\n"
+                                  "m:  Toggle Mute\n"
+                                  "f:  Play direction forward\n"
+                                  "r:  Play direction reverse\n\n"
+                                  "1:  Step Button 1\n"
+                                  "2:  Step Button 17\n"
+                                  "3:  Step Button 33\n"
+                                  "4:  Step Button 48\n"
+                                  "6:  Print Pattern to console\n"
+                                  "7:  Connect to MIDI Device\n"
+                                  "8:  Send out Pattern via MIDI\n"
+                                  "9:  Toggle Step 3\n"
+                                  "0:  unload sample\n", this);
     textbody->setObjectName("textbody");
     textbody->setStyleSheet("QLabel#textbody {color: rgb(200,200,200); font: 16px};");
     textbody->move(40,80);

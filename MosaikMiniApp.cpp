@@ -24,6 +24,10 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
     //settings().setScreenSize(m_screenInfo->screenGeometry());
     settings().setScreenSize( QGuiApplication::primaryScreen()->virtualGeometry() );
 
+    /** MIDI **/
+    midiManager().setParentWidget(this);
+    midiManager().connectFavouriteDevice();
+
     /** UI **/
     this->setCursor(Qt::CrossCursor);
     //this->setCursor(Qt::BlankCursor);
@@ -50,10 +54,6 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
         slot_setNormalScreen();
     }
 
-    /** MIDI **/
-    midiManager().setParentWidget(this);
-    midiManager().connectFavouriteDevice();
-
     if( settings().initWithAudio() )
     {
         m_alsaPcm = new AlsaPcm;
@@ -69,8 +69,8 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
     m_timer->start(10);
 
     /** signal slot connections **/
-    connect( m_uiManager,    SIGNAL( signal_subchannelSelectionPadTriggert(int) ), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
-    connect( m_timer, SIGNAL( timeout() ), this,  SLOT( slot_regularTimer()));
+    connect( m_uiManager, SIGNAL(signal_subchannelSelectionPadTriggert(int)), this, SLOT(slot_subchannelSelectionPadTriggert(int)));
+    connect( m_timer, SIGNAL(timeout()), this, SLOT( slot_regularTimer()));
 }
 
 
@@ -121,7 +121,7 @@ void MosaikMiniApp::slot_fnrButtonChanged(quint8 id, quint8 val)
 {
     Q_UNUSED(val);
 
-    qDebug() <<Q_FUNC_INFO;
+    //qDebug() <<Q_FUNC_INFO;
     switch( id )
     {
         case 1:
@@ -175,10 +175,10 @@ void MosaikMiniApp::slot_sparkEvent(quint8 id, int val)
 
 void MosaikMiniApp::slot_stepButtonPressed( int id )
 {
-    qDebug() <<Q_FUNC_INFO <<id;
+    //qDebug() <<Q_FUNC_INFO <<id;
     subchannelManager().toggleStep( id );
     /// @todo midi out checker
-    //midiManager().refreshPatternView();
+    midiManager().refreshPatternView();
     m_uiManager->refresh();
 }
 
@@ -195,7 +195,7 @@ void MosaikMiniApp::slot_regularTimer()
             //qDebug() <<Q_FUNC_INFO <<"Update Step Counter:" <<m_stepCounter;
             m_uiManager->refreshStepCounterAbsolute( m_stepCounter );
             /// @todo crashes without a connected midi device
-            //midiManager().setStepsequencerLed(m_stepCounter % 64);
+            midiManager().setStepsequencerLed(m_stepCounter % 64);
         }
     }
 }
@@ -426,7 +426,7 @@ void MosaikMiniApp::slot_parameterCurrentSubToPre( bool state )
 
 void MosaikMiniApp::slot_parameterMuteAndSolo( bool state )
 {
-    //qDebug() <<Q_FUNC_INFO <<"state" <<state;
+    //qDebug() <<Q_FUNC_INFO <<"Mute state: " <<state;
     Q_UNUSED(state);
     m_uiManager->slot_toggleMuteAndSolo();
 }
@@ -505,8 +505,8 @@ void MosaikMiniApp::slot_subchannelSelectionPadTriggert(int id)
     subchannelManager().setCurrentSubchannelSelection(id);
     subchannelManager().prelistenCurrentSubchannelSample();
     /// @todo don't try to send midi when no midi device connected: implement protection to midi send function
-    //midiManager().refreshPatternView();
-    //midiManager().refreshSubchannelSelection();
+    midiManager().refreshPatternView();
+    midiManager().refreshSubchannelSelection();
     m_uiManager->refresh();
 }
 
@@ -625,6 +625,10 @@ void MosaikMiniApp::keyPressEvent( QKeyEvent* event )
             slot_setFullScreen();
             break;
         }
+        case Qt::Key_F3:
+        {
+            slot_appToggleFullScreen();
+        }
         case Qt::Key_F5:
         {
             m_uiManager->setPageIndex(0);
@@ -674,10 +678,13 @@ void MosaikMiniApp::keyPressEvent( QKeyEvent* event )
         {
             QByteArray pattern = subchannelManager().getCurrentChannelPattern();
             qDebug() <<Q_FUNC_INFO <<"pattern size:" <<pattern.size();
-
             QString pat;
             for(int i = 0; i < pattern.size(); i++)
             {
+                if( i%16 == false )
+                {
+                    pat = pat + " ";
+                }
                 pat = pat + QString::number(pattern.at(i));
             }
             qDebug() <<Q_FUNC_INFO <<"Pattern:" <<pat;
@@ -726,6 +733,16 @@ void MosaikMiniApp::keyPressEvent( QKeyEvent* event )
         case Qt::Key_M:
         {
             slot_parameterMuteAndSolo(true);
+            break;
+        }
+        case Qt::Key_F:
+        {
+            slot_parameterPlayDirection(true);
+            break;
+        }
+        case Qt::Key_R:
+        {
+            slot_parameterPlayDirection(false);
             break;
         }
         default:

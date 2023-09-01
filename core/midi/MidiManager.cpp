@@ -23,7 +23,7 @@ MidiManager::MidiManager()
 {
     qDebug() <<Q_FUNC_INFO <<"Init";
     m_isConnected = false;
-    connectFavouriteDevice();
+    //connectFavouriteDevice();
 }
 
 
@@ -47,7 +47,7 @@ void MidiManager::connectToAllMidiDevices()
 
 	/* wait for x ms, non blocking so midi messages can be reveived */
 	QEventLoop loop;
-	QTimer::singleShot( 250, &loop, SLOT(quit()) );
+    QTimer::singleShot( 100, &loop, SLOT(quit()) );
 	loop.exec();
 
 	for( int i = 0; i < hwMidiPortList.size(); i++ )
@@ -63,9 +63,8 @@ void MidiManager::connectToAllMidiDevices()
 void MidiManager::connectFavouriteDevice(void)
 {
 	connectToAllMidiDevices();
-	//qDebug() <<Q_FUNC_INFO <<"Device map at pos 0:" <<m_deviceMap[1];
 
-	for(int i = 0; i < 10; i++)
+    for(int i = 0; i<4; i++)
 	{
 		if( m_deviceMap.key(i).isEmpty() )
 		{
@@ -85,41 +84,41 @@ void MidiManager::connectFavouriteDevice(void)
 				case 0:
 				{
 					m_rgbwButtons = new RgbwButtons( m_deviceMap.key( i ) );
-					connect( m_rgbwButtons, SIGNAL(signal_stepButtonPressed(int)),  m_parent, SLOT( slot_stepButtonPressed(int)) );
+                    connect( m_rgbwButtons, SIGNAL(signal_stepButtonPressed(int)),  m_parent, SLOT(slot_stepButtonPressed(int)));
 					break;
 				}
 				case 1:
 				{
 					m_hwui01 = new Hwui_01( m_deviceMap.key( i ) );
-                    connect( m_hwui01, SIGNAL(signal_button10Pressed()), m_parent, SLOT( slot_sampleLoadToCurrentSubchannel()));
-                    connect( m_hwui01, SIGNAL(signal_button11Pressed()), m_parent, SLOT( slot_browserSelectedSampleToPrelisten()));
-                    connect( m_hwui01, SIGNAL(signal_currentPan(float)), m_parent, SLOT(slot_parameterPan(float)));
-                    connect( m_hwui01, SIGNAL(signal_bpmChanged(float)), m_parent, SLOT( slot_globalChangeBpmRelative(float)) );
-                    connect( m_hwui01, SIGNAL(signal_erpChanged(quint8,qint8)), m_parent, SLOT(slot_erpChanged(quint8,qint8)) );
-                    connect( m_hwui01, SIGNAL(signal_button08Pressed(bool)), m_parent, SLOT(slot_parameterMuteAndSolo(bool)) );
-                    connect( m_hwui01, SIGNAL(signal_button07Pressed()), m_parent, SLOT(slot_parameterUnmuteAll()) );
-                    connect( m_hwui01, SIGNAL(signal_button09Pressed()), m_parent, SLOT(slot_parameterSelectLastMutes()) );
-                    connect( m_hwui01, SIGNAL(signal_mainVolume(float)), m_parent, SLOT(slot_globalMainVolume(float)) );
-                    connect( m_hwui01, SIGNAL(signal_headphoneVolume(float)), m_parent, SLOT(slot_globalPreVolume(float)) );
+                    connect(m_hwui01, SIGNAL(signal_button10Pressed()), m_parent, SLOT(slot_sampleLoadToCurrentSubchannel()));
+                    connect(m_hwui01, SIGNAL(signal_button11Pressed()), m_parent, SLOT(slot_browserSelectedSampleToPrelisten()));
+                    connect(m_hwui01, SIGNAL(signal_currentPan(float)), m_parent, SLOT(slot_parameterPan(float)));
+                    connect(m_hwui01, SIGNAL(signal_bpmChanged(float)), m_parent, SLOT(slot_globalChangeBpmRelative(float)));
+                    connect(m_hwui01, SIGNAL(signal_erpChanged(quint8,qint8)), m_parent, SLOT(slot_erpChanged(quint8,qint8)));
+                    connect(m_hwui01, SIGNAL(signal_button08Pressed(bool)), m_parent, SLOT(slot_parameterMuteAndSolo(bool)));
+                    connect(m_hwui01, SIGNAL(signal_button07Pressed()), m_parent, SLOT(slot_parameterUnmuteAll()));
+                    connect(m_hwui01, SIGNAL(signal_button09Pressed()), m_parent, SLOT(slot_parameterSelectLastMutes()));
+                    connect(m_hwui01, SIGNAL(signal_mainVolume(float)), m_parent, SLOT(slot_globalMainVolume(float)));
+                    connect(m_hwui01, SIGNAL(signal_headphoneVolume(float)), m_parent, SLOT(slot_globalPreVolume(float)));
 					break;
 				}
 				case 2:
 				{
 					m_hwui02 = new Hwui_02( m_deviceMap.key( i ) );
-					connect( m_hwui02, SIGNAL(signal_erpChanged(quint8,qint8)),	m_parent, SLOT(slot_erpChanged(quint8,qint8)) );
+                    connect(m_hwui02, SIGNAL(signal_erpChanged(quint8,qint8)),	m_parent, SLOT(slot_erpChanged(quint8,qint8)) );
 					break;
 				}
 				case 3:
 				{
 					m_hwui03 = new Hwui_03( m_deviceMap.key( i ) );
-                    connect( m_hwui03, SIGNAL(signal_button10Pressed(int)), m_parent, SLOT(slot_browserChangeCursorPosition(int)));
-                    connect( m_hwui03, SIGNAL(signal_button11Pressed(int)), m_parent, SLOT(slot_browserChangeCursorPosition(int)));
-                    connect( m_hwui03, SIGNAL(signal_button05Pressed(int)),	m_parent, SLOT(slot_browserChangeCursorPosition(int)));
-                    connect( m_hwui03, SIGNAL(signal_button08Pressed(int)),	m_parent, SLOT(slot_browserChangeCursorPosition(int)));
-                    connect( m_hwui03, SIGNAL(signal_button07Pressed()), m_parent, SLOT(slot_browserCloseFolder()));
-                    connect( m_hwui03, SIGNAL(signal_button09Pressed()), m_parent, SLOT(slot_browserOpenFolder()));
-                    connect( m_hwui03, SIGNAL(signal_button04Pressed()), m_parent, SLOT(slot_prelistenSubchannelSample()));
-                    connect( m_hwui03, SIGNAL(signal_button06Pressed(bool)), m_parent, SLOT(slot_parameterCurrentSubToPre(bool)));
+                    connect(m_hwui03, SIGNAL(signal_button10Pressed(int)), m_parent, SLOT(slot_browserChangeCursorPosition(int)));
+                    connect(m_hwui03, SIGNAL(signal_button11Pressed(int)), m_parent, SLOT(slot_browserChangeCursorPosition(int)));
+                    connect(m_hwui03, SIGNAL(signal_button05Pressed(int)),	m_parent, SLOT(slot_browserChangeCursorPosition(int)));
+                    connect(m_hwui03, SIGNAL(signal_button08Pressed(int)),	m_parent, SLOT(slot_browserChangeCursorPosition(int)));
+                    connect(m_hwui03, SIGNAL(signal_button07Pressed()), m_parent, SLOT(slot_browserCloseFolder()));
+                    connect(m_hwui03, SIGNAL(signal_button09Pressed()), m_parent, SLOT(slot_browserOpenFolder()));
+                    connect(m_hwui03, SIGNAL(signal_button04Pressed()), m_parent, SLOT(slot_prelistenSubchannelSample()));
+                    connect(m_hwui03, SIGNAL(signal_button06Pressed(bool)), m_parent, SLOT(slot_parameterCurrentSubToPre(bool)));
 					break;
 				}
 				default:
@@ -365,18 +364,18 @@ void MidiManager::setMainVolume(float volume)
 {
     int vol = 127 - (127 * volume);
     qDebug() <<Q_FUNC_INFO <<"vol" <<vol;
-	//m_midiDevice[0]->setMainVolume(vol);
+    m_midiDevice[0]->setMainVolume(vol);
 }
 
 
 void MidiManager::resetHardware()
 {
-	//m_rgbwButtons->resetHardware();
+    m_rgbwButtons->resetHardware();
 }
 
 
 void MidiManager::subToPreLed(bool state)
 {
     Q_UNUSED(state);
-	//m_midiDevice[0]->subToPreLed(state);
+    m_midiDevice[0]->subToPreLed(state);
 }

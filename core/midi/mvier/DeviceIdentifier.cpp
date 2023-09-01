@@ -25,7 +25,7 @@ void DeviceIdentifier::midiConnect(QString hwPort)
 	m_midiOut = new MidiOut(m_hwPort);
 
 	m_midiIn  = new MidiIn(m_hwPort);
-	connect(m_midiIn, SIGNAL(signal_midiMsgReceived(quint8*)), this, SLOT(slot_midiMsgReceived(quint8*)) );
+    connect(m_midiIn, SIGNAL(signal_midiMsgReceived(quint8*)), this, SLOT(slot_midiMsgReceived(quint8*)));
 	m_midiIn->start();
 
 	/* send ID byte */
@@ -59,15 +59,7 @@ int DeviceIdentifier::getDeviceId(void)
 
 void DeviceIdentifier::slot_midiMsgReceived(quint8 *data)
 {
-#if 0
-	quint8 midiBuffer[3] = {};
-
-	midiBuffer[0] = data[0];    // midi ch, status
-	midiBuffer[1] = data[1];    // note/id
-	midiBuffer[2] = data[2];    // value
-#endif
-
-	qDebug() <<Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
+    //qDebug() <<Q_FUNC_INFO <<"midi ch, status: " <<data[0] <<"note/id: " <<data[1] <<"value: " <<data[2];
 
 	if( data[0] == 0xA0 )
 	{

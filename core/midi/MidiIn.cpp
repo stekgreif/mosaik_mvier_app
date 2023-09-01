@@ -27,13 +27,13 @@ MidiIn::~MidiIn()
 
 void MidiIn::run(void)
 {
-    qDebug() <<Q_FUNC_INFO << "Thread started.";
+    qDebug() <<Q_FUNC_INFO <<"Thread started.";
 
     while (!terminateRequest)
     {
         snd_rawmidi_read(midi_in_handle, midi_in_buffer, 3);
         emit signal_midiMsgReceived(midi_in_buffer);
-		qDebug() << "Midi received";
+        qDebug() <<Q_FUNC_INFO <<"Midi received";
     }
 
     qDebug() <<Q_FUNC_INFO <<"Thread terminated.";

@@ -29,14 +29,14 @@ void Hwui_02::slot_midiMsgReceived(quint8 *data)
     /*  0: midi ch, status
         1: note/id
         2: value */
-	qDebug() <<Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
+    //qDebug() <<Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
 
 	switch( data[1] )
 	{
-		case  0:
-		case  1:
-		case  2:
-		case  3:
+        case 0:
+        case 1:
+        case 2:
+        case 3:
 		{
 			qint8 diff = data[2] - 64;
 			emit signal_erpChanged(data[1], diff);

@@ -24,7 +24,7 @@ uint8_t color_table[6] = {0,1,2,3,4,5};
 RgbwButtons::RgbwButtons(QString hwPort)
 {
 	m_lastStepSequencerLed = 0;
-//	qebug() <<Q_FUNC_INFO <<"Get connected midi device" <<settings().getConnectedMidiDevicePort();
+    qDebug() <<Q_FUNC_INFO <<"Get connected midi device" <<settings().getConnectedMidiDevicePort();
 	m_midiOut = new MidiOut(hwPort);
 
 	m_midiIn  = new MidiIn (hwPort);
@@ -172,7 +172,7 @@ void RgbwButtons::resetHardware()
 //erstmal ok
 void RgbwButtons::setStepsequencerLed(int stepLedId)
 {
-	//qDebug() <<Q_FUNC_INFO <<"send midi";
+    //qDebug() <<Q_FUNC_INFO <<"send midi";
 
 	QByteArray data;
 	data.resize(9);

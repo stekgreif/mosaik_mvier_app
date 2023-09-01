@@ -57,7 +57,7 @@ void MidiOut::sendData(const QByteArray &data)
 {
 #if MIDI_OUT
     snd_rawmidi_write(m_midiOutHandle, data.data(), data.size());
-    qDebug() << Q_FUNC_INFO << data.size();
+    //qDebug() << Q_FUNC_INFO << data.size();
 #endif
 }
 

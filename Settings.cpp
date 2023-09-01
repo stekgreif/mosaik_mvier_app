@@ -5,8 +5,8 @@
 #include <QString>
 #include <QList>
 
-//#define _MVIER10
 
+#define _MVIER10
 
 Settings::Settings()
     : m_subchannelMap(new QMap<int, int>)
@@ -24,8 +24,8 @@ Settings::Settings()
     m_connectedMidiDevicePort.clear();
 
     // the order of this list is the order of connection tries
-    m_midiFavList.append("Arduino");
     m_midiFavList.append("MOSAIKmini");
+    m_midiFavList.append("Arduino");
     m_midiFavList.append("SparkLE");
     m_midiFavList.append("Mosaik");
     m_midiFavList.append("HELLA-UNTZtrument");
@@ -101,8 +101,8 @@ void Settings::setScreenSize(QRect screen)
 #endif
 
 #ifdef _MVIER10
-	m_screenSize.setWidth(1366);
-	m_screenSize.setHeight(768);
+    m_screenSize.setWidth(1280);
+    m_screenSize.setHeight(720);
 #endif
 
     qDebug() <<Q_FUNC_INFO <<"screensize:" <<m_screenSize;

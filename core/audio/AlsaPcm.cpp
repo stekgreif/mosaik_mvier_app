@@ -12,6 +12,8 @@
 #define PI  3.141592654
 #define TAU 6.283185307
 
+// change soundcard here:
+#define PCM_DEVICE PCM_DEVICE_3
 
 AlsaPcm::AlsaPcm()
     : m_sampleRate(44100)
@@ -28,9 +30,9 @@ AlsaPcm::AlsaPcm()
 
 //if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE , SND_PCM_STREAM_PLAYBACK, 0)) < 0 )
 #if 1 // 2015-05-11 original -> works
-    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE_0 , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
+    if((err = snd_pcm_open (&m_pcmHandle, PCM_DEVICE , SND_PCM_STREAM_PLAYBACK, SND_PCM_ASYNC)) < 0 )
     {
-        fprintf(stderr, "Cannot open audio device %s (%s).\n", PCM_DEVICE_0, snd_strerror(err));
+        fprintf(stderr, "Cannot open audio device %s (%s).\n", PCM_DEVICE, snd_strerror(err));
         exit(1);
     }
 #endif

@@ -10,8 +10,8 @@
 #include "alsa/asoundlib.h"
 #include <atomic>
 
-//#define USE_4_CHANNEL_AUDIO
-#define CHANNELS        2
+///@ todo #define USE_4_CHANNEL_AUDIO
+#define CHANNELS        4
 #define PCM_DEVICE_0    "plughw:0,0"
 #define PCM_DEVICE_1    "plughw:1,0"
 #define PCM_DEVICE_2    "plughw:2,0"

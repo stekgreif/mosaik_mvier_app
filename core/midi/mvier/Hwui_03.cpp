@@ -26,7 +26,7 @@ Hwui_03::~Hwui_03()
 
 void Hwui_03::slot_midiMsgReceived(quint8 *data)
 {
-	qDebug() <<Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
+    //qDebug() <<Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
 
     if( data[0] == 0xB0 ) // CC
 	{
@@ -40,12 +40,12 @@ void Hwui_03::slot_midiMsgReceived(quint8 *data)
 	{
 		switch( data[1] )
 		{
-			case  0:	emit signal_button00Pressed(); break;
-			case  1:	emit signal_button01Pressed(); break;
-			case  2:	emit signal_button02Pressed(); break;
-			case  3:	emit signal_button03Pressed(); break;
-			case  4:	emit signal_button04Pressed(); break;
-			case  5:	emit signal_button05Pressed(1); break;
+            case  0: emit signal_button00Pressed(); break;
+            case  1: emit signal_button01Pressed(); break;
+            case  2: emit signal_button02Pressed(); break;
+            case  3: emit signal_button03Pressed(); break;
+            case  4: emit signal_button04Pressed(); break;
+            case  5: emit signal_button05Pressed(1); break;
 			case  6:
 			{
 				m_curSubToPre = !m_curSubToPre;
@@ -53,11 +53,11 @@ void Hwui_03::slot_midiMsgReceived(quint8 *data)
 				emit signal_button06Pressed(m_curSubToPre);
 				break;
 			}
-			case  7:	emit signal_button07Pressed(); break;
-			case  8:	emit signal_button08Pressed(-1); break;
-			case  9:	emit signal_button09Pressed(); break;
-			case 10:	emit signal_button10Pressed(-1);	break;
-			case 11:	emit signal_button11Pressed(1);		break;
+            case  7: emit signal_button07Pressed(); break;
+            case  8: emit signal_button08Pressed(-1); break;
+            case  9: emit signal_button09Pressed(); break;
+            case 10: emit signal_button10Pressed(-1); break;
+            case 11: emit signal_button11Pressed(1); break;
 		}
 	}
 }
