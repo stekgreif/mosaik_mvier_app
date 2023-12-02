@@ -23,7 +23,6 @@ MidiManager::MidiManager()
 {
     qDebug() <<Q_FUNC_INFO <<"Init";
     m_isConnected = false;
-    //connectFavouriteDevice();
 }
 
 
@@ -60,6 +59,64 @@ void MidiManager::connectToAllMidiDevices()
 }
 
 
+#if 1 // mosaik mini 16
+//if( hwMidiNameList.at(midiHwDevice) == "MOSAIKmini" )
+void MidiManager::connectFavouriteDevice(void)
+{
+    settings().setConnectedMidiDeviceName("MOSAIKmini");
+    settings().setConnectedMidiDevicePort("hw:1,0,0");
+    //connectToAllMidiDevices();
+
+    m_mosaikMini = new MosaikMini();
+
+    /** app **/
+    connect(m_mosaikMini, SIGNAL(signal_functionLeftButton00Pressed()), m_parent, SLOT(slot_appToggleFullScreen()));
+    connect(m_mosaikMini, SIGNAL(signal_functionLeftButton01Pressed()), m_parent, SLOT(slot_appExit()));
+    /** selection **/
+    connect(m_mosaikMini, SIGNAL(signal_functionSelectSubchannelRelative(int)), m_parent, SLOT( slot_selectionSetCurrentSubchannelRelative(int)) );
+    connect(m_mosaikMini, SIGNAL(signal_selectChannel(int)), m_parent, SLOT( slot_selectionSetCurrentChannel(int) ) );
+    connect(m_mosaikMini, SIGNAL(signal_selectionSubchannelNext()), m_parent, SLOT( slot_selectionNextSubchannel() ));
+    /** browser **/
+    connect(m_mosaikMini, SIGNAL(signal_encChanged(int)), m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+    connect(m_mosaikMini, SIGNAL(signal_menuNavigation(int)), m_parent, SLOT( slot_browserChangeCursorPosition(int)) );
+    connect(m_mosaikMini, SIGNAL(signal_menuEncoderPushed()), m_parent, SLOT( slot_browserToggleFolderExpansion()) );
+    connect(m_mosaikMini, SIGNAL(signal_setPathId(int)), m_parent, SLOT( slot_browserChangePathId(int)) );
+    connect(m_mosaikMini, SIGNAL(signal_browserOpenFolder()), m_parent, SLOT( slot_browserOpenFolder()) );
+    connect(m_mosaikMini, SIGNAL(signal_browserCloseFolder()), m_parent, SLOT( slot_browserCloseFolder()) );
+    /** prelisten **/
+    connect(m_mosaikMini, SIGNAL(signal_prelistenBrowserSample()), m_parent, SLOT( slot_browserSelectedSampleToPrelisten()) );
+    connect(m_mosaikMini, SIGNAL(signal_prelistenSubchannelSample()), m_parent, SLOT( slot_prelistenSubchannelSample()) );
+    /** sequencer/pattern **/
+    connect(m_mosaikMini, SIGNAL(signal_stepButtonPressed(int)), m_parent, SLOT( slot_stepButtonPressed(int)) );
+    connect(m_mosaikMini, SIGNAL(signal_functionRightButton04Pressed()), m_parent, SLOT( slot_patternClearAll()) );
+    connect(m_mosaikMini, SIGNAL(signal_functionRightButton06Pressed()), m_parent, SLOT( slot_patternClearCurrentChannel()) );
+    /** main parameter **/
+    connect(m_mosaikMini, SIGNAL(signal_bpmChanged(float)), m_parent, SLOT( slot_globalChangeBpmRelative(float)) );
+    connect(m_mosaikMini, SIGNAL(signal_mainVolume(float)), m_parent, SLOT( slot_globalMainVolume(float)) );
+    connect(m_mosaikMini, SIGNAL(signal_headphoneVolume(float)), m_parent, SLOT( slot_globalPreVolume(float)) );
+    /** sample **/
+    connect(m_mosaikMini, SIGNAL(signal_functionRightButton00Pressed()), m_parent, SLOT( slot_sampleUnloadAll() ) );
+    connect(m_mosaikMini, SIGNAL(signal_functionRightButton02Pressed()), m_parent, SLOT( slot_sampleUnloadCurrentChannel() ) );
+    connect(m_mosaikMini, SIGNAL(signal_loadSample()), m_parent, SLOT( slot_sampleLoadToCurrentSubchannel() ) );
+    /** tile **/
+    connect(m_mosaikMini, SIGNAL(signal_functionLeftButton03Pressed()), m_parent, SLOT( slot_patternClearCurrentSubchannel()) );
+    connect(m_mosaikMini, SIGNAL(signal_functionLeftButton03Pressed()), m_parent, SLOT( slot_sampleUnloadCurrentSubchannel() ) );
+    /** subchannel parameter **/
+    connect(m_mosaikMini, SIGNAL(signal_currentPan(float)), m_parent, SLOT( slot_parameterPan(float)) );
+    connect(m_mosaikMini, SIGNAL(signal_playDirection(bool)), m_parent, SLOT( slot_parameterPlayDirection(bool)) );
+    connect(m_mosaikMini, SIGNAL(signal_currentSubchannelToPre(bool)), m_parent, SLOT( slot_parameterCurrentSubToPre(bool)) );
+    connect(m_mosaikMini, SIGNAL(signal_muteAndSolo(bool)), m_parent, SLOT( slot_parameterMuteAndSolo(bool)) );
+    connect(m_mosaikMini, SIGNAL(signal_unmuteAll()), m_parent, SLOT( slot_parameterUnmuteAll()) );
+    connect(m_mosaikMini, SIGNAL(signal_lastMute()), m_parent, SLOT( slot_parameterSelectLastMutes()) );
+    //connect(m_mosaikMini, SIGNAL(signal_encChanged(float)), m_parent, SLOT(slot_subchannelChangeVolume(float)) );
+    connect(m_mosaikMini, SIGNAL(signal_erpChanged(quint8,qint8)), m_parent, SLOT(slot_erpChanged(quint8,qint8)) );
+    connect(m_mosaikMini, SIGNAL(signal_selectPageSubchannel()), m_parent, SLOT(slot_uiSetToPageSubchannel()) );
+    connect(m_mosaikMini, SIGNAL(signal_selectPageBrowser()), m_parent, SLOT(slot_uiSetToPageBrowser()) );
+}
+#endif
+
+
+#if 0 // 2023-09-01: works with Mvier
 void MidiManager::connectFavouriteDevice(void)
 {
 	connectToAllMidiDevices();
@@ -120,13 +177,14 @@ void MidiManager::connectFavouriteDevice(void)
                     connect(m_hwui03, SIGNAL(signal_button04Pressed()), m_parent, SLOT(slot_prelistenSubchannelSample()));
                     connect(m_hwui03, SIGNAL(signal_button06Pressed(bool)), m_parent, SLOT(slot_parameterCurrentSubToPre(bool)));
 					break;
-				}
+                }
 				default:
 					break;
 			}
 		}
 	}
 }
+#endif
 
 
 #if 0 // 2016-08-28 new version: should connect with more than one midi device
@@ -217,8 +275,8 @@ void MidiManager::connectFavouriteDevice(void)
             m_midiDevice = new MosaikMini();
 
             /** app **/
-            connect( m_midiDevice, SIGNAL(signal_functionLeftButton00Pressed()),         m_parent, SLOT( slot_appToggleFullScreen()) );
-            connect( m_midiDevice, SIGNAL(signal_functionLeftButton01Pressed()),         m_parent, SLOT( slot_appExit()) );
+            connect(m_midiDevice, SIGNAL(signal_functionLeftButton00Pressed()), m_parent, SLOT(slot_appToggleFullScreen()));
+            connect(m_midiDevice, SIGNAL(signal_functionLeftButton01Pressed()), m_parent, SLOT(slot_appExit()));
 
             /** selection **/
             connect( m_midiDevice, SIGNAL(signal_functionSelectSubchannelRelative(int)), m_parent, SLOT( slot_selectionSetCurrentSubchannelRelative(int)) );
@@ -312,7 +370,8 @@ void MidiManager::connectFavouriteDevice(void)
 
 void MidiManager::setStepLed(int i)
 {
-	m_rgbwButtons->setStepLed(i);
+    //m_rgbwButtons->setStepLed(i);
+    m_mosaikMini->setStepLed(i);
 }
 
 
@@ -332,31 +391,36 @@ void MidiManager::slot_erpChanged(quint8 id, qint8 val)
 void MidiManager::sendData(const QByteArray &data)
 {
     qDebug() << Q_FUNC_INFO << data.size();
-	m_rgbwButtons->sendRawData(data);
+    //m_rgbwButtons->sendRawData(data);
+    m_mosaikMini->sendRawData(data);
 }
 
 
 void MidiManager::setChannelPattern()
 {
-	m_rgbwButtons->setChannelPattern();
+    //m_rgbwButtons->setChannelPattern();
+    m_mosaikMini->setChannelPattern();
 }
 
 
 void MidiManager::refreshPatternView()
 {
-	m_rgbwButtons->refreshSequencer();
+    //m_rgbwButtons->refreshSequencer();
+    m_mosaikMini->refreshSequencer();
 }
 
 
 void MidiManager::refreshSubchannelSelection()
 {
-	m_rgbwButtons->refreshSubchannelSelection();
+    //m_rgbwButtons->refreshSubchannelSelection();
+    m_mosaikMini->refreshSubchannelSelection();
 }
 
 
 void MidiManager::setStepsequencerLed(int stepLedId)
 {
-	m_rgbwButtons->setStepsequencerLed(stepLedId);
+    //m_rgbwButtons->setStepsequencerLed(stepLedId);
+    m_mosaikMini->setStepsequencerLed(stepLedId);
 }
 
 
@@ -364,18 +428,21 @@ void MidiManager::setMainVolume(float volume)
 {
     int vol = 127 - (127 * volume);
     qDebug() <<Q_FUNC_INFO <<"vol" <<vol;
-    m_midiDevice[0]->setMainVolume(vol);
+    //m_midiDevice[0]->setMainVolume(vol);
+    m_mosaikMini->setMainVolume(vol);
 }
 
 
 void MidiManager::resetHardware()
 {
-    m_rgbwButtons->resetHardware();
+    //m_rgbwButtons->resetHardware();
+    m_mosaikMini->resetHardware();
 }
 
 
 void MidiManager::subToPreLed(bool state)
 {
     Q_UNUSED(state);
-    m_midiDevice[0]->subToPreLed(state);
+    //m_midiDevice[0]->subToPreLed(state);
+    m_mosaikMini->subToPreLed(state);
 }

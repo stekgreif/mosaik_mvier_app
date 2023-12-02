@@ -13,7 +13,7 @@
 #define TAU 6.283185307
 
 // change soundcard here:
-#define PCM_DEVICE PCM_DEVICE_3
+#define PCM_DEVICE PCM_DEVICE_2
 
 AlsaPcm::AlsaPcm()
     : m_sampleRate(44100)

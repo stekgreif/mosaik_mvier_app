@@ -72,7 +72,7 @@ void MidiOut::sendData(quint8 midi, quint8 id, quint8 value)
 
     snd_rawmidi_write(m_midiOutHandle, data, 3);
 #endif
-    qDebug() << Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
+    //qDebug() << Q_FUNC_INFO <<data[0] <<data[1] <<data[2];
 }
 
 
