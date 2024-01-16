@@ -12,9 +12,6 @@
 #define PI  3.141592654
 #define TAU 6.283185307
 
-// change soundcard here:
-#define PCM_DEVICE PCM_DEVICE_2
-
 AlsaPcm::AlsaPcm()
     : m_sampleRate(44100)
     , m_frameCnt(0)

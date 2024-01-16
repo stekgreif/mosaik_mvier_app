@@ -10,9 +10,16 @@
     USER SETTINGS
 *******************************************************************************/
 
+#define SETTINGS_MOSAIK_MINI 0
+#define SETTINGS_MOSAIK_M4   1
+#define SETTINGS_AUDIO_CHANNEL  4 // 2 or 4
+
+
 #define SETTINGS_INIT_WITH_AUDIO        true
 #define SETTINGS_START_WITH_FULL_SCREEN true
 #define SETTINGS_SUBS_PER_ROW           6
+
+
 
 /** ***************************************************************************/
 

@@ -59,7 +59,8 @@ void MidiManager::connectToAllMidiDevices()
 }
 
 
-#if 1 // mosaik mini 16
+#if SETTINGS_MOSAIK_MINI
+// mosaik mini 16
 //if( hwMidiNameList.at(midiHwDevice) == "MOSAIKmini" )
 void MidiManager::connectFavouriteDevice(void)
 {
@@ -116,7 +117,8 @@ void MidiManager::connectFavouriteDevice(void)
 #endif
 
 
-#if 0 // 2023-09-01: works with Mvier
+#if SETTINGS_MOSAIK_M4
+// 2023-09-01: works with Mvier
 void MidiManager::connectFavouriteDevice(void)
 {
 	connectToAllMidiDevices();

@@ -9,20 +9,22 @@
 #include "core/ppthread.h"
 #include "alsa/asoundlib.h"
 #include <atomic>
+#include "Settings.h"
 
-///@ todo #define USE_4_CHANNEL_AUDIO
-#define CHANNELS        4
 #define PCM_DEVICE_0    "plughw:0,0"
 #define PCM_DEVICE_1    "plughw:1,0"
 #define PCM_DEVICE_2    "plughw:2,0"
 #define PCM_DEVICE_3    "plughw:3,0"
 #define PCM_DEVICE_4    "plughw:4,0"
 #define PCM_DEVICE_5    "plughw:5,0"
-#define NUM_OF_PERIODS  2
-//#define FRAMES          2048
-#define FRAMES          512
-//#define FRAMES          128
 
+#define CHANNELS   SETTINGS_AUDIO_CHANNEL
+
+/* change soundcard here: */
+#define PCM_DEVICE PCM_DEVICE_2
+
+#define NUM_OF_PERIODS  2
+#define FRAMES          512 // 128, 2048
 #define BUFFER_SIZE     FRAMES * CHANNELS
 
 
