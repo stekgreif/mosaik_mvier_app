@@ -98,6 +98,7 @@ class MosaikMiniApp : public QMainWindow
         void slot_parameterUnmuteAll( void );
         void slot_parameterSelectLastMutes( void );
         void slot_parameterPlayDirection( bool direction );
+        void slot_parameterPlayDirectionToggle();
 
     private:
         Ui::MosaikMiniApp *ui;

@@ -149,6 +149,7 @@ void MidiManager::connectFavouriteDevice(void)
 				case 1:
 				{
 					m_hwui01 = new Hwui_01( m_deviceMap.key( i ) );
+                    connect(m_hwui01, SIGNAL(signal_button00Pressed()), m_parent, SLOT(slot_parameterPlayDirectionToggle()));
                     connect(m_hwui01, SIGNAL(signal_button10Pressed()), m_parent, SLOT(slot_sampleLoadToCurrentSubchannel()));
                     connect(m_hwui01, SIGNAL(signal_button11Pressed()), m_parent, SLOT(slot_browserSelectedSampleToPrelisten()));
                     connect(m_hwui01, SIGNAL(signal_currentPan(float)), m_parent, SLOT(slot_parameterPan(float)));
@@ -393,36 +394,60 @@ void MidiManager::slot_erpChanged(quint8 id, qint8 val)
 void MidiManager::sendData(const QByteArray &data)
 {
     qDebug() << Q_FUNC_INFO << data.size();
-    //m_rgbwButtons->sendRawData(data);
+    #if SETTINGS_MOSAIK_M4
+    m_rgbwButtons->sendRawData(data);
+    #endif
+    #if SETTINGS_MOSAIK_MINI
     m_mosaikMini->sendRawData(data);
+    #endif
 }
 
+#if SETTINGS_MOSAIK_M4
+#endif
+#if SETTINGS_MOSAIK_MINI
+#endif
 
 void MidiManager::setChannelPattern()
 {
-    //m_rgbwButtons->setChannelPattern();
+#if SETTINGS_MOSAIK_M4
+    m_rgbwButtons->setChannelPattern();
+#endif
+#if SETTINGS_MOSAIK_MINI
     m_mosaikMini->setChannelPattern();
+#endif
 }
 
 
 void MidiManager::refreshPatternView()
 {
-    //m_rgbwButtons->refreshSequencer();
+#if SETTINGS_MOSAIK_M4
+    m_rgbwButtons->refreshSequencer();
+#endif
+#if SETTINGS_MOSAIK_MINI
     m_mosaikMini->refreshSequencer();
+#endif
 }
 
 
 void MidiManager::refreshSubchannelSelection()
 {
-    //m_rgbwButtons->refreshSubchannelSelection();
+#if SETTINGS_MOSAIK_M4
+    m_rgbwButtons->refreshSubchannelSelection();
+#endif
+#if SETTINGS_MOSAIK_MINI
     m_mosaikMini->refreshSubchannelSelection();
+#endif
 }
 
 
 void MidiManager::setStepsequencerLed(int stepLedId)
 {
-    //m_rgbwButtons->setStepsequencerLed(stepLedId);
+#if SETTINGS_MOSAIK_M4
+    m_rgbwButtons->setStepsequencerLed(stepLedId);
+#endif
+#if SETTINGS_MOSAIK_MINI
     m_mosaikMini->setStepsequencerLed(stepLedId);
+#endif
 }
 
 
@@ -430,21 +455,35 @@ void MidiManager::setMainVolume(float volume)
 {
     int vol = 127 - (127 * volume);
     qDebug() <<Q_FUNC_INFO <<"vol" <<vol;
+
+#if SETTINGS_MOSAIK_M4
     //m_midiDevice[0]->setMainVolume(vol);
+#endif
+#if SETTINGS_MOSAIK_MINI
     m_mosaikMini->setMainVolume(vol);
+#endif
 }
 
 
 void MidiManager::resetHardware()
 {
-    //m_rgbwButtons->resetHardware();
+#if SETTINGS_MOSAIK_M4
+    m_rgbwButtons->resetHardware();
+#endif
+#if SETTINGS_MOSAIK_MINI
     m_mosaikMini->resetHardware();
+#endif
 }
 
 
 void MidiManager::subToPreLed(bool state)
 {
     Q_UNUSED(state);
+
+#if SETTINGS_MOSAIK_M4
     //m_midiDevice[0]->subToPreLed(state);
+#endif
+#if SETTINGS_MOSAIK_MINI
     m_mosaikMini->subToPreLed(state);
+#endif
 }

@@ -13,7 +13,7 @@ VolumeWidget::VolumeWidget(QWidget *parent)
     this->setObjectName("VolumeWidget");
     this->setFixedSize(5, 110);
 
-    m_value = 0.0;
+    m_value = 0.8;
 }
 
 

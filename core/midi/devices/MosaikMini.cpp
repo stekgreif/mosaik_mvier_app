@@ -104,6 +104,7 @@ void MosaikMini::setSubchannelPattern(void)
 
     //qDebug() <<Q_FUNC_INFO <<"midi bytes to send:" <<midiData.size();
 
+    //for (int i = 0; i < midiData.size()/3; i++)
     for (int i = 0; i < midiData.size()/3; i++)
     {
         midiData[3*i+0] = (char) (MIDI_MSG_NOTE_ON | MIDI_CH_SEQ);
@@ -249,6 +250,7 @@ void MosaikMini::setChannelPattern(void)
 
 void MosaikMini::refreshSequencer()
 {
+    qDebug() <<Q_FUNC_INFO;
     if( m_singlePatternView == true )
     {
         setSubchannelPattern();
@@ -276,6 +278,7 @@ void MosaikMini::resetHardware()
 
 void MosaikMini::toggleSinglePatternView(void)
 {
+    qDebug() <<Q_FUNC_INFO;
     quint8 data[3];
     data[0] = Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Fnl;
     data[1] = 10;
@@ -341,18 +344,22 @@ int MosaikMini::getColorValue(int id)
 
 void MosaikMini::setStepsequencerLed(int stepLedId)
 {
+    //qDebug() <<Q_FUNC_INFO;
 
     if( m_singlePatternView )
     {
         QBitArray pattern = subchannelManager().getCurrentSubchannelPattern();
+        //qDebug() <<Q_FUNC_INFO <<"QBitArray pattern:" <<pattern.size();
         int color;
 
         if( pattern.at(m_lastStepSequencerLed) )
         {
+            //qDebug() <<Q_FUNC_INFO <<"if";
             color = getColorValue(subchannelManager().getCurrentSubchannelSelectionRelative() + 1);
         }
         else
         {
+            //qDebug() <<Q_FUNC_INFO <<"else";
             color = getColorValue( 0 );
         }
 
@@ -361,9 +368,11 @@ void MosaikMini::setStepsequencerLed(int stepLedId)
     else
     {
         QByteArray pattern = subchannelManager().getCurrentChannelPattern();
+        //qDebug() <<Q_FUNC_INFO <<"QByteArray pattern:" <<pattern.size();
         int topLayerStep = pattern.at(m_lastStepSequencerLed);
         m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq, m_lastStepSequencerLed, getColorValue(topLayerStep));
     }
+
     m_midiOut->sendData(Mosaik::MidiCommand::noteOn | Mosaik::MidiChannels::Seq, stepLedId, RgbColors::white);
     m_lastStepSequencerLed = stepLedId;
 }
@@ -375,6 +384,8 @@ void MosaikMini::setStepsequencerLed(int stepLedId)
 *******************************************************************************/
 void MosaikMini::slot_midiMsgReceived(quint8* data)
 {
+    qDebug() <<Q_FUNC_INFO;
+
     quint8 midiBuffer[3] = {};
 
     midiBuffer[0] = data[0];    // midi ch, status
@@ -733,14 +744,28 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         }
         case MIDI_CH_AHC:
         {
-            qDebug() <<"AHC" <<data[1] <<data[2];
-            emit signal_headphoneVolume( (float)data[2] / 127 );
+            switch (data[1])
+            {
+                case 0:
+                {
+                    qDebug() <<"APA" <<data[1] <<data[2];
+                    emit signal_mainVolume( (float)data[2] / 127.0 );
+                    break;
+                }
+                case 1:
+                {
+                    qDebug() <<"AHC" <<data[1] <<data[2];
+                    emit signal_headphoneVolume( (float)data[2] / 127.0 );
+                    break;
+                }
+            }
             break;
         }
-        case MIDI_CH_APA:
+        case MIDI_CH_APA: // no hardware for this
         {
             qDebug() <<"APA" <<data[1] <<data[2];
-            emit signal_apaMsg(data[1], data[2]);
+            //emit signal_apaMsg(data[1], data[2]);
+            emit signal_mainVolume( (float)data[2] / 127 );
             break;
         }
         case MIDI_CH_AIN:
@@ -759,6 +784,11 @@ void MosaikMini::slot_midiMsgReceived(quint8* data)
         {
             qDebug() <<"SYS" <<data[1] <<data[2];
             emit signal_sysMsg(data[1], data[2]);
+            break;
+        }
+        default:
+        {
+            qDebug() <<"not supported" <<data[1] <<data[2];
             break;
         }
     }

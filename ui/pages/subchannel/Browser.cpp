@@ -15,7 +15,8 @@ Browser::Browser(QWidget *uiParent)
 
     /** path **/
     m_defaultPath = "/mnt/ad4247cf-f066-4f4c-a5f3-3ab1a55586e0/SAMPLES";
-    m_path[0] = "/mnt/ad4247cf-f066-4f4c-a5f3-3ab1a55586e0/SAMPLES";
+    //m_defaultPath = "/media/mosaik/samples";
+    m_path[0] = m_defaultPath; //"/mnt/ad4247cf-f066-4f4c-a5f3-3ab1a55586e0/SAMPLES";
     m_path[1] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/vocal";
     m_path[2] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/fx";
     m_path[3] = "/media/dan/Daten/Soundbänke/Mosaik4 Soundbank/tonal";

@@ -93,10 +93,13 @@ class SubchannelManager
 
         /** global **/
         float getBpm() const;
-        void  setBpm(float bpm);
         void  setBpmRelative(float change);
+        void  setBpm(float bpm);
+
         float getMainVolume() const;
         void  setMainVolumeRelative(float relVal);
+        void  setMainVolumeAbs(float absVal);
+
         float getPreVolume() const;
         void  setPreVolumeRelative(float relVal);
         void  setPreVolumeAbs(float absVal);

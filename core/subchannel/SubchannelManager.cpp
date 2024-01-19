@@ -103,6 +103,12 @@ float SubchannelManager::getMainVolume() const
 }
 
 
+void SubchannelManager::setMainVolumeAbs(float absVal)
+{
+    m_mainVolume = absVal;
+}
+
+
 void SubchannelManager::setMainVolumeRelative(float relVal)
 {
     if( (m_mainVolume + relVal) >= 1.0 )
@@ -229,9 +235,13 @@ QByteArray SubchannelManager::getCurrentChannelPattern( void )
 {
     int subchsIdsOfCurrentChannel[4];
     int topSubchannelId;
-    QBitArray  curPattern(SETTINGS_NUM_OF_SUBS);
+    //QBitArray  curPattern(SETTINGS_NUM_OF_SUBS);
+    QBitArray  curPattern;
+    curPattern.resize(64);
+
     QByteArray retPattern;
-    retPattern.resize(SETTINGS_NUM_OF_SUBS);
+    retPattern.resize(64);
+    //retPattern.resize(SETTINGS_NUM_OF_SUBS);
     QList<int> subchsIds = settings().getSubchannelsOfChannel(m_currentChannel);
 
     for(int i = 0; i < 4; i++)
@@ -278,6 +288,7 @@ QByteArray SubchannelManager::getCurrentChannelPattern( void )
             retPattern[j] = topSubchannelId + 1;
         }
     }
+    //qDebug() <<Q_FUNC_INFO <<"return pattern size:" <<retPattern.size();
     return retPattern;
 }
 

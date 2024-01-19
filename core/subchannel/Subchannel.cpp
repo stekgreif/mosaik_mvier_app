@@ -25,7 +25,7 @@ Subchannel::Subchannel(int id)
     m_hasSample = false;
     m_tempCnt = 0;
     m_tgl = false;
-    m_volume = 0.6;
+    m_volume = 0.8;
     m_finishedPlaying = true;
     m_step = -1;
     m_alsaStep = -1;

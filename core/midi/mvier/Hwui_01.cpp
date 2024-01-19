@@ -73,7 +73,8 @@ void Hwui_01::slot_midiMsgReceived(quint8 *data)
 	{
 		switch( midiBuffer[1] )
 		{
-			case  4:
+            case 0:	emit signal_button00Pressed(); break;
+            case 4:
 			{
 			qDebug() <<Q_FUNC_INFO <<"mail vol";
 				m_shiftMainVol = true;

@@ -25,8 +25,10 @@ MosaikMiniApp::MosaikMiniApp(QWidget *parent)
     settings().setScreenSize( QGuiApplication::primaryScreen()->virtualGeometry() );
 
     /** MIDI **/
+#if SETTINGS_INIT_WITH_MIDI
     midiManager().setParentWidget(this);
     midiManager().connectFavouriteDevice();
+#endif
 
     /** UI **/
     this->setCursor(Qt::CrossCursor);
@@ -415,12 +417,14 @@ void MosaikMiniApp::slot_parameterPan( float relVal )
     m_uiManager->refreshVolPoti();
 }
 
-
+//
 void MosaikMiniApp::slot_parameterCurrentSubToPre( bool state )
 {
     qDebug() <<Q_FUNC_INFO <<"state" <<state;
     subchannelManager().currentSubchannelToPrelisten( state );
+    qDebug() <<Q_FUNC_INFO <<"subchannel manager done";
     midiManager().subToPreLed( state );
+    qDebug() <<Q_FUNC_INFO <<"midi manager done";
 }
 
 
@@ -445,6 +449,13 @@ void MosaikMiniApp::slot_parameterSelectLastMutes()
     m_uiManager->refreshMutePads();
 }
 
+
+void MosaikMiniApp::slot_parameterPlayDirectionToggle()
+{
+    qDebug() <<Q_FUNC_INFO;
+    subchannelManager().togglePlayDirection();
+    m_uiManager->refreshPlayDirection();
+}
 
 void MosaikMiniApp::slot_parameterPlayDirection( bool direction )
 {
@@ -516,7 +527,12 @@ void MosaikMiniApp::slot_subchannelSelectionPadTriggert(int id)
 *******************************************************************************/
 void MosaikMiniApp::slot_globalMainVolume( float relVal )
 {
+    #if SETTINGS_MOSAIK_M4
     subchannelManager().setMainVolumeRelative( relVal );
+    #endif
+    #if SETTINGS_MOSAIK_MINI
+    subchannelManager().setMainVolumeAbs( relVal );
+    #endif
     float volume = subchannelManager().getMainVolume();
     qDebug() <<Q_FUNC_INFO <<"volume" <<volume;
     midiManager().setMainVolume( volume );
@@ -692,8 +708,10 @@ void MosaikMiniApp::keyPressEvent( QKeyEvent* event )
         }
         case Qt::Key_7:
         {
+#if SETTINGS_INIT_WITH_MIDI
             midiManager().setParentWidget(this);
             midiManager().connectFavouriteDevice();
+#endif
             break;
         }
         case Qt::Key_8:

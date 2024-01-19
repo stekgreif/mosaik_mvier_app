@@ -59,7 +59,7 @@ int DeviceIdentifier::getDeviceId(void)
 
 void DeviceIdentifier::slot_midiMsgReceived(quint8 *data)
 {
-    //qDebug() <<Q_FUNC_INFO <<"midi ch, status: " <<data[0] <<"note/id: " <<data[1] <<"value: " <<data[2];
+    qDebug() <<Q_FUNC_INFO <<"midi ch, status: " <<data[0] <<"note/id: " <<data[1] <<"value: " <<data[2];
 
 	if( data[0] == 0xA0 )
 	{

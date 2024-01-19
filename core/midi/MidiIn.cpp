@@ -33,7 +33,7 @@ void MidiIn::run(void)
     {
         snd_rawmidi_read(midi_in_handle, midi_in_buffer, 3);
         emit signal_midiMsgReceived(midi_in_buffer);
-        qDebug() <<Q_FUNC_INFO <<"Midi received";
+        qDebug() <<Q_FUNC_INFO <<"Midi received:" <<midi_in_buffer[0] <<midi_in_buffer[1] <<midi_in_buffer[2];
     }
 
     qDebug() <<Q_FUNC_INFO <<"Thread terminated.";

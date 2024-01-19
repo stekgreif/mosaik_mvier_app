@@ -5,6 +5,12 @@
 #include <QSize>
 #include <QList>
 
+#define PCM_DEVICE_0    "plughw:0,0"
+#define PCM_DEVICE_1    "plughw:1,0"
+#define PCM_DEVICE_2    "plughw:2,0"
+#define PCM_DEVICE_3    "plughw:3,0"
+#define PCM_DEVICE_4    "plughw:4,0"
+#define PCM_DEVICE_5    "plughw:5,0"
 
 /** ****************************************************************************
     USER SETTINGS
@@ -12,18 +18,19 @@
 
 #define SETTINGS_MOSAIK_MINI 0
 #define SETTINGS_MOSAIK_M4   1
+
+#define PCM_DEVICE PCM_DEVICE_2
+#define SETTINGS_INIT_WITH_AUDIO  true
 #define SETTINGS_AUDIO_CHANNEL  4 // 2 or 4
 
+#define SETTINGS_INIT_WITH_MIDI true
 
-#define SETTINGS_INIT_WITH_AUDIO        true
 #define SETTINGS_START_WITH_FULL_SCREEN true
-#define SETTINGS_SUBS_PER_ROW           6
-
+#define SETTINGS_SUBS_PER_ROW  6
 
 
 /** ***************************************************************************/
 
-// 2016-02-26 should be obsolete
 #define SETTINGS_INIT_WITH_MIDI_IN      false
 #define SETTINGS_INIT_WITH_MIDI_OUT     false
 

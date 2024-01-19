@@ -5,6 +5,7 @@
 #include "core/audio/AlsaPcm.h"
 #include "core/subchannel/SubchannelManager.h"
 #include "core/subchannel/Sample.h"
+#include "Settings.h"
 
 /// @todo 66 - add function for scanning and selecting audio cards
 /// @todo 73 - make this class a singleton pattern
@@ -224,25 +225,24 @@ int AlsaPcm::playbackCallback(snd_pcm_sframes_t nFrames)
             //qDebug() <<Q_FUNC_INFO <<"m_stepCnt" <<m_stepCnt;
             subchannelManager().setStepSequencerCounter( m_stepCnt );
         }
-
-#if 0 // test function: sine
-        float signalSine = 1. * sin( (TAU*1000.0* (float)m_frameCnt) / ((float)m_sampleRate) );
-        m_pcmBuffer[n*4    ] = signalSine;
-        m_pcmBuffer[n*4 + 1] = signalSine;
-        m_pcmBuffer[n*4 + 2] = signalSine;
-        m_pcmBuffer[n*4 + 3] = signalSine;
-#endif
-
-#if 1 // subchannel player
+        // subchannel player
         FourChannelFrame_t fourChFrame;
-        //fourChFrame = subchannelManager().getFourChannelAudioTestFrame();
         fourChFrame = subchannelManager().getFourChannelAudioFrame();
 
+        #if SETTINGS_MOSAIK_M4
 		m_pcmBuffer[n*4    ] = fourChFrame.preLeft ;
 		m_pcmBuffer[n*4 + 1] = fourChFrame.preRight;
 		m_pcmBuffer[n*4 + 2] = fourChFrame.mainLeft  ;
 		m_pcmBuffer[n*4 + 3] = fourChFrame.mainRight ;
-#endif
+        #endif
+
+        #if SETTINGS_MOSAIK_MINI
+        m_pcmBuffer[n*4    ] = fourChFrame.mainLeft;
+        m_pcmBuffer[n*4 + 1] = fourChFrame.mainRight;
+        m_pcmBuffer[n*4 + 2] = fourChFrame.preLeft;
+        m_pcmBuffer[n*4 + 3] = fourChFrame.preRight;
+        #endif
+
         m_frameCnt++;
     }
 
